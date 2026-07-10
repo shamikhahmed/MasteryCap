@@ -6,6 +6,7 @@
 
 import { TRACKS, getTrack } from '../data/tracks.js';
 import { icon, TRACK_ICON } from '../icons.js';
+import { injectFigures } from '../figures.js';
 
 let S = {
   track: 'crypto', view: 'home', activeWeek: null,
@@ -137,7 +138,7 @@ function drawWeek() {
     <button class="backlink" id="back">${icon('back', { size: 16 })} ${App.t('back')}</button>
     <div class="lesson-kicker">${App.t('week').toUpperCase()} ${String(w.id).padStart(2, '0')}</div>
     <h1 class="lesson-title">${w.title[lang]}</h1>
-    <div class="lesson-body mt18">${w.body[lang]}</div>
+    <div class="lesson-body mt18">${injectFigures(w.body[lang], lang)}</div>
     <button class="btn accent mt22" id="startQuiz">${st === 'completed' || st === 'mastered' ? App.t('retakeQuiz') : App.t('takeQuiz')}</button>
   </div>`;
   document.getElementById('back').addEventListener('click', () => { S.view = 'home'; draw(); });

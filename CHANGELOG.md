@@ -1,5 +1,10 @@
 # Changelog
 
+## v5 — 2026-07-11 · Phase 1 lesson diagrams
+- `js/figures.js`: 27 parametric SVG figures (candle anatomy, engulfing, pin bar, HH/HL, range, S/R flip, EMA lag, RSI divergence, ATR stop, liquidity sweep, funding crowding, options payoffs/spreads/theta/IV, contango, margin waterfall, session clock, correlated pairs, grid bot, martingale ruin, binary breakeven, expense-ratio drag, IPO lockup)
+- `{{fig:name}}` markers in lesson bodies (crypto + other tracks); `drawWeek()` injects via `injectFigures`
+- Bilingual captions; `.fig` panel styling; SW cache **v5**
+
 ## v4 — 2026-07-11 · Phase 0 hygiene
 - Quiz + placement options Fisher–Yates shuffled per attempt; clicks remap to original indices (scoring untouched); reshuffle on every start/retake
 - Settings sheet from Home avatar: export `masterycap-backup-YYYY-MM-DD.json`, import with key validation + overwrite confirm (clears namespace then restores)
