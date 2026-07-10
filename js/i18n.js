@@ -111,6 +111,10 @@ export const T = {
     disc_held: 'Held stop',
     disc_no_revenge: 'Not revenge-timed',
     disc_sized: 'Sized within max %',
+
+    glossary: 'Glossary',
+    glossary_ph: 'Search terms…',
+    glossary_none: 'No matches.',
   },
   ur: {
     nav_dashboard: 'Home', nav_learn: 'Seekho', nav_journal: 'Journal', nav_progress: 'Progress',
@@ -211,6 +215,10 @@ export const T = {
     disc_held: 'Stop hold kiya',
     disc_no_revenge: 'Revenge-timed nahi',
     disc_sized: 'Max % ke andar sized',
+
+    glossary: 'Glossary',
+    glossary_ph: 'Terms dhoondo…',
+    glossary_none: 'Koi match nahi.',
   },
 };
 

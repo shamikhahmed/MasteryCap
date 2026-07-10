@@ -1,5 +1,9 @@
 # Changelog
 
+## v10 — 2026-07-11 · Phase 7 glossary
+- `js/data/glossary.js` ~120 bilingual terms tagged by track; search sheet from Learn header
+- SW cache **v10**
+
 ## v9 — 2026-07-11 · Phase 6 discipline score
 - Journal toggles: stop placed / moved stop; auto revenge (<30m after loss) + oversizing checks
 - Rolling 20-trade A–F grade on Home; breakdown on Progress; old null-field trades excluded

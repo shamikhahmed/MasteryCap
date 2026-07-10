@@ -7,6 +7,7 @@
 import { TRACKS, getTrack } from '../data/tracks.js';
 import { icon, TRACK_ICON } from '../icons.js';
 import { injectFigures } from '../figures.js';
+import { openGlossary } from '../glossary.js';
 
 let S = {
   track: 'crypto', view: 'home', activeWeek: null,
@@ -64,7 +65,10 @@ function drawHome() {
 
   const header = `<div class="lt-head"><div class="head-row">
     <div><div class="kicker">${App.t('nav_learn')}</div><h1>${track.name[lang]}</h1></div>
-    <span class="pill mono">${icon('bolt', { size: 13 })} ${App.totalXp()} XP</span>
+    <div class="hstack">
+      <button class="pill" id="openGloss" aria-label="${App.t('glossary')}">${icon('book', { size: 15 })}</button>
+      <span class="pill mono">${icon('bolt', { size: 13 })} ${App.totalXp()} XP</span>
+    </div>
   </div></div>`;
 
   let body;
@@ -114,6 +118,7 @@ function drawHome() {
   const activeChip = c.querySelector('.track-chip.on');
   if (activeChip) activeChip.scrollIntoView({ block: 'nearest', inline: 'center' });
   document.getElementById('goDrillsLearn')?.addEventListener('click', () => App.openDrills());
+  document.getElementById('openGloss')?.addEventListener('click', () => { App.haptic(); openGlossary(App); });
   const sp = document.getElementById('startPlacement');
   if (sp) sp.addEventListener('click', () => {
     S.view = 'placement'; S.placementAnswers = {}; S.placementMsg = null;
