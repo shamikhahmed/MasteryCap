@@ -133,3 +133,44 @@ export function searchGlossary(q) {
     g.ur.toLowerCase().includes(s)
   );
 }
+
+export function findTerm(term) {
+  const t = String(term || '').toLowerCase();
+  return GLOSSARY.find((g) => g.term.toLowerCase() === t) || null;
+}
+
+function escapeRe(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/** Auto-link known glossary terms in HTML text nodes (P7b). Longest match first, non-overlapping. */
+export function linkGlossaryTerms(html) {
+  if (!html) return html;
+  const ranked = GLOSSARY.slice().sort((a, b) => b.term.length - a.term.length);
+  const parts = String(html).split(/(<[^>]+>)/);
+  return parts.map((part) => {
+    if (!part || part.startsWith('<')) return part;
+    const hits = [];
+    ranked.forEach((g) => {
+      const re = new RegExp(`\\b${escapeRe(g.term)}\\b`, 'gi');
+      let m;
+      while ((m = re.exec(part)) !== null) {
+        const start = m.index;
+        const end = start + m[0].length;
+        if (hits.some((h) => start < h.end && end > h.start)) continue;
+        hits.push({ start, end, text: m[0], term: g.term });
+      }
+    });
+    hits.sort((a, b) => a.start - b.start);
+    if (!hits.length) return part;
+    let out = '';
+    let cursor = 0;
+    hits.forEach((h) => {
+      out += part.slice(cursor, h.start);
+      out += `<button type="button" class="gloss-term" data-term="${h.term}">${h.text}</button>`;
+      cursor = h.end;
+    });
+    out += part.slice(cursor);
+    return out;
+  }).join('');
+}

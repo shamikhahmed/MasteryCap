@@ -1,5 +1,8 @@
 # Changelog
 
+## v13 — 2026-07-11 · Glossary auto-link (P7b)
+- Lesson bodies auto-link glossary terms → tap popover definition; SW cache **v13**
+
 ## v12 — 2026-07-11 · Phase 5 chart-replay drills
 - `js/candles.js` SVG candlestick renderer; `js/chartgen.js` seeded OHLC with labeled structures
 - Drill modes: classify trend/range/reversal, tap resistance zone, engulfing-at-support MCQ

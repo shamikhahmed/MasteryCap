@@ -8,6 +8,7 @@ import { TRACKS, getTrack } from '../data/tracks.js';
 import { icon, TRACK_ICON } from '../icons.js';
 import { injectFigures } from '../figures.js';
 import { openGlossary } from '../glossary.js';
+import { linkGlossaryTerms, findTerm } from '../data/glossary.js';
 
 let S = {
   track: 'crypto', view: 'home', activeWeek: null,
@@ -148,11 +149,12 @@ function drawWeek() {
   const track = getTrack(S.track);
   const w = track.weeks.find((x) => x.id === S.activeWeek);
   const st = App.getCourse(track.id).weekStatus[w.id];
+  const bodyHtml = linkGlossaryTerms(injectFigures(w.body[lang], lang));
   c.innerHTML = `<div class="screen">
     <button class="backlink" id="back">${icon('back', { size: 16 })} ${App.t('back')}</button>
     <div class="lesson-kicker">${App.t('week').toUpperCase()} ${String(w.id).padStart(2, '0')}</div>
     <h1 class="lesson-title">${w.title[lang]}</h1>
-    <div class="lesson-body mt18">${injectFigures(w.body[lang], lang)}</div>
+    <div class="lesson-body mt18">${bodyHtml}</div>
     <button class="btn accent mt22" id="startQuiz">${st === 'completed' || st === 'mastered' ? App.t('retakeQuiz') : App.t('takeQuiz')}</button>
   </div>`;
   document.getElementById('back').addEventListener('click', () => { S.view = 'home'; draw(); });
@@ -160,7 +162,34 @@ function drawWeek() {
     S.view = 'quiz'; S.quizAnswers = {}; S.quizSubmitted = false; S.quizMsg = null;
     buildQuizOrders(w); App.haptic(); draw();
   });
+  c.querySelectorAll('.gloss-term').forEach((el) => el.addEventListener('click', (e) => {
+    e.preventDefault();
+    App.haptic();
+    showGlossPop(App, el);
+  }));
   App.bumpStreak();
+}
+
+function showGlossPop(App, el) {
+  document.getElementById('gloss-pop')?.remove();
+  const g = findTerm(el.dataset.term);
+  if (!g) return;
+  const pop = document.createElement('div');
+  pop.id = 'gloss-pop';
+  pop.className = 'gloss-pop';
+  pop.innerHTML = `<div class="gp-term mono">${g.term}</div><div class="gp-def">${App.lang === 'ur' ? g.ur : g.en}</div>`;
+  document.body.appendChild(pop);
+  const r = el.getBoundingClientRect();
+  const top = Math.min(window.innerHeight - 120, r.bottom + 8);
+  let left = Math.max(12, Math.min(r.left, window.innerWidth - 280));
+  pop.style.top = `${top}px`;
+  pop.style.left = `${left}px`;
+  const close = (ev) => {
+    if (ev.target.closest?.('#gloss-pop') || ev.target.closest?.('.gloss-term')) return;
+    pop.remove();
+    document.removeEventListener('click', close, true);
+  };
+  setTimeout(() => document.addEventListener('click', close, true), 0);
 }
 
 /* ---------------- QUIZ ---------------- */
