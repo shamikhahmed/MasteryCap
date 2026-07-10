@@ -115,6 +115,16 @@ export const T = {
     glossary: 'Glossary',
     glossary_ph: 'Search terms…',
     glossary_none: 'No matches.',
+
+    set_name: 'Display name',
+    set_lang: 'Language',
+    set_font: 'Font size',
+    set_haptics: 'Haptics',
+    set_danger: 'Danger zone',
+    set_reset: 'Reset all data',
+    set_reset_1: 'Reset ALL MasteryCap data on this device?',
+    set_reset_2: 'Last chance — this cannot be undone. Reset now?',
+    set_changelog: 'Changelog',
   },
   ur: {
     nav_dashboard: 'Home', nav_learn: 'Seekho', nav_journal: 'Journal', nav_progress: 'Progress',
@@ -219,6 +229,16 @@ export const T = {
     glossary: 'Glossary',
     glossary_ph: 'Terms dhoondo…',
     glossary_none: 'Koi match nahi.',
+
+    set_name: 'Display name',
+    set_lang: 'Language',
+    set_font: 'Font size',
+    set_haptics: 'Haptics',
+    set_danger: 'Danger zone',
+    set_reset: 'Saara data reset',
+    set_reset_1: 'Is device ka SAARA MasteryCap data reset?',
+    set_reset_2: 'Last chance — wapas nahi hoga. Ab reset?',
+    set_changelog: 'Changelog',
   },
 };
 

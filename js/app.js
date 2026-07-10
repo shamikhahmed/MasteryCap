@@ -13,6 +13,7 @@ import { renderProgress } from './views/progress.js';
 import { renderDrills } from './views/drills.js';
 import { renderReview } from './views/review.js';
 import { touchStreak } from './retention.js';
+import { applySettings } from './settings.js';
 
 const root = () => document.getElementById('app-root');
 
@@ -42,7 +43,10 @@ export const App = {
   },
 
   /* ----- helpers ----- */
-  haptic(ms = 8) { try { if (navigator.vibrate) navigator.vibrate(ms); } catch (e) {} },
+  haptic(ms = 8) {
+    if (this._haptics === false) return;
+    try { if (navigator.vibrate) navigator.vibrate(ms); } catch (e) {}
+  },
 
   money(n, { sign = false, dp = 2 } = {}) {
     const v = Number(n) || 0;
@@ -273,6 +277,7 @@ function boot() {
   App.lang = settings.lang || 'en';
   App.profile = store.get(KEYS.profile, null);
   const onboarded = store.get(KEYS.onboarded, false);
+  applySettings(App);
   watchServiceWorker();
 
   setTimeout(() => {

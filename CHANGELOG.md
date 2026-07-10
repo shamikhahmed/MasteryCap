@@ -1,5 +1,9 @@
 # Changelog
 
+## v11 — 2026-07-11 · Phase 8 settings & a11y
+- Settings sheet: name, language, font size S/M/L, haptics, backup/restore, double-confirm reset, version + changelog link
+- `--t3`/`--t4` bumped for WCAG AA vs `#08090A`; SW cache **v11**
+
 ## v10 — 2026-07-11 · Phase 7 glossary
 - `js/data/glossary.js` ~120 bilingual terms tagged by track; search sheet from Learn header
 - SW cache **v10**

@@ -30,8 +30,8 @@
   --t0: #F4F5F6;   /* near-white — primary */
   --t1: #C4C8CD;   /* secondary */
   --t2: #878D95;   /* tertiary / labels */
-  --t3: #5C626A;   /* quaternary */
-  --t4: #3A3F46;   /* faint / disabled */
+  --t3: #7A828C;   /* quaternary — WCAG AA vs --bg */
+  --t4: #757C86;   /* faint — WCAG AA vs --bg */
 
   /* --- accent: single precise orange, used sparingly --- */
   --acc: #FF6B2C;
@@ -62,6 +62,7 @@
 
   --sans: 'Geist', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --mono: 'Geist Mono', ui-monospace, 'SF Mono', monospace;
+  --fs: 1;
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -71,6 +72,7 @@ html, body {
   background: var(--bg);
   color: var(--t0);
   font-family: var(--sans);
+  font-size: calc(16px * var(--fs));
   font-feature-settings: "ss01","cv01","cv03";
   -webkit-font-smoothing: antialiased;
   overscroll-behavior-y: none;
