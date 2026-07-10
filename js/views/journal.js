@@ -66,6 +66,14 @@ export function renderJournal(App, c) {
           <div class="field"><label>${App.t('mental')}</label><select id="emotion">${EMOTIONS.map((e) => `<option value="${e.v}">${App.t(e.key)}</option>`).join('')}</select></div>
         </div>
         <div class="field"><label>${App.t('notes')}</label><input id="notes" type="text" placeholder="${App.t('notes_ph')}" /></div>
+        <div class="check-row" id="togStop" data-on="0" style="border:1px solid var(--line);border-radius:var(--r2);margin-bottom:10px">
+          <span class="check-box">${icon('checkThin', { size: 13, sw: 2.6 })}</span>
+          <span class="check-t">${App.t('disc_stop_placed')}</span>
+        </div>
+        <div class="check-row" id="togMoved" data-on="0" style="border:1px solid var(--line);border-radius:var(--r2);margin-bottom:14px">
+          <span class="check-box">${icon('checkThin', { size: 13, sw: 2.6 })}</span>
+          <span class="check-t">${App.t('disc_moved_stop')}</span>
+        </div>
         <button class="btn accent" id="saveTrade">${App.t('save_trade')}</button>
       </div>
       <div class="rule-note" style="border-top:1px solid var(--line)">${icon('shield', { size: 17 })}<span>${App.t('rule_text')}</span></div>
@@ -113,13 +121,31 @@ export function renderJournal(App, c) {
   }
   ['calcEntry', 'calcStop', 'calcRisk'].forEach((id) => document.getElementById(id).addEventListener('input', updateCalc));
 
+  function wireToggle(id) {
+    const el = document.getElementById(id);
+    el.addEventListener('click', () => {
+      const on = el.dataset.on !== '1';
+      el.dataset.on = on ? '1' : '0';
+      el.classList.toggle('on', on);
+      App.haptic();
+    });
+  }
+  wireToggle('togStop');
+  wireToggle('togMoved');
+
   document.getElementById('saveTrade').addEventListener('click', () => {
     const g = (id) => document.getElementById(id).value;
     const pl = parseFloat(g('pl'));
     if (!direction) { alert(lang === 'en' ? 'Pick long or short.' : 'Long ya short chuno.'); return; }
     if (isNaN(pl)) { alert(lang === 'en' ? 'Enter the P/L result in dollars.' : 'P/L result dollars mein daalo.'); return; }
     const list = App.getTrades();
-    list.unshift({ id: Date.now(), date: new Date().toISOString(), pair: g('pair').trim() || '—', direction, leverage: g('leverage'), size: g('size'), entry: g('entry'), stop: g('stop'), exit: g('exit'), pl, emotion: g('emotion'), notes: g('notes').trim() });
+    list.unshift({
+      id: Date.now(), date: new Date().toISOString(),
+      pair: g('pair').trim() || '—', direction, leverage: g('leverage'), size: g('size'),
+      entry: g('entry'), stop: g('stop'), exit: g('exit'), pl, emotion: g('emotion'), notes: g('notes').trim(),
+      stopPlaced: document.getElementById('togStop').dataset.on === '1',
+      movedStop: document.getElementById('togMoved').dataset.on === '1',
+    });
     App.setTrades(list); App.haptic(14); App.bumpStreak(); App.render();
   });
 

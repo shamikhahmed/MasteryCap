@@ -1,5 +1,10 @@
 # Changelog
 
+## v9 — 2026-07-11 · Phase 6 discipline score
+- Journal toggles: stop placed / moved stop; auto revenge (<30m after loss) + oversizing checks
+- Rolling 20-trade A–F grade on Home; breakdown on Progress; old null-field trades excluded
+- SW cache **v9**
+
 ## v8 — 2026-07-11 · Phase 4 streak + daily review
 - Daily streak on qualifying actions (lesson/quiz/drill/trade/review); flame pill on Home
 - Leitner-lite daily review (3 Q from completed/mastered weeks); +15 XP; `mc.streak` / `mc.review`

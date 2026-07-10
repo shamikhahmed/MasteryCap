@@ -8,6 +8,7 @@ import { icon } from '../icons.js';
 import { openSettings } from '../settings.js';
 import { worstCostLine } from '../insights.js';
 import { getStreak, reviewAvailable } from '../retention.js';
+import { disciplineReport } from '../discipline.js';
 
 const CHECK_RULES = [
   { id: 'stop', en: 'Stop loss placed before entry', ur: 'Entry se pehle stop loss laga' },
@@ -53,6 +54,7 @@ export function renderDashboard(App, c) {
   const pts = equityPoints(App);
   const up = totalPl >= 0;
   const streak = getStreak();
+  const disc = disciplineReport(trades, balance);
 
   let checklist = App.getChecklist();
   if (checklist._date !== todayKey()) { checklist = { _date: todayKey() }; App.setChecklist(checklist); }
@@ -114,6 +116,11 @@ export function renderDashboard(App, c) {
         <div class="sc-v">${curWeek || '—'}</div>
         <div class="sc-s mono">${doneCount}/${wk.length}</div>
       </div>
+      ${disc ? `<div class="stat-cell">
+        <div class="sc-l">${App.t('disc_grade')}</div>
+        <div class="sc-v" style="color:var(--acc-2)">${disc.grade}</div>
+        <div class="sc-s mono">${disc.n}t</div>
+      </div>` : ''}
     </div>
 
     <!-- CHECKLIST -->

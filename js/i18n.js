@@ -101,6 +101,16 @@ export const T = {
     review_empty: 'Complete a week first — review pulls from finished lessons.',
     review_done: 'Review complete. Come back tomorrow.',
     review_finish: 'Finish',
+
+    disc_grade: 'Discipline',
+    disc_title: 'Discipline grade',
+    disc_need: 'Log trades with the new stop toggles to unlock a grade (old trades excluded).',
+    disc_score: 'Score',
+    disc_stop_placed: 'Stop placed before entry',
+    disc_moved_stop: 'I moved my stop',
+    disc_held: 'Held stop',
+    disc_no_revenge: 'Not revenge-timed',
+    disc_sized: 'Sized within max %',
   },
   ur: {
     nav_dashboard: 'Home', nav_learn: 'Seekho', nav_journal: 'Journal', nav_progress: 'Progress',
@@ -191,6 +201,16 @@ export const T = {
     review_empty: 'Pehle ek week complete karo — review finished lessons se aata hai.',
     review_done: 'Review mukammal. Kal wapis ana.',
     review_finish: 'Khatam',
+
+    disc_grade: 'Discipline',
+    disc_title: 'Discipline grade',
+    disc_need: 'Naye stop toggles ke sath trades log karo (purani trades exclude).',
+    disc_score: 'Score',
+    disc_stop_placed: 'Entry se pehle stop laga',
+    disc_moved_stop: 'Maine stop move kiya',
+    disc_held: 'Stop hold kiya',
+    disc_no_revenge: 'Revenge-timed nahi',
+    disc_sized: 'Max % ke andar sized',
   },
 };
 

@@ -8,6 +8,7 @@ import { icon, TRACK_ICON } from '../icons.js';
 import { store, KEYS } from '../store.js';
 import { getDrillStats, drillTypes, typeLabel } from '../drills.js';
 import { allInsights } from '../insights.js';
+import { disciplineReport } from '../discipline.js';
 
 const EMO = {
   calm: { label: 'Calm', color: 'var(--up)' },
@@ -62,9 +63,32 @@ export function renderProgress(App, c) {
       }).join('')}</div>
     </div>
 
+    ${disciplinePanel(App, trades, balance)}
     ${insightsPanel(App, trades)}
     ${weeksPanel(App)}
     ${drillsPanel(App)}
+  </div>`;
+}
+
+function disciplinePanel(App, trades, balance) {
+  const rep = disciplineReport(trades, balance);
+  if (!rep) {
+    return `<div class="panel" style="margin-bottom:14px"><div class="panel-h"><span class="ph-t">${App.t('disc_title')}</span></div>
+      <div class="pad" style="font-size:13.5px;color:var(--t3)">${App.t('disc_need')}</div></div>`;
+  }
+  const b = rep.breakdown;
+  const pct = Math.round(rep.ratio * 100);
+  return `<div class="panel" style="margin-bottom:14px">
+    <div class="panel-h"><span class="ph-t">${App.t('disc_title')}</span><span class="metric-big" style="color:var(--acc-2)">${rep.grade}</span></div>
+    <div class="pad">
+      <div class="bar-line"><div class="bl-l">${App.t('disc_score')}</div><div class="bl-track"><div class="bl-fill" style="width:${pct}%;background:var(--acc)"></div></div><div class="bl-v mono">${pct}%</div></div>
+      <div style="font-size:12.5px;color:var(--t3);margin-top:10px;line-height:1.55" class="mono">
+        ${App.t('disc_stop_placed')}: ${b.stopPlaced}/${b.n}<br/>
+        ${App.t('disc_held')}: ${b.heldStop}/${b.n}<br/>
+        ${App.t('disc_no_revenge')}: ${b.notRevenge}/${b.n}<br/>
+        ${App.t('disc_sized')}: ${b.sizedOk}/${b.n}
+      </div>
+    </div>
   </div>`;
 }
 
