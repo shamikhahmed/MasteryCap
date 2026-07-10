@@ -1,0 +1,140 @@
+/* ============================================================
+   i18n.js — EN / Roman Urdu strings.
+   Course strings ported verbatim; app-shell strings added.
+   ============================================================ */
+
+export const T = {
+  en: {
+    /* nav */
+    nav_dashboard: 'Home', nav_learn: 'Learn', nav_journal: 'Journal', nav_progress: 'Progress',
+
+    /* course (ported) */
+    startPlacement: 'Take placement test',
+    placementIntro: "22 questions across everything below. Answer honestly — if you don't know, guess or say so, it just decides where you start. Anything you already know well gets marked passed so you're not stuck re-learning it.",
+    placementDone: 'See my results',
+    courseWeeks: 'Course — 10 weeks',
+    week: 'Week',
+    locked: 'Locked', current: 'Current', completed: 'Completed', mastered: 'Mastered',
+    startLesson: 'Open lesson', takeQuiz: 'Take quiz', retakeQuiz: 'Revise / retake quiz',
+    submit: 'Submit answers', next: 'Continue', back: 'Back',
+    yourScore: 'Your score',
+    passed: 'Passed — next week unlocked.',
+    failed: 'Not quite — revise the lesson and try again. No penalty for retaking.',
+    psychTitle: 'Discipline check-in',
+
+    /* dashboard */
+    goodmorning: 'Good morning', goodafternoon: 'Good afternoon', goodevening: 'Good evening',
+    portfolio: 'Account balance', edit: 'Edit',
+    stat_winrate: 'Win rate', stat_pl: 'Total P/L', stat_xp: 'XP', stat_week: 'Course',
+    stat_trades: 'Trades', stat_revenge: 'Flagged',
+    pretrade: 'Before you trade', pretrade_sub: 'Run the checklist. Every time.',
+    continueLearning: 'Continue learning', jumpJournal: 'Log a trade',
+
+    /* journal (ported + new) */
+    j_title: 'Trade Discipline Log', j_sub: 'Fixed-risk journal — leverage is a result, not a choice',
+    calc_title: 'Position sizing calculator',
+    entry_price: 'Entry price', stop_price: 'Stop price', risk_pct: 'Risk % of account',
+    calc_hint: 'Enter entry & stop to see max size and leverage',
+    max_risk: 'Max risk', pos_size: 'Position size', leverage: 'Leverage',
+    log_trade: 'Log a trade', direction: 'Direction', long: 'Long', short: 'Short',
+    pair: 'Pair', size: 'Position size $', entry: 'Entry', stop: 'Stop loss', exit: 'Exit price',
+    result: 'Result', pl_ph: 'P/L in $ (- for loss)', mental: 'Mental state at entry', notes: 'Notes',
+    notes_ph: 'What was the setup? Did you move the stop?',
+    save_trade: 'Save trade', history: 'Trade history', no_trades: 'No trades logged yet.',
+    rule_text: 'Rule: no entry without a stop loss placed first. Max loss per trade = your risk % above, no exceptions, no "just this once."',
+    warn_lev: 'Stop is very tight relative to account — this leverage number is a signal to widen the stop, not to use 20x+.',
+    emo_calm: 'Calm / followed plan', emo_fomo: 'FOMO', emo_revenge: 'Revenge after a loss',
+    emo_greed: 'Greed / oversized', emo_bored: 'Bored / impulsive',
+
+    /* progress */
+    pl_curve: 'Equity curve', winrate_trend: 'Win rate', emo_freq: 'Emotion frequency',
+    weeks_done: 'Weeks completed', no_data: 'Log a few trades to see charts here.',
+
+    /* onboarding */
+    onb_welcome: 'Welcome to MasteryCap', onb_welcome_sub: 'A bilingual course, a discipline journal, and your numbers — in one place, offline, yours.',
+    onb_name_t: "What's your name?", onb_name_sub: 'Just so the app can greet you. Stays on this device.',
+    onb_exp_t: 'How much have you traded?', onb_exp_sub: 'Sets your starting point — you can retake placement anytime.',
+    onb_markets_t: 'What do you trade?', onb_markets_sub: 'Pick any. We tailor what shows up first.',
+    exp_new: 'Brand new', exp_some: 'Dabbled a bit', exp_exp: 'Experienced',
+    onb_start: 'Start', onb_next: 'Next', onb_get: 'Get started',
+
+    /* settings / backup */
+    settings: 'Settings',
+    backup_title: 'Backup & restore',
+    backup_export: 'Export backup',
+    backup_import: 'Import backup',
+    backup_export_hint: 'Download a JSON file of everything on this device.',
+    backup_import_hint: 'Replace local data with a backup file. This overwrites current progress.',
+    backup_confirm: 'Overwrite all MasteryCap data on this device with the backup? This cannot be undone.',
+    backup_bad: 'That file is not a valid MasteryCap backup.',
+    backup_ok: 'Backup restored. Reloading…',
+    backup_done: 'Backup downloaded.',
+    sw_updated: 'Updated to {v} — reload',
+    sw_reload: 'Reload',
+  },
+  ur: {
+    nav_dashboard: 'Home', nav_learn: 'Seekho', nav_journal: 'Journal', nav_progress: 'Progress',
+
+    startPlacement: 'Placement test lo',
+    placementIntro: '22 sawalat neeche di gayi har cheez pe. Honestly jawab do — agar pata nahi to guess kar lo ya chor do, ye sirf ye decide karega ke aap kahan se start karo. Jo cheez pehle se achi tarah pata hai wo pass mark ho jayegi taake dobara na parhni pare.',
+    placementDone: 'Mera result dekho',
+    courseWeeks: 'Course — 10 hafte',
+    week: 'Hafta',
+    locked: 'Locked', current: 'Abhi wala', completed: 'Mukammal', mastered: 'Mastered',
+    startLesson: 'Lesson kholo', takeQuiz: 'Quiz do', retakeQuiz: 'Dobara parho / quiz dobara do',
+    submit: 'Jawab submit karo', next: 'Aagay barho', back: 'Wapis',
+    yourScore: 'Aapka score',
+    passed: 'Pass ho gaye — agla hafta unlock ho gaya.',
+    failed: 'Thoda kam — lesson dobara parho aur phir try karo. Dobara dene pe koi nuqsan nahi.',
+    psychTitle: 'Discipline check',
+
+    goodmorning: 'Assalam-o-alaikum', goodafternoon: 'Assalam-o-alaikum', goodevening: 'Assalam-o-alaikum',
+    portfolio: 'Account balance', edit: 'Edit',
+    stat_winrate: 'Win rate', stat_pl: 'Total P/L', stat_xp: 'XP', stat_week: 'Course',
+    stat_trades: 'Trades', stat_revenge: 'Flagged',
+    pretrade: 'Trade se pehle', pretrade_sub: 'Checklist chalao. Har dafa.',
+    continueLearning: 'Seekhna jari rakho', jumpJournal: 'Trade log karo',
+
+    j_title: 'Trade Discipline Log', j_sub: 'Fixed-risk journal — leverage result hai, choice nahi',
+    calc_title: 'Position sizing calculator',
+    entry_price: 'Entry price', stop_price: 'Stop price', risk_pct: 'Risk % account ka',
+    calc_hint: 'Entry aur stop daalo taake max size aur leverage nazar aye',
+    max_risk: 'Max risk', pos_size: 'Position size', leverage: 'Leverage',
+    log_trade: 'Trade log karo', direction: 'Direction', long: 'Long', short: 'Short',
+    pair: 'Pair', size: 'Position size $', entry: 'Entry', stop: 'Stop loss', exit: 'Exit price',
+    result: 'Result', pl_ph: 'P/L $ mein (- loss ke liye)', mental: 'Entry pe mental state', notes: 'Notes',
+    notes_ph: 'Setup kya tha? Stop move kiya?',
+    save_trade: 'Trade save karo', history: 'Trade history', no_trades: 'Abhi tak koi trade log nahi hui.',
+    rule_text: 'Rule: stop loss lagaye baghair koi entry nahi. Har trade ka max loss = upar wala risk %, koi exception nahi, "sirf is dafa" nahi.',
+    warn_lev: 'Stop account ke hisaab se bohat tight hai — ye leverage number ishara hai ke stop widen karo, 20x+ use karne ka nahi.',
+    emo_calm: 'Calm / plan follow kiya', emo_fomo: 'FOMO', emo_revenge: 'Loss ke baad revenge',
+    emo_greed: 'Greed / oversized', emo_bored: 'Bored / impulsive',
+
+    pl_curve: 'Equity curve', winrate_trend: 'Win rate', emo_freq: 'Emotion frequency',
+    weeks_done: 'Hafte mukammal', no_data: 'Chand trades log karo phir charts nazar ayenge.',
+
+    onb_welcome: 'MasteryCap mein khush aamdeed', onb_welcome_sub: 'Bilingual course, discipline journal, aur aapke numbers — ek jagah, offline, sirf aapke.',
+    onb_name_t: 'Aapka naam?', onb_name_sub: 'Sirf greet karne ke liye. Isi device pe rehta hai.',
+    onb_exp_t: 'Kitni trading ki hai?', onb_exp_sub: 'Starting point set karta hai — placement kabhi bhi dobara le sakte ho.',
+    onb_markets_t: 'Aap kya trade karte ho?', onb_markets_sub: 'Koi bhi chuno. Pehle wahi dikhega.',
+    exp_new: 'Bilkul naya', exp_some: 'Thora kiya hai', exp_exp: 'Experienced',
+    onb_start: 'Start', onb_next: 'Aagay', onb_get: 'Shuru karo',
+
+    settings: 'Settings',
+    backup_title: 'Backup & restore',
+    backup_export: 'Backup export karo',
+    backup_import: 'Backup import karo',
+    backup_export_hint: 'Is device ka poora data JSON file mein download.',
+    backup_import_hint: 'Backup file se local data replace — current progress overwrite ho jayega.',
+    backup_confirm: 'Is device ka saara MasteryCap data backup se overwrite? Wapas nahi hoga.',
+    backup_bad: 'Ye file valid MasteryCap backup nahi hai.',
+    backup_ok: 'Backup restore ho gaya. Reload…',
+    backup_done: 'Backup download ho gaya.',
+    sw_updated: '{v} pe update — reload',
+    sw_reload: 'Reload',
+  },
+};
+
+export function tr(lang, key) {
+  return (T[lang] && T[lang][key]) || T.en[key] || key;
+}

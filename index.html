@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#08090A" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="MasteryCap" />
+  <meta name="description" content="MasteryCap — trading mastery: bilingual course, discipline journal, risk sizing." />
+  <title>MasteryCap</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <link rel="preload" href="fonts/geist-600.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/geist-500.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/geistmono-500.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <!-- film grain texture overlay -->
+  <div id="grain" aria-hidden="true"></div>
+
+  <!-- Splash -->
+  <div id="splash">
+    <div class="splash-inner">
+      <svg class="splash-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M14 44 L26 30 L34 37 L50 18" stroke="var(--acc)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" pathLength="1" class="spark-line"/>
+        <circle cx="50" cy="18" r="3.5" fill="var(--acc)" class="spark-dot"/>
+      </svg>
+      <div class="splash-word">Mastery<span>Cap</span></div>
+    </div>
+    <div class="splash-foot">Trade with discipline</div>
+  </div>
+
+  <!-- App -->
+  <div id="app-root"></div>
+
+  <!-- Bottom nav -->
+  <nav class="tabbar hidden" id="tabbar"></nav>
+
+  <script type="module" src="js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+    }
+  </script>
+</body>
+</html>
