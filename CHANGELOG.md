@@ -1,5 +1,10 @@
 # Changelog
 
+## v12 — 2026-07-11 · Phase 5 chart-replay drills
+- `js/candles.js` SVG candlestick renderer; `js/chartgen.js` seeded OHLC with labeled structures
+- Drill modes: classify trend/range/reversal, tap resistance zone, engulfing-at-support MCQ
+- XP via drillStats; entry from Home + Learn; SW cache **v12**
+
 ## v11 — 2026-07-11 · Phase 8 settings & a11y
 - Settings sheet: name, language, font size S/M/L, haptics, backup/restore, double-confirm reset, version + changelog link
 - `--t3`/`--t4` bumped for WCAG AA vs `#08090A`; SW cache **v11**

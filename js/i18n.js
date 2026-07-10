@@ -125,6 +125,12 @@ export const T = {
     set_reset_1: 'Reset ALL MasteryCap data on this device?',
     set_reset_2: 'Last chance — this cannot be undone. Reset now?',
     set_changelog: 'Changelog',
+
+    chart_title: 'Chart replay',
+    chart_h1: 'Read the tape',
+    chart_cta: 'Chart drills',
+    chart_tap_hint: 'Tap the chart at the resistance zone.',
+    chart_picked: 'Picked price',
   },
   ur: {
     nav_dashboard: 'Home', nav_learn: 'Seekho', nav_journal: 'Journal', nav_progress: 'Progress',
@@ -239,6 +245,12 @@ export const T = {
     set_reset_1: 'Is device ka SAARA MasteryCap data reset?',
     set_reset_2: 'Last chance — wapas nahi hoga. Ab reset?',
     set_changelog: 'Changelog',
+
+    chart_title: 'Chart replay',
+    chart_h1: 'Chart parho',
+    chart_cta: 'Chart drills',
+    chart_tap_hint: 'Resistance zone pe chart tap karo.',
+    chart_picked: 'Picked price',
   },
 };
 

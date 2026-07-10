@@ -147,6 +147,7 @@ export function renderDashboard(App, c) {
       <button class="btn accent" id="goJournal">${icon('plus', { size: 17 })} ${App.t('jumpJournal')}</button>
     </div>
     <button class="btn ghost mt14" id="goDrills" style="width:100%">${icon('target', { size: 17 })} ${App.t('drill_cta')}</button>
+    <button class="btn ghost mt10" id="goCharts" style="width:100%">${icon('progress', { size: 17 })} ${App.t('chart_cta')}</button>
     ${reviewAvailable() ? `<button class="btn secondary mt10" id="goReview" style="width:100%">${icon('book', { size: 17 })} ${App.t('review_cta').replace('{n}', String(streak.current || 0))}</button>` : ''}
   </div>`;
 
@@ -165,6 +166,7 @@ export function renderDashboard(App, c) {
   document.getElementById('goLearn').addEventListener('click', () => App.navigate('learn'));
   document.getElementById('goJournal').addEventListener('click', () => App.navigate('journal'));
   document.getElementById('goDrills').addEventListener('click', () => App.openDrills());
+  document.getElementById('goCharts')?.addEventListener('click', () => App.openCharts());
   document.getElementById('goReview')?.addEventListener('click', () => App.openReview());
   const av = document.getElementById('openSettings');
   if (av) {

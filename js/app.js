@@ -12,6 +12,7 @@ import { renderJournal } from './views/journal.js';
 import { renderProgress } from './views/progress.js';
 import { renderDrills } from './views/drills.js';
 import { renderReview } from './views/review.js';
+import { renderCharts } from './views/charts.js';
 import { touchStreak } from './retention.js';
 import { applySettings } from './settings.js';
 
@@ -114,11 +115,18 @@ export const App = {
     this.render(); this.renderNav();
   },
 
+  openCharts() {
+    this._chartReturn = this.tab === 'charts' ? 'dashboard' : this.tab;
+    this.tab = 'charts'; this.haptic(6);
+    window.scrollTo({ top: 0 });
+    this.render(); this.renderNav();
+  },
+
   bumpStreak() { return touchStreak(); },
 
   render() {
     const c = root(); if (!c) return;
-    ({ dashboard: renderDashboard, learn: renderCourse, journal: renderJournal, progress: renderProgress, drills: renderDrills, review: renderReview }[this.tab])(this, c);
+    ({ dashboard: renderDashboard, learn: renderCourse, journal: renderJournal, progress: renderProgress, drills: renderDrills, review: renderReview, charts: renderCharts }[this.tab])(this, c);
   },
 
   renderNav() {

@@ -111,6 +111,7 @@ function drawHome() {
       <div class="slabel">${App.t('drill_title')}</div>
       <p style="font-size:13.5px;color:var(--t3);margin:8px 0 14px;line-height:1.5">${App.t('drill_home_hint')}</p>
       <button class="btn secondary" id="goDrillsLearn">${icon('target', { size: 17 })} ${App.t('drill_cta')}</button>
+      <button class="btn ghost mt10" id="goChartsLearn" style="width:100%">${icon('progress', { size: 17 })} ${App.t('chart_cta')}</button>
     </div>
   ${body}</div>`;
 
@@ -118,6 +119,7 @@ function drawHome() {
   const activeChip = c.querySelector('.track-chip.on');
   if (activeChip) activeChip.scrollIntoView({ block: 'nearest', inline: 'center' });
   document.getElementById('goDrillsLearn')?.addEventListener('click', () => App.openDrills());
+  document.getElementById('goChartsLearn')?.addEventListener('click', () => App.openCharts());
   document.getElementById('openGloss')?.addEventListener('click', () => { App.haptic(); openGlossary(App); });
   const sp = document.getElementById('startPlacement');
   if (sp) sp.addEventListener('click', () => {
