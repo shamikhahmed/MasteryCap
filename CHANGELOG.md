@@ -1,5 +1,8 @@
 # Changelog
 
+## v14 — 2026-07-11 · Fix glossary import + P7b
+- Fix `js/glossary.js` icons import (`./icons.js`); lesson term auto-link popovers (P7b); SW **v14**
+
 ## v13 — 2026-07-11 · Glossary auto-link (P7b)
 - Lesson bodies auto-link glossary terms → tap popover definition; SW cache **v13**
 
