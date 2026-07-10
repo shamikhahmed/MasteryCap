@@ -7,6 +7,7 @@ import { TRACKS } from '../data/tracks.js';
 import { icon, TRACK_ICON } from '../icons.js';
 import { store, KEYS } from '../store.js';
 import { getDrillStats, drillTypes, typeLabel } from '../drills.js';
+import { allInsights } from '../insights.js';
 
 const EMO = {
   calm: { label: 'Calm', color: 'var(--up)' },
@@ -61,8 +62,52 @@ export function renderProgress(App, c) {
       }).join('')}</div>
     </div>
 
+    ${insightsPanel(App, trades)}
     ${weeksPanel(App)}
     ${drillsPanel(App)}
+  </div>`;
+}
+
+function insightsPanel(App, trades) {
+  const lang = App.lang;
+  const ins = allInsights(trades);
+  const rows = [];
+  if (ins.expectancy) {
+    const e = ins.expectancy;
+    rows.push(row(App.t('ins_expectancy'), App.money(e.expectancy, { sign: true }), e.expectancy >= 0));
+    rows.push(row(App.t('ins_avg_win'), App.money(e.avgWin, { sign: true }), true));
+    rows.push(row(App.t('ins_avg_loss'), App.money(e.avgLoss, { sign: true }), false));
+  }
+  if (ins.flagged) {
+    rows.push(row(App.t('ins_flagged'), `${ins.flagged.n} · ${App.money(ins.flagged.pl, { sign: true })}`, ins.flagged.pl >= 0));
+  }
+  if (ins.streaks) {
+    rows.push(row(App.t('ins_streak_w'), String(ins.streaks.winStreak), true));
+    rows.push(row(App.t('ins_streak_l'), String(ins.streaks.lossStreak), false));
+  }
+  ins.emotions.forEach((e) => {
+    rows.push(row(`${e.emotion} (${e.n})`, `${Math.round(e.winRate * 100)}% · ${App.money(e.pl, { sign: true })}`, e.pl >= 0));
+  });
+  ins.pairs.slice(0, 4).forEach((p) => {
+    rows.push(row(`${p.pair} (${p.n})`, `${Math.round(p.winRate * 100)}% · ${App.money(p.pl, { sign: true })}`, p.pl >= 0));
+  });
+  if (ins.days) {
+    ins.days.forEach((d) => {
+      rows.push(row(d.day, `${d.n} · ${App.money(d.pl, { sign: true })}`, d.pl >= 0));
+    });
+  }
+  if (!rows.length) {
+    return `<div class="panel" style="margin-bottom:14px"><div class="panel-h"><span class="ph-t">${App.t('ins_title')}</span></div>
+      <div class="pad" style="font-size:13.5px;color:var(--t3)">${App.t('ins_need')}</div></div>`;
+  }
+  return `<div class="panel" style="margin-bottom:14px"><div class="panel-h"><span class="ph-t">${App.t('ins_title')}</span></div>
+    <div>${rows.join('')}</div></div>`;
+}
+
+function row(label, value, up) {
+  return `<div class="row-item" style="justify-content:space-between;padding:12px 18px">
+    <span style="font-size:13.5px;color:var(--t1)">${label}</span>
+    <span class="mono" style="font-size:13.5px;color:${up ? 'var(--up)' : 'var(--down)'}">${value}</span>
   </div>`;
 }
 

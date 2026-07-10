@@ -1,5 +1,9 @@
 # Changelog
 
+## v7 — 2026-07-11 · Phase 3 journal insights
+- `js/insights.js`: win-rate/P/L by emotion, flagged cost, per-pair, expectancy, streaks, day-of-week (n ≥ 3 guard)
+- Insights panel on Progress; worst-cost line on Home; SW cache **v7**
+
 ## v6 — 2026-07-11 · Phase 2 practice drills
 - `js/drills.js` generators + checkers: crypto/forex/futures sizing, options max-loss/breakeven/spread, binary breakeven WR, R-multiples, pip/tick value
 - Numeric answers ±1% tolerance; worked solution after each; +5 XP/correct, 50 XP/day cap; `mc.drillStats`

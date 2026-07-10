@@ -86,6 +86,15 @@ export const T = {
     drill_types: 'Filter',
     drill_accuracy: 'Drill accuracy',
     drill_none: 'Complete a few drills to see accuracy here.',
+
+    ins_title: 'Insights',
+    ins_need: 'Log at least 3 trades in a slice to unlock insights.',
+    ins_expectancy: 'Expectancy / trade',
+    ins_avg_win: 'Avg win',
+    ins_avg_loss: 'Avg loss',
+    ins_flagged: 'Flagged (revenge/greed)',
+    ins_streak_w: 'Best win streak',
+    ins_streak_l: 'Best loss streak',
   },
   ur: {
     nav_dashboard: 'Home', nav_learn: 'Seekho', nav_journal: 'Journal', nav_progress: 'Progress',
@@ -161,6 +170,15 @@ export const T = {
     drill_types: 'Filter',
     drill_accuracy: 'Drill accuracy',
     drill_none: 'Accuracy ke liye kuch drills complete karo.',
+
+    ins_title: 'Insights',
+    ins_need: 'Insights ke liye kisi slice mein kam az kam 3 trades.',
+    ins_expectancy: 'Expectancy / trade',
+    ins_avg_win: 'Avg win',
+    ins_avg_loss: 'Avg loss',
+    ins_flagged: 'Flagged (revenge/greed)',
+    ins_streak_w: 'Best win streak',
+    ins_streak_l: 'Best loss streak',
   },
 };
 

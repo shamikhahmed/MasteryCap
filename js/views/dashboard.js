@@ -6,6 +6,7 @@
 import { getTrack } from '../data/tracks.js';
 import { icon } from '../icons.js';
 import { openSettings } from '../settings.js';
+import { worstCostLine } from '../insights.js';
 
 const CHECK_RULES = [
   { id: 'stop', en: 'Stop loss placed before entry', ur: 'Entry se pehle stop loss laga' },
@@ -124,6 +125,11 @@ export function renderDashboard(App, c) {
           <span class="check-t">${lang === 'en' ? r.en : r.ur}</span>
         </div>`).join('')}</div>
     </div>
+
+    ${(() => {
+      const line = worstCostLine(trades, lang);
+      return line ? `<div class="note-box warn mt14" style="margin-bottom:0">${line}</div>` : '';
+    })()}
 
     <!-- ACTIONS -->
     <div class="btn-row mt14">
