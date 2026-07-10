@@ -2,7 +2,7 @@
    glossary sheet — search from Learn header (P7).
    ============================================================ */
 
-import { icon } from '../icons.js';
+import { icon } from './icons.js';
 import { searchGlossary } from './data/glossary.js';
 
 export function openGlossary(App) {
