@@ -1,5 +1,10 @@
 # Changelog
 
+## v8 — 2026-07-11 · Phase 4 streak + daily review
+- Daily streak on qualifying actions (lesson/quiz/drill/trade/review); flame pill on Home
+- Leitner-lite daily review (3 Q from completed/mastered weeks); +15 XP; `mc.streak` / `mc.review`
+- SW cache **v8**
+
 ## v7 — 2026-07-11 · Phase 3 journal insights
 - `js/insights.js`: win-rate/P/L by emotion, flagged cost, per-pair, expectancy, streaks, day-of-week (n ≥ 3 guard)
 - Insights panel on Progress; worst-cost line on Home; SW cache **v7**

@@ -78,4 +78,6 @@ export const KEYS = {
   course: 'course',          // { [trackId]: { placementDone, weekStatus, xp } }
   checklist: 'checklist',    // { [ruleId]: bool, _date }
   drillStats: 'drillStats',  // { attempts, correct, byType, xpDay, xpToday }
+  streak: 'streak',          // { lastDay, current, best }
+  review: 'review',          // { [qKey]: { box, due } }
 };

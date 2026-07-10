@@ -120,7 +120,7 @@ export function renderJournal(App, c) {
     if (isNaN(pl)) { alert(lang === 'en' ? 'Enter the P/L result in dollars.' : 'P/L result dollars mein daalo.'); return; }
     const list = App.getTrades();
     list.unshift({ id: Date.now(), date: new Date().toISOString(), pair: g('pair').trim() || '—', direction, leverage: g('leverage'), size: g('size'), entry: g('entry'), stop: g('stop'), exit: g('exit'), pl, emotion: g('emotion'), notes: g('notes').trim() });
-    App.setTrades(list); App.haptic(14); App.render();
+    App.setTrades(list); App.haptic(14); App.bumpStreak(); App.render();
   });
 
   renderLog();

@@ -82,6 +82,7 @@ function draw() {
       recordDrillType(store, KEYS, d.type, res.ok);
       const xp = awardDrillXp(store, KEYS, res.ok);
       S.feedback = { ok: res.ok, answer: res.answer, solution: d.solution, xp };
+      App.bumpStreak();
       App.haptic(res.ok ? 16 : 8); draw();
     };
     sub.addEventListener('click', go);

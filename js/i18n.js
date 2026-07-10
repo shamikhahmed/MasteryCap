@@ -95,6 +95,12 @@ export const T = {
     ins_flagged: 'Flagged (revenge/greed)',
     ins_streak_w: 'Best win streak',
     ins_streak_l: 'Best loss streak',
+
+    review_title: 'Daily review',
+    review_cta: 'Daily review · 3 questions · streak {n}',
+    review_empty: 'Complete a week first — review pulls from finished lessons.',
+    review_done: 'Review complete. Come back tomorrow.',
+    review_finish: 'Finish',
   },
   ur: {
     nav_dashboard: 'Home', nav_learn: 'Seekho', nav_journal: 'Journal', nav_progress: 'Progress',
@@ -179,6 +185,12 @@ export const T = {
     ins_flagged: 'Flagged (revenge/greed)',
     ins_streak_w: 'Best win streak',
     ins_streak_l: 'Best loss streak',
+
+    review_title: 'Daily review',
+    review_cta: 'Daily review · 3 sawalat · streak {n}',
+    review_empty: 'Pehle ek week complete karo — review finished lessons se aata hai.',
+    review_done: 'Review mukammal. Kal wapis ana.',
+    review_finish: 'Khatam',
   },
 };
 

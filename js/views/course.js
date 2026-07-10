@@ -153,6 +153,7 @@ function drawWeek() {
     S.view = 'quiz'; S.quizAnswers = {}; S.quizSubmitted = false; S.quizMsg = null;
     buildQuizOrders(w); App.haptic(); draw();
   });
+  App.bumpStreak();
 }
 
 /* ---------------- QUIZ ---------------- */
@@ -231,6 +232,7 @@ function submitQuiz() {
     App.haptic(20);
   } else prog.xp = (prog.xp || 0) + 10;
   App.setCourse(track.id, prog);
+  App.bumpStreak();
   draw();
 }
 

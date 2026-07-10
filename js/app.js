@@ -11,6 +11,8 @@ import { renderCourse } from './views/course.js';
 import { renderJournal } from './views/journal.js';
 import { renderProgress } from './views/progress.js';
 import { renderDrills } from './views/drills.js';
+import { renderReview } from './views/review.js';
+import { touchStreak } from './retention.js';
 
 const root = () => document.getElementById('app-root');
 
@@ -101,9 +103,18 @@ export const App = {
     this.render(); this.renderNav();
   },
 
+  openReview() {
+    this._reviewReturn = this.tab === 'review' ? 'dashboard' : this.tab;
+    this.tab = 'review'; this.haptic(6);
+    window.scrollTo({ top: 0 });
+    this.render(); this.renderNav();
+  },
+
+  bumpStreak() { return touchStreak(); },
+
   render() {
     const c = root(); if (!c) return;
-    ({ dashboard: renderDashboard, learn: renderCourse, journal: renderJournal, progress: renderProgress, drills: renderDrills }[this.tab])(this, c);
+    ({ dashboard: renderDashboard, learn: renderCourse, journal: renderJournal, progress: renderProgress, drills: renderDrills, review: renderReview }[this.tab])(this, c);
   },
 
   renderNav() {

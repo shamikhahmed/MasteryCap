@@ -7,6 +7,7 @@ import { getTrack } from '../data/tracks.js';
 import { icon } from '../icons.js';
 import { openSettings } from '../settings.js';
 import { worstCostLine } from '../insights.js';
+import { getStreak, reviewAvailable } from '../retention.js';
 
 const CHECK_RULES = [
   { id: 'stop', en: 'Stop loss placed before entry', ur: 'Entry se pehle stop loss laga' },
@@ -51,6 +52,7 @@ export function renderDashboard(App, c) {
   const initials = (App.profile?.name || 'T').trim().slice(0, 2).toUpperCase();
   const pts = equityPoints(App);
   const up = totalPl >= 0;
+  const streak = getStreak();
 
   let checklist = App.getChecklist();
   if (checklist._date !== todayKey()) { checklist = { _date: todayKey() }; App.setChecklist(checklist); }
@@ -65,6 +67,7 @@ export function renderDashboard(App, c) {
           <h1>${App.profile?.name || 'Trader'}</h1>
         </div>
         <div class="hstack">
+          ${streak.current ? `<span class="pill mono acc">${icon('flame', { size: 13 })} ${streak.current}</span>` : ''}
           <div class="seg">
             <button class="${lang === 'en' ? 'on' : ''}" data-lang="en">EN</button>
             <button class="${lang === 'ur' ? 'on' : ''}" data-lang="ur">UR</button>
@@ -137,6 +140,7 @@ export function renderDashboard(App, c) {
       <button class="btn accent" id="goJournal">${icon('plus', { size: 17 })} ${App.t('jumpJournal')}</button>
     </div>
     <button class="btn ghost mt14" id="goDrills" style="width:100%">${icon('target', { size: 17 })} ${App.t('drill_cta')}</button>
+    ${reviewAvailable() ? `<button class="btn secondary mt10" id="goReview" style="width:100%">${icon('book', { size: 17 })} ${App.t('review_cta').replace('{n}', String(streak.current || 0))}</button>` : ''}
   </div>`;
 
   App.countUp(document.getElementById('eqBal'), balance, { prefix: '' });
@@ -154,6 +158,7 @@ export function renderDashboard(App, c) {
   document.getElementById('goLearn').addEventListener('click', () => App.navigate('learn'));
   document.getElementById('goJournal').addEventListener('click', () => App.navigate('journal'));
   document.getElementById('goDrills').addEventListener('click', () => App.openDrills());
+  document.getElementById('goReview')?.addEventListener('click', () => App.openReview());
   const av = document.getElementById('openSettings');
   if (av) {
     av.addEventListener('click', () => { App.haptic(); openSettings(App); });
