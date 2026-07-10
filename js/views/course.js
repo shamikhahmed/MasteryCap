@@ -102,11 +102,18 @@ function drawHome() {
     }
   }
 
-  c.innerHTML = `<div class="screen">${header}${rail}${body}</div>`;
+  c.innerHTML = `<div class="screen">${header}${rail}
+    <div class="panel pad" style="margin-bottom:14px">
+      <div class="slabel">${App.t('drill_title')}</div>
+      <p style="font-size:13.5px;color:var(--t3);margin:8px 0 14px;line-height:1.5">${App.t('drill_home_hint')}</p>
+      <button class="btn secondary" id="goDrillsLearn">${icon('target', { size: 17 })} ${App.t('drill_cta')}</button>
+    </div>
+  ${body}</div>`;
 
   c.querySelectorAll('[data-track]').forEach((el) => el.addEventListener('click', () => { S.track = el.dataset.track; S.view = 'home'; App.haptic(); draw(); }));
   const activeChip = c.querySelector('.track-chip.on');
   if (activeChip) activeChip.scrollIntoView({ block: 'nearest', inline: 'center' });
+  document.getElementById('goDrillsLearn')?.addEventListener('click', () => App.openDrills());
   const sp = document.getElementById('startPlacement');
   if (sp) sp.addEventListener('click', () => {
     S.view = 'placement'; S.placementAnswers = {}; S.placementMsg = null;

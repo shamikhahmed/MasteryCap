@@ -10,6 +10,7 @@ import { renderDashboard } from './views/dashboard.js';
 import { renderCourse } from './views/course.js';
 import { renderJournal } from './views/journal.js';
 import { renderProgress } from './views/progress.js';
+import { renderDrills } from './views/drills.js';
 
 const root = () => document.getElementById('app-root');
 
@@ -93,9 +94,16 @@ export const App = {
     this.render(); this.renderNav();
   },
 
+  openDrills() {
+    this._drillReturn = this.tab === 'drills' ? 'dashboard' : this.tab;
+    this.tab = 'drills'; this.haptic(6);
+    window.scrollTo({ top: 0 });
+    this.render(); this.renderNav();
+  },
+
   render() {
     const c = root(); if (!c) return;
-    ({ dashboard: renderDashboard, learn: renderCourse, journal: renderJournal, progress: renderProgress }[this.tab])(this, c);
+    ({ dashboard: renderDashboard, learn: renderCourse, journal: renderJournal, progress: renderProgress, drills: renderDrills }[this.tab])(this, c);
   },
 
   renderNav() {

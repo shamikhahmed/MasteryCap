@@ -1,5 +1,10 @@
 # Changelog
 
+## v6 — 2026-07-11 · Phase 2 practice drills
+- `js/drills.js` generators + checkers: crypto/forex/futures sizing, options max-loss/breakeven/spread, binary breakeven WR, R-multiples, pip/tick value
+- Numeric answers ±1% tolerance; worked solution after each; +5 XP/correct, 50 XP/day cap; `mc.drillStats`
+- Drills UI from Home + Learn; Progress tab accuracy bars; SW cache **v6**
+
 ## v5 — 2026-07-11 · Phase 1 lesson diagrams
 - `js/figures.js`: 27 parametric SVG figures (candle anatomy, engulfing, pin bar, HH/HL, range, S/R flip, EMA lag, RSI divergence, ATR stop, liquidity sweep, funding crowding, options payoffs/spreads/theta/IV, contango, margin waterfall, session clock, correlated pairs, grid bot, martingale ruin, binary breakeven, expense-ratio drag, IPO lockup)
 - `{{fig:name}}` markers in lesson bodies (crypto + other tracks); `drawWeek()` injects via `injectFigures`

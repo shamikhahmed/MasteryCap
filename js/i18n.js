@@ -71,6 +71,21 @@ export const T = {
     backup_done: 'Backup downloaded.',
     sw_updated: 'Updated to {v} — reload',
     sw_reload: 'Reload',
+
+    /* drills */
+    drill_title: 'Practice',
+    drill_h1: 'Drills',
+    drill_cta: 'Practice drills',
+    drill_home_hint: 'Turn the math into muscle memory — sizing, R-multiples, options risk.',
+    drill_your_answer: 'Your answer',
+    drill_correct: 'Correct',
+    drill_wrong: 'Not quite',
+    drill_answer: 'Answer',
+    drill_next: 'Next drill',
+    drill_cap: 'Daily XP cap reached',
+    drill_types: 'Filter',
+    drill_accuracy: 'Drill accuracy',
+    drill_none: 'Complete a few drills to see accuracy here.',
   },
   ur: {
     nav_dashboard: 'Home', nav_learn: 'Seekho', nav_journal: 'Journal', nav_progress: 'Progress',
@@ -132,6 +147,20 @@ export const T = {
     backup_done: 'Backup download ho gaya.',
     sw_updated: '{v} pe update — reload',
     sw_reload: 'Reload',
+
+    drill_title: 'Practice',
+    drill_h1: 'Drills',
+    drill_cta: 'Practice drills',
+    drill_home_hint: 'Math ko muscle memory banao — sizing, R-multiples, options risk.',
+    drill_your_answer: 'Aapka jawab',
+    drill_correct: 'Sahi',
+    drill_wrong: 'Galat',
+    drill_answer: 'Jawab',
+    drill_next: 'Agli drill',
+    drill_cap: 'Daily XP cap poori',
+    drill_types: 'Filter',
+    drill_accuracy: 'Drill accuracy',
+    drill_none: 'Accuracy ke liye kuch drills complete karo.',
   },
 };
 

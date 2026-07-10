@@ -5,6 +5,8 @@
 
 import { TRACKS } from '../data/tracks.js';
 import { icon, TRACK_ICON } from '../icons.js';
+import { store, KEYS } from '../store.js';
+import { getDrillStats, drillTypes, typeLabel } from '../drills.js';
 
 const EMO = {
   calm: { label: 'Calm', color: 'var(--up)' },
@@ -22,7 +24,7 @@ export function renderProgress(App, c) {
   const header = `<div class="lt-head"><div class="kicker">${App.t('nav_progress')}</div><h1>${lang === 'en' ? 'Your progress' : 'Aapki progress'}</h1></div>`;
 
   if (!trades.length) {
-    c.innerHTML = `<div class="screen">${header}${weeksPanel(App)}
+    c.innerHTML = `<div class="screen">${header}${weeksPanel(App)}${drillsPanel(App)}
       <div class="panel mt14"><div class="empty">${icon('progress', { size: 40, cls: 'e-ic', sw: 1.3 })}${App.t('no_data')}</div></div></div>`;
     return;
   }
@@ -60,7 +62,30 @@ export function renderProgress(App, c) {
     </div>
 
     ${weeksPanel(App)}
+    ${drillsPanel(App)}
   </div>`;
+}
+
+function drillsPanel(App) {
+  const lang = App.lang;
+  const stats = getDrillStats(store, KEYS);
+  const by = stats.byType || {};
+  const types = drillTypes().filter((t) => by[t] && by[t].attempts > 0);
+  if (!types.length && !(stats.attempts > 0)) {
+    return `<div class="panel mt14"><div class="panel-h"><span class="ph-t">${App.t('drill_accuracy')}</span></div>
+      <div class="pad" style="font-size:13.5px;color:var(--t3)">${App.t('drill_none')}</div></div>`;
+  }
+  const rows = (types.length ? types : drillTypes()).map((t) => {
+    const s = by[t] || { attempts: 0, correct: 0 };
+    const pct = s.attempts ? Math.round((s.correct / s.attempts) * 100) : 0;
+    return `<div class="bar-line">
+      <div class="bl-l" style="width:110px;font-size:12px">${typeLabel(t, lang).split('·')[0].trim()}</div>
+      <div class="bl-track"><div class="bl-fill" style="width:${pct}%;background:var(--acc)"></div></div>
+      <div class="bl-v mono">${pct}%</div>
+    </div>`;
+  }).join('');
+  const overall = stats.attempts ? Math.round((stats.correct / stats.attempts) * 100) : 0;
+  return `<div class="panel mt14"><div class="panel-h"><span class="ph-t">${App.t('drill_accuracy')}</span><span class="metric-big">${overall}%</span></div><div class="pad">${rows}</div></div>`;
 }
 
 function weeksPanel(App) {

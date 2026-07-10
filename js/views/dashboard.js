@@ -130,6 +130,7 @@ export function renderDashboard(App, c) {
       <button class="btn secondary" id="goLearn">${icon('learn', { size: 17 })} ${App.t('continueLearning')}</button>
       <button class="btn accent" id="goJournal">${icon('plus', { size: 17 })} ${App.t('jumpJournal')}</button>
     </div>
+    <button class="btn ghost mt14" id="goDrills" style="width:100%">${icon('target', { size: 17 })} ${App.t('drill_cta')}</button>
   </div>`;
 
   App.countUp(document.getElementById('eqBal'), balance, { prefix: '' });
@@ -146,6 +147,7 @@ export function renderDashboard(App, c) {
   }));
   document.getElementById('goLearn').addEventListener('click', () => App.navigate('learn'));
   document.getElementById('goJournal').addEventListener('click', () => App.navigate('journal'));
+  document.getElementById('goDrills').addEventListener('click', () => App.openDrills());
   const av = document.getElementById('openSettings');
   if (av) {
     av.addEventListener('click', () => { App.haptic(); openSettings(App); });

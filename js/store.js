@@ -77,4 +77,5 @@ export const KEYS = {
   trades: 'trades',          // [ {..} ]
   course: 'course',          // { [trackId]: { placementDone, weekStatus, xp } }
   checklist: 'checklist',    // { [ruleId]: bool, _date }
+  drillStats: 'drillStats',  // { attempts, correct, byType, xpDay, xpToday }
 };
