@@ -11,9 +11,18 @@ import { SPOT_WEEKS, SPOT_PLACEMENT } from './spot.js';
 import { BINARY_WEEKS, BINARY_PLACEMENT } from './binary.js';
 import { INVEST_WEEKS, INVEST_PLACEMENT } from './invest.js';
 import { BOTS_WEEKS, BOTS_PLACEMENT } from './bots.js';
+import { FOUNDATIONS_WEEKS, FOUNDATIONS_PLACEMENT } from './foundations.js';
 import { enrichTrack } from './enrich.js';
 
 export const TRACKS = [
+  {
+    id: 'foundations',
+    name: { en: 'Foundations', ur: 'Foundations' },
+    blurb: { en: 'Zero to ready: school, scams, account, orders, paper', ur: 'Zero to ready: school, scams, account, orders, paper' },
+    status: 'live',
+    weeks: FOUNDATIONS_WEEKS,
+    placement: FOUNDATIONS_PLACEMENT,
+  },
   {
     id: 'crypto',
     name: { en: 'Crypto & Perps', ur: 'Crypto & Perps' },

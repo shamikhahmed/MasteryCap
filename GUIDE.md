@@ -1,20 +1,20 @@
 # MasteryCap — Guide
 
 Personal bilingual (EN / Roman Urdu) trading-education PWA. Offline-first, no accounts.
-Current app version: **v21** (see `VERSION`, `CHANGELOG.md`, `sw.js` → `masterycap-v21`).
+Current app version: **v22** (see `VERSION`, `CHANGELOG.md`, `sw.js` → `masterycap-v22`).
 
 ## First run
 1. Open via static server or GitHub Pages.
 2. Splash → onboarding (name, experience, markets).
-3. Home shows equity curve (empty until trades), checklist, CTAs.
+3. Home shows school campus (next lesson + beginner path). Practice desk is Journal.
 
 ## Tabs
 | Tab | What |
 |-----|------|
-| Home | Equity hero, stats, pre-trade checklist, streak, discipline grade, drills/charts/review CTAs |
-| Learn | 8 tracks · lessons (SVG figs + glossary taps) · quizzes · placement · XP |
-| Journal | Risk calculator · trade log · stop toggles · emotion tags |
-| Progress | Equity · win-rate · emotions · insights · discipline breakdown · weeks · drill accuracy |
+| Home | School campus: next lesson, beginner path, XP/streak/weeks, drills CTAs |
+| Learn | 9 tracks (Foundations first) · lessons · quizzes · placement · XP |
+| Journal | Practice desk: balance, equity, win rate, checklist, sizing, trade log |
+| Progress | Equity · win-rate · emotions · insights · discipline · weeks · drills |
 
 ## Learning loop
 - **Placement** (≥60%/topic → mastered) unlocks path.

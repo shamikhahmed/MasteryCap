@@ -1,10 +1,178 @@
 /* ============================================================
    week-extras.js — P11 complete: memo/skim/formula + markers
-   for ALL 53 weeks. Merged at render time.
+   for ALL weeks (incl. Foundations). Merged at render time.
    Hand-authored literacy content; does not claim market mastery.
    ============================================================ */
 
 export const WEEK_EXTRAS = {
+  "foundations:1": {
+  "skim": {
+    "en": [
+      "School not broker",
+      "Process over tips",
+      "Journal when ready"
+    ],
+    "ur": [
+      "School not broker",
+      "Process > tips",
+      "Journal jab ready"
+    ]
+  },
+  "memo": {
+    "en": [
+      "Literacy \u2260 income",
+      "Home = campus",
+      "Desk = Journal"
+    ],
+    "ur": [
+      "Literacy \u2260 income",
+      "Home = campus",
+      "Desk = Journal"
+    ]
+  }
+},
+  "foundations:2": {
+  "skim": {
+    "en": [
+      "Scam patterns",
+      "Verify regulator",
+      "No seed share"
+    ],
+    "ur": [
+      "Scam patterns",
+      "Regulator verify",
+      "Seed share nahi"
+    ]
+  },
+  "memo": {
+    "en": [
+      "Never share seed/OTP",
+      "Guarantees = walk away",
+      "License > ads"
+    ],
+    "ur": [
+      "Seed/OTP kabhi nahi",
+      "Guarantee = walk",
+      "License > ads"
+    ]
+  },
+  "redflag": {
+    "en": "Anyone asking for seed phrase or guaranteed daily % is a scam.",
+    "ur": "Seed mangna ya guaranteed daily % = scam."
+  }
+},
+  "foundations:3": {
+  "skim": {
+    "en": [
+      "KYC steps",
+      "CDC / custody",
+      "Test withdrawal"
+    ],
+    "ur": [
+      "KYC",
+      "CDC / custody",
+      "Withdrawal test"
+    ]
+  },
+  "memo": {
+    "en": [
+      "Custody in your name",
+      "Tiny withdraw test",
+      "No affiliate pitch"
+    ],
+    "ur": [
+      "Apne naam custody",
+      "Tiny withdraw",
+      "Affiliate nahi"
+    ]
+  }
+},
+  "foundations:4": {
+  "skim": {
+    "en": [
+      "Bid/ask",
+      "Limit vs market",
+      "Paper first"
+    ],
+    "ur": [
+      "Bid/ask",
+      "Limit vs market",
+      "Pehle paper"
+    ]
+  },
+  "memo": {
+    "en": [
+      "Limits teach patience",
+      "Spread is a cost",
+      "Paper = process reps"
+    ],
+    "ur": [
+      "Limits = sabar",
+      "Spread = cost",
+      "Paper = process"
+    ]
+  }
+},
+  "foundations:5": {
+  "skim": {
+    "en": [
+      "Checklist gate",
+      "Log emotion",
+      "Debrief process"
+    ],
+    "ur": [
+      "Checklist",
+      "Emotion log",
+      "Process debrief"
+    ]
+  },
+  "memo": {
+    "en": [
+      "No checklist = no trade",
+      "Debrief process",
+      "Desk optional until ready"
+    ],
+    "ur": [
+      "Checklist nahi = no trade",
+      "Process debrief",
+      "Desk optional"
+    ]
+  },
+  "redflag": {
+    "en": "Skipping checklist \u201cjust once\u201d starts revenge trading.",
+    "ur": "Checklist skip \u201csirf ek dafa\u201d = revenge start."
+  }
+},
+  "foundations:6": {
+  "skim": {
+    "en": [
+      "Risk $ formula",
+      "Size from stop",
+      "Next: Investing"
+    ],
+    "ur": [
+      "Risk $",
+      "Stop se size",
+      "Agla: Investing"
+    ]
+  },
+  "memo": {
+    "en": [
+      "risk$ = bal \u00d7 %",
+      "Wide stop \u2192 smaller size",
+      "Zero-to-ready \u2260 rich"
+    ],
+    "ur": [
+      "risk$ = bal \u00d7 %",
+      "Wide stop \u2192 chhoti size",
+      "Ready \u2260 rich"
+    ]
+  },
+  "formula": {
+    "en": "risk $ = balance \u00d7 risk% \u00b7 size \u2248 risk $ \u00f7 stop distance",
+    "ur": "risk $ = balance \u00d7 risk% \u00b7 size \u2248 risk $ \u00f7 stop distance"
+  }
+},
   "crypto:1": {
     "skim": {
       "en": [

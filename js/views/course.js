@@ -22,7 +22,7 @@ import { openSearch } from '../search.js';
 import { GLOSSARY } from '../data/glossary.js';
 
 let S = {
-  track: 'crypto', view: 'home', activeWeek: null,
+  track: 'foundations', view: 'home', activeWeek: null,
   placementAnswers: {}, placementMsg: null, placementOrder: null,
   quizAnswers: {}, quizSubmitted: false, quizMsg: null, quizOrder: null, lastMastered: 0,
   gateAnswers: {}, gateOrder: null,
@@ -55,6 +55,29 @@ export function renderCourse(App, c) {
   APP = App; ROOT = c;
   if (S.view === 'placementResult') S.view = 'home';
   draw();
+}
+
+function applyFocusDetail(detail) {
+  if (!detail?.trackId) return;
+  S.track = detail.trackId;
+  if (detail.kind === 'week' && detail.weekId != null) {
+    S.activeWeek = detail.weekId;
+    S.view = 'week';
+  } else if (detail.kind === 'placement' || detail.kind === 'home' || detail.kind === 'start') {
+    S.view = 'home';
+    S.activeWeek = detail.weekId || null;
+  } else {
+    S.view = 'home';
+  }
+  S.dirty = false;
+}
+
+if (typeof window !== 'undefined' && !window.__mcFocusBound) {
+  window.__mcFocusBound = true;
+  window.addEventListener('masterycap:focus-track', (e) => {
+    applyFocusDetail(e.detail || {});
+    if (APP && ROOT) draw();
+  });
 }
 
 const pct = (n) => Math.round(n);

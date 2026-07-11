@@ -4,6 +4,12 @@
    ============================================================ */
 
 export const BODY_APPEND = {
+  "foundations:1": {"en": "<p><strong>Beginner practice:</strong> Open Home and Learn. Confirm you see Foundations first. Do not open Journal desk until Week 5 unless curious.</p>", "ur": "<p><strong>Beginner practice:</strong> Home aur Learn kholo. Foundations pehle. Week 5 se pehle Journal optional.</p>"},
+  "foundations:2": {"en": "<p><strong>Beginner practice:</strong> Find one scam ad screenshot (offline). List three red flags. Never click deposit links from DMs.</p>", "ur": "<p><strong>Beginner practice:</strong> Ek scam ad. Teen red flags likho. DM deposit links mat dabao.</p>"},
+  "foundations:3": {"en": "<p><strong>Beginner practice:</strong> On paper: write broker legal name + regulator URL you will check. Do not fund until both match.</p>", "ur": "<p><strong>Beginner practice:</strong> Paper pe: broker legal name + regulator URL. Match se pehle fund mat.</p>"},
+  "foundations:4": {"en": "<p><strong>Beginner practice:</strong> On a demo or blank Journal note, write one limit buy and one market buy. Which feels more emotional?</p>", "ur": "<p><strong>Beginner practice:</strong> Demo/Journal note: ek limit, ek market. Kaun emotional?</p>"},
+  "foundations:5": {"en": "<p><strong>Beginner practice:</strong> Open Journal desk. Complete checklist 4/4. Log one paper trade with emotion = calm.</p>", "ur": "<p><strong>Beginner practice:</strong> Journal desk. Checklist 4/4. Ek paper trade emotion=calm.</p>"},
+  "foundations:6": {"en": "<p><strong>Beginner practice:</strong> With balance $5,000 and 1% risk, compute risk $. If stop is 2% away, estimate size. Then open Investing track.</p>", "ur": "<p><strong>Beginner practice:</strong> $5,000 \u00d7 1% risk $. Stop 2% door ho to size. Phir Investing track.</p>"},
   "crypto:2": {
     "en": "<p><strong>Beginner practice:</strong> On any chart, mark the last swing high and low. Ask only: HH/HL, LL/LH, or range? No indicator until that answer is automatic. Journal three charts a week with that label only.</p>",
     "ur": "<p><strong>Beginner practice:</strong> Kisi bhi chart pe last swing high/low mark karo. Sirf poocho: HH/HL, LL/LH, ya range? Indicator tab tak nahi jab ye automatic ho. Hafte mein teen charts sirf is label ke sath journal.</p>"

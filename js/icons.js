@@ -19,6 +19,7 @@ const P = {
   binary: '<path d="M12 3.5 21 19H3L12 3.5Z"/><path d="M12 10v4M12 16.8v.2"/>',
   invest: '<path d="M12 3v18M12 3l-4 4M12 3l4 4"/><path d="M5 21h14"/><path d="M7 21v-6M12 21v-9M17 21v-4"/>',
   bots: '<rect x="5" y="8" width="14" height="11" rx="2.5"/><path d="M12 8V4.5M12 4.5h.01"/><circle cx="9.5" cy="13" r="1" fill="currentColor" stroke="none"/><circle cx="14.5" cy="13" r="1" fill="currentColor" stroke="none"/><path d="M9.5 16.5h5"/>',
+  foundations: '<path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9h4v-5h4v5h4v-9"/><path d="M10 14h4"/>',
 
   /* misc */
   check: '<path d="M5 12.5 10 17.5 19 6.5"/>',
@@ -54,4 +55,4 @@ export function icon(name, { size = 24, cls = '', sw = 1.75 } = {}) {
   return `<svg class="${cls}" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg>`;
 }
 
-export const TRACK_ICON = { crypto: 'crypto', stocks: 'stocks', invest: 'invest', futures: 'futures', forex: 'forex', spot: 'spot', bots: 'bots', binary: 'binary' };
+export const TRACK_ICON = { foundations: 'foundations', crypto: 'crypto', stocks: 'stocks', invest: 'invest', futures: 'futures', forex: 'forex', spot: 'spot', bots: 'bots', binary: 'binary' };

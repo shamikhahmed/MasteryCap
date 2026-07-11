@@ -1,5 +1,13 @@
 # Changelog
 
+## v22 — 2026-07-11 · School campus + Foundations (zero-to-ready)
+- **Home** = school campus (next lesson, beginner path, study stats) — no balance/win rate/equity
+- **Journal** = practice desk (balance, equity, win rate, checklist, sizing, log)
+- **Foundations** track (6 weeks): school stance, scams, open regulated account, orders, paper workflow, risk %
+- Beginner path starts with Foundations → Investing → Spot → …
+- Tour/onboarding copy updated; SW **v22**
+- Stance unchanged: literacy ≠ income; no backend (static PWA)
+
 ## v21 — 2026-07-11 · All courses thickened (practice + 4th quiz)
 - `thicken.js` — beginner practice append on **all 53** weeks
 - `quiz-extra.js` — 4th literacy Q where weeks had only 3 (~50 weeks)

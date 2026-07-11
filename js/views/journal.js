@@ -5,6 +5,7 @@
 
 import { icon } from '../icons.js';
 import { store, KEYS } from '../store.js';
+import { CHECK_RULES, todayKey, equityPoints, tradeStats } from '../desk.js';
 
 let direction = null;
 let pendingDebriefId = null;
@@ -21,7 +22,7 @@ function settings() {
 
 function checklistComplete(App) {
   const cl = App.getChecklist() || {};
-  return ['stop', 'risk', 'calm', 'plan'].every((id) => !!cl[id]);
+  return CHECK_RULES.every((r) => !!cl[r.id]);
 }
 
 function cooldownActive() {
@@ -37,15 +38,69 @@ export function renderJournal(App, c) {
   const balance = App.getBalance();
   const cd = cooldownActive();
   const s = settings();
+  const { count, wins, winRate, totalPl, up } = tradeStats(App);
+  const pts = equityPoints(App);
+  let checklist = App.getChecklist();
+  if (checklist._date !== todayKey()) { checklist = { _date: todayKey() }; App.setChecklist(checklist); }
+  const checkedNow = () => CHECK_RULES.filter((r) => App.getChecklist()[r.id]).length;
 
   c.innerHTML = `
   <div class="screen">
-    <div class="lt-head"><div class="kicker">${App.t('nav_journal')}</div><h1>${App.t('j_title')}</h1></div>
-    <p style="font-size:13.5px;color:var(--t3);margin:-10px 0 18px;line-height:1.5">${App.t('j_sub')}</p>
+    <div class="lt-head"><div class="kicker">${App.t('nav_journal')}</div><h1>${App.t('j_desk_title')}</h1></div>
+    <p style="font-size:13.5px;color:var(--t3);margin:-10px 0 18px;line-height:1.5">${App.t('j_desk_sub')}</p>
     ${cd ? `<div class="note-box warn" id="cdPill" style="margin-bottom:12px">${App.t('cooldown_pill').replace('{t}', new Date(cd).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))}
       ${s.strictMode ? '' : `<button class="pill" id="cdOverride" style="margin-left:8px">${App.t('cooldown_override')}</button>`}
     </div>` : ''}
     <div id="debriefBox" class="hidden"></div>
+
+    <div class="equity" style="margin-bottom:14px">
+      <div class="spread">
+        <div class="eq-label">${App.t('portfolio')}</div>
+        <button type="button" class="pill" id="editBal">${icon('edit', { size: 13 })} ${App.t('edit')}</button>
+      </div>
+      <div class="eq-bal mono" id="eqBalWrap">$<span id="eqBal">0.00</span></div>
+      <div id="eqEditRow" class="hidden" style="margin-top:12px">
+        <div class="field" style="margin:0">
+          <label>${App.t('portfolio')} ($)</label>
+          <input id="eqEditIn" class="num mono" type="number" inputmode="decimal" step="0.01" value="${balance}" />
+        </div>
+        <div class="hstack" style="gap:8px;margin-top:10px">
+          <button type="button" class="btn accent" id="eqSave" style="flex:1">${App.t('save_bal')}</button>
+          <button type="button" class="btn secondary" id="eqCancel" style="flex:1">${App.t('cancel')}</button>
+        </div>
+      </div>
+      <div class="eq-delta ${up ? 'up' : 'down'}">
+        ${icon(up ? 'triUp' : 'triDown', { size: 13 })} ${App.money(totalPl)} · ${count} ${count === 1 ? 'trade' : 'trades'}
+      </div>
+      ${count === 0
+        ? `<div class="eq-empty">${lang === 'en' ? 'Equity curve appears once you log a trade.' : 'Trade log ke baad equity curve.'}</div>`
+        : `<div class="eq-chart">${App.sparkline(pts, { id: 'jhero', color: up ? 'acc' : 'auto', animate: true })}</div>`}
+    </div>
+
+    <div class="stat-strip" style="margin-bottom:14px">
+      <div class="stat-cell">
+        <div class="sc-l">${App.t('stat_winrate')}</div>
+        <div class="sc-v">${winRate}<span style="font-size:13px;color:var(--t3)">%</span></div>
+        <div class="sc-s mono">${wins}/${count}</div>
+      </div>
+      <div class="stat-cell">
+        <div class="sc-l">${App.t('stat_pl')}</div>
+        <div class="sc-v ${up ? 'up' : 'down'}">${App.money(totalPl, { sign: totalPl > 0 })}</div>
+        <div class="sc-s">net</div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-bottom:16px">
+      <div class="panel-h">
+        <span class="ph-t">${App.t('pretrade')}</span>
+        <span class="pill mono" id="checkCount">${checkedNow()}/${CHECK_RULES.length}</span>
+      </div>
+      <div>${CHECK_RULES.map((r) => `
+        <div class="check-row ${checklist[r.id] ? 'on' : ''}" data-rule="${r.id}">
+          <span class="check-box">${icon('checkThin', { size: 13, sw: 2.6 })}</span>
+          <span class="check-t">${lang === 'en' ? r.en : r.ur}</span>
+        </div>`).join('')}</div>
+    </div>
 
     <div class="panel" style="margin-bottom:16px">
       <div class="balance-bar">
@@ -134,6 +189,39 @@ export function renderJournal(App, c) {
   const balInput = document.getElementById('jBalance');
   balInput.addEventListener('input', updateCalc);
   balInput.addEventListener('change', () => App.setBalance(balInput.value));
+
+  App.countUp(document.getElementById('eqBal'), balance, { prefix: '', dur: 0 });
+  const openEqEdit = () => {
+    document.getElementById('eqBalWrap')?.classList.add('hidden');
+    document.getElementById('eqEditRow')?.classList.remove('hidden');
+    document.getElementById('editBal')?.classList.add('hidden');
+    const inp = document.getElementById('eqEditIn');
+    if (inp) { inp.value = String(App.getBalance()); inp.focus(); inp.select(); }
+    App.haptic();
+  };
+  document.getElementById('editBal')?.addEventListener('click', openEqEdit);
+  document.getElementById('eqCancel')?.addEventListener('click', () => App.render());
+  document.getElementById('eqSave')?.addEventListener('click', () => {
+    const n = parseFloat(document.getElementById('eqEditIn')?.value);
+    if (!Number.isFinite(n) || n < 0) {
+      document.getElementById('eqEditIn')?.focus();
+      return;
+    }
+    App.setBalance(n);
+    if (balInput) balInput.value = String(n);
+    App.haptic(12);
+    App.render();
+  });
+  document.getElementById('eqEditIn')?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') document.getElementById('eqSave')?.click();
+    if (e.key === 'Escape') App.render();
+  });
+  c.querySelectorAll('.check-row[data-rule]').forEach((el) => el.addEventListener('click', () => {
+    const cl = App.getChecklist(); cl[el.dataset.rule] = !cl[el.dataset.rule]; App.setChecklist(cl);
+    el.classList.toggle('on', cl[el.dataset.rule]); App.haptic();
+    const cc = document.getElementById('checkCount');
+    if (cc) cc.textContent = `${checkedNow()}/${CHECK_RULES.length}`;
+  }));
 
   function setDir(d) {
     direction = d;

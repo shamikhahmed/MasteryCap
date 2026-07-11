@@ -3,8 +3,9 @@
    Honest: ready for paper / tiny capital with rules — NOT income promise.
    ============================================================ */
 
-/** Recommended order for a true beginner (earn-seeking → invest first). */
+/** Recommended order for a true beginner (school → compound → trade). */
 export const BEGINNER_PATH = [
+  { id: 'foundations', why: { en: 'Zero to ready: what school is, scams, open account, orders, paper workflow.', ur: 'Zero to ready: school, scams, account, orders, paper.' } },
   { id: 'invest', why: { en: 'Closest thing to “earn”: time + low fees + boring compounding. Not day-trading income.', ur: '“Earn” ke qareeb: time + low fees + boring compounding. Day-trading income nahi.' } },
   { id: 'spot', why: { en: 'Own assets without liquidation math. Survival first.', ur: 'Liquidation ke bina own. Pehle survival.' } },
   { id: 'crypto', why: { en: 'Only after sizing + stops click. Perps are optional, not required.', ur: 'Sizing + stops ke baad. Perps zaroori nahi.' } },
@@ -17,9 +18,37 @@ export const BEGINNER_PATH = [
 
 /**
  * Graduation checklist after track weeks (+ exam recommended).
- * tone: 'compound' | 'trade' | 'avoid'
+ * tone: 'compound' | 'trade' | 'avoid' | 'school'
  */
 export const TRACK_GRADUATION = {
+  foundations: {
+    tone: 'school',
+    title: { en: 'After Foundations — you are process-ready', ur: 'Foundations ke baad — process-ready' },
+    promise: {
+      en: 'You can open a regulated account and paper-trade with rules. Income is not promised. Next: Investing for compounding.',
+      ur: 'Regulated account + rules se paper trade. Income promise nahi. Agla: Investing compounding.',
+    },
+    steps: {
+      en: [
+        'Verify one regulated broker / PSX TREC on the official site',
+        'Complete KYC; confirm CDC or custody in your name where applicable',
+        'Test tiny deposit + withdrawal',
+        'Run 10 paper trades in Journal with full checklist',
+        'Start Investing track — do not jump to max leverage',
+      ],
+      ur: [
+        'Ek regulated broker / PSX TREC official site pe verify',
+        'KYC; CDC / apne naam custody confirm',
+        'Tiny deposit + withdrawal test',
+        'Journal mein 10 paper trades + full checklist',
+        'Investing track shuru — max leverage mat jump',
+      ],
+    },
+    sizeRule: {
+      en: 'Paper or amount you can lose without changing rent/food. Risk ≤1% per idea.',
+      ur: 'Paper ya itna jo rent/food na badle. Risk ≤1%/idea.',
+    },
+  },
   invest: {
     tone: 'compound',
     title: { en: 'After Investing track — first capital', ur: 'Investing track ke baad — pehla capital' },

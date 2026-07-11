@@ -79,6 +79,7 @@ async function onboard(page) {
 
       await page.evaluate(() => {
         localStorage.setItem('masterycap:course', JSON.stringify({
+          foundations: { placementDone: true, weekStatus: { 1: 'current' }, xp: 0 },
           crypto: { placementDone: true, weekStatus: { 1: 'current' }, xp: 0 },
         }));
       });
@@ -86,6 +87,9 @@ async function onboard(page) {
       await page.locator('#mbDismiss').click({ timeout: 800 }).catch(() => {});
       await page.locator('#backupDismiss').click({ timeout: 800 }).catch(() => {});
       await page.locator('#corruptKeep').click({ timeout: 800 }).catch(() => {});
+      await page.waitForSelector('#goContinue');
+      await page.locator('#tabbar button').filter({ hasText: /Journal/i }).click();
+      await page.waitForTimeout(200);
       await page.locator('#editBal').click();
       await page.locator('#eqEditIn').fill('321.5');
       await page.locator('#eqSave').click();
@@ -95,6 +99,8 @@ async function onboard(page) {
 
       await page.locator('#tabbar button').filter({ hasText: /Learn|Seekho/i }).click();
       await page.waitForTimeout(300);
+      await page.locator('[data-track="foundations"]').click().catch(() => {});
+      await page.waitForTimeout(200);
       await page.locator('[data-week]').first().click();
       await page.waitForSelector('.lesson-body');
       await page.screenshot({ path: path.join(outDir, `lesson-${width}.png`), fullPage: true });
@@ -103,8 +109,8 @@ async function onboard(page) {
         await page.locator('#startQuiz').click();
         await page.waitForSelector('#submitQuiz');
         const corrects = await page.evaluate(async () => {
-          const { TRACKS } = await import(new URL('./js/data/tracks.js', location.href).href);
-          return TRACKS[0].weeks[0].quiz.map((q) => q.correct);
+          const { getTrack } = await import(new URL('./js/data/tracks.js', location.href).href);
+          return getTrack('foundations').weeks[0].quiz.map((q) => q.correct);
         });
         for (let i = 0; i < corrects.length; i++) {
           await page.locator(`#qq${i} button[data-o="${corrects[i]}"]`).click();

@@ -1,65 +1,83 @@
 /* ============================================================
-   dashboard.js — editorial home: equity hero, stat strip,
-   pre-trade discipline checklist, quick actions.
+   dashboard.js — school campus Home (v22).
+   Next lesson, beginner path, study stats. No trading desk.
    ============================================================ */
 
-import { getTrack } from '../data/tracks.js';
-import { icon } from '../icons.js';
+import { TRACKS, getTrack } from '../data/tracks.js';
+import { BEGINNER_PATH } from '../data/paths.js';
+import { icon, TRACK_ICON } from '../icons.js';
 import { openSettings } from '../settings.js';
-import { worstCostLine } from '../insights.js';
-import { getStreak, reviewAvailable } from '../retention.js';
-import { disciplineReport } from '../discipline.js';
+import { getStreak, reviewAvailable, dueReviewCount } from '../retention.js';
 import { store, KEYS } from '../store.js';
-
-const CHECK_RULES = [
-  { id: 'stop', en: 'Stop loss placed before entry', ur: 'Entry se pehle stop loss laga' },
-  { id: 'risk', en: 'Risk within my max %', ur: 'Risk mere max % ke andar' },
-  { id: 'calm', en: 'Calm — not FOMO or revenge', ur: 'Calm — FOMO/revenge nahi' },
-  { id: 'plan', en: 'Setup matches my plan', ur: 'Setup mere plan se match' },
-];
-
-const todayKey = () => new Date().toISOString().slice(0, 10);
 
 function greeting(App) {
   const h = new Date().getHours();
   return App.t(h < 12 ? 'goodmorning' : h < 18 ? 'goodafternoon' : 'goodevening');
 }
 
-function equityPoints(App) {
-  const balance = App.getBalance();
-  const trades = App.getTrades().slice().reverse();
-  const totalPl = trades.reduce((s, t) => s + (Number(t.pl) || 0), 0);
-  const base = balance - totalPl;
-  const pts = [base]; let run = base;
-  trades.forEach((t) => { run += Number(t.pl) || 0; pts.push(run); });
-  return pts;
+/** Next actionable week along beginner path (or any live track). */
+export function nextLesson(App) {
+  const order = [...BEGINNER_PATH.map((p) => p.id), ...TRACKS.map((t) => t.id)];
+  const seen = new Set();
+  for (const id of order) {
+    if (seen.has(id)) continue;
+    seen.add(id);
+    const track = getTrack(id);
+    if (!track || track.status !== 'live') continue;
+    const prog = App.getCourse(id);
+    if (!prog.placementDone) {
+      return { trackId: id, weekId: null, kind: 'placement', title: track.name };
+    }
+    const current = track.weeks.find((w) => prog.weekStatus[w.id] === 'current');
+    if (current) {
+      return { trackId: id, weekId: current.id, kind: 'week', title: current.title, trackName: track.name };
+    }
+    const lockedFirst = track.weeks.find((w) => !prog.weekStatus[w.id] || prog.weekStatus[w.id] === 'locked');
+    const anyOpen = track.weeks.find((w) => ['current', 'completed', 'mastered'].includes(prog.weekStatus[w.id]));
+    if (!anyOpen && track.weeks[0]) {
+      return { trackId: id, weekId: track.weeks[0].id, kind: 'start', title: track.weeks[0].title, trackName: track.name };
+    }
+    if (lockedFirst && anyOpen) continue;
+  }
+  return null;
+}
+
+function studyTotals(App) {
+  let done = 0;
+  let total = 0;
+  TRACKS.forEach((t) => {
+    if (t.status !== 'live') return;
+    const prog = App.getCourse(t.id);
+    total += t.weeks.length;
+    done += t.weeks.filter((w) => ['completed', 'mastered'].includes(prog.weekStatus[w.id])).length;
+  });
+  return { done, total };
 }
 
 export function renderDashboard(App, c) {
   const lang = App.lang;
-  const balance = App.getBalance();
-  const trades = App.getTrades();
-  const count = trades.length;
-  const wins = trades.filter((t) => Number(t.pl) > 0).length;
-  const winRate = count ? Math.round((wins / count) * 100) : 0;
-  const totalPl = trades.reduce((s, t) => s + (Number(t.pl) || 0), 0);
   const xp = App.totalXp();
-
-  const crypto = App.getCourse('crypto');
-  const wk = getTrack('crypto').weeks;
-  const doneCount = wk.filter((w) => ['completed', 'mastered'].includes(crypto.weekStatus[w.id])).length;
-  const currentW = wk.find((w) => crypto.weekStatus[w.id] === 'current');
-  const curWeek = currentW ? currentW.id : 0;
-
-  const initials = (App.profile?.name || 'T').trim().slice(0, 2).toUpperCase();
-  const pts = equityPoints(App);
-  const up = totalPl >= 0;
   const streak = getStreak();
-  const disc = disciplineReport(trades, balance);
+  const initials = (App.profile?.name || 'S').trim().slice(0, 2).toUpperCase();
+  const next = nextLesson(App);
+  const { done, total } = studyTotals(App);
+  const due = dueReviewCount();
 
-  let checklist = App.getChecklist();
-  if (checklist._date !== todayKey()) { checklist = { _date: todayKey() }; App.setChecklist(checklist); }
-  const checkedNow = () => CHECK_RULES.filter((r) => App.getChecklist()[r.id]).length;
+  const nextLabel = (() => {
+    if (!next) {
+      return lang === 'en'
+        ? 'All beginner path weeks done — pick any track in Learn, or open Practice desk.'
+        : 'Beginner path complete — Learn mein koi track, ya Practice desk.';
+    }
+    if (next.kind === 'placement') {
+      return lang === 'en'
+        ? `Start placement: ${next.title[lang]}`
+        : `Placement shuru: ${next.title[lang]}`;
+    }
+    const tn = next.trackName ? next.trackName[lang] : getTrack(next.trackId).name[lang];
+    const wt = next.title[lang];
+    return `${tn} · ${lang === 'en' ? 'Week' : 'Week'} ${next.weekId} — ${wt}`;
+  })();
 
   c.innerHTML = `
   <div class="screen">
@@ -67,7 +85,7 @@ export function renderDashboard(App, c) {
       <div class="head-row">
         <div>
           <div class="kicker">${greeting(App)}${store.getNs().startsWith('masterycap-demo') ? ` · <span class="pill acc">${App.t('demo_pill')}</span>` : ''}</div>
-          <h1>${App.profile?.name || 'Trader'}</h1>
+          <h1>${App.profile?.name || (lang === 'en' ? 'Student' : 'Student')}</h1>
         </div>
         <div class="hstack">
           ${streak.current ? `<span class="pill mono acc">${icon('flame', { size: 13 })} ${streak.current}</span>` : ''}
@@ -107,126 +125,85 @@ export function renderDashboard(App, c) {
       return notices.join('');
     })()}
 
-    <!-- EQUITY -->
-    <div class="equity">
-      <div class="spread">
-        <div class="eq-label">${App.t('portfolio')}</div>
-        <button type="button" class="pill" id="editBal">${icon('edit', { size: 13 })} ${App.t('edit')}</button>
-      </div>
-      <div class="eq-bal mono" id="eqBalWrap">$<span id="eqBal">0.00</span></div>
-      <div id="eqEditRow" class="hidden" style="margin-top:12px">
-        <div class="field" style="margin:0">
-          <label>${App.t('portfolio')} ($)</label>
-          <input id="eqEditIn" class="num mono" type="number" inputmode="decimal" step="0.01" value="${balance}" />
-        </div>
-        <div class="hstack" style="gap:8px;margin-top:10px">
-          <button type="button" class="btn accent" id="eqSave" style="flex:1">${App.t('save_bal')}</button>
-          <button type="button" class="btn secondary" id="eqCancel" style="flex:1">${App.t('cancel')}</button>
-        </div>
-      </div>
-      <div class="eq-delta ${up ? 'up' : 'down'}">
-        ${icon(up ? 'triUp' : 'triDown', { size: 13 })} ${App.money(totalPl)} · ${count} ${count === 1 ? 'trade' : 'trades'}
-      </div>
-      ${count === 0
-        ? `<div class="eq-empty">${lang === 'en' ? 'Your equity curve appears once you log a trade.' : 'Trade log karte hi equity curve nazar ayega.'}</div>`
-        : `<div class="eq-chart">${App.sparkline(pts, { id: 'hero', color: up ? 'acc' : 'auto', animate: true })}</div>`}
+    <div class="note-box" style="margin-bottom:14px">${App.t('campus_blurb')}</div>
+
+    <div class="panel pad" style="margin-bottom:14px">
+      <div class="slabel">${App.t('campus_next')}</div>
+      <div style="font-size:16px;font-weight:600;letter-spacing:-0.02em;margin-top:8px;line-height:1.35">${nextLabel}</div>
+      <button class="btn accent mt14" id="goContinue" style="width:100%">${icon('learn', { size: 17 })} ${App.t('continueLearning')}</button>
     </div>
 
-    <!-- STAT STRIP -->
     <div class="stat-strip">
-      <div class="stat-cell">
-        <div class="sc-l">${App.t('stat_winrate')}</div>
-        <div class="sc-v">${winRate}<span style="font-size:13px;color:var(--t3)">%</span></div>
-        <div class="sc-s mono">${wins}/${count}</div>
-      </div>
-      <div class="stat-cell">
-        <div class="sc-l">${App.t('stat_pl')}</div>
-        <div class="sc-v ${up ? 'up' : 'down'}">${App.money(totalPl, { sign: totalPl > 0 })}</div>
-        <div class="sc-s">${lang === 'en' ? 'net' : 'net'}</div>
-      </div>
       <div class="stat-cell">
         <div class="sc-l">${App.t('stat_xp')}</div>
         <div class="sc-v" style="color:var(--warn)">${xp}</div>
-        <div class="sc-s">${lang === 'en' ? 'earned' : 'earned'}</div>
+        <div class="sc-s">${lang === 'en' ? 'study' : 'study'}</div>
       </div>
       <div class="stat-cell">
-        <div class="sc-l">${App.t('stat_week')}</div>
-        <div class="sc-v">${curWeek || '—'}</div>
-        <div class="sc-s mono">${doneCount}/${wk.length}</div>
+        <div class="sc-l">${App.t('stat_streak')}</div>
+        <div class="sc-v">${streak.current || 0}</div>
+        <div class="sc-s mono">best ${streak.best || 0}</div>
       </div>
-      ${disc ? `<div class="stat-cell">
-        <div class="sc-l">${App.t('disc_grade')}</div>
-        <div class="sc-v" style="color:var(--acc-2)">${disc.grade}</div>
-        <div class="sc-s mono">${disc.n}t</div>
-      </div>` : ''}
-    </div>
-
-    <!-- CHECKLIST -->
-    <div class="panel">
-      <div class="panel-h">
-        <span class="ph-t">${App.t('pretrade')}</span>
-        <span class="pill mono" id="checkCount">${checkedNow()}/${CHECK_RULES.length}</span>
+      <div class="stat-cell">
+        <div class="sc-l">${App.t('stat_weeks')}</div>
+        <div class="sc-v">${done}</div>
+        <div class="sc-s mono">${done}/${total}</div>
       </div>
-      <div>${CHECK_RULES.map((r) => `
-        <div class="check-row ${checklist[r.id] ? 'on' : ''}" data-rule="${r.id}">
-          <span class="check-box">${icon('checkThin', { size: 13, sw: 2.6 })}</span>
-          <span class="check-t">${lang === 'en' ? r.en : r.ur}</span>
-        </div>`).join('')}</div>
+      <div class="stat-cell">
+        <div class="sc-l">${App.t('stat_review')}</div>
+        <div class="sc-v">${due}</div>
+        <div class="sc-s">${lang === 'en' ? 'due' : 'due'}</div>
+      </div>
     </div>
 
-    ${(() => {
-      const line = worstCostLine(trades, lang);
-      return line ? `<div class="note-box warn mt14" style="margin-bottom:0">${line}</div>` : '';
-    })()}
-
-    <!-- ACTIONS -->
-    <div class="btn-row mt14">
-      <button class="btn secondary" id="goLearn">${icon('learn', { size: 17 })} ${App.t('continueLearning')}</button>
-      <button class="btn accent" id="goJournal">${icon('plus', { size: 17 })} ${App.t('jumpJournal')}</button>
+    <div class="panel" style="margin-bottom:14px">
+      <div class="panel-h"><span class="ph-t">${App.t('campus_path')}</span></div>
+      <div class="pad" style="padding-top:4px">
+        ${BEGINNER_PATH.map((p, i) => {
+          const t = getTrack(p.id);
+          const prog = App.getCourse(p.id);
+          const wdone = t.weeks.filter((w) => ['completed', 'mastered'].includes(prog.weekStatus[w.id])).length;
+          return `<button type="button" class="check-row" data-path="${p.id}" style="width:100%;text-align:left;background:none;border:0;color:inherit;cursor:pointer">
+            <span class="check-box" style="opacity:0.85">${icon(TRACK_ICON[p.id] || 'learn', { size: 14 })}</span>
+            <span class="check-t"><strong>${i + 1}. ${t.name[lang]}</strong><br/><span style="color:var(--t3);font-size:12px">${wdone}/${t.weeks.length} · ${p.why[lang]}</span></span>
+          </button>`;
+        }).join('')}
+      </div>
     </div>
-    <button class="btn ghost mt14" id="goDrills" style="width:100%">${icon('target', { size: 17 })} ${App.t('drill_cta')}</button>
+
+    <div class="btn-row">
+      <button class="btn secondary" id="goLearn">${icon('learn', { size: 17 })} ${App.t('nav_learn')}</button>
+      <button class="btn secondary" id="goDrills">${icon('target', { size: 17 })} ${App.t('drill_cta')}</button>
+    </div>
     <button class="btn ghost mt10" id="goCharts" style="width:100%">${icon('progress', { size: 17 })} ${App.t('chart_cta')}</button>
-    ${reviewAvailable() ? `<button class="btn secondary mt10" id="goReview" style="width:100%">${icon('book', { size: 17 })} ${App.t('review_cta').replace('{n}', String(streak.current || 0))}</button>` : ''}
+    ${reviewAvailable() ? `<button class="btn secondary mt10" id="goReview" style="width:100%">${icon('book', { size: 17 })} ${App.t('review_cta').replace('{n}', String(due || streak.current || 0))}</button>` : ''}
+    <button class="btn ghost mt14" id="goDesk" style="width:100%">${icon('journal', { size: 17 })} ${App.t('campus_desk')}</button>
   </div>`;
 
-  App.countUp(document.getElementById('eqBal'), balance, { prefix: '', dur: 0 });
-
   c.querySelectorAll('[data-lang]').forEach((b) => b.addEventListener('click', () => App.setLang(b.dataset.lang)));
-  const openEqEdit = () => {
-    document.getElementById('eqBalWrap')?.classList.add('hidden');
-    document.getElementById('eqEditRow')?.classList.remove('hidden');
-    document.getElementById('editBal')?.classList.add('hidden');
-    const inp = document.getElementById('eqEditIn');
-    if (inp) { inp.value = String(App.getBalance()); inp.focus(); inp.select(); }
+
+  const openNext = () => {
     App.haptic();
+    if (!next) { App.navigate('learn'); return; }
+    App.navigate('learn');
+    // course view picks up via custom event / setCourseFocus
+    window.dispatchEvent(new CustomEvent('masterycap:focus-track', {
+      detail: { trackId: next.trackId, weekId: next.weekId, kind: next.kind },
+    }));
   };
-  document.getElementById('editBal')?.addEventListener('click', openEqEdit);
-  document.getElementById('eqCancel')?.addEventListener('click', () => App.render());
-  document.getElementById('eqSave')?.addEventListener('click', () => {
-    const raw = document.getElementById('eqEditIn')?.value;
-    const n = parseFloat(raw);
-    if (!Number.isFinite(n) || n < 0) {
-      document.getElementById('eqEditIn')?.focus();
-      return;
-    }
-    App.setBalance(n);
-    App.haptic(12);
-    App.render();
-  });
-  document.getElementById('eqEditIn')?.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') document.getElementById('eqSave')?.click();
-    if (e.key === 'Escape') App.render();
-  });
-  c.querySelectorAll('.check-row').forEach((el) => el.addEventListener('click', () => {
-    const cl = App.getChecklist(); cl[el.dataset.rule] = !cl[el.dataset.rule]; App.setChecklist(cl);
-    el.classList.toggle('on', cl[el.dataset.rule]); App.haptic();
-    document.getElementById('checkCount').textContent = `${checkedNow()}/${CHECK_RULES.length}`;
-  }));
-  document.getElementById('goLearn').addEventListener('click', () => App.navigate('learn'));
-  document.getElementById('goJournal').addEventListener('click', () => App.navigate('journal'));
-  document.getElementById('goDrills').addEventListener('click', () => App.openDrills());
+  document.getElementById('goContinue')?.addEventListener('click', openNext);
+  document.getElementById('goLearn')?.addEventListener('click', () => App.navigate('learn'));
+  document.getElementById('goDrills')?.addEventListener('click', () => App.openDrills());
   document.getElementById('goCharts')?.addEventListener('click', () => App.openCharts());
   document.getElementById('goReview')?.addEventListener('click', () => App.openReview());
+  document.getElementById('goDesk')?.addEventListener('click', () => App.navigate('journal'));
+  c.querySelectorAll('[data-path]').forEach((el) => el.addEventListener('click', () => {
+    App.haptic();
+    App.navigate('learn');
+    window.dispatchEvent(new CustomEvent('masterycap:focus-track', {
+      detail: { trackId: el.dataset.path, weekId: null, kind: 'home' },
+    }));
+  }));
   document.getElementById('quotaDismiss')?.addEventListener('click', () => {
     store.set(KEYS.quotaDismissed, true); App.render();
   });
