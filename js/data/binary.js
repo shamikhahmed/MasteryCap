@@ -70,7 +70,7 @@ export const BINARY_WEEKS = [
    {q:{en:"Money used on binary platforms should be:",ur:"Binary platforms pe lagne wala paisa:"},
     opts:{en:["Entertainment budget whose total loss changes nothing","Savings you plan to grow","Borrowed at low interest"],ur:["Entertainment budget jis ka poora nuqsan kuch na badle","Barhane wali savings","Kam interest pe udhaar"]},
     correct:0, explain:{en:"Negative-EV activities are consumption, not investment. Budget them like cinema tickets, or not at all.",ur:"Negative-EV cheezein consumption hain, investment nahi. Cinema ticket ki tarah budget karo, ya bilkul nahi."}},
-   {q:{en:"Journaling binary sessions in this app matters because:",ur:"Binary sessions is app mein journal karna kyun ahm hai:"},
+   {q:{en:"Journaling every binary session matters because:",ur:"Har binary session journal karna kyun ahm hai:"},
     opts:{en:["Your own P/L data proves the negative expectancy","It improves your win rate","The platform requires it"],ur:["Aapka apna P/L data negative expectancy sabit karta hai","Win rate behtar hota hai","Platform ki shart hai"]},
     correct:0, explain:{en:"Personal data beats every warning. The equity curve doesn't argue — it just points down.",ur:"Apna data har warning se bara hai. Equity curve behas nahi karti — bas neeche ishara karti hai."}}
  ]}

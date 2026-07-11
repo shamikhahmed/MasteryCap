@@ -81,7 +81,7 @@ export const MACRO_WEEKS = [
    {q:{en:"A monthly regime note should change:",ur:"Mahwari regime note change ho:"},
     opts:{en:["Slowly — not every headline","Every 5 minutes with Twitter","Never forever"],ur:["Ahista — har headline nahi","Har 5 minute Twitter pe","Kabhi nahi forever"]},
     correct:0, explain:{en:"Process over noise. Monthly cadence beats doomscrolling.",ur:"Process noise pe bhaari. Mahwari cadence doomscroll se jeet'ta."}},
-   {q:{en:"Macro's job in MasteryCap is to:",ur:"MasteryCap mein macro ka kaam:"},
+   {q:{en:"Macro analysis's job for a retail trader is to:",ur:"Retail trader ke liye macro ka kaam:"},
     opts:{en:["Inform risk and horizon — not tip entries","Replace all other tracks","Promise riches"],ur:["Risk aur horizon batana — tip entries nahi","Sab tracks replace","Riches promise"]},
     correct:0, explain:{en:"School stance unchanged: literacy, not tip service or income claims.",ur:"School stance wahi: literacy — tip service ya income claim nahi."}},
    {q:{en:"Humility in macro means:",ur:"Macro mein humility ka matlab:"},
@@ -102,5 +102,5 @@ export const MACRO_PLACEMENT = [
  {topic:5,q:{en:"Risk-off environments usually favor:",ur:"Risk-off aksar favor:"},opts:{en:["Lower risk appetite / defensive positioning","Max leverage on meme assets","Ignoring stops"],ur:["Kam risk appetite / defensive","Meme pe max lev","Stops ignore"]},correct:0},
  {topic:5,q:{en:"When liquidity is poor, spreads and slippage:",ur:"Poor liquidity pe spreads/slippage:"},opts:{en:["Widen — size down","Disappear","Only help you"],ur:["Widen — size kam","Ghayab","Sirf madad"]},correct:0},
  {topic:6,q:{en:"A monthly regime note should change:",ur:"Regime note change:"},opts:{en:["Slowly — not every headline","Every 5 minutes with Twitter","Never forever"],ur:["Ahista — har headline nahi","Har 5 min Twitter","Kabhi nahi forever"]},correct:0},
- {topic:6,q:{en:"Macro's job in MasteryCap is to:",ur:"MasteryCap mein macro:"},opts:{en:["Inform risk and horizon — not tip entries","Replace all other tracks","Promise riches"],ur:["Risk + horizon — tip entries nahi","Sab tracks replace","Riches promise"]},correct:0}
+ {topic:6,q:{en:"Macro analysis's job for a retail trader is to:",ur:"Retail ke liye macro:"},opts:{en:["Inform risk and horizon — not tip entries","Replace all other tracks","Promise riches"],ur:["Risk + horizon — tip entries nahi","Sab tracks replace","Riches promise"]},correct:0}
 ];

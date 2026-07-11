@@ -21,15 +21,15 @@ export const FOUNDATIONS_WEEKS = [
 <p>Foundations poora hone se pehle advanced tracks soft-lock rehte. Jaldi feel nahi — safety. TRADE-READY baad mein Practice labs se aata; sirf weeks padhna = literacy, trade-ready nahi.</p>`,
   },
   quiz: [
-    { q: { en: 'MasteryCap is primarily a:', ur: 'MasteryCap pehle:' },
-      opts: { en: ['School for literacy and risk frameworks', 'Live broker that places trades for you', 'Tip channel with guaranteed picks'], ur: ['Literacy + risk school', 'Live broker jo trade lagaye', 'Guaranteed tips channel'] },
-      correct: 0, explain: { en: 'No live orders, no tips. You study and practice locally.', ur: 'Na live orders, na tips. Local study + practice.' } },
-    { q: { en: 'Completing a track guarantees:', ur: 'Track complete guarantee:' },
-      opts: { en: ['Nothing about income — only literacy progress', 'Weekly cash from markets', 'A licensed broker certificate'], ur: ['Income nahi — sirf literacy', 'Weekly cash', 'Licensed broker certificate'] },
-      correct: 0, explain: { en: 'XP and unlocks measure study, not profit.', ur: 'XP = study, profit nahi.' } },
-    { q: { en: 'Where do balance and win rate belong in this app?', ur: 'Balance aur win rate kahan?' },
-      opts: { en: ['Journal practice desk — not the school Home', 'Always on Home as the main hero', 'Only in Settings'], ur: ['Journal desk — Home pe nahi', 'Hamesha Home hero', 'Sirf Settings'] },
-      correct: 0, explain: { en: 'Home is campus. Desk tools live in Journal when you want practice.', ur: 'Home = campus. Desk = Journal.' } },
+    { q: { en: 'A market is best described as:', ur: 'Market sab se behtar kya hai:' },
+      opts: { en: ['A place where buyers and sellers agree on a price', 'A machine that guarantees profit to patient people', 'A lottery run by brokers'], ur: ['Jagah jahan buyer aur seller price pe agree karte hain', 'Machine jo sabr walon ko profit deti hai', 'Brokers ki lottery'] },
+      correct: 0, explain: { en: 'Every fill needs a counterparty who disagrees with you about value.', ur: 'Har trade ke liye counterparty chahiye jo value pe aap se ikhtilaf rakhe.' } },
+    { q: { en: 'Studying markets guarantees:', ur: 'Market study ki guarantee:' },
+      opts: { en: ['Nothing about income — only better decisions', 'Weekly cash from markets', 'That you will beat the index'], ur: ['Income nahi — sirf behtar faislay', 'Weekly cash', 'Index ko harana'] },
+      correct: 0, explain: { en: 'Education improves process. Markets pay no salary for knowledge.', ur: 'Taleem process behtar karti hai. Market ilm ki tankhwah nahi deti.' } },
+    { q: { en: 'Win rate alone tells you:', ur: 'Sirf win rate kya batata hai:' },
+      opts: { en: ['Little — a 90% win rate can still lose money overall', 'Everything about a strategy', 'Your expected yearly income'], ur: ['Kam — 90% win rate bhi overall paisa kho sakta hai', 'Strategy ka sab kuch', 'Salana income'] },
+      correct: 0, explain: { en: 'One large loss can erase many small wins. Expectancy = win% x avg win - loss% x avg loss.', ur: 'Aik bara nuqsan kai chhoti jeetein mita deta hai. Expectancy ka hisaab poora karo.' } },
     { q: { en: 'Closest honest “earn” framing here is:', ur: 'Yahan imandar “earn”:' },
       opts: { en: ['Investing / spot compounding over years', 'Daily scalping with max leverage', 'Binary options every hour'], ur: ['Investing / spot compounding', 'Max leverage scalp', 'Har ghanta binary'] },
       correct: 0, explain: { en: 'Time + low fees + survival. Not day-trading salary.', ur: 'Time + low fees. Day-trading salary nahi.' } },
@@ -188,7 +188,7 @@ export const FOUNDATIONS_WEEKS = [
 ];
 
 export const FOUNDATIONS_PLACEMENT = [
-  { topic: 1, q: { en: 'This app’s Home tab is meant as a:', ur: 'Home tab matlab:' }, opts: { en: ['School campus', 'Live trading terminal', 'Broker deposit page'], ur: ['School campus', 'Live trading terminal', 'Broker deposit'] }, correct: 0 },
+  { topic: 1, q: { en: 'Before risking money, a beginner should first have:', ur: 'Paise risk karne se pehle beginner ke paas kya ho:' }, opts: { en: ['A written plan and paper-trade record', 'A hot tip from a group', 'A loan for margin'], ur: ['Likha hua plan aur paper-trade record', 'Group ki hot tip', 'Margin ke liye qarz'] }, correct: 0 },
   { topic: 1, q: { en: 'Course completion guarantees income:', ur: 'Course complete income guarantee:' }, opts: { en: ['False', 'True', 'Only on weekends'], ur: ['False', 'True', 'Sirf weekend'] }, correct: 0 },
   { topic: 2, q: { en: 'Sharing a seed phrase with “support” is:', ur: 'Support ko seed dena:' }, opts: { en: ['Never acceptable', 'OK if they have a logo', 'Required by all exchanges'], ur: ['Kabhi nahi', 'Logo ho to OK', 'Har exchange require'] }, correct: 0 },
   { topic: 2, q: { en: 'Guaranteed daily returns are:', ur: 'Guaranteed daily returns:' }, opts: { en: ['A scam red flag', 'Normal investing', 'Required by SECP'], ur: ['Scam red flag', 'Normal investing', 'SECP require'] }, correct: 0 },

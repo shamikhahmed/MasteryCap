@@ -1,5 +1,12 @@
 # Changelog
 
+## v39 (2026-07-12) — clarity pass
+- **Home decluttered:** "Up next" continue card now FIRST (accent border), three stacked honesty note-boxes collapsed to one compact footer line (copy unchanged), seven loose buttons merged into one Shortcuts grid panel.
+- **Quiz content honesty:** removed/reframed 8 app-meta questions ("what is the Home tab", "MasteryCap is primarily a...") — replaced with real market-content questions (counterparty, expectancy vs win rate, paper-trade-first). Course now teaches markets, not the app UI.
+- **Certificate redesign:** 2400x1440, serif display name, double keyline + corner ticks, verify seal with evidence hash. All locked honesty lines kept verbatim (self-issued, NOT SECP/broker/CFA, competence decays).
+- SW masterycap-v39.
+
+
 ## v38 — 2026-07-11 · Full confidence pass
 - Flashcards: real Leitner SRS (`flashSrs`, due-first, 1/3/7/14/30 day boxes)
 - Backup: first-export sheet, 7-day re-nag, reset requires export confirm + type `RESET`
