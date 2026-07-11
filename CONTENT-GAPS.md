@@ -47,6 +47,8 @@ Evaluate + survive. No tips, no market-mastery certificate.
 
 **v23 lock:** Product goal = **zero-to-ready**, never **zero-to-rich**. Get-rich marketing refused. How-to hub = process checklists only.
 
+**v24 depth:** New tracks **Macro**, **Tax Literacy**, **Options Greeks Deep** (17 weeks). Still not full pro books / not legal advice / not crystal ball.
+
 ## v19 content completeness (in-app)
 All **53 weeks** now have: must-memorize · skim · redflag · (formula on math weeks) · cross-track xrefs where useful · compare cards.
 Still does **not** add missing depth tracks (full Greeks book, macro, commodities, PK tax) — those stay v6 candidates / outside reading.

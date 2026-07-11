@@ -20,6 +20,9 @@ const P = {
   invest: '<path d="M12 3v18M12 3l-4 4M12 3l4 4"/><path d="M5 21h14"/><path d="M7 21v-6M12 21v-9M17 21v-4"/>',
   bots: '<rect x="5" y="8" width="14" height="11" rx="2.5"/><path d="M12 8V4.5M12 4.5h.01"/><circle cx="9.5" cy="13" r="1" fill="currentColor" stroke="none"/><circle cx="14.5" cy="13" r="1" fill="currentColor" stroke="none"/><path d="M9.5 16.5h5"/>',
   foundations: '<path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9h4v-5h4v5h4v-9"/><path d="M10 14h4"/>',
+  greeks: '<path d="M4 18V6M4 18h16"/><path d="M7 14l3-4 3 2 4-6"/><circle cx="17" cy="6" r="1.5"/>',
+  tax: '<rect x="6" y="3" width="12" height="18" rx="1.5"/><path d="M9 8h6M9 12h6M9 16h4"/>',
+  macro: '<circle cx="12" cy="12" r="8"/><path d="M12 4v2M12 18v2M4 12h2M18 12h2"/><path d="M8 12c0-2 2-4 4-4s4 2 4 4-2 4-4 4"/>',
 
   /* misc */
   check: '<path d="M5 12.5 10 17.5 19 6.5"/>',
@@ -55,4 +58,4 @@ export function icon(name, { size = 24, cls = '', sw = 1.75 } = {}) {
   return `<svg class="${cls}" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg>`;
 }
 
-export const TRACK_ICON = { foundations: 'foundations', crypto: 'crypto', stocks: 'stocks', invest: 'invest', futures: 'futures', forex: 'forex', spot: 'spot', bots: 'bots', binary: 'binary' };
+export const TRACK_ICON = { foundations: 'foundations', macro: 'macro', tax: 'tax', greeks: 'greeks', crypto: 'crypto', stocks: 'stocks', invest: 'invest', futures: 'futures', forex: 'forex', spot: 'spot', bots: 'bots', binary: 'binary' };

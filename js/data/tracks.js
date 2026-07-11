@@ -12,6 +12,9 @@ import { BINARY_WEEKS, BINARY_PLACEMENT } from './binary.js';
 import { INVEST_WEEKS, INVEST_PLACEMENT } from './invest.js';
 import { BOTS_WEEKS, BOTS_PLACEMENT } from './bots.js';
 import { FOUNDATIONS_WEEKS, FOUNDATIONS_PLACEMENT } from './foundations.js';
+import { GREEKS_WEEKS, GREEKS_PLACEMENT } from './greeks.js';
+import { TAX_WEEKS, TAX_PLACEMENT } from './tax.js';
+import { MACRO_WEEKS, MACRO_PLACEMENT } from './macro.js';
 import { enrichTrack } from './enrich.js';
 
 export const TRACKS = [
@@ -24,12 +27,36 @@ export const TRACKS = [
     placement: FOUNDATIONS_PLACEMENT,
   },
   {
-    id: 'crypto',
-    name: { en: 'Crypto & Perps', ur: 'Crypto & Perps' },
-    blurb: { en: 'Spot, leverage, on-chain, discipline', ur: 'Spot, leverage, on-chain, discipline' },
+    id: 'macro',
+    name: { en: 'Macro Backdrop', ur: 'Macro Backdrop' },
+    blurb: { en: 'Inflation, rates, FX, liquidity — context not crystal ball', ur: 'Inflation, rates, FX, liquidity — context, crystal ball nahi' },
     status: 'live',
-    weeks: CRYPTO_WEEKS,
-    placement: CRYPTO_PLACEMENT,
+    weeks: MACRO_WEEKS,
+    placement: MACRO_PLACEMENT,
+  },
+  {
+    id: 'invest',
+    name: { en: 'Investing: PSX & Beyond', ur: 'Investing: PSX & Beyond' },
+    blurb: { en: 'PSX, US stocks, IPOs, funds', ur: 'PSX, US stocks, IPOs, funds' },
+    status: 'live',
+    weeks: INVEST_WEEKS,
+    placement: INVEST_PLACEMENT,
+  },
+  {
+    id: 'tax',
+    name: { en: 'Tax Literacy', ur: 'Tax Literacy' },
+    blurb: { en: 'PK framing + records — not legal advice', ur: 'PK framing + records — legal advice nahi' },
+    status: 'live',
+    weeks: TAX_WEEKS,
+    placement: TAX_PLACEMENT,
+  },
+  {
+    id: 'spot',
+    name: { en: 'Spot vs Derivatives', ur: 'Spot vs Derivatives' },
+    blurb: { en: 'Ownership vs contracts', ur: 'Ownership vs contracts' },
+    status: 'live',
+    weeks: SPOT_WEEKS,
+    placement: SPOT_PLACEMENT,
   },
   {
     id: 'stocks',
@@ -40,12 +67,20 @@ export const TRACKS = [
     placement: STOCKS_PLACEMENT,
   },
   {
-    id: 'invest',
-    name: { en: 'Investing: PSX & Beyond', ur: 'Investing: PSX & Beyond' },
-    blurb: { en: 'PSX, US stocks, IPOs, funds', ur: 'PSX, US stocks, IPOs, funds' },
+    id: 'greeks',
+    name: { en: 'Options Greeks Deep', ur: 'Options Greeks Deep' },
+    blurb: { en: 'Delta gamma theta vega — defined risk', ur: 'Delta gamma theta vega — defined risk' },
     status: 'live',
-    weeks: INVEST_WEEKS,
-    placement: INVEST_PLACEMENT,
+    weeks: GREEKS_WEEKS,
+    placement: GREEKS_PLACEMENT,
+  },
+  {
+    id: 'crypto',
+    name: { en: 'Crypto & Perps', ur: 'Crypto & Perps' },
+    blurb: { en: 'Spot, leverage, on-chain, discipline', ur: 'Spot, leverage, on-chain, discipline' },
+    status: 'live',
+    weeks: CRYPTO_WEEKS,
+    placement: CRYPTO_PLACEMENT,
   },
   {
     id: 'futures',
@@ -62,14 +97,6 @@ export const TRACKS = [
     status: 'live',
     weeks: FOREX_WEEKS,
     placement: FOREX_PLACEMENT,
-  },
-  {
-    id: 'spot',
-    name: { en: 'Spot vs Derivatives', ur: 'Spot vs Derivatives' },
-    blurb: { en: 'Ownership vs contracts', ur: 'Ownership vs contracts' },
-    status: 'live',
-    weeks: SPOT_WEEKS,
-    placement: SPOT_PLACEMENT,
   },
   {
     id: 'bots',

@@ -1,5 +1,11 @@
 # Changelog
 
+## v24 — 2026-07-11 · Greeks + Tax + Macro depth tracks
+- New tracks: **Options Greeks Deep** (6), **Tax Literacy** (5), **Macro Backdrop** (6)
+- Beginner path: Foundations → Macro → Invest → Tax → Spot → Stocks → Greeks → …
+- Still zero-to-ready / compound honesty — no get-rich marketing
+- SW **v24**
+
 ## v23 — 2026-07-11 · How-to hub + refuse get-rich goal
 - **Product lock:** zero-to-ready, not zero-to-rich. Honest wealth = Investing→Spot compound
 - How-to hub: PSX account, crypto venue, orders, first invest buy, self-custody, honest wealth path

@@ -5,15 +5,18 @@
 
 /** Recommended order for a true beginner (school → compound → trade). */
 export const BEGINNER_PATH = [
-  { id: 'foundations', why: { en: 'Zero to ready: what school is, scams, open account, orders, paper workflow.', ur: 'Zero to ready: school, scams, account, orders, paper.' } },
-  { id: 'invest', why: { en: 'Closest thing to “earn”: time + low fees + boring compounding. Not day-trading income.', ur: '“Earn” ke qareeb: time + low fees + boring compounding. Day-trading income nahi.' } },
+  { id: 'foundations', why: { en: 'Zero to ready: school, scams, account, orders, paper.', ur: 'Zero to ready: school, scams, account, orders, paper.' } },
+  { id: 'macro', why: { en: 'Backdrop for risk appetite — not crystal-ball tips.', ur: 'Risk appetite backdrop — crystal ball nahi.' } },
+  { id: 'invest', why: { en: 'Closest honest wealth path: time + low fees + compounding.', ur: 'Imandar wealth: time + low fees + compounding.' } },
+  { id: 'tax', why: { en: 'Records + PK framing — not legal advice; hire when unsure.', ur: 'Records + PK framing — legal advice nahi.' } },
   { id: 'spot', why: { en: 'Own assets without liquidation math. Survival first.', ur: 'Liquidation ke bina own. Pehle survival.' } },
-  { id: 'crypto', why: { en: 'Only after sizing + stops click. Perps are optional, not required.', ur: 'Sizing + stops ke baad. Perps zaroori nahi.' } },
   { id: 'stocks', why: { en: 'Cash equities first; options only with defined risk.', ur: 'Pehle cash equities; options sirf defined risk.' } },
-  { id: 'forex', why: { en: 'After you can size in sleep. Sessions + correlation matter.', ur: 'Sizing automatic ho. Sessions + correlation.' } },
+  { id: 'greeks', why: { en: 'After Stocks options intro — delta/gamma/theta/vega depth.', ur: 'Stocks options ke baad — greeks depth.' } },
+  { id: 'crypto', why: { en: 'Only after sizing + stops click. Perps optional.', ur: 'Sizing + stops ke baad. Perps optional.' } },
+  { id: 'forex', why: { en: 'After you can size in sleep. Sessions + correlation.', ur: 'Sizing automatic. Sessions + correlation.' } },
   { id: 'futures', why: { en: 'Obligation + tick math. Micros only until boring.', ur: 'Obligation + tick math. Pehle micros.' } },
-  { id: 'bots', why: { en: 'Automate discipline last — never buy a “profit bot.”', ur: 'Discipline automate last — profit bot mat kharido.' } },
-  { id: 'binary', why: { en: 'Harm-reduction only. Not an earn path. Skip if you want compounding.', ur: 'Sirf harm-reduction. Earn path nahi. Compounding chahiye to skip.' } },
+  { id: 'bots', why: { en: 'Automate discipline last — never buy a profit bot.', ur: 'Discipline last — profit bot mat kharido.' } },
+  { id: 'binary', why: { en: 'Harm-reduction only. Not an earn path.', ur: 'Sirf harm-reduction. Earn path nahi.' } },
 ];
 
 /**
@@ -47,6 +50,78 @@ export const TRACK_GRADUATION = {
     sizeRule: {
       en: 'Paper or amount you can lose without changing rent/food. Risk ≤1% per idea.',
       ur: 'Paper ya itna jo rent/food na badle. Risk ≤1%/idea.',
+    },
+  },
+  macro: {
+    tone: 'school',
+    title: { en: 'After Macro — context without crystal ball', ur: 'Macro ke baad — bina crystal ball context' },
+    promise: {
+      en: 'You can write a monthly regime note. Macro does not pay a salary. Next: Investing.',
+      ur: 'Monthly regime note likh sakte. Macro salary nahi. Agla: Investing.',
+    },
+    steps: {
+      en: [
+        'Write one regime note this month (inflation, rates humility, FX, risk-on/off)',
+        'Set a max gross risk % and do not change it off every headline',
+        'Continue Investing DCA — do not turn CPI into 20x',
+      ],
+      ur: [
+        'Is mahine ek regime note',
+        'Max gross risk % — har headline pe mat badlo',
+        'Investing DCA jari — CPI pe 20x nahi',
+      ],
+    },
+    sizeRule: {
+      en: 'Macro changes size and patience — not an excuse for max leverage.',
+      ur: 'Macro = size/patience — max leverage excuse nahi.',
+    },
+  },
+  tax: {
+    tone: 'school',
+    title: { en: 'After Tax Literacy — records ready', ur: 'Tax Literacy ke baad — records ready' },
+    promise: {
+      en: 'You know what to keep and when to hire help. Not a filing service. Not legal advice.',
+      ur: 'Kya rakhna / kab help — jaante. Filing service nahi. Legal advice nahi.',
+    },
+    steps: {
+      en: [
+        'Export Journal CSV + save latest broker statement',
+        'Locate tax certificate / gain-loss report from broker',
+        'If first real year or large gains — book a practitioner',
+      ],
+      ur: [
+        'Journal CSV + broker statement save',
+        'Broker tax certificate dhundo',
+        'Pehla saal / bari gains — practitioner book',
+      ],
+    },
+    sizeRule: {
+      en: 'Budget for advice beats penalties. Never buy “tax-free profit” schemes.',
+      ur: 'Advice budget > penalties. Tax-free profit schemes mat kharido.',
+    },
+  },
+  greeks: {
+    tone: 'trade',
+    title: { en: 'After Greeks Deep — defined-risk only', ur: 'Greeks Deep ke baad — sirf defined-risk' },
+    promise: {
+      en: 'You can name delta/gamma/theta/vega risks. Income not promised. Naked short premium refused for beginners.',
+      ur: 'Delta/gamma/theta/vega risks naam. Income nahi. Beginner naked short refuse.',
+    },
+    steps: {
+      en: [
+        '20 paper defined-risk sessions logged',
+        'Never sell naked calls; max loss ≤1% per structure',
+        'Return to Investing/Spot for compounding capital',
+      ],
+      ur: [
+        '20 paper defined-risk sessions',
+        'Naked calls nahi; max loss ≤1%/structure',
+        'Compounding ke liye Investing/Spot',
+      ],
+    },
+    sizeRule: {
+      en: 'Structure max loss ≤1% account. No 0DTE paycheck gambling.',
+      ur: 'Max loss ≤1% account. 0DTE paycheck gambling nahi.',
     },
   },
   invest: {

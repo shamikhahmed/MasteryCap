@@ -1,7 +1,7 @@
 # MasteryCap — Guide
 
 Personal bilingual (EN / Roman Urdu) trading-education PWA. Offline-first, no accounts.
-Current app version: **v23** (see `VERSION`, `CHANGELOG.md`, `sw.js` → `masterycap-v23`).
+Current app version: **v24** (see `VERSION`, `CHANGELOG.md`, `sw.js` → `masterycap-v24`).
 
 ## First run
 1. Open via static server or GitHub Pages.
@@ -12,7 +12,7 @@ Current app version: **v23** (see `VERSION`, `CHANGELOG.md`, `sw.js` → `master
 | Tab | What |
 |-----|------|
 | Home | School campus: next lesson, beginner path, XP/streak/weeks, drills CTAs |
-| Learn | 9 tracks (Foundations first) · lessons · quizzes · placement · XP |
+| Learn | 12 tracks (Foundations → … → Binary) · lessons · quizzes · placement · XP |
 | Journal | Practice desk: balance, equity, win rate, checklist, sizing, trade log |
 | Progress | Equity · win-rate · emotions · insights · discipline · weeks · drills |
 
