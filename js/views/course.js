@@ -21,6 +21,7 @@ import {
 import { openSearch } from '../search.js';
 import { GLOSSARY } from '../data/glossary.js';
 import { openHowto } from '../howto.js';
+import { gradStatus, markGraduated, isGraduated } from '../graduation.js';
 
 let S = {
   track: 'foundations', view: 'home', activeWeek: null,
@@ -216,6 +217,33 @@ function drawHome() {
       lang,
     });
   });
+  document.getElementById('doGraduate')?.addEventListener('click', () => {
+    const st = gradStatus(track.id, App);
+    if (!st.ready || isGraduated(track.id)) return;
+    markGraduated(track.id, st.evidence);
+    const prog = App.getCourse(track.id);
+    prog.xp = (prog.xp || 0) + 200;
+    App.setCourse(track.id, prog);
+    App.haptic(14);
+    downloadCertificate({
+      name: App.profile?.name || 'Trader',
+      trackName: track.name[lang],
+      dateIso: new Date().toISOString(),
+      lang,
+      evidence: st.evidence,
+    });
+    draw();
+  });
+  document.getElementById('gradCert')?.addEventListener('click', () => {
+    const st = gradStatus(track.id, App);
+    downloadCertificate({
+      name: App.profile?.name || 'Trader',
+      trackName: track.name[lang],
+      dateIso: st.evidence.gradAt || new Date().toISOString(),
+      lang,
+      evidence: st.evidence,
+    });
+  });
   const sp = document.getElementById('startPlacement');
   if (sp) sp.addEventListener('click', () => {
     S.view = 'placement'; S.placementAnswers = {}; S.placementMsg = null; S.dirty = true;
@@ -243,20 +271,68 @@ function beginnerPathPanel(App, currentId) {
   </div>`;
 }
 
+function missLabel(App, code, evidence) {
+  const sim = evidence?.sim || {};
+  const map = {
+    exam: App.t('grad_miss_exam'),
+    binary_gate: App.t('grad_miss_gate'),
+    sim_trades_20: App.t('grad_miss_sim').replace('{n}', String(sim.tradeCount || 0)).replace('{m}', '20'),
+    sim_pass_rate_80: App.t('grad_miss_rate').replace('{n}', String(Math.round((sim.processPassRate || 0) * 100))),
+    sim_no_liq: App.t('grad_miss_liq'),
+    sim_requires_s4: App.t('grad_miss_s4'),
+    portfolio_coming: App.t('grad_miss_portfolio'),
+  };
+  return map[code] || code;
+}
+
+function metLabel(App, code, evidence) {
+  const sim = evidence?.sim || {};
+  const map = {
+    exam: App.t('grad_met_exam'),
+    binary_gate: App.t('grad_met_gate'),
+    sim_trades_20: App.t('grad_met_sim').replace('{n}', String(sim.tradeCount || 0)).replace('{m}', '20'),
+    sim_pass_rate_80: App.t('grad_met_rate').replace('{n}', String(Math.round((sim.processPassRate || 0) * 100))),
+    sim_no_liq: App.t('grad_met_liq'),
+  };
+  return map[code] || code;
+}
+
 function graduationPanel(App, trackId, done, total, examPassed) {
   const g = graduationFor(trackId);
   if (!g) return '';
   const lang = App.lang;
-  const ready = done >= total;
+  const weeksReady = done >= total;
+  const st = gradStatus(trackId, App);
+  const graduated = isGraduated(trackId);
   const tone = g.tone === 'compound' ? 'acc' : g.tone === 'avoid' ? 'warn' : '';
   const steps = (g.steps[lang] || g.steps.en).map((s) => `<li style="margin-bottom:6px">${s}</li>`).join('');
+  const metHtml = st.met.map((c) => `<div class="check-row on" style="border:1px solid var(--line);border-radius:var(--r2);margin-bottom:6px;pointer-events:none">
+    <span class="check-box">${icon('checkThin', { size: 13, sw: 2.6 })}</span>
+    <span class="check-t">${metLabel(App, c, st.evidence)}</span>
+  </div>`).join('');
+  const missHtml = st.missing.map((c) => `<div class="check-row" style="border:1px solid var(--line);border-radius:var(--r2);margin-bottom:6px;pointer-events:none">
+    <span class="check-box"></span>
+    <span class="check-t" style="color:var(--t3)">${missLabel(App, c, st.evidence)}</span>
+  </div>`).join('');
+
   return `<div class="panel pad mt14">
-    <div class="slabel">${g.title[lang] || g.title.en}</div>
+    <div class="slabel">${App.t('grad_panel_title')}</div>
     <p style="font-size:13.5px;color:var(--t2);line-height:1.55;margin:8px 0 12px">${g.promise[lang] || g.promise.en}</p>
-    ${!ready ? `<div class="note-box" style="margin-bottom:12px">${App.t('path_finish_weeks').replace('{n}', String(total - done))}</div>` : ''}
-    ${ready && !examPassed ? `<div class="note-box" style="margin-bottom:12px">${App.t('path_take_exam')}</div>` : ''}
-    <ol style="margin:0;padding-left:18px;font-size:13.5px;color:var(--t1);line-height:1.45">${steps}</ol>
-    <div class="note-box ${tone === 'warn' ? 'warn' : ''} mt14"><strong>${App.t('path_size_rule')}</strong> — ${g.sizeRule[lang] || g.sizeRule.en}</div>
+    ${!weeksReady ? `<div class="note-box" style="margin-bottom:12px">${App.t('path_finish_weeks').replace('{n}', String(total - done))}</div>` : ''}
+    ${weeksReady && !examPassed ? `<div class="note-box" style="margin-bottom:12px">${App.t('path_take_exam')}</div>` : ''}
+    <div class="slabel" style="margin-bottom:8px">${App.t('grad_requirements')}</div>
+    ${metHtml}${missHtml}
+    ${graduated
+      ? `<div class="pill mono mt14">${App.t('grad_done')}: ${String(st.evidence.gradAt).slice(0, 10)}</div>
+         <button class="btn secondary mt10" id="gradCert">${App.t('exam_cert')}</button>`
+      : st.ready
+        ? `<button class="btn accent mt14" id="doGraduate">${App.t('grad_cta')}</button>`
+        : ''}
+    <details style="margin-top:14px">
+      <summary style="font-size:12px;color:var(--t3);cursor:pointer;text-transform:uppercase;letter-spacing:0.06em">${App.t('grad_howto')}</summary>
+      <ol style="margin:10px 0 0;padding-left:18px;font-size:13.5px;color:var(--t1);line-height:1.45">${steps}</ol>
+      <div class="note-box ${tone === 'warn' ? 'warn' : ''} mt14"><strong>${App.t('path_size_rule')}</strong> — ${g.sizeRule[lang] || g.sizeRule.en}</div>
+    </details>
   </div>`;
 }
 
