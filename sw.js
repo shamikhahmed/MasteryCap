@@ -52,6 +52,7 @@ const ASSETS = [
   './js/views/sim.js',
   './js/sim/engine.js',
   './js/sim/scenarios.js',
+  './js/graduation.js',
   './fonts/geist-400.woff2',
   './fonts/geist-500.woff2',
   './fonts/geist-600.woff2',

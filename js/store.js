@@ -288,6 +288,7 @@ export const KEYS = {
   howtoChecks: 'howtoChecks',
   simTrades: 'simTrades',
   simStats: 'simStats',
+  graduation: 'graduation',
 };
 
 export { djb2, QUOTA_WARN };
