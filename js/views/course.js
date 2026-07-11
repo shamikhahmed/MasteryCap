@@ -24,6 +24,7 @@ import { openHowto } from '../howto.js';
 import { gradStatus, markGraduated, isGraduated } from '../graduation.js';
 import { skillsForWeek, markSkillMastered, challengeOffer, CHALLENGE, scoreChallenge, SKILLS } from '../skills.js';
 import { startTime, pauseTime, softSessionNudge } from '../time.js';
+import { markToday } from '../today.js';
 
 let S = {
   track: 'foundations', view: 'home', activeWeek: null,
@@ -629,6 +630,7 @@ function submitQuiz() {
   }
   App.setCourse(track.id, prog);
   App.bumpStreak();
+  if (sc.passed) markToday('lesson');
   S.dirty = false;
   draw();
 }

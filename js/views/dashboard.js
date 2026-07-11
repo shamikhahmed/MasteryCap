@@ -12,6 +12,7 @@ import { store, KEYS } from '../store.js';
 import { openHowto } from '../howto.js';
 import { isGraduated } from '../graduation.js';
 import { SIM_SCENARIOS } from '../sim/scenarios.js';
+import { todayProgress } from '../today.js';
 
 function ladderStages(App, trackId) {
   const track = getTrack(trackId);
@@ -115,7 +116,7 @@ export function renderDashboard(App, c) {
       <div class="head-row">
         <div>
           <div class="kicker">${greeting(App)}${store.getNs().startsWith('masterycap-demo') ? ` · <span class="pill acc">${App.t('demo_pill')}</span>` : ''}</div>
-          <h1>${App.profile?.name || (lang === 'en' ? 'Student' : 'Student')}</h1>
+          <h1>${App.profile?.name || (lang === 'en' ? 'Student' : 'Shagird')}</h1>
         </div>
         <div class="hstack">
           ${streak.current ? `<span class="pill mono acc">${icon('flame', { size: 13 })} ${streak.current}</span>` : ''}
@@ -158,6 +159,37 @@ export function renderDashboard(App, c) {
     <div class="note-box" style="margin-bottom:14px">${App.t('campus_blurb')}</div>
     <div class="note-box warn" style="margin-bottom:14px">${App.t('campus_no_rich')}</div>
 
+    ${(() => {
+      const th = todayProgress();
+      const chk = (ok) => ok
+        ? `<span class="check-box" style="background:var(--acc);border-color:var(--acc);color:#000">${icon('check', { size: 12 })}</span>`
+        : `<span class="check-box"></span>`;
+      const lessonSub = next
+        ? (next.kind === 'placement'
+          ? `${lang === 'en' ? 'Placement' : 'Placement'}: ${next.title[lang]}`
+          : `${(next.trackName || getTrack(next.trackId).name)[lang]} · ${App.t('week')} ${next.weekId}`)
+        : (lang === 'en' ? 'Pick any course' : 'Koi course chuno');
+      return `<div class="panel pad" style="margin-bottom:14px" id="todayPath">
+        <div class="hstack" style="justify-content:space-between;align-items:baseline">
+          <div class="slabel">${App.t('campus_today')}</div>
+          <span class="pill mono">${App.t('today_progress').replace('{n}', String(th.done)).replace('{m}', String(th.total))}</span>
+        </div>
+        ${th.complete ? `<div class="note-box" style="margin-top:10px">${App.t('today_done')}</div>` : ''}
+        <button type="button" class="check-row" id="todayLesson" style="width:100%;text-align:left;background:none;border:0;color:inherit;cursor:pointer;margin-top:8px">
+          ${chk(th.lesson)}
+          <span class="check-t"><strong>${App.t('today_lesson')}</strong><br/><span style="color:var(--t3);font-size:12px">${lessonSub}</span></span>
+        </button>
+        <button type="button" class="check-row" id="todayLab" style="width:100%;text-align:left;background:none;border:0;color:inherit;cursor:pointer">
+          ${chk(th.lab)}
+          <span class="check-t"><strong>${App.t('today_lab')}</strong><br/><span style="color:var(--t3);font-size:12px">${App.t('sim_cta')}</span></span>
+        </button>
+        <button type="button" class="check-row" id="todayReview" style="width:100%;text-align:left;background:none;border:0;color:inherit;cursor:pointer">
+          ${chk(th.review)}
+          <span class="check-t"><strong>${App.t('today_review')}</strong><br/><span style="color:var(--t3);font-size:12px">${due ? `${due} due` : (lang === 'en' ? 'Keep streak' : 'Streak rakho')}</span></span>
+        </button>
+      </div>`;
+    })()}
+
     <div class="panel pad" style="margin-bottom:14px">
       <div class="slabel">${App.t('campus_next')}</div>
       <div style="font-size:16px;font-weight:600;letter-spacing:-0.02em;margin-top:8px;line-height:1.35">${nextLabel}</div>
@@ -169,7 +201,7 @@ export function renderDashboard(App, c) {
       <div class="stat-cell">
         <div class="sc-l">${App.t('stat_xp')}</div>
         <div class="sc-v" style="color:var(--warn)">${xp}</div>
-        <div class="sc-s">${lang === 'en' ? 'study' : 'study'}</div>
+        <div class="sc-s">${lang === 'en' ? 'study' : 'parhai'}</div>
       </div>
       <div class="stat-cell">
         <div class="sc-l">${App.t('stat_streak')}</div>
@@ -184,7 +216,7 @@ export function renderDashboard(App, c) {
       <div class="stat-cell">
         <div class="sc-l">${App.t('stat_review')}</div>
         <div class="sc-v">${due}</div>
-        <div class="sc-s">${lang === 'en' ? 'due' : 'due'}</div>
+        <div class="sc-s">${lang === 'en' ? 'due' : 'baqi'}</div>
       </div>
     </div>
 
@@ -241,6 +273,13 @@ export function renderDashboard(App, c) {
   };
   document.getElementById('goContinue')?.addEventListener('click', openNext);
   document.getElementById('goHowto')?.addEventListener('click', () => { App.haptic(); openHowto(App); });
+  document.getElementById('todayLesson')?.addEventListener('click', openNext);
+  document.getElementById('todayLab')?.addEventListener('click', () => { App.haptic(); App.openSim(); });
+  document.getElementById('todayReview')?.addEventListener('click', () => {
+    App.haptic();
+    if (reviewAvailable()) App.openReview();
+    else App.openDrills();
+  });
   document.getElementById('goLearn')?.addEventListener('click', () => App.navigate('learn'));
   document.getElementById('goDrills')?.addEventListener('click', () => App.openDrills());
   document.getElementById('goCharts')?.addEventListener('click', () => App.openCharts());

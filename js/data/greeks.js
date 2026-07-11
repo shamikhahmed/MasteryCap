@@ -217,7 +217,7 @@ export const GREEKS_WEEKS = [
     "id": 3,
     "title": {
       "en": "Theta: Time Decay",
-      "ur": "Theta: Time Decay"
+      "ur": "Theta: time decay (waqt)"
     },
     "body": {
       "en": "<p><strong>Theta</strong> is the estimated daily decay of extrinsic value if nothing else changes. Long options pay theta; short options collect it — and take gamma, jump, and IV risk.</p>\n<p>Theta accelerates into expiry for ATM options. Longer-dated options decay slower per day than short-dated lottery tickets.</p>\n<p>{{compare:call-vs-put}}</p>",
@@ -427,7 +427,7 @@ export const GREEKS_WEEKS = [
     "id": 5,
     "title": {
       "en": "Defined-Risk Structures",
-      "ur": "Defined-Risk Structures"
+      "ur": "Defined-risk structures"
     },
     "body": {
       "en": "<p>Prefer <strong>defined-risk</strong> structures. Vertical spreads cap max loss and max gain. Multi-leg complexity only after you can explain each leg's greek in one sentence.</p>\n<p>American options can be exercised early (dividends matter for calls). Know your broker's exercise cutoff.</p>\n<p>{{fig:vertical-spread}}</p>\n<p>{{redflag:Naked short calls = theoretically unlimited risk. Not a beginner structure.}}</p>",

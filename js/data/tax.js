@@ -7,7 +7,7 @@ export const TAX_WEEKS = [
     "id": 1,
     "title": {
       "en": "Tax Literacy Mindset",
-      "ur": "Tax Literacy Mindset"
+      "ur": "Tax samajhne ka mindset"
     },
     "body": {
       "en": "<p>This track is <strong>literacy</strong>, not legal advice, not a filing service. Rules change. When money is real, use a qualified advisor in your jurisdiction.</p>\n<p>Goal: know what to record, what to ask, which myths to reject.</p>\n<p>{{redflag:Anyone selling “guaranteed tax-free profits” is a red flag.}}</p>",

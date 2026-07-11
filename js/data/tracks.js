@@ -21,15 +21,15 @@ import { enrichTrack } from './enrich.js';
 export const TRACKS = [
   {
     id: 'foundations',
-    name: { en: 'Foundations', ur: 'Foundations' },
-    blurb: { en: 'Zero to ready: school, scams, account, orders, paper', ur: 'Zero to ready: school, scams, account, orders, paper' },
+    name: { en: 'Foundations', ur: 'Bunyad' },
+    blurb: { en: 'Zero to ready: school, scams, account, orders, paper', ur: 'Zero se ready: school, scams, account, orders, paper' },
     status: 'live',
     weeks: FOUNDATIONS_WEEKS,
     placement: FOUNDATIONS_PLACEMENT,
   },
   {
     id: 'macro',
-    name: { en: 'Macro Backdrop', ur: 'Macro Backdrop' },
+    name: { en: 'Macro Backdrop', ur: 'Macro Background' },
     blurb: { en: 'Inflation, rates, FX, liquidity — context not crystal ball', ur: 'Inflation, rates, FX, liquidity — context, crystal ball nahi' },
     status: 'live',
     weeks: MACRO_WEEKS,
@@ -37,7 +37,7 @@ export const TRACKS = [
   },
   {
     id: 'invest',
-    name: { en: 'Investing: PSX & Beyond', ur: 'Investing: PSX & Beyond' },
+    name: { en: 'Investing: PSX & Beyond', ur: 'Investing: PSX aur aagay' },
     blurb: { en: 'PSX, US stocks, IPOs, funds', ur: 'PSX, US stocks, IPOs, funds' },
     status: 'live',
     weeks: INVEST_WEEKS,
@@ -45,7 +45,7 @@ export const TRACKS = [
   },
   {
     id: 'tax',
-    name: { en: 'Tax Literacy', ur: 'Tax Literacy' },
+    name: { en: 'Tax Literacy', ur: 'Tax samajh' },
     blurb: { en: 'PK framing + records — not legal advice', ur: 'PK framing + records — legal advice nahi' },
     status: 'live',
     weeks: TAX_WEEKS,
@@ -54,15 +54,15 @@ export const TRACKS = [
   {
     id: 'spot',
     name: { en: 'Spot vs Derivatives', ur: 'Spot vs Derivatives' },
-    blurb: { en: 'Ownership vs contracts', ur: 'Ownership vs contracts' },
+    blurb: { en: 'Ownership vs contracts', ur: 'Ownership vs contracts — farq' },
     status: 'live',
     weeks: SPOT_WEEKS,
     placement: SPOT_PLACEMENT,
   },
   {
     id: 'stocks',
-    name: { en: 'Stocks', ur: 'Stocks' },
-    blurb: { en: 'Equities: sessions, earnings, structure', ur: 'Equities: sessions, earnings, structure' },
+    name: { en: 'Stocks', ur: 'Stocks (shares)' },
+    blurb: { en: 'Equities: sessions, earnings, structure', ur: 'Shares: sessions, earnings, structure' },
     status: 'live',
     weeks: EQUITY_WEEKS.length ? EQUITY_WEEKS : STOCKS_WEEKS.filter((w) => w.id <= 3),
     placement: EQUITY_PLACEMENT.length ? EQUITY_PLACEMENT : STOCKS_PLACEMENT,
@@ -70,14 +70,14 @@ export const TRACKS = [
   {
     id: 'options',
     name: { en: 'Options', ur: 'Options' },
-    blurb: { en: 'Calls, puts, premium, basic strategies', ur: 'Calls, puts, premium, basic strategies' },
+    blurb: { en: 'Calls, puts, premium, basic strategies', ur: 'Calls, puts, premium, bunyadi strategies' },
     status: 'live',
     weeks: OPTIONS_WEEKS,
     placement: OPTIONS_PLACEMENT,
   },
   {
     id: 'greeks',
-    name: { en: 'Options Greeks Deep', ur: 'Options Greeks Deep' },
+    name: { en: 'Options Greeks Deep', ur: 'Options Greeks (gehra)' },
     blurb: { en: 'Delta gamma theta vega — defined risk', ur: 'Delta gamma theta vega — defined risk' },
     status: 'live',
     weeks: GREEKS_WEEKS,
@@ -85,7 +85,7 @@ export const TRACKS = [
   },
   {
     id: 'crypto',
-    name: { en: 'Crypto & Perps', ur: 'Crypto & Perps' },
+    name: { en: 'Crypto & Perps', ur: 'Crypto aur Perps' },
     blurb: { en: 'Spot, leverage, on-chain, discipline', ur: 'Spot, leverage, on-chain, discipline' },
     status: 'live',
     weeks: CRYPTO_WEEKS,
@@ -94,14 +94,14 @@ export const TRACKS = [
   {
     id: 'futures',
     name: { en: 'Futures', ur: 'Futures' },
-    blurb: { en: 'Contracts, margin, leverage', ur: 'Contracts, margin, leverage' },
+    blurb: { en: 'Contracts, margin, leverage', ur: 'Contracts, margin, leverage — samajh' },
     status: 'live',
     weeks: FUTURES_WEEKS,
     placement: FUTURES_PLACEMENT,
   },
   {
     id: 'forex',
-    name: { en: 'Forex', ur: 'Forex' },
+    name: { en: 'Forex', ur: 'Forex (FX)' },
     blurb: { en: 'Pairs, pips, sessions', ur: 'Pairs, pips, sessions' },
     status: 'live',
     weeks: FOREX_WEEKS,
@@ -109,8 +109,8 @@ export const TRACKS = [
   },
   {
     id: 'bots',
-    name: { en: 'Bots & Copy Trading', ur: 'Bots & Copy Trading' },
-    blurb: { en: 'Automation, signals, scam defense', ur: 'Automation, signals, scam defense' },
+    name: { en: 'Bots & Copy Trading', ur: 'Bots aur Copy Trading' },
+    blurb: { en: 'Automation, signals, scam defense', ur: 'Automation, signals, scam se bachao' },
     status: 'live',
     elective: true,
     warning: true,
@@ -119,7 +119,7 @@ export const TRACKS = [
   },
   {
     id: 'binary',
-    name: { en: 'Binary Options', ur: 'Binary Options' },
+    name: { en: 'Binary Options', ur: 'Binary Options (elective)' },
     blurb: { en: 'High-risk — know the traps first', ur: 'High-risk — pehle traps samjho' },
     status: 'live',
     elective: true,

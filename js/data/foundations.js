@@ -92,7 +92,7 @@ export const FOUNDATIONS_WEEKS = [
 },
 {
   id: 4,
-  title: { en: 'Orders: Market, Limit, Stop', ur: 'Orders: Market, Limit, Stop' },
+  title: { en: 'Orders: Market, Limit, Stop', ur: 'Orders: Market, Limit, Stop — farq' },
   body: {
     en: `<p>Every quote has a <strong>bid</strong> (buyers) and <strong>ask</strong> (sellers). The spread is a cost you pay when you cross it.</p>
 <p><strong>Market order:</strong> fill now at whatever is available — fast, can slip. <strong>Limit order:</strong> fill only at your price or better — patient, may not fill. <strong>Stop / stop-limit:</strong> becomes active after a trigger — used for exits and breakout entries; understand your venue’s exact rules.</p>

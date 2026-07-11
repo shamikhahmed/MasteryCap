@@ -1,5 +1,12 @@
 # Changelog
 
+## v33 — 2026-07-11 · Campus Today + Urdu shell + smoke harden
+- **Campus Today:** lesson · lab · review checklist on Campus (`KEYS.todayHabit`)
+- **Roman Urdu:** nav Seekho/Hasil, shell labels, track names/blurbs, remaining week-title bleed
+- **Smoke / FINAL:** tab nav via `data-tab` (label-rename safe); tourSkip dismiss
+- Cert honesty unchanged: self-issued local PNG, not a license
+- SW **v33**
+
 ## v32 — 2026-07-11 · School shell + UX spoilers fixed
 - Tabs: **Campus · Courses · Desk · Transcript**; Journal **Manual** (was Live)
 - Certs split: **COURSE COMPLETE** vs **TRADE-READY** (evidence hash); exam no longer says TRADE-READY

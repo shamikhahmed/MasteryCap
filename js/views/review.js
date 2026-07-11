@@ -6,6 +6,7 @@ import { icon } from '../icons.js';
 import {
   pickDailyReview, answerReview, completeReviewXp, touchStreak,
 } from '../retention.js';
+import { markToday } from '../today.js';
 
 const KEYS = ['A', 'B', 'C', 'D'];
 let S = { items: null, idx: 0, answers: {}, order: null, done: false, xp: 0 };
@@ -104,6 +105,7 @@ function draw() {
   document.getElementById('rvNext')?.addEventListener('click', () => {
     if (S.idx + 1 >= S.items.length) {
       S.xp = completeReviewXp();
+      markToday('review');
       S.done = true;
     } else S.idx++;
     App.haptic(); draw();

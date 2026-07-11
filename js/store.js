@@ -293,6 +293,7 @@ export const KEYS = {
   skills: 'skills',
   teacher: 'teacher',
   appearance: 'appearance',
+  todayHabit: 'todayHabit',
 };
 
 export { djb2, QUOTA_WARN };

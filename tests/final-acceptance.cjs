@@ -43,6 +43,7 @@ function startServer() {
 }
 
 async function dismissNoise(page) {
+  await page.locator('#tourSkip').click({ timeout: 600 }).catch(() => {});
   for (let i = 0; i < 4; i++) {
     const next = page.locator('#tourNext');
     if (!(await next.count())) break;
@@ -75,8 +76,14 @@ async function onboard(page) {
 }
 
 async function goHome(page) {
-  await page.locator('#tabbar button').filter({ hasText: /Campus|Home/i }).click();
+  await page.locator('#tabbar button[data-tab="dashboard"]').click();
   await page.waitForTimeout(150);
+  await dismissNoise(page);
+}
+
+async function goTab(page, id) {
+  await page.locator(`#tabbar button[data-tab="${id}"]`).click();
+  await page.waitForTimeout(120);
   await dismissNoise(page);
 }
 
@@ -179,9 +186,8 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
 
     /* Warm tabs (cache modules in memory) */
     await goHome(page);
-    for (const tab of [/Learn|Seekho/i, /Journal/i, /Progress/i]) {
-      await page.locator('#tabbar button').filter({ hasText: tab }).click();
-      await page.waitForTimeout(120);
+    for (const tab of ['learn', 'journal', 'progress']) {
+      await goTab(page, tab);
     }
     await goHome(page);
     log('OK warm tabs');
@@ -197,14 +203,14 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
     /* Offline shell nav — Playwright offline blocks local static ESM; only tab switch */
     await context.setOffline(true);
     await goHome(page);
-    await page.locator('#tabbar button').filter({ hasText: /Courses|Learn|Seekho/i }).click();
+    await goTab(page, 'learn');
     await page.waitForTimeout(200);
     if (!(await page.locator('[data-track]').count())) fail('offline Learn tracks missing');
     log('OK offline shell nav');
     await context.setOffline(false);
 
     /* Foundations quiz */
-    await page.locator('#tabbar button').filter({ hasText: /Courses|Learn|Seekho/i }).click();
+    await goTab(page, 'learn');
     await page.waitForTimeout(150);
     await page.locator('[data-track="foundations"]').click();
     await page.waitForTimeout(300);
@@ -214,7 +220,7 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
     log('OK Foundations quiz');
 
     /* Crypto quiz */
-    await page.locator('#tabbar button').filter({ hasText: /Courses|Learn|Seekho/i }).click();
+    await goTab(page, 'learn');
     await page.waitForTimeout(150);
     await page.locator('[data-track="crypto"]').click();
     await page.waitForTimeout(250);
@@ -250,7 +256,7 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
     log('OK partial close');
 
     /* Paper journal */
-    await page.locator('#tabbar button').filter({ hasText: /Desk|Journal/i }).click();
+    await goTab(page, 'journal');
     await page.waitForTimeout(200);
     await page.locator('[data-hist="paper"]').click();
     await page.waitForTimeout(150);
@@ -260,7 +266,7 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
     log('OK Paper tab n=' + simN);
 
     /* Graduation panel */
-    await page.locator('#tabbar button').filter({ hasText: /Courses|Learn|Seekho/i }).click();
+    await goTab(page, 'learn');
     await page.waitForTimeout(150);
     await page.locator('[data-track="crypto"]').click();
     await page.waitForTimeout(250);
@@ -290,14 +296,14 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
       const src = await (await fetch(new URL('./js/exam.js', location.href))).text();
       return {
         hasReady: src.includes('TRADE-READY'),
-        hasHonesty: /Markets decide outcomes|Outcomes markets decide/i.test(src),
+        hasHonesty: /Self-issued|not a broker\/regulatory license|markets still decide outcomes|markets outcomes decide/i.test(src),
       };
     });
     if (!cert.hasReady || !cert.hasHonesty) fail('cert honesty line missing');
     await page.reload({ waitUntil: 'networkidle' });
     await page.waitForTimeout(500);
     await dismissNoise(page);
-    await page.locator('#tabbar button').filter({ hasText: /Courses|Learn|Seekho/i }).click();
+    await goTab(page, 'learn');
     await page.locator('[data-track="crypto"]').click();
     await page.waitForTimeout(300);
     if (await page.locator('#doGraduate').count()) {

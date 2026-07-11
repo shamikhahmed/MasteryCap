@@ -11,6 +11,7 @@ import { SIM_SCENARIOS, getScenario, SIM_TRACK_ORDER, SIM_TRACK_LABEL, scenarios
 import { createPortfolioSession, PORTFOLIO_IDS } from '../sim/portfolio.js';
 import { teacherLine } from '../teacher.js';
 import { startTime, pauseTime } from '../time.js';
+import { markToday } from '../today.js';
 
 let S = {
   view: 'picker', session: null, scenario: null,
@@ -345,6 +346,7 @@ function endSession() {
   store.set(KEYS.simStats, stats);
 
   if (typeof APP.bumpStreak === 'function') APP.bumpStreak();
+  markToday('lab');
 
   S.debrief = {
     trades: st.trades, balance: st.balance, start: st.startBalance,
@@ -538,6 +540,7 @@ function endPortfolio(d) {
   stats[id] = s;
   store.set(KEYS.simStats, stats);
   if (typeof APP.bumpStreak === 'function') APP.bumpStreak();
+  markToday('lab');
   S.pf.debrief = d;
   S.view = 'pf_debrief';
   draw();
