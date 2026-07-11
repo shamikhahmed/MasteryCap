@@ -1,5 +1,11 @@
 # Changelog
 
+## v30 — 2026-07-11 · S6: School copy + income-promise lint
+- Onboarding / graduation / how-to copy: **zero to trade-ready**; ready → micro-size how-to
+- `audit-content.mjs` scans i18n + lesson bodies + sim missions + howto; expanded ban list; quiz distractors exempt
+- README/GUIDE: Learn → Practice → Graduate school framing; honest claim
+- SW **v30**
+
 ## v29 — 2026-07-11 · S5: Portfolio simulator (Invest + Spot)
 - **`js/sim/portfolio.js`** — seeded 24-month plan practice (broad / single / cash); crash months 8–10; decision events; stick / planned-add / panic-sell
 - **Adherence = process:** panic-sell or unplanned add → fail even if final value up; stick-through-crash → pass

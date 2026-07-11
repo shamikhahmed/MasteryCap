@@ -2,10 +2,10 @@
 # Single source of truth. Re-read every iteration.
 
 status: RUNNING
-iteration: 13
-phase: S6
-next_task: S6.1
-version_on_disk: v29
+iteration: 14
+phase: S7
+next_task: S7.1
+version_on_disk: v30
 
 ## done
 - S1 → v25 (i0)
@@ -13,13 +13,14 @@ version_on_disk: v29
 - S3 → **v27** (i6–i9)
 - S4 → **v28** (i10–i12)
 - S5 → **v29** (i13)
+- S6 → **v30** (i14)
 
 ## blocked
 (none)
 
 ## decisions
 - Do not push.
-- S5: panic-sell / unplanned_double = adherence fail; month index clamp 0..23 (fixes NaN final).
+- Content lint: quiz-extra + quiz opts exempt; scan i18n/bodies/missions/howto only.
 
 ## evidence
-- i13: stick seed42 pass final≈14984; panic fail fails=[panic_sell]; audit-all 6 PASS; CACHE/VERSION/APP_VERSION v29.
+- i14: audit-content PASS; audit-all 6 PASS; onboarding trade-ready; CACHE/VERSION/APP_VERSION v30.

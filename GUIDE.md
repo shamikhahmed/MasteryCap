@@ -1,20 +1,30 @@
 # MasteryCap — Guide
 
-Personal bilingual (EN / Roman Urdu) trading-education PWA. Offline-first, no accounts.
-Current app version: **v29** (see `VERSION`, `CHANGELOG.md`, `sw.js` → `masterycap-v29`).
+Personal bilingual (EN / Roman Urdu) trading **school** PWA. Offline-first, no accounts.
+Current app version: **v30** (see `VERSION`, `CHANGELOG.md`, `sw.js` → `masterycap-v30`).
 
 ## First run
 1. Open via static server or GitHub Pages.
-2. Splash → onboarding (name, experience, markets).
+2. Splash → onboarding (name, experience, markets) — framing: **zero to trade-ready**.
 3. Home shows school campus (next lesson + beginner path). Practice desk is Journal.
+
+## School ladder
+**Learn** (lessons/exams) → **Practice** (paper sim / portfolio) → **Graduate** (process gates) → **How-to** (real account, micro size).
+
+Graduation certifies process competence. Markets decide outcomes. No income promise.
 
 ## Tabs
 | Tab | What |
 |-----|------|
-| Home | School campus: next lesson, beginner path, XP/streak/weeks, drills CTAs |
-| Learn | 12 tracks (Foundations → … → Binary) · lessons · quizzes · placement · XP |
-| Journal | Practice desk: balance, equity, win rate, checklist, sizing, trade log |
+| Home | School campus: next lesson, beginner path, XP/streak/weeks, ladder chips |
+| Learn | Tracks · lessons · quizzes · placement · XP · Graduation panel |
+| Journal | Practice desk: balance, equity, checklist, sizing, Live + Paper trade log |
 | Progress | Equity · win-rate · emotions · insights · discipline · weeks · drills |
+
+## Practice (sim)
+- Trading tracks: seeded candle sessions; **stop required** on every entry; process grade ≠ P/L.
+- Invest/Spot: 24-month portfolio plan; panic-sell fails adherence even if value up.
+- Honesty notes on every debrief (paper ≠ real emotions/slippage).
 
 ## Learning loop
 - **Placement** (≥60%/topic → mastered) unlocks path.
@@ -38,6 +48,7 @@ Backup file: `masterycap-backup-YYYY-MM-DD.json`.
 - First load caches shell via service worker.
 - After deploy: hard-reload once if toast says “Updated to vN — reload”.
 - Dev: unregister SW or bump `CACHE` in `sw.js` when assets change.
+
 
 ## Content policy
 Risk control, sizing math, incentive literacy. No tips, signals, or win promises.

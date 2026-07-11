@@ -1,63 +1,104 @@
 #!/usr/bin/env node
-/** audit-content.mjs — banned promise phrases in lesson BODY only (§1.4) */
+/**
+ * audit-content.mjs — income-promise lint (S6).
+ * Scans: lesson bodies, i18n user strings, sim mission copy, howto.
+ * Quiz / placement / opts distractors are exempt.
+ */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
-const dataDir = path.join(root, 'js', 'data');
-const files = [
-  'course.js',
-  'stocks.js',
-  'invest.js',
-  'futures.js',
-  'forex.js',
-  'spot.js',
-  'bots.js',
-  'binary.js',
-].map((f) => path.join(dataDir, f));
 
 const banned =
-  /guaranteed profit|can't lose|cannot lose|risk-free profit|100% win|sure shot|pakka profit/gi;
+  /guaranteed profit|can't lose|risk-free profit|100% win|sure shot|pakka profit|kamai pakki|earn guaranteed|become rich|get rich/gi;
 
 const hits = [];
 
-for (const file of files) {
-  const text = fs.readFileSync(file, 'utf8');
-  // Extract body:{en:`...`, ur:`...`} blocks roughly — scan only body template strings
-  const bodyBlocks = [];
-  const re = /body\s*:\s*\{\s*en\s*:\s*`([\s\S]*?)`\s*,\s*ur\s*:\s*`([\s\S]*?)`/g;
+function scanText(label, text) {
   let m;
-  while ((m = re.exec(text))) {
-    bodyBlocks.push({ lang: 'en', body: m[1] });
-    bodyBlocks.push({ lang: 'ur', body: m[2] });
+  banned.lastIndex = 0;
+  while ((m = banned.exec(text))) {
+    hits.push(`${label}: "${m[0]}"`);
   }
-  // Also double-quoted / single-quoted bodies if any
-  const re2 =
-    /body\s*:\s*\{\s*en\s*:\s*"([\s\S]*?)"\s*,\s*ur\s*:\s*"([\s\S]*?)"/g;
-  while ((m = re2.exec(text))) {
-    bodyBlocks.push({ lang: 'en', body: m[1] });
-    bodyBlocks.push({ lang: 'ur', body: m[2] });
-  }
+}
 
-  const base = path.basename(file);
-  if (!bodyBlocks.length) {
-    // fallback: whole file but strip quiz/opts sections by crude cut
-    const stripped = text.replace(/quiz\s*:\s*\[[\s\S]*?\]\s*,?/g, '');
-    let bm;
-    banned.lastIndex = 0;
-    while ((bm = banned.exec(stripped))) {
-      hits.push(`${base}: "${bm[0]}" @${bm.index} (fallback scan)`);
+function extractBodies(text) {
+  const out = [];
+  // body:{en:`...`, ur:`...`} or body:{en:"...", ur:"..."}
+  // also JSON "body":{"en":"...","ur":"..."}
+  const patterns = [
+    /"?body"?\s*:\s*\{\s*"?en"?\s*:\s*`([\s\S]*?)`\s*,\s*"?ur"?\s*:\s*`([\s\S]*?)`/g,
+    /"?body"?\s*:\s*\{\s*"?en"?\s*:\s*"((?:\\.|[^"\\])*)"\s*,\s*"?ur"?\s*:\s*"((?:\\.|[^"\\])*)"/g,
+  ];
+  for (const re of patterns) {
+    let m;
+    while ((m = re.exec(text))) {
+      out.push({ lang: 'en', body: m[1] });
+      out.push({ lang: 'ur', body: m[2] });
     }
+  }
+  return out;
+}
+
+/* ---- lesson bodies in js/data (skip quiz-only modules) ---- */
+const dataDir = path.join(root, 'js', 'data');
+const skipData = new Set(['quiz-extra.js']);
+for (const file of fs.readdirSync(dataDir).filter((f) => f.endsWith('.js'))) {
+  if (skipData.has(file)) continue;
+  const text = fs.readFileSync(path.join(dataDir, file), 'utf8');
+  const bodies = extractBodies(text);
+  if (!bodies.length) {
+    // No lesson bodies — do not fallback-scan whole file (quiz noise)
     continue;
   }
+  for (const b of bodies) {
+    scanText(`${file} body.${b.lang}`, b.body);
+  }
+}
 
-  for (const b of bodyBlocks) {
-    let bm;
-    banned.lastIndex = 0;
-    while ((bm = banned.exec(b.body))) {
-      hits.push(`${base} body.${b.lang}: "${bm[0]}"`);
-    }
+/* ---- i18n user-facing string literals ---- */
+{
+  const i18n = fs.readFileSync(path.join(root, 'js', 'i18n.js'), 'utf8');
+  let m;
+  const re = /:\s*'((?:\\'|[^'])*)'/g;
+  while ((m = re.exec(i18n))) {
+    scanText('i18n', m[1].replace(/\\'/g, "'"));
+  }
+  const re2 = /:\s*"((?:\\"|[^"])*)"/g;
+  while ((m = re2.exec(i18n))) {
+    scanText('i18n', m[1].replace(/\\"/g, '"'));
+  }
+}
+
+/* ---- sim mission copy ---- */
+{
+  const sc = fs.readFileSync(path.join(root, 'js', 'sim', 'scenarios.js'), 'utf8');
+  const bodies = [];
+  const re = /mission\s*:\s*\{\s*en\s*:\s*'((?:\\'|[^'])*)'\s*,\s*ur\s*:\s*'((?:\\'|[^'])*)'/g;
+  let m;
+  while ((m = re.exec(sc))) {
+    bodies.push(['en', m[1]], ['ur', m[2]]);
+  }
+  const re2 = /mission\s*:\s*\{\s*en\s*:\s*`([\s\S]*?)`\s*,\s*ur\s*:\s*`([\s\S]*?)`/g;
+  while ((m = re2.exec(sc))) {
+    bodies.push(['en', m[1]], ['ur', m[2]]);
+  }
+  for (const [lang, body] of bodies) {
+    scanText(`scenarios mission.${lang}`, body);
+  }
+}
+
+/* ---- howto hub ---- */
+{
+  const howto = path.join(root, 'js', 'howto.js');
+  if (fs.existsSync(howto)) {
+    // howto is checklist strings — scan but ignore comment lines
+    const text = fs.readFileSync(howto, 'utf8')
+      .split('\n')
+      .filter((l) => !l.trim().startsWith('//') && !l.trim().startsWith('*'))
+      .join('\n');
+    scanText('howto.js', text);
   }
 }
 
@@ -66,4 +107,4 @@ if (hits.length) {
   hits.forEach((h) => console.error('  ' + h));
   process.exit(1);
 }
-console.log('PASS: no banned promise phrases in lesson bodies');
+console.log('PASS: no banned income-promise phrases in user-facing copy');

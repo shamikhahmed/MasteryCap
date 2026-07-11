@@ -1,33 +1,27 @@
 # MasteryCap
 
-A single, installable PWA: bilingual (English / Roman Urdu) trading & investing
-curriculum, discipline journal, practice drills, chart replay, and progress
-analytics. True-black terminal-grade design (self-hosted Geist/Geist Mono, single
-#FF6B2C accent). Fully offline after first load. Personal use — no accounts, no
-backend, no billing. Data stays on-device under `masterycap:`.
+Offline bilingual (EN / Roman Urdu) **trading school**: Learn → Practice → Graduate.
+Curriculum + paper simulator (process-graded, not P/L) + discipline journal. True-black
+terminal design (Geist, accent `#FF6B2C`). No accounts, no backend, no income promises.
+Data stays on-device under `masterycap:`.
 
-**Version:** v29 · see [VERSION](VERSION) · [CHANGELOG.md](CHANGELOG.md) · [GUIDE.md](GUIDE.md)
+**Version:** v30 · see [VERSION](VERSION) · [CHANGELOG.md](CHANGELOG.md) · [GUIDE.md](GUIDE.md)
+
+## School path
+1. **Learn** — tracks from Foundations through Binary; quizzes unlock weeks; exams local-only.
+2. **Practice** — paper trade sim (crypto/futures/forex/stocks) + invest/spot portfolio adherence.
+3. **Graduate** — process gates (exam + sim process / portfolio adherence). Cert = TRADE-READY, process-measured — markets still decide outcomes.
+4. **How-to hub** — after ready: open a real account, start micro size (checklists, not tips).
 
 ## Tabs
-- **Home** — equity-curve hero, stat strip, pre-trade checklist, streak, discipline
-  grade, worst-cost insight line, CTAs (drills / chart replay / daily review)
-- **Learn** — 8 live bilingual tracks (lessons with SVG diagrams + glossary
-  auto-links, quizzes 70% unlock, placement 60%/topic mastered, XP):
-  Crypto & Perps (10) · Stocks & Options (8) · Investing: PSX & Beyond (8) ·
-  Futures (6) · Forex (6) · Spot vs Derivatives (4) · Bots & Copy Trading (6) ·
-  Binary Options (5, permanent risk-warning framing).
-  Every week: memo/skim/redflag (+ formula/xref/compare where useful).
-- **Journal** — position-sizing calculator + trade log (emotions, stop toggles,
-  debrief, cooldown, tags)
-- **Progress** — equity, win-rate, emotions, insights, discipline, radar/heatmap,
-  habit, weeks done, drill accuracy
+- **Home** — school campus: next lesson, beginner path, Learn→Practice→Graduate ladder
+- **Learn** — bilingual tracks (lessons, quizzes, placement, XP, graduation panel)
+- **Journal** — practice desk: sizing, trade log, Paper|Live (sim vs real journal)
+- **Progress** — equity, win-rate, emotions, insights, discipline, weeks, drills
 
-## Extras (v4–v19)
-- Shuffled quiz/placement · backup/restore/CSV · SW update toast · IDB dual-write
-- Practice drills v2 (+ chart replay) · journal insights · streak + Leitner review
-- Discipline grade A–F · glossary + lesson search · exam/cert · binary gate
-- Settings: name, language, font S/M/L, haptics, strict/checklist gate, demo mode
-- Stance: literacy + risk frameworks — not tips, not earn guarantee ([CONTENT-GAPS.md](CONTENT-GAPS.md))
+## Honest claim
+Literacy + risk frameworks + process reps. Completing the school ≠ salary from charts.
+Closest long-horizon path = Investing → Spot compounding. See [CONTENT-GAPS.md](CONTENT-GAPS.md).
 
 ## Run locally
 ```
@@ -48,30 +42,20 @@ Open on phone (same Wi-Fi) or desktop. Hard-reload after SW cache bumps.
 ## Data & privacy
 - `localStorage` namespace `masterycap:` only. Nothing leaves the device.
 - Backup: Home avatar → Settings → Export / Import JSON.
-- Additive keys only (`drillStats`, `streak`, `review`, optional trade fields).
-  Old data keeps working; no migrations.
+- Additive keys only. Old data keeps working; no migrations.
 
 ## Structure
 ```
 index.html · manifest.webmanifest · sw.js · .nojekyll
-VERSION · CHANGELOG · GUIDE · PRESENTATION · README · ROADMAP · URDU-REVIEW · CURSOR-MASTER-PROMPT
+VERSION · CHANGELOG · GUIDE · PRESENTATION · README · ROADMAP · URDU-REVIEW
 css/app.css                 design system (terminal/editorial)
 fonts/                      Geist + Geist Mono (woff2)
 js/store.js                 localStorage (masterycap:)
 js/i18n.js                  EN / Roman Urdu UI strings
-js/icons.js                 line icons (no emoji)
-js/settings.js              settings sheet
-js/app.js                   shell: splash, onboarding, nav, router
-js/figures.js               lesson SVG diagrams
-js/drills.js · insights.js · retention.js · discipline.js
-js/candles.js · chartgen.js chart-replay engine
-js/glossary.js              glossary sheet
-js/views/                   dashboard · course · journal · progress
-                            drills · review · charts
-js/data/tracks.js           8-track registry
-js/data/course.js           Crypto (verbatim original)
-js/data/{stocks,invest,futures,forex,spot,bots,binary}.js
-js/data/glossary.js         ~122 bilingual terms
+js/sim/                     paper engine · scenarios · portfolio
+js/views/                   home · course · journal · progress · sim · …
+js/data/                    track lesson modules + glossary
+scripts/                    audit-*.mjs (income-promise lint)
 icons/                      PWA icons (+ generate_icons.py)
 ```
 
