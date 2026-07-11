@@ -83,12 +83,12 @@ async function onboard(page) {
           crypto: { placementDone: true, weekStatus: { 1: 'current' }, xp: 0 },
         }));
       });
-      await page.locator('#tabbar button').filter({ hasText: /Home/i }).click();
+      await page.locator('#tabbar button').filter({ hasText: /Campus|Home/i }).click();
       await page.locator('#mbDismiss').click({ timeout: 800 }).catch(() => {});
       await page.locator('#backupDismiss').click({ timeout: 800 }).catch(() => {});
       await page.locator('#corruptKeep').click({ timeout: 800 }).catch(() => {});
       await page.waitForSelector('#goContinue');
-      await page.locator('#tabbar button').filter({ hasText: /Journal/i }).click();
+      await page.locator('#tabbar button').filter({ hasText: /Desk|Journal/i }).click();
       await page.waitForTimeout(200);
       await page.locator('#editBal').click();
       await page.locator('#eqEditIn').fill('321.5');
@@ -97,7 +97,7 @@ async function onboard(page) {
       const balTxt = await page.locator('#eqBal').textContent();
       if (!String(balTxt).includes('321.5')) throw new Error('edit bal failed: ' + balTxt);
 
-      await page.locator('#tabbar button').filter({ hasText: /Learn|Seekho/i }).click();
+      await page.locator('#tabbar button').filter({ hasText: /Courses|Learn|Seekho/i }).click();
       await page.waitForTimeout(300);
       await page.locator('[data-track="foundations"]').click().catch(() => {});
       await page.waitForTimeout(200);
@@ -122,7 +122,7 @@ async function onboard(page) {
         await page.locator('#glossMiniDone').click({ timeout: 500 }).catch(() => {});
 
         page.on('dialog', (d) => d.accept());
-        await page.locator('#tabbar button').filter({ hasText: /Journal/i }).click();
+        await page.locator('#tabbar button').filter({ hasText: /Desk|Journal/i }).click();
         await page.waitForSelector('#saveTrade');
         await page.locator('#btnLong').click();
         await page.locator('#pair').fill('BTC');
@@ -133,7 +133,7 @@ async function onboard(page) {
         if (n < 1) { console.error('FAIL: trade not saved'); failed = true; }
 
         // S7: paper sim — enter w/ stop, 10 steps, close → simTrades + Paper tab
-        await page.locator('#tabbar button').filter({ hasText: /Home/i }).click();
+        await page.locator('#tabbar button').filter({ hasText: /Campus|Home/i }).click();
         await page.waitForTimeout(200);
         await page.locator('#goSim').click();
         await page.waitForSelector('[data-sc]');
@@ -172,7 +172,7 @@ async function onboard(page) {
           const simN = await page.evaluate(() => JSON.parse(localStorage.getItem('masterycap:simTrades') || '[]').length);
           if (simN < 1) { console.error('FAIL: simTrades empty'); failed = true; }
 
-          await page.locator('#tabbar button').filter({ hasText: /Journal/i }).click();
+          await page.locator('#tabbar button').filter({ hasText: /Desk|Journal/i }).click();
           await page.waitForTimeout(200);
           await page.locator('[data-hist="paper"]').click();
           await page.waitForTimeout(150);

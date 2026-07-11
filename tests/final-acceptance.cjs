@@ -75,7 +75,7 @@ async function onboard(page) {
 }
 
 async function goHome(page) {
-  await page.locator('#tabbar button').filter({ hasText: /Home/i }).click();
+  await page.locator('#tabbar button').filter({ hasText: /Campus|Home/i }).click();
   await page.waitForTimeout(150);
   await dismissNoise(page);
 }
@@ -197,14 +197,14 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
     /* Offline shell nav — Playwright offline blocks local static ESM; only tab switch */
     await context.setOffline(true);
     await goHome(page);
-    await page.locator('#tabbar button').filter({ hasText: /Learn|Seekho/i }).click();
+    await page.locator('#tabbar button').filter({ hasText: /Courses|Learn|Seekho/i }).click();
     await page.waitForTimeout(200);
     if (!(await page.locator('[data-track]').count())) fail('offline Learn tracks missing');
     log('OK offline shell nav');
     await context.setOffline(false);
 
     /* Foundations quiz */
-    await page.locator('#tabbar button').filter({ hasText: /Learn|Seekho/i }).click();
+    await page.locator('#tabbar button').filter({ hasText: /Courses|Learn|Seekho/i }).click();
     await page.waitForTimeout(150);
     await page.locator('[data-track="foundations"]').click();
     await page.waitForTimeout(300);
@@ -214,7 +214,7 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
     log('OK Foundations quiz');
 
     /* Crypto quiz */
-    await page.locator('#tabbar button').filter({ hasText: /Learn|Seekho/i }).click();
+    await page.locator('#tabbar button').filter({ hasText: /Courses|Learn|Seekho/i }).click();
     await page.waitForTimeout(150);
     await page.locator('[data-track="crypto"]').click();
     await page.waitForTimeout(250);
@@ -250,7 +250,7 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
     log('OK partial close');
 
     /* Paper journal */
-    await page.locator('#tabbar button').filter({ hasText: /Journal/i }).click();
+    await page.locator('#tabbar button').filter({ hasText: /Desk|Journal/i }).click();
     await page.waitForTimeout(200);
     await page.locator('[data-hist="paper"]').click();
     await page.waitForTimeout(150);
@@ -260,7 +260,7 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
     log('OK Paper tab n=' + simN);
 
     /* Graduation panel */
-    await page.locator('#tabbar button').filter({ hasText: /Learn|Seekho/i }).click();
+    await page.locator('#tabbar button').filter({ hasText: /Courses|Learn|Seekho/i }).click();
     await page.waitForTimeout(150);
     await page.locator('[data-track="crypto"]').click();
     await page.waitForTimeout(250);
@@ -297,7 +297,7 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
     await page.reload({ waitUntil: 'networkidle' });
     await page.waitForTimeout(500);
     await dismissNoise(page);
-    await page.locator('#tabbar button').filter({ hasText: /Learn|Seekho/i }).click();
+    await page.locator('#tabbar button').filter({ hasText: /Courses|Learn|Seekho/i }).click();
     await page.locator('[data-track="crypto"]').click();
     await page.waitForTimeout(300);
     if (await page.locator('#doGraduate').count()) {
