@@ -4,8 +4,11 @@
 
 import { store, KEYS } from './store.js';
 import { icon } from './icons.js';
+import { applyTheme, getAppearance, setAppearance } from './theme.js';
+import { getTeacher, setTeacher, TEACHERS } from './teacher.js';
+import { evidenceHash } from './exam.js';
 
-export const APP_VERSION = 'v31';
+export const APP_VERSION = 'v32';
 
 function todayStamp() {
   const d = new Date();
@@ -29,6 +32,7 @@ export function applySettings(App) {
   document.documentElement.dataset.font = s.fontSize || 'M';
   document.documentElement.dataset.contrast = s.highContrast ? 'high' : 'normal';
   if (App) App._haptics = s.haptics !== false;
+  applyTheme();
 }
 
 function doExport(App) {
@@ -108,6 +112,27 @@ export function openSettings(App) {
           ${['S', 'M', 'L'].map((f) => `<button style="flex:1" class="${(s.fontSize || 'M') === f ? 'on' : ''}" data-fs="${f}">${f}</button>`).join('')}
         </div>
 
+        <div class="slabel" style="margin:0 0 10px">${App.t('set_appearance')}</div>
+        <div class="slabel" style="margin:0 0 8px;font-size:11px;opacity:0.8">${App.t('set_theme_mode')}</div>
+        <div class="seg" style="width:100%;margin-bottom:12px">
+          ${['dark', 'light', 'auto'].map((m) => `<button style="flex:1" class="${(getAppearance().mode || 'dark') === m ? 'on' : ''}" data-mode="${m}">${App.t('theme_' + m)}</button>`).join('')}
+        </div>
+        <div class="slabel" style="margin:0 0 8px;font-size:11px;opacity:0.8">${App.t('set_theme_preset')}</div>
+        <div class="seg" style="width:100%;margin-bottom:16px;flex-wrap:wrap">
+          ${['original', 'paper', 'quiet', 'focus'].map((m) => `<button style="flex:1;min-width:22%" class="${(getAppearance().preset || 'original') === m ? 'on' : ''}" data-preset="${m}">${App.t('theme_' + (m === 'original' ? 'original' : m))}</button>`).join('')}
+        </div>
+
+        <div class="slabel" style="margin:0 0 10px">${App.t('set_teacher')}</div>
+        <div class="seg" style="width:100%;margin-bottom:16px">
+          ${TEACHERS.map((tid) => `<button style="flex:1" class="${getTeacher() === tid ? 'on' : ''}" data-teacher="${tid}">${App.t('teacher_' + tid)}</button>`).join('')}
+        </div>
+
+        <div class="field" style="margin-bottom:16px">
+          <label>${App.t('verify_cert')}</label>
+          <input id="setVerifyHash" type="text" placeholder="verify:…" maxlength="24" />
+          <p id="setVerifyOut" style="font-size:12px;color:var(--t3);margin:8px 0 0"></p>
+        </div>
+
         <div class="check-row ${(s.haptics !== false) ? 'on' : ''}" id="setHap" data-on="${s.haptics !== false ? '1' : '0'}" style="border:1px solid var(--line);border-radius:var(--r2);margin-bottom:10px">
           <span class="check-box">${icon('checkThin', { size: 13, sw: 2.6 })}</span>
           <span class="check-t">${App.t('set_haptics')}</span>
@@ -181,6 +206,31 @@ export function openSettings(App) {
     App.haptic();
     sheet.querySelectorAll('[data-fs]').forEach((x) => x.classList.toggle('on', x.dataset.fs === st.fontSize));
   }));
+
+  sheet.querySelectorAll('[data-mode]').forEach((b) => b.addEventListener('click', () => {
+    setAppearance({ mode: b.dataset.mode });
+    App.haptic();
+    sheet.querySelectorAll('[data-mode]').forEach((x) => x.classList.toggle('on', x.dataset.mode === b.dataset.mode));
+  }));
+  sheet.querySelectorAll('[data-preset]').forEach((b) => b.addEventListener('click', () => {
+    setAppearance({ preset: b.dataset.preset });
+    App.haptic();
+    sheet.querySelectorAll('[data-preset]').forEach((x) => x.classList.toggle('on', x.dataset.preset === b.dataset.preset));
+  }));
+  sheet.querySelectorAll('[data-teacher]').forEach((b) => b.addEventListener('click', () => {
+    setTeacher(b.dataset.teacher);
+    App.haptic();
+    sheet.querySelectorAll('[data-teacher]').forEach((x) => x.classList.toggle('on', x.dataset.teacher === b.dataset.teacher));
+  }));
+  document.getElementById('setVerifyHash')?.addEventListener('input', (e) => {
+    const raw = (e.target.value || '').replace(/^verify:/i, '').trim();
+    const out = document.getElementById('setVerifyOut');
+    if (!out) return;
+    out.textContent = raw.length >= 6
+      ? (App.lang === 'en' ? `Hash noted — match against PNG footer verify:${raw.slice(0, 10)}` : `Hash note — PNG footer se match: verify:${raw.slice(0, 10)}`)
+      : '';
+    void evidenceHash;
+  });
 
   document.getElementById('setHap').addEventListener('click', () => {
     const el = document.getElementById('setHap');

@@ -22,6 +22,8 @@ import { openSearch } from '../search.js';
 import { GLOSSARY } from '../data/glossary.js';
 import { openHowto } from '../howto.js';
 import { gradStatus, markGraduated, isGraduated } from '../graduation.js';
+import { skillsForWeek, markSkillMastered, challengeOffer, CHALLENGE, scoreChallenge, SKILLS } from '../skills.js';
+import { startTime, pauseTime, softSessionNudge } from '../time.js';
 
 let S = {
   track: 'foundations', view: 'home', activeWeek: null,
@@ -104,7 +106,7 @@ function drawHome() {
   const rail = `<div class="track-rail">${TRACKS.map((t) => `
     <button class="track-chip ${t.id === S.track ? 'on' : ''}" data-track="${t.id}">
       <span class="tc-ic">${icon(TRACK_ICON[t.id], { size: 18 })}</span>
-      <span><span class="tc-name">${t.name[lang]}</span><br/><span class="tc-meta">${t.weeks.length} MOD · <span class="tc-dot ${t.status === 'live' ? 'dot-live' : 'dot-soon'}" style="display:inline-block"></span> ${t.status === 'live' ? 'LIVE' : 'SOON'}</span></span>
+      <span><span class="tc-name">${t.name[lang]}${t.elective ? ' · EL' : ''}</span><br/><span class="tc-meta">${t.weeks.length} MOD · <span class="tc-dot ${t.status === 'live' ? 'dot-live' : 'dot-soon'}" style="display:inline-block"></span> ${t.status === 'live' ? 'LIVE' : 'SOON'}</span></span>
     </button>`).join('')}</div>`;
 
   const header = `<div class="lt-head"><div class="head-row">
@@ -135,7 +137,7 @@ function drawHome() {
       </div>`;
   } else {
     const prog = App.getCourse(track.id);
-    const warnBox = track.warning ? `<div class="note-box warn" style="margin-bottom:16px"><strong>${lang === 'en' ? 'High-risk.' : 'High-risk.'}</strong> ${lang === 'en' ? 'Binary options are banned for retail in many countries and sit closer to gambling than trading. This track teaches the math and the traps — self-defense, not endorsement.' : 'Binary options bohat mulkon mein retail ke liye banned hain, trading se zyada gambling ke qareeb. Ye track math aur jaal sikhata hai — self-defense, endorsement nahi.'}</div>` : '';
+    const warnBox = track.warning || track.elective ? `<div class="note-box warn" style="margin-bottom:16px"><strong>${track.elective ? App.t('elective_warn') : (lang === 'en' ? 'High-risk.' : 'High-risk.')}</strong> ${lang === 'en' ? (track.id === 'binary' ? 'Binary options are banned for retail in many countries and sit closer to gambling than trading. This track teaches the math and the traps — self-defense, not endorsement.' : 'Elective literacy — permanent warning framing.') : (track.id === 'binary' ? 'Binary options bohot mulkon mein banned — self-defense track.' : 'Elective literacy — permanent warning.')}</div>` : '';
     if (!prog.placementDone) {
       body = `${warnBox}<div class="panel pad">
         <div class="slabel">${App.t('startPlacement')}</div>
@@ -215,6 +217,8 @@ function drawHome() {
       trackName: track.name[lang],
       dateIso: prog.examPassed || new Date().toISOString(),
       lang,
+      evidence: { examPassedAt: prog.examPassed },
+      tier: 'course',
     });
   });
   document.getElementById('doGraduate')?.addEventListener('click', () => {
@@ -231,6 +235,7 @@ function drawHome() {
       dateIso: new Date().toISOString(),
       lang,
       evidence: st.evidence,
+      tier: 'trade_ready',
     });
     draw();
   });
@@ -242,8 +247,10 @@ function drawHome() {
       dateIso: st.evidence.gradAt || new Date().toISOString(),
       lang,
       evidence: st.evidence,
+      tier: 'trade_ready',
     });
   });
+  document.getElementById('gradPractice')?.addEventListener('click', () => App.openSim());
   const sp = document.getElementById('startPlacement');
   if (sp) sp.addEventListener('click', () => {
     S.view = 'placement'; S.placementAnswers = {}; S.placementMsg = null; S.dirty = true;
@@ -326,10 +333,15 @@ function graduationPanel(App, trackId, done, total, examPassed) {
     ${metHtml}${missHtml}
     ${graduated
       ? `<div class="pill mono mt14">${App.t('grad_done')}: ${String(st.evidence.gradAt).slice(0, 10)}</div>
-         <button class="btn secondary mt10" id="gradCert">${App.t('exam_cert')}</button>`
+         <button class="btn secondary mt10" id="gradCert">${App.t('cert_trade_ready')}</button>`
       : st.ready
         ? `<button class="btn accent mt14" id="doGraduate">${App.t('grad_cta')}</button>`
-        : ''}
+        : (examPassed
+          ? `<div class="note-box warn mt14"><strong>${App.t('grad_soft_title')}</strong><br>${App.t('grad_soft_body')}</div>
+             <div class="mono" style="font-size:12px;margin:10px 0;color:var(--t3)">${st.met.length}/${st.met.length + st.missing.length} gates</div>
+             <button class="btn accent" id="gradPractice">${App.t('lab_cta')}</button>
+             <button class="btn secondary mt10" id="dlCert">${App.t('cert_course')}</button>`
+          : '')}
     <details style="margin-top:14px">
       <summary style="font-size:12px;color:var(--t3);cursor:pointer;text-transform:uppercase;letter-spacing:0.06em">${App.t('grad_howto')}</summary>
       <ol style="margin:10px 0 0;padding-left:18px;font-size:13.5px;color:var(--t1);line-height:1.45">${steps}</ol>
@@ -367,12 +379,24 @@ function drawWeek() {
   const formula = renderFormulaStrip(w, lang);
   const memo = renderMemoPanel(w, lang);
   const skim = skimOn ? renderSkim(w, lang) : '';
+  const offer = challengeOffer(track.id, w.id);
+  const challengeBox = offer.length
+    ? `<div class="panel pad" style="margin-bottom:14px">
+        <div class="slabel">${App.t('challenge_title')}</div>
+        <p style="font-size:13px;color:var(--t2);margin:8px 0 12px">${offer.map((id) => SKILLS[id]?.name?.[lang] || id).join(' · ')}</p>
+        <button class="btn secondary" id="startChallenge" data-skill="${offer[0]}">${App.t('challenge_cta')}</button>
+      </div>`
+    : '';
+  startTime('lesson', { courseId: track.id, topicId: String(w.id) });
+  const nudge = softSessionNudge(App);
   c.innerHTML = `<div class="screen">
     <button class="backlink" id="back">${icon('back', { size: 16 })} ${App.t('back')}</button>
     <div class="spread" style="align-items:center;margin-bottom:8px">
       <div class="lesson-kicker" style="margin:0">${App.t('week').toUpperCase()} ${String(w.id).padStart(2, '0')}</div>
       <button class="pill ${skimOn ? 'acc' : ''}" id="togSkim">${lang === 'en' ? 'Skim' : 'Skim'}</button>
     </div>
+    ${nudge ? `<div class="note-box warn" style="margin-bottom:12px">${nudge}</div>` : ''}
+    ${challengeBox}
     ${formula}
     <h1 class="lesson-title">${w.title[lang]}</h1>
     <div class="lesson-progress"><i id="lessonProg" style="width:0%"></i></div>
@@ -380,6 +404,8 @@ function drawWeek() {
     <div class="lesson-body mt18" id="lessonBody">${body}</div>
     ${memo}
     <button class="btn accent mt22" id="startQuiz">${st === 'completed' || st === 'mastered' ? App.t('retakeQuiz') : App.t('takeQuiz')}</button>
+    ${(track.id === 'crypto' || track.id === 'futures' || track.id === 'forex' || track.id === 'stocks' || track.id === 'options' || track.id === 'invest' || track.id === 'spot')
+      ? `<button class="btn secondary mt10" id="weekLab">${App.t('lab_cta')}</button>` : ''}
   </div>`;
   document.getElementById('back').addEventListener('click', () => {
     if (S._back) {
@@ -398,6 +424,45 @@ function drawWeek() {
   document.getElementById('startQuiz').addEventListener('click', () => {
     S.view = 'quiz'; S.quizAnswers = {}; S.quizSubmitted = false; S.quizMsg = null;
     buildQuizOrders(w); App.haptic(); draw();
+  });
+  document.getElementById('weekLab')?.addEventListener('click', () => { pauseTime(); App.openSim(); });
+  document.getElementById('startChallenge')?.addEventListener('click', (ev) => {
+    const skillId = ev.currentTarget.dataset.skill;
+    const bank = CHALLENGE[skillId] || [];
+    if (!bank.length) return;
+    const answers = {};
+    let html = `<div class="screen"><button class="backlink" id="backCh">${icon('back', { size: 16 })} ${App.t('back')}</button>
+      <div class="lesson-kicker">${App.t('challenge_title')}</div>
+      <h1 class="lesson-title">${SKILLS[skillId]?.name?.[lang] || skillId}</h1>`;
+    bank.forEach((q, i) => {
+      html += `<div class="panel pad" style="margin-bottom:12px"><div style="font-size:14px;margin-bottom:10px">${q.q[lang] || q.q.en}</div>
+        ${(q.opts[lang] || q.opts.en).map((o, oi) => `<button class="btn ghost" style="width:100%;margin-bottom:6px;text-align:left" data-ch="${i}" data-o="${oi}">${o}</button>`).join('')}</div>`;
+    });
+    html += `<button class="btn accent" id="submitCh">${App.t('submit')}</button></div>`;
+    c.innerHTML = html;
+    document.getElementById('backCh').addEventListener('click', () => draw());
+    c.querySelectorAll('[data-ch]').forEach((b) => b.addEventListener('click', () => {
+      answers[Number(b.dataset.ch)] = Number(b.dataset.o);
+      c.querySelectorAll(`[data-ch="${b.dataset.ch}"]`).forEach((x) => x.classList.toggle('accent', x === b));
+      App.haptic();
+    }));
+    document.getElementById('submitCh').addEventListener('click', () => {
+      const sc = scoreChallenge(skillId, answers);
+      if (sc.passed) {
+        markSkillMastered(skillId, track.id);
+        const prog = App.getCourse(track.id);
+        prog.weekStatus[w.id] = 'completed';
+        prog.xp = (prog.xp || 0) + 40;
+        const next = track.weeks.find((x) => x.id === w.id + 1);
+        if (next && !['completed', 'mastered'].includes(prog.weekStatus[next.id])) prog.weekStatus[next.id] = 'current';
+        App.setCourse(track.id, prog);
+        alert(App.t('challenge_pass'));
+        S.view = 'home'; draw();
+      } else {
+        alert(App.t('challenge_fail'));
+        draw();
+      }
+    });
   });
   c.querySelectorAll('.gloss-term').forEach((el) => el.addEventListener('click', (e) => {
     e.preventDefault();
@@ -555,6 +620,7 @@ function submitQuiz() {
     prog.weekStatus[w.id] = 'completed'; prog.xp = (prog.xp || 0) + 50;
     const next = track.weeks.find((x) => x.id === w.id + 1);
     if (next && !['completed', 'mastered'].includes(prog.weekStatus[next.id])) prog.weekStatus[next.id] = 'current';
+    skillsForWeek(track.id, w.id).forEach((sid) => markSkillMastered(sid, track.id));
     App.haptic(20);
     S._pendingGloss = pickGlossMini(track.id, w);
   } else {
@@ -734,6 +800,8 @@ function drawExam() {
       trackName: track.name[lang],
       dateIso: new Date().toISOString(),
       lang,
+      evidence: { examPassedAt: new Date().toISOString() },
+      tier: 'course',
     });
   });
 }

@@ -6,7 +6,7 @@
 import { store, KEYS } from './store.js';
 import { SIM_SCENARIOS } from './sim/scenarios.js';
 
-const TRADING = new Set(['crypto', 'futures', 'forex', 'stocks']);
+const TRADING = new Set(['crypto', 'futures', 'forex', 'stocks', 'options']);
 const PORTFOLIO = new Set(['invest', 'spot']);
 /** Exam-only school tracks (plus greeks depth). Binary also needs gate quiz. */
 const EXAM_PLUS = new Set(['foundations', 'macro', 'tax', 'bots', 'binary', 'greeks']);

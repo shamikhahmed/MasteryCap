@@ -370,7 +370,10 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
     }
     if (S.i >= S.bars.length - 1) {
       if (S.pos) closed = closeAt(price(), 'session_end');
-      S.pending = null;
+      if (S.pending) {
+        log('limit_expired', { price: S.pending.price, dir: S.pending.dir });
+        S.pending = null;
+      }
       S.done = true;
     }
     return { done: S.done, closed, filled: !!filled };

@@ -18,12 +18,39 @@ const EMO = {
   bored: { label: 'Bored', color: 'var(--t2)' },
 };
 
+import { getTimeStats, formatDuration } from '../time.js';
+import { getSkillState, SKILLS } from '../skills.js';
+import { isGraduated } from '../graduation.js';
+
 export function renderProgress(App, c) {
   const lang = App.lang;
   const trades = App.getTrades().slice().reverse();
   const balance = App.getBalance();
+  const ts = getTimeStats();
+  const skills = getSkillState();
 
-  const header = `<div class="lt-head"><div class="kicker">${App.t('nav_progress')}</div><h1>${lang === 'en' ? 'Your progress' : 'Aapki progress'}</h1></div>`;
+  const timePanel = `<div class="panel pad" style="margin-bottom:14px">
+    <div class="slabel">${App.t('time_total')}</div>
+    <div class="mono" style="font-size:22px;margin-top:8px">${formatDuration(ts.totalMs, lang)}</div>
+    <div style="font-size:12.5px;color:var(--t3);margin-top:10px;line-height:1.5">
+      ${Object.entries(ts.byCourse || {}).slice(0, 8).map(([id, ms]) =>
+        `<div>${id}: ${formatDuration(ms, lang)}</div>`).join('') || (lang === 'en' ? 'Open a lesson to start the clock.' : 'Lesson kholo — clock start.')}
+    </div>
+  </div>`;
+
+  const skillPanel = `<div class="panel pad" style="margin-bottom:14px">
+    <div class="slabel">${lang === 'en' ? 'Skills mastered' : 'Skills mastered'}</div>
+    <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">
+      ${Object.keys(skills.mastered || {}).length
+        ? Object.keys(skills.mastered).map((id) => {
+          const n = SKILLS[id]?.name?.[lang] || id;
+          return `<span class="pill">${n}</span>`;
+        }).join('')
+        : `<span style="font-size:13px;color:var(--t3)">${lang === 'en' ? 'Pass quizzes / challenges to unlock.' : 'Quiz / challenge pass se unlock.'}</span>`}
+    </div>
+  </div>`;
+
+  const header = `<div class="lt-head"><div class="kicker">${App.t('nav_progress')}</div><h1>${lang === 'en' ? 'Transcript' : 'Transcript'}</h1></div>${timePanel}${skillPanel}`;
 
   if (!trades.length) {
     c.innerHTML = `<div class="screen">${header}${weeksPanel(App)}${drillsPanel(App)}

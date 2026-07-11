@@ -5,6 +5,7 @@
 
 import { CRYPTO_WEEKS, CRYPTO_PLACEMENT } from './course.js';
 import { STOCKS_WEEKS, STOCKS_PLACEMENT } from './stocks.js';
+import { OPTIONS_WEEKS, OPTIONS_PLACEMENT, EQUITY_WEEKS, EQUITY_PLACEMENT } from './options.js';
 import { FUTURES_WEEKS, FUTURES_PLACEMENT } from './futures.js';
 import { FOREX_WEEKS, FOREX_PLACEMENT } from './forex.js';
 import { SPOT_WEEKS, SPOT_PLACEMENT } from './spot.js';
@@ -60,11 +61,19 @@ export const TRACKS = [
   },
   {
     id: 'stocks',
-    name: { en: 'Stocks & Options', ur: 'Stocks & Options' },
-    blurb: { en: 'Equities, options, the greeks', ur: 'Equities, options, greeks' },
+    name: { en: 'Stocks', ur: 'Stocks' },
+    blurb: { en: 'Equities: sessions, earnings, structure', ur: 'Equities: sessions, earnings, structure' },
     status: 'live',
-    weeks: STOCKS_WEEKS,
-    placement: STOCKS_PLACEMENT,
+    weeks: EQUITY_WEEKS.length ? EQUITY_WEEKS : STOCKS_WEEKS.filter((w) => w.id <= 3),
+    placement: EQUITY_PLACEMENT.length ? EQUITY_PLACEMENT : STOCKS_PLACEMENT,
+  },
+  {
+    id: 'options',
+    name: { en: 'Options', ur: 'Options' },
+    blurb: { en: 'Calls, puts, premium, basic strategies', ur: 'Calls, puts, premium, basic strategies' },
+    status: 'live',
+    weeks: OPTIONS_WEEKS,
+    placement: OPTIONS_PLACEMENT,
   },
   {
     id: 'greeks',
@@ -103,6 +112,8 @@ export const TRACKS = [
     name: { en: 'Bots & Copy Trading', ur: 'Bots & Copy Trading' },
     blurb: { en: 'Automation, signals, scam defense', ur: 'Automation, signals, scam defense' },
     status: 'live',
+    elective: true,
+    warning: true,
     weeks: BOTS_WEEKS,
     placement: BOTS_PLACEMENT,
   },
@@ -111,6 +122,7 @@ export const TRACKS = [
     name: { en: 'Binary Options', ur: 'Binary Options' },
     blurb: { en: 'High-risk — know the traps first', ur: 'High-risk — pehle traps samjho' },
     status: 'live',
+    elective: true,
     warning: true,
     weeks: BINARY_WEEKS,
     placement: BINARY_PLACEMENT,

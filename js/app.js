@@ -17,6 +17,8 @@ import { renderSim, stopSimPlayback } from './views/sim.js';
 import { touchStreak, touchStreakWithFreeze, markHabitDay, dueReviewCount, tryStreakRecovery, getStreak } from './retention.js';
 import { applySettings, openSettings, APP_VERSION } from './settings.js';
 import { mistakeCountDue } from './mistakes.js';
+import { applyTheme } from './theme.js';
+import { pauseTime, touchTime } from './time.js';
 
 const root = () => document.getElementById('app-root');
 
@@ -182,11 +184,15 @@ function renderOnboarding() {
     ['exp', 'target', 'exp_exp', { en: 'Trade regularly', ur: 'Regularly trade karta hoon' }],
   ];
   const mktOpts = [
+    ['foundations', 'book', { en: 'Foundations (start here)', ur: 'Foundations (yahan se)' }],
+    ['invest', 'book', { en: 'Investing', ur: 'Investing' }],
+    ['spot', 'book', { en: 'Spot vs Derivatives', ur: 'Spot vs Derivatives' }],
     ['crypto', 'crypto', { en: 'Crypto & Perps', ur: 'Crypto & Perps' }],
-    ['stocks', 'stocks', { en: 'Stocks & Options', ur: 'Stocks & Options' }],
+    ['stocks', 'stocks', { en: 'Stocks (equities)', ur: 'Stocks (equities)' }],
+    ['options', 'stocks', { en: 'Options', ur: 'Options' }],
     ['futures', 'futures', { en: 'Futures', ur: 'Futures' }],
     ['forex', 'forex', { en: 'Forex', ur: 'Forex' }],
-    ['binary', 'binary', { en: 'Binary Options', ur: 'Binary Options' }],
+    ['binary', 'binary', { en: 'Binary (elective)', ur: 'Binary (elective)' }],
   ];
 
   function draw() {
@@ -268,11 +274,12 @@ function renderOnboarding() {
   }
 
   function finish() {
-    App.profile = { name: (data.name || '').trim() || 'Trader', experience: data.experience || 'new', markets: data.markets.length ? data.markets : ['crypto'] };
+    const markets = data.markets.length ? data.markets : (data.experience === 'new' ? ['foundations'] : ['crypto']);
+    App.profile = { name: (data.name || '').trim() || 'Trader', experience: data.experience || 'new', markets };
     store.set(KEYS.profile, App.profile);
     store.set(KEYS.onboarded, true);
     App.tab = 'dashboard'; App.render(); App.renderNav();
-    maybeTour();
+    setTimeout(() => maybeTour(), 300);
   }
 
   draw();
@@ -286,7 +293,7 @@ function showUpdateToast(version) {
   const pill = document.createElement('div');
   pill.id = 'sw-toast';
   pill.className = 'sw-toast';
-  const label = App.t('sw_updated').replace('{v}', version || 'v4');
+  const label = App.t('sw_updated').replace('{v}', version || APP_VERSION);
   pill.innerHTML = `<span>${label}</span><button type="button" id="swReload">${App.t('sw_reload')}</button>`;
   document.body.appendChild(pill);
   requestAnimationFrame(() => pill.classList.add('on'));
@@ -299,7 +306,7 @@ function watchServiceWorker() {
     if (e.data && e.data.type === 'SW_UPDATED') showUpdateToast(e.data.version);
   });
   navigator.serviceWorker.ready.then((reg) => {
-    if (reg.waiting) showUpdateToast('v4');
+    if (reg.waiting) showUpdateToast(APP_VERSION);
     reg.addEventListener('updatefound', () => {
       const nw = reg.installing;
       if (!nw) return;
@@ -319,13 +326,16 @@ function boot() {
     App.profile = store.get(KEYS.profile, null);
     const onboarded = store.get(KEYS.onboarded, false);
     applySettings(App);
+    applyTheme();
     watchServiceWorker();
     watchOnline();
+    document.addEventListener('pointerdown', () => touchTime(), { passive: true });
+    // Sheet queue: corrupt → whatsnew → streak → (tour after onboard)
     maybeCorruptSheet();
     maybeWhatsNew();
     maybeMorningBrief();
     maybeNotifyReviews();
-    maybeStreakRecovery();
+    setTimeout(() => maybeStreakRecovery(), 400);
 
     setTimeout(() => {
       const splash = document.getElementById('splash');
@@ -383,7 +393,7 @@ function maybeWhatsNew() {
       <div class="sheet-head"><div class="slabel">${App.t('whats_new')} · ${APP_VERSION}</div>
         <button class="sheet-x" data-close>${icon('x', { size: 18 })}</button></div>
       <div class="sheet-body" style="font-size:14px;color:var(--t2);line-height:1.55">
-        <p>v28: futures/forex/stocks sim packs + instrument sizing modes.</p>
+        <p>v32: Campus / Courses / Desk / Transcript · themes · teacher voice · learning time · Course vs TRADE-READY certs · Manual journal label.</p>
         <p style="color:var(--t3)">See CHANGELOG.md for full notes.</p>
       </div>
     </div>`;
@@ -399,19 +409,23 @@ function maybeTour() {
   el.id = 'tour-sheet';
   el.className = 'sheet-root on';
   const paint = () => {
-    el.innerHTML = `<div class="sheet-backdrop"></div>
+    el.innerHTML = `<div class="sheet-backdrop" data-skip></div>
       <div class="sheet" role="dialog">
         <div class="sheet-handle"></div>
         <div class="sheet-body">
           <div class="slabel">0${step + 1} / 03</div>
           <p style="font-size:16px;color:var(--t1);line-height:1.5;margin:12px 0 18px">${lines[step]}</p>
           <button class="btn accent" id="tourNext">${step < 2 ? App.t('tour_next') : App.t('tour_done')}</button>
+          <button class="btn ghost mt10" id="tourSkip">${App.t('onb_skip')}</button>
         </div>
       </div>`;
+    const done = () => { store.set(KEYS.tourDone, true); el.remove(); };
     document.getElementById('tourNext').addEventListener('click', () => {
       if (step < 2) { step++; paint(); }
-      else { store.set(KEYS.tourDone, true); el.remove(); }
+      else done();
     });
+    document.getElementById('tourSkip')?.addEventListener('click', done);
+    el.querySelector('[data-skip]')?.addEventListener('click', done);
   };
   document.body.appendChild(el);
   paint();

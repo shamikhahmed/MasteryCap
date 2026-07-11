@@ -58,4 +58,4 @@ export function icon(name, { size = 24, cls = '', sw = 1.75 } = {}) {
   return `<svg class="${cls}" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg>`;
 }
 
-export const TRACK_ICON = { foundations: 'foundations', macro: 'macro', tax: 'tax', greeks: 'greeks', crypto: 'crypto', stocks: 'stocks', invest: 'invest', futures: 'futures', forex: 'forex', spot: 'spot', bots: 'bots', binary: 'binary' };
+export const TRACK_ICON = { foundations: 'foundations', macro: 'macro', tax: 'tax', greeks: 'greeks', crypto: 'crypto', stocks: 'stocks', options: 'stocks', invest: 'invest', futures: 'futures', forex: 'forex', spot: 'spot', bots: 'bots', binary: 'binary' };

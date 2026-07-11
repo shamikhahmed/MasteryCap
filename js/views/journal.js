@@ -280,7 +280,7 @@ export function renderJournal(App, c) {
     if (!direction) { alert(lang === 'en' ? 'Pick long or short.' : 'Long ya short chuno.'); return; }
     if (isNaN(pl)) { alert(lang === 'en' ? 'Enter the P/L result in dollars.' : 'P/L result dollars mein daalo.'); return; }
     if (s.checklistGate && !checklistComplete(App)) {
-      alert(lang === 'en' ? 'Checklist must be 4/4 on Home first.' : 'Pehle Home pe checklist 4/4.');
+      alert(lang === 'en' ? 'Checklist must be 4/4 on Desk first.' : 'Pehle Desk pe checklist 4/4.');
       return;
     }
     const until = cooldownActive();

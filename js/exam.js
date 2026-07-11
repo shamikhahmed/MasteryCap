@@ -1,8 +1,8 @@
 /* ============================================================
-   exam.js — track final exam + local certificate canvas (P11)
+   exam.js — track final exam + certificate canvas (Course / TRADE-READY).
    ============================================================ */
 
-import { store, KEYS } from './store.js';
+import { store, KEYS, djb2 } from './store.js';
 import { getTrack } from './data/tracks.js';
 
 function shuffle(arr, rng = Math.random) {
@@ -59,88 +59,118 @@ export function trackComplete(trackId, App) {
   return track.weeks.every((w) => ['completed', 'mastered'].includes(prog.weekStatus[w.id]));
 }
 
-/** Draw TRADE-READY certificate to canvas → PNG download. Process-measured honesty. */
-export function downloadCertificate({ name, trackName, dateIso, lang = 'en', evidence = null }) {
+export function evidenceHash(evidence) {
+  try {
+    return djb2(JSON.stringify(evidence || {})).slice(0, 10);
+  } catch {
+    return '--------';
+  }
+}
+
+/**
+ * @param {'course'|'trade_ready'} tier
+ * course = weeks+exam complete (NOT trade-ready)
+ * trade_ready = graduation gates + evidence
+ */
+export function downloadCertificate({
+  name, trackName, dateIso, lang = 'en', evidence = null, tier = 'course',
+}) {
+  const isTR = tier === 'trade_ready';
   const canvas = document.createElement('canvas');
   canvas.width = 1200;
-  canvas.height = 675;
+  canvas.height = 720;
   const ctx = canvas.getContext('2d');
   ctx.fillStyle = '#08090A';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.strokeStyle = '#FF6B2C';
+  ctx.strokeStyle = isTR ? '#FF6B2C' : '#5B8DEF';
   ctx.lineWidth = 3;
   ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
 
-  ctx.fillStyle = '#FF6B2C';
+  ctx.fillStyle = isTR ? '#FF6B2C' : '#5B8DEF';
   ctx.font = '600 26px system-ui, sans-serif';
-  ctx.fillText('MasteryCap', 80, 110);
+  ctx.fillText('MasteryCap', 80, 100);
 
   ctx.fillStyle = '#F2F4F7';
-  ctx.font = '600 44px system-ui, sans-serif';
-  ctx.fillText(lang === 'en' ? 'TRADE-READY' : 'TRADE-READY', 80, 190);
+  ctx.font = '600 42px system-ui, sans-serif';
+  const title = isTR
+    ? 'TRADE-READY'
+    : (lang === 'en' ? 'COURSE COMPLETE' : 'COURSE COMPLETE');
+  ctx.fillText(title, 80, 170);
 
   ctx.fillStyle = '#A8B0BA';
-  ctx.font = '500 20px system-ui, sans-serif';
+  ctx.font = '500 18px system-ui, sans-serif';
   ctx.fillText(
-    lang === 'en' ? 'process-measured' : 'process-measured',
-    80, 230
+    isTR
+      ? (lang === 'en' ? 'process-measured graduation' : 'process-measured graduation')
+      : (lang === 'en' ? 'exam + weeks — literacy certificate' : 'exam + weeks — literacy certificate'),
+    80, 210
   );
 
   ctx.fillStyle = '#F2F4F7';
   ctx.font = '600 28px system-ui, sans-serif';
-  ctx.fillText(name || 'Trader', 80, 300);
+  ctx.fillText(name || 'Trader', 80, 280);
 
   ctx.fillStyle = '#A8B0BA';
   ctx.font = '400 20px system-ui, sans-serif';
-  ctx.fillText(
-    lang === 'en' ? `Track: ${trackName}` : `Track: ${trackName}`,
-    80, 340
-  );
+  ctx.fillText(`${lang === 'en' ? 'Course' : 'Course'}: ${trackName}`, 80, 320);
 
   const d = new Date(dateIso || Date.now());
   ctx.fillStyle = '#8A939E';
   ctx.font = '500 18px ui-monospace, monospace';
-  ctx.fillText(d.toISOString().slice(0, 10), 80, 380);
+  ctx.fillText(d.toISOString().slice(0, 10), 80, 360);
 
-  const sim = evidence?.sim;
-  const examLine = evidence?.examPassedAt
-    ? (lang === 'en' ? 'Exam passed' : 'Exam pass')
-    : (lang === 'en' ? 'Exam on record' : 'Exam record');
-  let evidenceLine = examLine;
-  if (sim && sim.tradeCount != null) {
-    const rate = Math.round((sim.processPassRate || 0) * 100);
-    evidenceLine = lang === 'en'
-      ? `${examLine} · Sim trades ${sim.tradeCount} · Process ${rate}% (latest 10)`
-      : `${examLine} · Sim trades ${sim.tradeCount} · Process ${rate}% (latest 10)`;
+  const hash = evidenceHash(evidence);
+  const lines = [];
+  if (evidence?.examPassedAt || !isTR) {
+    lines.push(lang === 'en' ? '✓ Final exam on record' : '✓ Final exam record');
   }
-  ctx.fillStyle = '#A8B0BA';
-  ctx.font = '400 17px system-ui, sans-serif';
-  ctx.fillText(evidenceLine.slice(0, 90), 80, 440);
+  if (isTR) {
+    const sim = evidence?.sim;
+    if (sim) {
+      const rate = Math.round((sim.processPassRate || 0) * 100);
+      lines.push(`✓ Sim trades ${sim.tradeCount || 0} · process ${rate}% (latest 10)`);
+      lines.push(sim.liquidatedInLatest10 === 0
+        ? (lang === 'en' ? '✓ Zero liquidations (latest 10)' : '✓ Zero liquidation (latest 10)')
+        : (lang === 'en' ? '○ Liquidation check' : '○ Liquidation check'));
+    }
+    if (evidence?.portfolio) {
+      lines.push(`✓ Portfolio adherence passes: ${evidence.portfolio.pass || 0}`);
+    }
+    lines.push(lang === 'en'
+      ? '✓ Process competence — markets still decide outcomes'
+      : '✓ Process competence — markets outcomes decide');
+  } else {
+    lines.push(lang === 'en'
+      ? '✓ Course weeks completed / exam passed'
+      : '✓ Course weeks / exam pass');
+    lines.push(lang === 'en'
+      ? '○ TRADE-READY requires Practice labs (separate)'
+      : '○ TRADE-READY ke liye Practice labs alag');
+  }
 
-  ctx.fillStyle = '#FF6B2C';
-  ctx.font = '500 18px system-ui, sans-serif';
-  ctx.fillText(
-    lang === 'en'
-      ? 'Certifies process competence. Markets decide outcomes.'
-      : 'Process competence certify. Outcomes markets decide.',
-    80, 520
-  );
+  ctx.fillStyle = '#C4C8CD';
+  ctx.font = '400 17px system-ui, sans-serif';
+  lines.forEach((ln, i) => ctx.fillText(ln.slice(0, 88), 80, 420 + i * 28));
 
   ctx.fillStyle = '#8A939E';
-  ctx.font = '400 14px system-ui, sans-serif';
+  ctx.font = '500 14px ui-monospace, monospace';
+  ctx.fillText(`verify:${hash}`, 80, 600);
+
+  ctx.fillStyle = '#8A939E';
+  ctx.font = '400 13px system-ui, sans-serif';
   ctx.fillText(
     lang === 'en'
-      ? 'Self-assessed local certificate — not a professional credential. No tips or signals.'
-      : 'Self-assessed local certificate — professional credential nahi. Tips/signals nahi.',
-    80, 580
+      ? 'Self-issued · device-local · not a broker/regulatory license · not investment advice'
+      : 'Self-issued · device-local · broker/regulatory license nahi · investment advice nahi',
+    80, 640
   );
 
   const a = document.createElement('a');
-  a.download = `masterycap-cert-${String(trackName).replace(/\s+/g, '-').toLowerCase()}.png`;
+  const slug = String(trackName).replace(/\s+/g, '-').toLowerCase();
+  a.download = `masterycap-${isTR ? 'trade-ready' : 'course'}-${slug}.png`;
   a.href = canvas.toDataURL('image/png');
   a.click();
 }
-
 
 /** Binary harm-reduction gate — 3 fixed questions. */
 export const BINARY_GATE = [
@@ -161,32 +191,32 @@ export const BINARY_GATE = [
   },
   {
     q: {
-      en: 'In retail binary, your counterparty is typically…',
-      ur: 'Retail binary mein aapka counterparty aksar…',
+      en: 'Most binary “mentors” primarily earn from…',
+      ur: 'Zyada tar binary “mentors” asal mein kamate hain…',
     },
     opts: {
-      en: ['Another retail trader matching your bet', 'The platform / market maker', 'A regulated exchange clearinghouse', 'Your bank'],
-      ur: ['Koi aur retail trader', 'Platform / market maker', 'Regulated clearinghouse', 'Bank'],
+      en: ['Your trading profits', 'Affiliate commissions on deposits', 'SECP salaries'],
+      ur: ['Aapki trading profits', 'Deposits pe affiliate commission', 'SECP salary'],
     },
     correct: 1,
     explain: {
-      en: 'You bet against the house structure — incentives matter.',
-      ur: 'Aap house structure ke khilaf bet — incentives matter.',
+      en: 'They get paid when you deposit — not when you win.',
+      ur: 'Paisa deposit pe milta hai — jeet pe nahi.',
     },
   },
   {
     q: {
-      en: 'Martingale (double after loss) on binary…',
-      ur: 'Binary pe martingale (loss ke baad double)…',
+      en: 'Recommended binary “earn size” in this school:',
+      ur: 'Is school mein binary “earn size”:',
     },
     opts: {
-      en: ['Guarantees recovery', 'Removes variance', 'Concentrates ruin risk into one streak', 'Is required by brokers'],
-      ur: ['Recovery guarantee', 'Variance khatam', 'Ek streak mein ruin risk jama', 'Broker require'],
+      en: ['$0 — walk away', '$50/day', 'Whatever fits'],
+      ur: ['$0 — walk away', '$50/day', 'Jo fit ho'],
     },
-    correct: 2,
+    correct: 0,
     explain: {
-      en: 'It works until one long losing streak empties the account.',
-      ur: 'Chalta hai jab tak lambi losing streak account khali na kar de.',
+      en: 'Literacy track only. No income path.',
+      ur: 'Sirf literacy. Income path nahi.',
     },
   },
 ];

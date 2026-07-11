@@ -1,5 +1,14 @@
 # Changelog
 
+## v32 — 2026-07-11 · School shell + UX spoilers fixed
+- Tabs: **Campus · Courses · Desk · Transcript**; Journal **Manual** (was Live)
+- Certs split: **COURSE COMPLETE** vs **TRADE-READY** (evidence hash); exam no longer says TRADE-READY
+- Themes (Dark/Light/Auto + Paper/Quiet/Focus) · Teacher voice · active learning time on Transcript
+- Grad soft landing (exam done → Practice CTA) · tour Skip · SW toast uses APP_VERSION
+- Limit unfilled message · checklist copy Desk · onboarding markets include Foundations/Invest/Spot
+- **Stocks / Options split** · Binary/Bots electives · skill challenge tests
+- SW **v32**
+
 ## v31 — 2026-07-11 · S7: Sim audits + smoke + school complete
 - **`scripts/audit-sim.mjs`** — determinism, stop rejects, liq formula, limit fill, partial≈full, process fails, futures `size_zero`, forex pip lots, portfolio panic/stick
 - Registered in `audit-all` (7 audits)

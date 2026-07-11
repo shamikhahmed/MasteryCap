@@ -9,6 +9,8 @@ import { renderCandles } from '../candles.js';
 import { createSession } from '../sim/engine.js';
 import { SIM_SCENARIOS, getScenario, SIM_TRACK_ORDER, SIM_TRACK_LABEL, scenariosByTrack } from '../sim/scenarios.js';
 import { createPortfolioSession, PORTFOLIO_IDS } from '../sim/portfolio.js';
+import { teacherLine } from '../teacher.js';
+import { startTime, pauseTime } from '../time.js';
 
 let S = {
   view: 'picker', session: null, scenario: null,
@@ -107,6 +109,8 @@ function startSession(id, seed) {
   const useSeed = seed != null && seed !== '' ? Number(seed) : (Date.now() % 1e9);
   S.session = createSession({ scenario: sc, seed: useSeed, balance: 1000 });
   S.view = 'session'; S.msg = null;
+  S._coachShown = false;
+  startTime('sim', { courseId: sc.track, topicId: sc.id });
   APP.haptic();
   draw();
 }
@@ -130,6 +134,7 @@ function drawSession() {
     <button class="backlink" id="simEnd">${icon('back', { size: 16 })} ${App.t('sim_end')}</button>
     <div class="lesson-kicker">${sc.name[lang].toUpperCase()} · <span class="mono">${barsLeft} ${App.t('sim_bars_left')}</span></div>
     <div class="note-box warn" style="margin-bottom:12px;font-size:12.5px">${sc.mission[lang]}</div>
+    ${!pos ? `<div class="note-box" style="margin-bottom:12px;font-size:12.5px">${teacherLine(App, 'sim_coach_tip')}</div>` : ''}
 
     <div class="panel" style="padding:8px 8px 4px;margin-bottom:12px">
       ${renderCandles(sess.visible(), { w: 340, h: 200, lines })}
@@ -322,6 +327,7 @@ function startPlay() {
 /* ---------------- debrief ---------------- */
 function endSession() {
   stopPlay();
+  pauseTime();
   const sess = S.session, st = sess.state;
   if (st.pos) sess.closeManual();
 
@@ -343,6 +349,7 @@ function endSession() {
   S.debrief = {
     trades: st.trades, balance: st.balance, start: st.startBalance,
     noTrade: st.trades.length === 0, seed: st.seed,
+    limitExpired: (st.events || []).some((e) => e.type === 'limit_expired'),
   };
   S.view = 'debrief';
   draw();
@@ -374,6 +381,7 @@ function drawDebrief() {
       ${processLine ? `<div class="r-msg mono" style="margin-top:8px">${processLine}</div>` : ''}
       <div class="r-msg">${App.t('sim_process_note')}</div>
     </div>
+    ${d.limitExpired ? `<div class="note-box warn mt14">${App.t('sim_limit_expired')}</div>` : ''}
     ${rTimeline}
     ${d.trades.length ? `<div class="panel mt14">${d.trades.map((t) => `
       ${tradeRow(App, t)}
