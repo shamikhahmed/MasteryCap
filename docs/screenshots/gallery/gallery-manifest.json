@@ -1,0 +1,55 @@
+{
+  "app": "MasteryCap",
+  "version": "38.0.0",
+  "generated": "2026-07-11T19:02:43.813Z",
+  "shots": [
+    {
+      "file": "desktop-01-dashboard.png",
+      "label": "Dashboard",
+      "route": "[data-tab=\"dashboard\"]",
+      "viewport": "desktop"
+    },
+    {
+      "file": "desktop-02-learn.png",
+      "label": "Learn",
+      "route": "[data-tab=\"learn\"]",
+      "viewport": "desktop"
+    },
+    {
+      "file": "desktop-03-journal.png",
+      "label": "Journal",
+      "route": "[data-tab=\"journal\"]",
+      "viewport": "desktop"
+    },
+    {
+      "file": "desktop-04-progress.png",
+      "label": "Progress",
+      "route": "[data-tab=\"progress\"]",
+      "viewport": "desktop"
+    },
+    {
+      "file": "mobile-01-dashboard.png",
+      "label": "Dashboard",
+      "route": "[data-tab=\"dashboard\"]",
+      "viewport": "mobile"
+    },
+    {
+      "file": "mobile-02-learn.png",
+      "label": "Learn",
+      "route": "[data-tab=\"learn\"]",
+      "viewport": "mobile"
+    },
+    {
+      "file": "mobile-03-journal.png",
+      "label": "Journal",
+      "route": "[data-tab=\"journal\"]",
+      "viewport": "mobile"
+    },
+    {
+      "file": "mobile-04-progress.png",
+      "label": "Progress",
+      "route": "[data-tab=\"progress\"]",
+      "viewport": "mobile"
+    }
+  ]
+}
