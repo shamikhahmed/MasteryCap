@@ -6,6 +6,7 @@
   "scripts": {
     "audit": "node scripts/audit-all.mjs",
     "smoke": "node tests/smoke.cjs",
+    "final": "node tests/final-acceptance.cjs",
     "e2e": "node scripts/audit-e2e.cjs",
     "lighthouse": "node scripts/lighthouse-check.cjs"
   },

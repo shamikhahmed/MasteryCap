@@ -4,6 +4,7 @@
 - **`scripts/audit-sim.mjs`** — determinism, stop rejects, liq formula, limit fill, partial≈full, process fails, futures `size_zero`, forex pip lots, portfolio panic/stick
 - Registered in `audit-all` (7 audits)
 - Smoke: scripted sim session (enter+stop, 10 steps, close) → `simTrades` + Journal Paper tab
+- **`tests/final-acceptance.cjs`** — FINAL ACCEPTANCE harness @375 (campus path, portfolio stick, backup wipe/import)
 - SW **v31** · FINAL ACCEPTANCE in `LOOP-STATE.md`
 
 ## v30 — 2026-07-11 · S6: School copy + income-promise lint

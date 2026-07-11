@@ -2,7 +2,7 @@
 # Single source of truth. Re-read every iteration.
 
 status: COMPLETE
-iteration: 15
+iteration: 16
 phase: S7
 next_task: (none)
 version_on_disk: v31
@@ -15,26 +15,30 @@ version_on_disk: v31
 - S5 → **v29** (i13)
 - S6 → **v30** (i14)
 - S7 → **v31** (i15)
+- FINAL ACCEPTANCE harness → i16 · pushed
 
 ## blocked
 (none)
 
 ## decisions
-- Do not push (still).
-- Liq process assert in audit-sim uses forced wick through liq (deterministic).
+- Push allowed (owner asked 2026-07-11).
+- FINAL harness: Playwright offline = SPA tab nav only (static server has no SW; ESM quizzes stay online).
 
 ## evidence
-- i15: `audit-sim` 25 checks PASS; `audit-all` 7/7 PASS; `tests/smoke.cjs` PASS @375/390/430 (incl. sim→simTrades→Paper).
+- i15: audit-sim 25 PASS; audit-all 7/7; smoke PASS.
+- i16: `node tests/final-acceptance.cjs` PASS @375 — see FINAL below.
 - CACHE/VERSION/APP_VERSION v31.
 
 ## FINAL ACCEPTANCE
-Automated / agent-run:
-- [x] `node scripts/audit-all.mjs` green (7 audits)
-- [x] `node tests/smoke.cjs` green — onboard, Foundations quiz sample, journal trade, **sim enter+stop+10 steps+close**, Paper tab, no pageerror @375/390/430
-- [x] Portfolio stick pass / panic-sell fail (audit-sim)
-- [x] Income-promise lint (audit-content)
-
-Not run in this agent loop (manual / device):
-- [ ] Fresh profile @375 offline after first load (full campus path: crypto quiz + liq-line lesson + portfolio stick UI click-through)
-- [ ] Export backup → wipe → import restore
-- Report: automated gates green; full offline restore + multi-track UI path left for owner smoke on device. School phases S1–S7 complete on disk.
+- [x] Fresh @375 onboard
+- [x] Offline shell nav after warm load (tabs)
+- [x] Foundations quiz + crypto quiz
+- [x] Sim process run + over-risk fail shown
+- [x] Limit place (+ cancel/fallback) + partial close
+- [x] Journal Paper tab shows simTrades
+- [x] Graduation panel visible; TRADE-READY honesty in exam.js; graduate CTA when seeded
+- [x] Portfolio invest stick-through → pass in simStats
+- [x] exportBackup → clearAll → importBackup restores profile + simTrades
+- [x] zero pageerror
+- [x] `node scripts/audit-all.mjs` + `node tests/smoke.cjs` (prior) green
+- Note: full SW-offline (Add to Home Screen) still owner device check — harness uses static server.
