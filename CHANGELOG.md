@@ -1,5 +1,13 @@
 # Changelog
 
+## v35 — 2026-07-11 · Honest mastery + thick Macro/Tax + UR bodies
+- Macro + Tax rewritten to Investing depth (bilingual essays)
+- Foundations/Greeks short-UR bodies expanded; short-UR sweep clean
+- TRADE-READY honesty: competence decays; not lifetime mastery / income
+- Cert honesty: NOT SECP/broker/CFA/gov license; local verify fingerprint only
+- Path: Tax after Invest, Macro after Spot (full tracks again)
+- SW **v35**
+
 ## v34 — 2026-07-11 · Zero-beginner ready path
 - Soft-start Foundations (Skip / new → Week 1, no placement wall)
 - Skip no longer routes to Crypto; markets copy = learn not trade

@@ -1,734 +1,90 @@
 /* ============================================================
    tax.js — Tax literacy (PK framing). Not legal advice.
+   Records + humility — never rate tables as current law.
    ============================================================ */
 
 export const TAX_WEEKS = [
-  {
-    "id": 1,
-    "title": {
-      "en": "Tax Literacy Mindset",
-      "ur": "Tax samajhne ka mindset"
-    },
-    "body": {
-      "en": "<p>This track is <strong>literacy</strong>, not legal advice, not a filing service. Rules change. When money is real, use a qualified advisor in your jurisdiction.</p>\n<p>Goal: know what to record, what to ask, which myths to reject.</p>\n<p>{{redflag:Anyone selling “guaranteed tax-free profits” is a red flag.}}</p>",
-      "ur": "<p>Ye track <strong>literacy</strong> hai — legal advice nahi. Rules badalte. Asli paisa pe qualified advisor.</p>\n<p>Goal: kya record, kya poochna, myths refuse.</p>\n<p>{{redflag:“Guaranteed tax-free profits” = red flag.}}</p>"
-    },
-    "quiz": [
-      {
-        "q": {
-          "en": "This tax track provides:",
-          "ur": "Ye tax track deta:"
-        },
-        "opts": {
-          "en": [
-            "General literacy — not personalized legal advice",
-            "A guarantee you will owe zero tax",
-            "Offshore secrecy that beats all law"
-          ],
-          "ur": [
-            "General literacy — personal legal advice nahi",
-            "Zero tax guarantee",
-            "Offshore secrecy"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Education ≠ representation.",
-          "ur": "Education ≠ representation."
-        }
-      },
-      {
-        "q": {
-          "en": "“Crypto is always untaxable” is:",
-          "ur": "“Crypto hamesha untaxable”:"
-        },
-        "opts": {
-          "en": [
-            "A myth in many jurisdictions",
-            "Universal law",
-            "True if you use VPN"
-          ],
-          "ur": [
-            "Bohat jurisdictions mein myth",
-            "Universal law",
-            "VPN se true"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Many places treat disposals as taxable — check locally.",
-          "ur": "Kai jagah disposal taxable — local check."
-        }
-      },
-      {
-        "q": {
-          "en": "Best early habit:",
-          "ur": "Behtareen early habit:"
-        },
-        "opts": {
-          "en": [
-            "Keep records of every buy/sell/date/cost",
-            "Delete history after each trade",
-            "Only screenshot P&L"
-          ],
-          "ur": [
-            "Har buy/sell/date/cost record",
-            "History delete",
-            "Sirf P&L screenshot"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Records beat memory at filing time.",
-          "ur": "Filing pe records > memory."
-        }
-      },
-      {
-        "q": {
-          "en": "Paid “tax-free profit” schemes are:",
-          "ur": "Paid “tax-free profit” schemes:"
-        },
-        "opts": {
-          "en": [
-            "Usually scams or illegal avoidance",
-            "Endorsed by this app",
-            "Required for investors"
-          ],
-          "ur": [
-            "Aksar scam / illegal avoidance",
-            "Is app se endorse",
-            "Investors ke liye zaroori"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Walk away.",
-          "ur": "Walk away."
-        }
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "title": {
-      "en": "Pakistan: Framing Capital Gains",
-      "ur": "Pakistan: Capital Gains Framing"
-    },
-    "body": {
-      "en": "<p><strong>Pakistan framing (high level):</strong> Equity and other capital gains can be taxed under rules that change with Finance Acts, holding periods, and filer status. Broker statements and NCCPL/CDC records matter. This is not a rate table — verify on FBR / current law or with a practitioner.</p>\n<p>Homework: locate your broker's annual tax certificate; store CNIC-linked statements offline.</p>\n<p>{{xref:invest:4:PSX account mechanics}}</p>",
-      "ur": "<p><strong>Pakistan framing:</strong> Capital gains rules Finance Acts / holding / filer se badal sakte. Broker + NCCPL/CDC. Rate table nahi — FBR/practitioner verify.</p>\n<p>Homework: broker tax certificate; statements offline.</p>"
-    },
-    "quiz": [
-      {
-        "q": {
-          "en": "For PSX investors, useful documents include:",
-          "ur": "PSX investors ke liye useful docs:"
-        },
-        "opts": {
-          "en": [
-            "Broker tax certificates and CDC/NCCPL records",
-            "Only Telegram P&L screenshots",
-            "Tip-seller invoices"
-          ],
-          "ur": [
-            "Broker tax cert + CDC/NCCPL",
-            "Sirf Telegram P&L",
-            "Tip invoices"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Official statements beat chat screenshots.",
-          "ur": "Official statements > chat."
-        }
-      },
-      {
-        "q": {
-          "en": "Tax rates in this lesson are:",
-          "ur": "Is lesson mein tax rates:"
-        },
-        "opts": {
-          "en": [
-            "Not fixed forever — verify current law",
-            "Permanent and listed here as gospel",
-            "Always zero for filers"
-          ],
-          "ur": [
-            "Forever fixed nahi — current law verify",
-            "Yahan permanent gospel",
-            "Filers ke liye hamesha zero"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "We teach process, not a frozen rate card.",
-          "ur": "Process — frozen rate card nahi."
-        }
-      },
-      {
-        "q": {
-          "en": "Filer vs non-filer status can affect:",
-          "ur": "Filer vs non-filer asar:"
-        },
-        "opts": {
-          "en": [
-            "Withholding and some rates — check current rules",
-            "Nothing ever",
-            "Only your Wi-Fi speed"
-          ],
-          "ur": [
-            "Withholding / kuch rates — current rules",
-            "Kabhi kuch nahi",
-            "Sirf Wi-Fi"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Status matters in PK tax admin — confirm annually.",
-          "ur": "Status matter — saalana confirm."
-        }
-      },
-      {
-        "q": {
-          "en": "Best next step when unsure:",
-          "ur": "Unsure ho to:"
-        },
-        "opts": {
-          "en": [
-            "Ask a qualified PK tax practitioner with your statements",
-            "Trust a random Discord mod",
-            "Ignore filings forever"
-          ],
-          "ur": [
-            "Qualified PK practitioner + statements",
-            "Random Discord",
-            "Forever ignore"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Cheap advice online is expensive later.",
-          "ur": "Sasti online salah baad mein mehngi."
-        }
-      }
-    ]
-  },
-  {
-    "id": 3,
-    "title": {
-      "en": "Cost Basis & Holding Period",
-      "ur": "Cost Basis aur Holding Period"
-    },
-    "body": {
-      "en": "<p><strong>Cost basis</strong> is what you paid (plus allowed costs). Gain/loss ≈ proceeds − basis. Splits and bonuses adjust basis — keep notes.</p>\n<p><strong>Holding period</strong> can change rates/exemptions in some systems. Use methods your broker can support.</p>",
-      "ur": "<p><strong>Cost basis</strong> = jo diya (+ allowed costs). Gain ≈ proceeds − basis. Splits/bonus adjust.</p>\n<p><strong>Holding period</strong> rate/exemption badal sakti. Broker-supported methods use karo.</p>"
-    },
-    "quiz": [
-      {
-        "q": {
-          "en": "Rough capital gain formula starts with:",
-          "ur": "Capital gain formula roughly:"
-        },
-        "opts": {
-          "en": [
-            "Proceeds minus cost basis",
-            "Only the last price",
-            "Leverage times hope"
-          ],
-          "ur": [
-            "Proceeds minus cost basis",
-            "Sirf last price",
-            "Leverage × hope"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "You need both exit proceeds and what you paid.",
-          "ur": "Exit + cost dono chahiye."
-        }
-      },
-      {
-        "q": {
-          "en": "Stock splits typically:",
-          "ur": "Stock splits aksar:"
-        },
-        "opts": {
-          "en": [
-            "Adjust share count and per-share basis",
-            "Create free taxable cash automatically",
-            "Erase your tax history"
-          ],
-          "ur": [
-            "Share count + per-share basis adjust",
-            "Free taxable cash",
-            "Tax history erase"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Economic value same; paperwork changes.",
-          "ur": "Value same; paperwork change."
-        }
-      },
-      {
-        "q": {
-          "en": "Inventing a cost-basis method your broker cannot report is:",
-          "ur": "Broker report na kar sake aisa method invent:"
-        },
-        "opts": {
-          "en": [
-            "A filing risk — use supported methods",
-            "Smart alpha",
-            "Required by SECP always"
-          ],
-          "ur": [
-            "Filing risk — supported methods",
-            "Smart alpha",
-            "SECP hamesha require"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Your return must match evidence.",
-          "ur": "Return evidence se match."
-        }
-      },
-      {
-        "q": {
-          "en": "Keep notes when:",
-          "ur": "Notes rakho jab:"
-        },
-        "opts": {
-          "en": [
-            "You reinvest dividends or get bonus shares",
-            "You only browse charts",
-            "You use demo forever"
-          ],
-          "ur": [
-            "Dividend reinvest / bonus shares",
-            "Sirf charts",
-            "Forever demo"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Corporate actions confuse basis later.",
-          "ur": "Corporate actions baad mein confuse."
-        }
-      }
-    ]
-  },
-  {
-    "id": 4,
-    "title": {
-      "en": "Withholding, Dividends & Records",
-      "ur": "Withholding, Dividends aur Records"
-    },
-    "body": {
-      "en": "<p>Dividends and some transactions may face <strong>withholding</strong>. That is not always final tax — reconcile at return time.</p>\n<p>Folder: monthly broker PDF, MasteryCap Journal CSV export, corporate-action notes. Export from Settings regularly.</p>",
-      "ur": "<p>Dividends pe <strong>withholding</strong> ho sakti — hamesha final tax nahi. Filing pe reconcile.</p>\n<p>Folder: broker PDF, Journal CSV, corporate notes. Settings se export regular.</p>"
-    },
-    "quiz": [
-      {
-        "q": {
-          "en": "Withholding on a dividend usually means:",
-          "ur": "Dividend pe withholding aksar matlab:"
-        },
-        "opts": {
-          "en": [
-            "Tax was deducted at source — still reconcile at filing",
-            "You owe nothing ever again",
-            "The trade was illegal"
-          ],
-          "ur": [
-            "Source pe deduct — filing pe reconcile",
-            "Kabhi kuch nahi dena",
-            "Illegal trade"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Withholding ≠ full story.",
-          "ur": "Withholding ≠ poori kahani."
-        }
-      },
-      {
-        "q": {
-          "en": "MasteryCap Journal CSV helps tax prep by:",
-          "ur": "Journal CSV tax prep:"
-        },
-        "opts": {
-          "en": [
-            "Providing your own dated trade log",
-            "Filing your return automatically with FBR",
-            "Deleting broker evidence"
-          ],
-          "ur": [
-            "Dated trade log",
-            "FBR auto file",
-            "Broker evidence delete"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "App log supports memory; broker docs still primary.",
-          "ur": "App log madad; broker docs primary."
-        }
-      },
-      {
-        "q": {
-          "en": "You should export backups:",
-          "ur": "Backup export:"
-        },
-        "opts": {
-          "en": [
-            "Regularly (Settings) — devices fail",
-            "Never — cloud remembers",
-            "Only after an audit letter"
-          ],
-          "ur": [
-            "Regular (Settings)",
-            "Kabhi nahi",
-            "Sirf audit letter ke baad"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Local-first app: exports are safety.",
-          "ur": "Local-first: export = safety."
-        }
-      },
-      {
-        "q": {
-          "en": "Ignoring dividend paperwork is risky because:",
-          "ur": "Dividend paperwork ignore risky:"
-        },
-        "opts": {
-          "en": [
-            "You may mis-report income",
-            "Dividends are never taxable anywhere",
-            "Brokers invent dividends for fun"
-          ],
-          "ur": [
-            "Income mis-report",
-            "Kabhi taxable nahi",
-            "Brokers mazaak"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Track cash that hit your account.",
-          "ur": "Account mein aaya cash track."
-        }
-      }
-    ]
-  },
-  {
-    "id": 5,
-    "title": {
-      "en": "Cross-Border & When to Hire Help",
-      "ur": "Cross-Border aur Help Kab"
-    },
-    "body": {
-      "en": "<p>US stocks, foreign brokers, and crypto can create <strong>cross-border</strong> reporting questions. Do not decide residency from YouTube.</p>\n<p>Hire help for first market year, large gains, or foreign accounts. Graduation: records habit + practitioner on call. Keep compounding via Investing/Spot.</p>",
-      "ur": "<p>US stocks / foreign / crypto = <strong>cross-border</strong> sawalat. Residency YouTube pe mat.</p>\n<p>Help: pehla saal, bari gains, foreign accounts. Graduation: records + practitioner. Compound Investing/Spot.</p>"
-    },
-    "quiz": [
-      {
-        "q": {
-          "en": "Cross-border investing tax is:",
-          "ur": "Cross-border investing tax:"
-        },
-        "opts": {
-          "en": [
-            "Complex — get professional help for your residency",
-            "Solved by a VPN",
-            "Identical in every country"
-          ],
-          "ur": [
-            "Complex — residency pe professional",
-            "VPN se solve",
-            "Har country same"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Residency and treaties matter.",
-          "ur": "Residency + treaties."
-        }
-      },
-      {
-        "q": {
-          "en": "A good time to hire a tax pro:",
-          "ur": "Tax pro kab:"
-        },
-        "opts": {
-          "en": [
-            "First real market year or large unusual gains",
-            "Never if you day-trade",
-            "Only if you are a celebrity"
-          ],
-          "ur": [
-            "Pehla asli market saal / bari unusual gains",
-            "Day-trade pe kabhi nahi",
-            "Sirf celebrity"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Early advice prevents expensive corrections.",
-          "ur": "Jaldi salah = mehengi correction kam."
-        }
-      },
-      {
-        "q": {
-          "en": "This app will:",
-          "ur": "Ye app:"
-        },
-        "opts": {
-          "en": [
-            "Not file taxes for you",
-            "Auto-pay FBR from Journal",
-            "Issue legal opinions"
-          ],
-          "ur": [
-            "Tumhari tax file nahi karegi",
-            "FBR auto-pay",
-            "Legal opinions"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "School + journal only.",
-          "ur": "School + journal."
-        }
-      },
-      {
-        "q": {
-          "en": "After tax literacy, wealth path remains:",
-          "ur": "Tax literacy ke baad wealth path:"
-        },
-        "opts": {
-          "en": [
-            "Low-fee compounding with clean records",
-            "Hide everything offshore via tips",
-            "Binary options for “tax-free” gains"
-          ],
-          "ur": [
-            "Low-fee compounding + clean records",
-            "Offshore tip hide",
-            "Binary tax-free"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Clean compounding beats evasion fantasies.",
-          "ur": "Clean compound > evasion fantasy."
-        }
-      }
-    ]
-  }
+{id:1, title:{en:"Tax Literacy Mindset", ur:"Tax samajhne ka mindset"},
+ body:{en:`<p>This track is <strong>literacy</strong> — not legal advice, not a filing service, not a "how to pay zero forever" course. Tax rules change with Finance Acts, notifications, and your facts (residency, filer status, instruments). When money is real, a qualified practitioner in your jurisdiction beats any app essay — including this one. MasteryCap will not file returns or represent you.</p><p>Goal of the five weeks: know what to <em>record</em>, what to <em>ask</em>, which myths to reject, and when to hire help. You will not get a frozen rate card here on purpose — rates that look "current" in a course go stale. Anyone selling "guaranteed tax-free profits," offshore secrecy that "beats all law," or VPN-as-tax-strategy is a red flag — walk away.</p><p>{{redflag:Paid schemes that promise tax-free market gains are usually scams or illegal avoidance.}}</p><p>Early habit that survives every law change: keep dated records of every buy, sell, dividend, transfer, and fee. Memory fails at filing time; folders do not. That habit is the whole track in one sentence.</p>`,
+      ur:`<p>Ye track <strong>literacy</strong> hai — legal advice nahi, filing service nahi, "hamesha zero tax" course nahi. Tax rules Finance Acts, notifications, aur tumhari facts (residency, filer status, instruments) se badalte. Jab paisa asli ho, jurisdiction ka qualified practitioner kisi bhi app essay se behtar — is essay se bhi. MasteryCap returns file nahi karegi, represent nahi karegi.</p><p>Paanch hafton ka goal: kya <em>record</em> karna, kya <em>poochna</em>, kaun se myths refuse, aur help kab hire. Yahan jaan-bujh kar frozen rate card nahi — course mein "current" dikhne wale rates purane ho jate. Jo "guaranteed tax-free profits," "law-beating" offshore secrecy, ya VPN-as-tax-strategy beche — red flag; chale jao.</p><p>{{redflag:Paid schemes jo tax-free market gains promise karen — aksar scam ya illegal avoidance.}}</p><p>Har law change se bachne wali early habit: har buy, sell, dividend, transfer, fee ki dated records. Filing pe memory fail hoti; folders nahi. Poora track ek jumle mein yahi aadat hai.</p>`},
+ quiz:[
+   {q:{en:"This tax track provides:",ur:"Ye tax track deta:"},
+    opts:{en:["General literacy — not personalized legal advice","A guarantee you will owe zero tax","Offshore secrecy that beats all law"],ur:["General literacy — personal legal advice nahi","Zero tax ki guarantee","Offshore secrecy jo har law haraye"]},
+    correct:0, explain:{en:"Education is not representation. Your facts need a human who can sign off.",ur:"Education representation nahi. Tumhari facts ko aise insan chahiye jo zimmedari le."}},
+   {q:{en:"“Crypto is always untaxable” is:",ur:"“Crypto hamesha untaxable”:"},
+    opts:{en:["A myth in many jurisdictions","Universal law","True if you use VPN"],ur:["Bohat jurisdictions mein myth","Universal law","VPN se true"]},
+    correct:0, explain:{en:"Many places treat disposals as taxable events — check locally; VPN is not a treaty.",ur:"Kai jagah disposal taxable — local check; VPN treaty nahi."}},
+   {q:{en:"Best early habit for tax literacy:",ur:"Tax literacy ki behtareen early habit:"},
+    opts:{en:["Keep records of every buy/sell/date/cost","Delete history after each trade","Only screenshot P&L"],ur:["Har buy/sell/date/cost record","Har trade ke baad history delete","Sirf P&L screenshot"]},
+    correct:0, explain:{en:"Records beat memory and chat screenshots at filing time.",ur:"Filing pe records memory aur chat screenshots se jeet'te."}}
+ ]},
+{id:2, title:{en:"Pakistan: Framing Capital Gains", ur:"Pakistan: Capital Gains Framing"},
+ body:{en:`<p><strong>Pakistan framing (high level only):</strong> gains on equities and other capital assets can be taxed under rules that move with Finance Acts, holding-period concepts, instrument type, and filer vs non-filer treatment. Broker statements, NCCPL/CDC trails, and annual tax certificates are the evidence trail — not Telegram P&L screenshots. This lesson deliberately contains <em>no</em> rate table presented as current law. Numbers you memorized from a YouTube short are already aging. Verify on FBR / current enactments or with a practitioner before you act.</p><p>Homework that actually helps: locate your broker's annual tax certificate, download monthly statements, and store CNIC-linked PDFs offline. Know where shares sit (your CDC sub-account) so custody and tax paperwork tell the same story — house-account confusion creates both custody and tax headaches.</p><p>{{xref:invest:4:PSX account mechanics — TREC, CDC, statements}}</p><p>Filer status can change withholding and some treatments — confirm annually; do not memorize a friend's WhatsApp summary from last year.</p>`,
+      ur:`<p><strong>Pakistan framing (sirf high level):</strong> equities aur doosre capital assets pe gains un rules ke neeche tax ho sakte hain jo Finance Acts, holding-period concepts, instrument type, aur filer vs non-filer se hilte. Broker statements, NCCPL/CDC trails, aur annual tax certificates evidence hain — Telegram P&L screenshots nahi. Is lesson mein jaan-bujh kar <em>koi</em> rate table current law ke tor pe nahi. YouTube short se hafiz kiye numbers pehle hi purane. Amal se pehle FBR / maujooda qanoon ya practitioner se verify.</p><p>Asli madadgar homework: broker ka annual tax certificate dhoondo, monthly statements download, CNIC-linked PDFs offline store. Jano shares kahan hain (tumhara CDC sub-account) taake custody aur tax paperwork ek kahani sunayen — house-account confusion dono custody aur tax dard banati.</p><p>{{xref:invest:4:PSX mechanics — TREC, CDC, statements}}</p><p>Filer status withholding aur kuch treatments badal sakta — saalana confirm; dost ke pichhle saal ke WhatsApp summary ko hafiz na banao.</p>`},
+ quiz:[
+   {q:{en:"For PSX investors, useful documents include:",ur:"PSX investors ke liye useful docs:"},
+    opts:{en:["Broker tax certificates and CDC/NCCPL records","Only Telegram P&L screenshots","Tip-seller invoices"],ur:["Broker tax cert + CDC/NCCPL records","Sirf Telegram P&L","Tip-seller invoices"]},
+    correct:0, explain:{en:"Official statements beat chat screenshots when questions arise.",ur:"Sawalat uthen to official statements chat screenshots se jeet'te."}},
+   {q:{en:"Tax rates in this lesson are:",ur:"Is lesson mein tax rates:"},
+    opts:{en:["Not fixed forever — verify current law","Permanent and listed here as gospel","Always zero for filers"],ur:["Forever fixed nahi — current law verify","Yahan permanent gospel","Filers ke liye hamesha zero"]},
+    correct:0, explain:{en:"We teach process and humility — not a frozen rate card.",ur:"Process aur humility — frozen rate card nahi."}},
+   {q:{en:"Filer vs non-filer status can affect:",ur:"Filer vs non-filer asar:"},
+    opts:{en:["Withholding and some rates — check current rules","Nothing ever","Only your Wi-Fi speed"],ur:["Withholding aur kuch rates — current rules","Kabhi kuch nahi","Sirf Wi-Fi speed"]},
+    correct:0, explain:{en:"Status matters in PK tax admin — confirm each year with fresh sources.",ur:"PK tax admin mein status matter — har saal taza sources se confirm."}}
+ ]},
+{id:3, title:{en:"Records & Statements", ur:"Records aur Statements"},
+ body:{en:`<p>Tax literacy collapses without paperwork. Build a boring folder: monthly broker PDFs, CDC/NCCPL confirmations where relevant, bank transfer proofs for funding and withdrawals, and a personal trade log (MasteryCap Journal CSV export counts as your dated memory — broker docs remain primary). Note corporate actions: bonus shares, rights, splits, and dividend reinvestments confuse cost basis later if you never wrote them down. One folder per tax year beats a phone camera roll of green P&L.</p><p><strong>Cost basis</strong> thinking (high level): gain/loss starts from proceeds minus what you paid (plus allowed costs where rules allow). Use methods your broker can actually report — inventing a private FIFO/LIFO story your statements cannot support is a filing risk, not alpha. When in doubt, ask what the certificate will show.</p><p>{{redflag:Deleting trade history “for privacy” before you understand reporting obligations is how people invent problems.}}</p><p>Export backups from Settings regularly. This app is local-first; devices fail. Your future self will thank the PDF pile, not the screenshot of a green day.</p>`,
+      ur:`<p>Paperwork ke baghair tax literacy gir jati. Boring folder banao: monthly broker PDFs, jahan relevant CDC/NCCPL confirmations, funding/withdrawal ke bank proofs, aur personal trade log (MasteryCap Journal CSV = dated memory — broker docs primary rehte). Corporate actions note karo: bonus shares, rights, splits, dividend reinvest — baad mein cost basis confuse karte agar kabhi likhe nahi. Har tax year ka ek folder phone ke green P&L camera roll se jeet'ta.</p><p><strong>Cost basis</strong> soch (high level): gain/loss roughly proceeds minus jo diya (plus allowed costs jahan rules den). Aise methods use karo jo broker report kar sake — private FIFO/LIFO kahani invent karna jo statements support na karen filing risk hai, alpha nahi. Shak ho to poocho certificate kya dikhayega.</p><p>{{redflag:Reporting samajhne se pehle “privacy” ke liye trade history delete — masle invent karne ka tareeqa.}}</p><p>Settings se backup export regular. App local-first; devices fail. Future self PDF pile ka shukriya karega, green day ke screenshot ka nahi.</p>`},
+ quiz:[
+   {q:{en:"Rough capital gain thinking starts with:",ur:"Capital gain soch roughly shuru:"},
+    opts:{en:["Proceeds minus cost basis","Only the last price","Leverage times hope"],ur:["Proceeds minus cost basis","Sirf last price","Leverage × hope"]},
+    correct:0, explain:{en:"You need both exit proceeds and what you paid — hope is not a basis method.",ur:"Exit proceeds aur di hui qeemat dono chahiye — hope basis method nahi."}},
+   {q:{en:"MasteryCap Journal CSV helps tax prep by:",ur:"Journal CSV tax prep mein madad:"},
+    opts:{en:["Providing your own dated trade log","Filing your return automatically with FBR","Deleting broker evidence"],ur:["Apna dated trade log","FBR pe auto file","Broker evidence delete"]},
+    correct:0, explain:{en:"App log supports memory; broker PDFs stay primary evidence.",ur:"App log memory madad; broker PDFs primary evidence."}},
+   {q:{en:"You should export backups:",ur:"Backup export:"},
+    opts:{en:["Regularly (Settings) — devices fail","Never — cloud remembers","Only after an audit letter"],ur:["Regular (Settings) — devices fail","Kabhi nahi — cloud yaad","Sirf audit letter ke baad"]},
+    correct:0, explain:{en:"Local-first means exports are your safety net.",ur:"Local-first = export hi safety net."}}
+ ]},
+{id:4, title:{en:"Broker Certificates & Filer Myths", ur:"Broker Certificates aur Filer Myths"},
+ body:{en:`<p>Once a year (and anytime you switch brokers), hunt the <strong>broker tax / capital-gains certificate</strong> and reconcile it against your own log. Dividends and some transactions may show <strong>withholding</strong> at source — that is not always the full story; reconcile at return time rather than assuming "already taxed = done forever." Store the certificate with the same year's monthly statements so April-you is not hunting WhatsApp.</p><p>Filer myths to kill: "Filers never pay capital gains tax," "Non-filer means invisible," "CDC custody means FBR already settled everything," "Crypto wallets outside Pakistan are always outside the law." Reality is messier and year-specific. Status can change withholding and administrative treatment — it is not a magic shield or a free pass. Friends' summaries from last Finance Act age badly.</p><p>{{xref:invest:4:PSX custody and broker verification}}</p><p>If your certificate, CDC trail, and journal disagree, do not invent a story on the return — ask the broker's tax desk or a practitioner with the three documents in hand.</p>`,
+      ur:`<p>Saal mein ek dafa (aur broker badlo to), <strong>broker tax / capital-gains certificate</strong> dhoondo aur apne log se reconcile karo. Dividends aur kuch transactions pe source pe <strong>withholding</strong> dikh sakti — ye hamesha poori kahani nahi; return pe reconcile karo, ye assume mat karo "pehle tax ho gaya = hamesha khatam." Certificate usi saal ki monthly statements ke sath store karo taake April-you WhatsApp na dhoonde.</p><p>Filer myths khatam karo: "Filers kabhi capital gains tax nahi dete," "Non-filer = invisible," "CDC custody = FBR ne sab settle kar diya," "Pakistan bahar crypto wallets hamesha law se bahar." Haqeeqat messier aur saal-specific. Status withholding aur admin treatment badal sakta — magic shield ya free pass nahi. Dost ke pichhle Finance Act ke summaries jaldi purane.</p><p>{{xref:invest:4:PSX custody aur broker verification}}</p><p>Agar certificate, CDC trail, aur journal disagree karen — return pe kahani invent mat karo; teen documents le kar broker tax desk ya practitioner se poocho.</p>`},
+ quiz:[
+   {q:{en:"Withholding on a dividend usually means:",ur:"Dividend pe withholding aksar matlab:"},
+    opts:{en:["Tax was deducted at source — still reconcile at filing","You owe nothing ever again","The trade was illegal"],ur:["Source pe deduct — filing pe phir bhi reconcile","Kabhi kuch nahi dena","Trade illegal thi"]},
+    correct:0, explain:{en:"Withholding is a chapter, not always the whole book.",ur:"Withholding aik baab hai — hamesha poori kitab nahi."}},
+   {q:{en:"“Filers never pay capital gains” is:",ur:"“Filers kabhi capital gains nahi dete”:"},
+    opts:{en:["A myth — status is not a free pass; check current rules","Permanent law forever","True if you screenshot the certificate"],ur:["Myth — status free pass nahi; current rules","Hamesha permanent law","Certificate screenshot se true"]},
+    correct:0, explain:{en:"Filer treatment changes with law and facts — myths age badly.",ur:"Filer treatment qanoon aur facts se badalta — myths jaldi purani."}},
+   {q:{en:"When certificate, CDC, and journal disagree you should:",ur:"Certificate, CDC, journal disagree to:"},
+    opts:{en:["Ask broker tax desk or a practitioner with all three","Pick the friendliest number","Delete two of the three"],ur:["Teenon le kar broker/practitioner se poocho","Sab se meharban number chuno","Teen mein se do delete"]},
+    correct:0, explain:{en:"Invented reconciliations fail audits. Evidence first.",ur:"Ghari hui reconciliation audit mein fail. Pehle evidence."}}
+ ]},
+{id:5, title:{en:"When to Hire Help & Cross-Border Humility", ur:"Help Kab Hire + Cross-Border Humility"},
+ body:{en:`<p>Hire a qualified tax practitioner when: it is your first real market year with meaningful size, you have large or unusual gains/losses, you hold foreign brokerage or crypto accounts, residency is unclear, or your documents conflict. Cheap Discord advice is expensive later. This app will not file for you, auto-pay FBR, or issue legal opinions — school + journal only.</p><p>US stocks, foreign brokers, and crypto create <strong>cross-border</strong> questions: withholding abroad, local reporting, and sometimes treaty concepts. Do not decide residency or "I am invisible" from YouTube. Funding foreign accounts must stay inside legal banking channels per SBP rules — informal channels create legal risk that dwarfs any investment return.</p><p>{{xref:invest:6:US stocks from Pakistan — legal channels}}</p><p>Graduation: records habit + a practitioner on call when facts get complex. Wealth path stays low-fee compounding with clean paperwork — not evasion fantasies or binary "tax-free" gimmicks.</p>`,
+      ur:`<p>Qualified tax practitioner hire karo jab: pehla asli market saal meaningful size ke sath, bari/unusual gains-losses, foreign brokerage ya crypto accounts, residency unclear, ya documents conflict. Sasti Discord salah baad mein mehngi. Ye app tumhari file nahi karegi, FBR auto-pay nahi, legal opinions nahi — sirf school + journal.</p><p>US stocks, foreign brokers, crypto <strong>cross-border</strong> sawalat banate: bahar withholding, local reporting, kabhi treaty concepts. Residency ya "main invisible hoon" YouTube pe mat decide. Foreign accounts ki funding SBP rules ke andar qanooni banking channels se — gair-rasmi channels aisa qanooni risk banate jo kisi return se bara.</p><p>{{xref:invest:6:Pakistan se US stocks — qanooni channels}}</p><p>Graduation: records ki aadat + complex facts pe practitioner on call. Wealth path: low-fee compounding + saaf paperwork — evasion fantasy ya binary "tax-free" gimmick nahi.</p>`},
+ quiz:[
+   {q:{en:"Cross-border investing tax is:",ur:"Cross-border investing tax:"},
+    opts:{en:["Complex — get professional help for your residency","Solved by a VPN","Identical in every country"],ur:["Complex — residency pe professional help","VPN se solve","Har country same"]},
+    correct:0, explain:{en:"Residency and treaties matter. VPN is not a jurisdiction.",ur:"Residency aur treaties matter. VPN jurisdiction nahi."}},
+   {q:{en:"A good time to hire a tax pro:",ur:"Tax pro hire karne ka achha waqt:"},
+    opts:{en:["First real market year or large unusual gains","Never if you day-trade","Only if you are a celebrity"],ur:["Pehla asli market saal / bari unusual gains","Day-trade pe kabhi nahi","Sirf celebrity"]},
+    correct:0, explain:{en:"Early advice prevents expensive corrections later.",ur:"Jaldi salah baad ki mehengi corrections rok'ti."}},
+   {q:{en:"After tax literacy, the wealth path remains:",ur:"Tax literacy ke baad wealth path:"},
+    opts:{en:["Low-fee compounding with clean records","Hide everything offshore via tips","Binary options for “tax-free” gains"],ur:["Low-fee compounding + saaf records","Tips se offshore hide","Binary “tax-free” gains"]},
+    correct:0, explain:{en:"Clean compounding beats evasion fantasies every decade.",ur:"Har decade pe clean compounding evasion fantasy se jeet'ta."}}
+ ]}
 ];
 
 export const TAX_PLACEMENT = [
-  {
-    "topic": 1,
-    "q": {
-      "en": "This tax track provides:",
-      "ur": "Ye tax track deta:"
-    },
-    "opts": {
-      "en": [
-        "General literacy — not personalized legal advice",
-        "A guarantee you will owe zero tax",
-        "Offshore secrecy that beats all law"
-      ],
-      "ur": [
-        "General literacy — personal legal advice nahi",
-        "Zero tax guarantee",
-        "Offshore secrecy"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 1,
-    "q": {
-      "en": "“Crypto is always untaxable” is:",
-      "ur": "“Crypto hamesha untaxable”:"
-    },
-    "opts": {
-      "en": [
-        "A myth in many jurisdictions",
-        "Universal law",
-        "True if you use VPN"
-      ],
-      "ur": [
-        "Bohat jurisdictions mein myth",
-        "Universal law",
-        "VPN se true"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 2,
-    "q": {
-      "en": "For PSX investors, useful documents include:",
-      "ur": "PSX investors ke liye useful docs:"
-    },
-    "opts": {
-      "en": [
-        "Broker tax certificates and CDC/NCCPL records",
-        "Only Telegram P&L screenshots",
-        "Tip-seller invoices"
-      ],
-      "ur": [
-        "Broker tax cert + CDC/NCCPL",
-        "Sirf Telegram P&L",
-        "Tip invoices"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 2,
-    "q": {
-      "en": "Tax rates in this lesson are:",
-      "ur": "Is lesson mein tax rates:"
-    },
-    "opts": {
-      "en": [
-        "Not fixed forever — verify current law",
-        "Permanent and listed here as gospel",
-        "Always zero for filers"
-      ],
-      "ur": [
-        "Forever fixed nahi — current law verify",
-        "Yahan permanent gospel",
-        "Filers ke liye hamesha zero"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 3,
-    "q": {
-      "en": "Rough capital gain formula starts with:",
-      "ur": "Capital gain formula roughly:"
-    },
-    "opts": {
-      "en": [
-        "Proceeds minus cost basis",
-        "Only the last price",
-        "Leverage times hope"
-      ],
-      "ur": [
-        "Proceeds minus cost basis",
-        "Sirf last price",
-        "Leverage × hope"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 3,
-    "q": {
-      "en": "Stock splits typically:",
-      "ur": "Stock splits aksar:"
-    },
-    "opts": {
-      "en": [
-        "Adjust share count and per-share basis",
-        "Create free taxable cash automatically",
-        "Erase your tax history"
-      ],
-      "ur": [
-        "Share count + per-share basis adjust",
-        "Free taxable cash",
-        "Tax history erase"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 4,
-    "q": {
-      "en": "Withholding on a dividend usually means:",
-      "ur": "Dividend pe withholding aksar matlab:"
-    },
-    "opts": {
-      "en": [
-        "Tax was deducted at source — still reconcile at filing",
-        "You owe nothing ever again",
-        "The trade was illegal"
-      ],
-      "ur": [
-        "Source pe deduct — filing pe reconcile",
-        "Kabhi kuch nahi dena",
-        "Illegal trade"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 4,
-    "q": {
-      "en": "MasteryCap Journal CSV helps tax prep by:",
-      "ur": "Journal CSV tax prep:"
-    },
-    "opts": {
-      "en": [
-        "Providing your own dated trade log",
-        "Filing your return automatically with FBR",
-        "Deleting broker evidence"
-      ],
-      "ur": [
-        "Dated trade log",
-        "FBR auto file",
-        "Broker evidence delete"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 5,
-    "q": {
-      "en": "Cross-border investing tax is:",
-      "ur": "Cross-border investing tax:"
-    },
-    "opts": {
-      "en": [
-        "Complex — get professional help for your residency",
-        "Solved by a VPN",
-        "Identical in every country"
-      ],
-      "ur": [
-        "Complex — residency pe professional",
-        "VPN se solve",
-        "Har country same"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 5,
-    "q": {
-      "en": "A good time to hire a tax pro:",
-      "ur": "Tax pro kab:"
-    },
-    "opts": {
-      "en": [
-        "First real market year or large unusual gains",
-        "Never if you day-trade",
-        "Only if you are a celebrity"
-      ],
-      "ur": [
-        "Pehla asli market saal / bari unusual gains",
-        "Day-trade pe kabhi nahi",
-        "Sirf celebrity"
-      ]
-    },
-    "correct": 0
-  }
+ {topic:1,q:{en:"This tax track provides:",ur:"Ye tax track deta:"},opts:{en:["General literacy — not personalized legal advice","A guarantee you will owe zero tax","Offshore secrecy that beats all law"],ur:["General literacy — personal legal advice nahi","Zero tax guarantee","Offshore secrecy"]},correct:0},
+ {topic:1,q:{en:"“Crypto is always untaxable” is:",ur:"“Crypto hamesha untaxable”:"},opts:{en:["A myth in many jurisdictions","Universal law","True if you use VPN"],ur:["Bohat jurisdictions mein myth","Universal law","VPN se true"]},correct:0},
+ {topic:2,q:{en:"For PSX investors, useful documents include:",ur:"PSX investors ke liye useful docs:"},opts:{en:["Broker tax certificates and CDC/NCCPL records","Only Telegram P&L screenshots","Tip-seller invoices"],ur:["Broker tax cert + CDC/NCCPL","Sirf Telegram P&L","Tip invoices"]},correct:0},
+ {topic:2,q:{en:"Tax rates in this lesson are:",ur:"Is lesson mein tax rates:"},opts:{en:["Not fixed forever — verify current law","Permanent and listed here as gospel","Always zero for filers"],ur:["Forever fixed nahi — current law verify","Yahan permanent gospel","Filers ke liye hamesha zero"]},correct:0},
+ {topic:3,q:{en:"Rough capital gain thinking starts with:",ur:"Capital gain soch roughly:"},opts:{en:["Proceeds minus cost basis","Only the last price","Leverage times hope"],ur:["Proceeds minus cost basis","Sirf last price","Leverage × hope"]},correct:0},
+ {topic:3,q:{en:"MasteryCap Journal CSV helps tax prep by:",ur:"Journal CSV tax prep:"},opts:{en:["Providing your own dated trade log","Filing your return automatically with FBR","Deleting broker evidence"],ur:["Dated trade log","FBR auto file","Broker evidence delete"]},correct:0},
+ {topic:4,q:{en:"Withholding on a dividend usually means:",ur:"Dividend pe withholding aksar:"},opts:{en:["Tax was deducted at source — still reconcile at filing","You owe nothing ever again","The trade was illegal"],ur:["Source pe deduct — filing pe reconcile","Kabhi kuch nahi dena","Illegal trade"]},correct:0},
+ {topic:4,q:{en:"“Filers never pay capital gains” is:",ur:"“Filers kabhi CGT nahi dete”:"},opts:{en:["A myth — check current rules","Permanent law forever","True if you screenshot the certificate"],ur:["Myth — current rules check","Hamesha permanent law","Screenshot se true"]},correct:0},
+ {topic:5,q:{en:"Cross-border investing tax is:",ur:"Cross-border investing tax:"},opts:{en:["Complex — get professional help for your residency","Solved by a VPN","Identical in every country"],ur:["Complex — residency pe professional","VPN se solve","Har country same"]},correct:0},
+ {topic:5,q:{en:"A good time to hire a tax pro:",ur:"Tax pro kab:"},opts:{en:["First real market year or large unusual gains","Never if you day-trade","Only if you are a celebrity"],ur:["Pehla asli market saal / bari unusual gains","Day-trade pe kabhi nahi","Sirf celebrity"]},correct:0}
 ];

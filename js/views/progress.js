@@ -50,7 +50,9 @@ export function renderProgress(App, c) {
     </div>
   </div>`;
 
-  const header = `<div class="lt-head"><div class="kicker">${App.t('nav_progress')}</div><h1>${lang === 'en' ? 'Transcript' : 'Transcript'}</h1></div>${timePanel}${skillPanel}`;
+  const masteryPanel = `<div class="note-box warn" style="margin-bottom:14px"><strong>${App.t('mastery_title')}</strong><br/>${App.t('mastery_honest')}<br/><span style="opacity:0.85">${App.t('cert_not_license')}</span></div>`;
+
+  const header = `<div class="lt-head"><div class="kicker">${App.t('nav_progress')}</div><h1>${lang === 'en' ? 'Hasil' : 'Hasil'}</h1></div>${masteryPanel}${timePanel}${skillPanel}`;
 
   if (!trades.length) {
     c.innerHTML = `<div class="screen">${header}${weeksPanel(App)}${drillsPanel(App)}

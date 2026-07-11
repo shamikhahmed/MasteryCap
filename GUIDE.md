@@ -1,7 +1,7 @@
 # MasteryCap — Guide
 
 Personal bilingual (EN / Roman Urdu) trading **school** PWA. Offline-first, no accounts.
-Current app version: **v34** (see `VERSION`, `CHANGELOG.md`, `sw.js` → `masterycap-v34`).
+Current app version: **v35** (see `VERSION`, `CHANGELOG.md`, `sw.js` → `masterycap-v35`).
 
 ## First run
 1. Open via static server or GitHub Pages.

@@ -296,7 +296,7 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
       const src = await (await fetch(new URL('./js/exam.js', location.href))).text();
       return {
         hasReady: src.includes('TRADE-READY'),
-        hasHonesty: /Self-issued|not a broker\/regulatory license|markets still decide outcomes|markets outcomes decide/i.test(src),
+        hasHonesty: /Self-issued|NOT SECP|not a broker\/regulatory license|markets still decide outcomes|markets outcomes decide|competence decays/i.test(src),
       };
     });
     if (!cert.hasReady || !cert.hasHonesty) fail('cert honesty line missing');

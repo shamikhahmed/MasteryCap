@@ -326,7 +326,7 @@ export const GREEKS_WEEKS = [
     },
     "body": {
       "en": "<p><strong>Vega</strong> measures sensitivity to implied volatility (IV). Long options are long vega; short options are short vega.</p>\n<p><strong>IV crush</strong> after known events (earnings) can destroy long premium even if direction was right. Compare IV to recent realized vol.</p>\n<p>{{fig:iv-crush}}</p>\n<p>{{xref:options:3:Options greeks intro}}</p>",
-      "ur": "<p><strong>Vega</strong> = IV sensitivity. Long = long vega; short = short vega.</p>\n<p><strong>IV crush</strong> event ke baad long premium kha sakta — direction sahi ho tab bhi.</p>\n<p>{{fig:iv-crush}}</p>"
+      "ur": "<p><strong>Vega</strong> implied volatility (IV) ke against sensitivity map'ta. Long options = long vega (IV barhe to premium ko madad); short options = short vega (IV gire to short ko madad, IV uchaile to short ko nuqsan).</p>\n<p><strong>IV crush</strong> maloom events (earnings) ke baad long premium tabah kar sakta — direction sahi ho tab bhi. IV ko recent realized vol se compare karo; mehnga IV kharidna aksar “sahi side, galat vol” wala nuqsan ban'ta.</p>\n<p>{{fig:iv-crush}}</p>\n<p>{{xref:options:3:Options greeks intro}}</p>"
     },
     "quiz": [
       {

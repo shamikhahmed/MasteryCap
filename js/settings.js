@@ -8,7 +8,7 @@ import { applyTheme, getAppearance, setAppearance } from './theme.js';
 import { getTeacher, setTeacher, TEACHERS } from './teacher.js';
 import { evidenceHash } from './exam.js';
 
-export const APP_VERSION = 'v34';
+export const APP_VERSION = 'v35';
 
 function todayStamp() {
   const d = new Date();
@@ -131,6 +131,8 @@ export function openSettings(App) {
           <label>${App.t('verify_cert')}</label>
           <input id="setVerifyHash" type="text" placeholder="verify:…" maxlength="24" />
           <p id="setVerifyOut" style="font-size:12px;color:var(--t3);margin:8px 0 0"></p>
+          <p style="font-size:12px;color:var(--t3);margin:8px 0 0;line-height:1.45">${App.t('cert_not_license')}</p>
+          <p style="font-size:12px;color:var(--t3);margin:6px 0 0;line-height:1.45">${App.t('cert_verify_hint')}</p>
         </div>
 
         <div class="check-row ${(s.haptics !== false) ? 'on' : ''}" id="setHap" data-on="${s.haptics !== false ? '1' : '0'}" style="border:1px solid var(--line);border-radius:var(--r2);margin-bottom:10px">

@@ -7,15 +7,15 @@
 export const BEGINNER_PATH = [
   { id: 'foundations', why: { en: 'Zero to ready: school, scams, account, orders, paper.', ur: 'Zero to ready: school, scams, account, orders, paper.' } },
   { id: 'invest', why: { en: 'Closest honest wealth path: time + low fees + compounding.', ur: 'Imandar wealth: time + low fees + compounding.' } },
+  { id: 'tax', why: { en: 'Records + PK framing — literacy, not legal advice.', ur: 'Records + PK framing — literacy, legal advice nahi.' } },
   { id: 'spot', why: { en: 'Own assets without liquidation math. Survival first.', ur: 'Liquidation ke bina own. Pehle survival.' } },
+  { id: 'macro', why: { en: 'Backdrop for risk appetite — not crystal ball.', ur: 'Risk appetite backdrop — crystal ball nahi.' } },
   { id: 'stocks', why: { en: 'Cash equities first — sessions, earnings, structure.', ur: 'Pehle cash equities — sessions, earnings, structure.' } },
   { id: 'options', why: { en: 'Calls/puts with defined risk — before Greeks depth.', ur: 'Calls/puts defined risk — Greeks se pehle.' } },
   { id: 'greeks', why: { en: 'After Options basics — delta/gamma/theta/vega depth.', ur: 'Options basics ke baad — greeks depth.' } },
   { id: 'crypto', why: { en: 'Only after sizing + stops click. Perps optional.', ur: 'Sizing + stops ke baad. Perps optional.' } },
   { id: 'forex', why: { en: 'After you can size in sleep. Sessions + correlation.', ur: 'Sizing automatic. Sessions + correlation.' } },
   { id: 'futures', why: { en: 'Obligation + tick math. Micros only until boring.', ur: 'Obligation + tick math. Pehle micros.' } },
-  { id: 'macro', why: { en: 'Side track: backdrop for risk appetite — not crystal ball.', ur: 'Side track: risk appetite backdrop — crystal ball nahi.' } },
-  { id: 'tax', why: { en: 'Side track: records + PK framing — not legal advice.', ur: 'Side track: records + PK framing — legal advice nahi.' } },
   { id: 'bots', why: { en: 'Automate discipline last — never buy a profit bot.', ur: 'Discipline last — profit bot mat kharido.' } },
   { id: 'binary', why: { en: 'Harm-reduction only. Not an earn path.', ur: 'Sirf harm-reduction. Earn path nahi.' } },
 ];

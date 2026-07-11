@@ -1,879 +1,106 @@
 /* ============================================================
    macro.js — Macro backdrop literacy. Not crystal ball.
+   Framework for risk appetite & horizon — never tip service.
    ============================================================ */
 
 export const MACRO_WEEKS = [
-  {
-    "id": 1,
-    "title": {
-      "en": "What Macro Is (and Is Not)",
-      "ur": "Macro Kya Hai (aur Nahi)"
-    },
-    "body": {
-      "en": "<p><strong>Macro</strong> is the backdrop: growth, inflation, rates, FX, liquidity — not a crystal ball for next week's candle.</p>\n<p>Use it for risk appetite and horizon, not as a tip service.</p>\n<p>{{redflag:Macro threads that promise exact tops/bottoms are entertainment.}}</p>",
-      "ur": "<p><strong>Macro</strong> = growth, inflation, rates, FX, liquidity — agle candle ka crystal ball nahi.</p>\n<p>Risk appetite + horizon — tip service nahi.</p>\n<p>{{redflag:Exact tops/bottoms macro threads = entertainment.}}</p>"
-    },
-    "quiz": [
-      {
-        "q": {
-          "en": "Macro literacy mainly helps you:",
-          "ur": "Macro literacy mainly:"
-        },
-        "opts": {
-          "en": [
-            "Set context and risk appetite",
-            "Guarantee weekly trade wins",
-            "Replace all company analysis"
-          ],
-          "ur": [
-            "Context + risk appetite",
-            "Weekly wins guarantee",
-            "Company analysis replace"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Backdrop ≠ entry signal by itself.",
-          "ur": "Backdrop ≠ entry signal."
-        }
-      },
-      {
-        "q": {
-          "en": "Calling every central-bank meeting for scalps is:",
-          "ur": "Har CB meeting scalp:"
-        },
-        "opts": {
-          "en": [
-            "Usually a losing retail hobby",
-            "A risk-free career",
-            "Required before Investing track"
-          ],
-          "ur": [
-            "Aksar losing hobby",
-            "Risk-free career",
-            "Investing se pehle zaroori"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Costs + noise eat amateurs.",
-          "ur": "Costs + noise."
-        }
-      },
-      {
-        "q": {
-          "en": "Best use of macro for beginners:",
-          "ur": "Beginners ke liye macro:"
-        },
-        "opts": {
-          "en": [
-            "Decide risk-on vs risk-off sizing / horizon",
-            "All-in leverage on one CPI print",
-            "Ignore emergency cash"
-          ],
-          "ur": [
-            "Risk-on/off sizing/horizon",
-            "Ek CPI pe all-in lev",
-            "Emergency cash ignore"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Size and patience beat prediction theater.",
-          "ur": "Size + patience > prediction theater."
-        }
-      },
-      {
-        "q": {
-          "en": "This track promises:",
-          "ur": "Ye track promise:"
-        },
-        "opts": {
-          "en": [
-            "Frameworks — not market mastery certificates",
-            "Guaranteed 20% annual returns",
-            "Secret order-flow"
-          ],
-          "ur": [
-            "Frameworks — mastery certificate nahi",
-            "Guaranteed 20%",
-            "Secret order-flow"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Literacy only.",
-          "ur": "Literacy only."
-        }
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "title": {
-      "en": "Inflation & Real Returns",
-      "ur": "Inflation aur Real Returns"
-    },
-    "body": {
-      "en": "<p><strong>Inflation</strong> erodes cash purchasing power. <strong>Real return</strong> ≈ nominal − inflation.</p>\n<p>Why Investing pushes productive assets over mattress cash for long horizons — after emergency reserves.</p>\n<p>{{xref:invest:1:Investing vs trading}}</p>",
-      "ur": "<p><strong>Inflation</strong> cash power khati. <strong>Real return</strong> ≈ nominal − inflation.</p>\n<p>Investing productive assets push — emergency ke baad.</p>"
-    },
-    "quiz": [
-      {
-        "q": {
-          "en": "Real return roughly equals:",
-          "ur": "Real return roughly:"
-        },
-        "opts": {
-          "en": [
-            "Nominal return minus inflation",
-            "Only the dividend yield",
-            "Leverage times inflation"
-          ],
-          "ur": [
-            "Nominal − inflation",
-            "Sirf dividend yield",
-            "Leverage × inflation"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Purchasing-power math.",
-          "ur": "Purchasing-power math."
-        }
-      },
-      {
-        "q": {
-          "en": "High inflation makes long-term pure cash:",
-          "ur": "High inflation pe long-term pure cash:"
-        },
-        "opts": {
-          "en": [
-            "Likely to lose purchasing power",
-            "Always the best asset",
-            "Immune to opportunity cost"
-          ],
-          "ur": [
-            "Purchasing power haar",
-            "Hamesha best",
-            "Opportunity cost immune"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Cash is for emergencies and dry powder.",
-          "ur": "Cash = emergency/dry powder."
-        }
-      },
-      {
-        "q": {
-          "en": "Before investing surplus you should still have:",
-          "ur": "Surplus invest se pehle:"
-        },
-        "opts": {
-          "en": [
-            "Emergency cash buffer",
-            "Max leverage ready",
-            "Zero records"
-          ],
-          "ur": [
-            "Emergency cash",
-            "Max leverage",
-            "Zero records"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Foundations / Investing layering.",
-          "ur": "Layering."
-        }
-      },
-      {
-        "q": {
-          "en": "Inflation data is:",
-          "ur": "Inflation data:"
-        },
-        "opts": {
-          "en": [
-            "A backdrop — not a same-day lottery ticket",
-            "A guaranteed trade signal",
-            "Fake always"
-          ],
-          "ur": [
-            "Backdrop — same-day lottery nahi",
-            "Guaranteed signal",
-            "Hamesha fake"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Do not confuse releases with edge.",
-          "ur": "Release ≠ edge."
-        }
-      }
-    ]
-  },
-  {
-    "id": 3,
-    "title": {
-      "en": "Interest Rates & Risk Assets",
-      "ur": "Interest Rates aur Risk Assets"
-    },
-    "body": {
-      "en": "<p>When policy rates rise, discount rates rise — long-duration assets often hurt; cash yields improve. Transmission is messy and lagged.</p>\n<p>PSX/crypto still feel global dollar liquidity and US rates via risk appetite — not 1:1 clocks.</p>",
-      "ur": "<p>Rates up → discount up — long-duration aksar hurt; cash yield behtar. Transmission messy + lagged.</p>\n<p>PSX/crypto: dollar liquidity / US rates spill — 1:1 clock nahi.</p>"
-    },
-    "quiz": [
-      {
-        "q": {
-          "en": "Rising policy rates often pressure:",
-          "ur": "Rising policy rates aksar pressure:"
-        },
-        "opts": {
-          "en": [
-            "Long-duration risk assets",
-            "Only mattress cash positively forever",
-            "Nothing in markets"
-          ],
-          "ur": [
-            "Long-duration risk assets",
-            "Sirf mattress forever positive",
-            "Kuch nahi"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Higher discount rates weigh on distant cash flows.",
-          "ur": "Higher discount → distant cash flows."
-        }
-      },
-      {
-        "q": {
-          "en": "Rate effects on markets are:",
-          "ur": "Rates ka market asar:"
-        },
-        "opts": {
-          "en": [
-            "Lagged and imperfect — not a video-game cheat",
-            "Instant and exact every hour",
-            "Illegal to discuss"
-          ],
-          "ur": [
-            "Lagged + imperfect",
-            "Har ghanta exact",
-            "Discuss illegal"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Respect lag; avoid overconfidence.",
-          "ur": "Lag respect."
-        }
-      },
-      {
-        "q": {
-          "en": "Cash yields rising can make:",
-          "ur": "Cash yields barhein to:"
-        },
-        "opts": {
-          "en": [
-            "Holding dry powder less painful",
-            "Leverage mandatory",
-            "Equities risk-free"
-          ],
-          "ur": [
-            "Dry powder kam painful",
-            "Leverage mandatory",
-            "Equities risk-free"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Opportunity cost of cash changes with rates.",
-          "ur": "Cash opportunity cost badalta."
-        }
-      },
-      {
-        "q": {
-          "en": "Using one rate decision to go 20x is:",
-          "ur": "Ek rate decision pe 20x:"
-        },
-        "opts": {
-          "en": [
-            "Gambling dressed as macro",
-            "Professional standard",
-            "Required homework"
-          ],
-          "ur": [
-            "Gambling as macro",
-            "Professional standard",
-            "Required homework"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Macro ≠ leverage excuse.",
-          "ur": "Macro ≠ leverage excuse."
-        }
-      }
-    ]
-  },
-  {
-    "id": 4,
-    "title": {
-      "en": "FX, Dollar & Local Markets",
-      "ur": "FX, Dollar aur Local Markets"
-    },
-    "body": {
-      "en": "<p>Local FX moves change import costs, inflation, and corporate earnings. A strong USD often tightens global financial conditions.</p>\n<p>Think revenue currency vs cost currency for companies you own.</p>\n<p>{{xref:forex:1:Forex track basics}}</p>",
-      "ur": "<p>Local FX = import cost, inflation, earnings. Strong USD aksar global conditions tight.</p>\n<p>Company revenue vs cost currency socho.</p>"
-    },
-    "quiz": [
-      {
-        "q": {
-          "en": "Local currency weakness can raise:",
-          "ur": "Local currency weakness barha sakti:"
-        },
-        "opts": {
-          "en": [
-            "Import-driven inflation pressure",
-            "Only stock spreads",
-            "Nothing real"
-          ],
-          "ur": [
-            "Import inflation pressure",
-            "Sirf stock spreads",
-            "Kuch nahi"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Imports cost more in local currency terms.",
-          "ur": "Imports mehngi."
-        }
-      },
-      {
-        "q": {
-          "en": "A strong USD often coincides with:",
-          "ur": "Strong USD aksar:"
-        },
-        "opts": {
-          "en": [
-            "Tighter global financial conditions / risk-off pressure",
-            "Guaranteed crypto pumps",
-            "Zero FX risk everywhere"
-          ],
-          "ur": [
-            "Tighter global conditions / risk-off",
-            "Guaranteed crypto pump",
-            "Zero FX risk"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Dollar strength can drain liquidity from risk assets.",
-          "ur": "Dollar strength → risk liquidity pressure."
-        }
-      },
-      {
-        "q": {
-          "en": "Before blaming “manipulation” for FX moves, first check:",
-          "ur": "FX pe “manipulation” se pehle check:"
-        },
-        "opts": {
-          "en": [
-            "Rates, inflation, and flow basics",
-            "Only influencer livestreams",
-            "Binary payout %"
-          ],
-          "ur": [
-            "Rates, inflation, flows",
-            "Sirf influencer",
-            "Binary payout"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Start with boring drivers.",
-          "ur": "Boring drivers pehle."
-        }
-      },
-      {
-        "q": {
-          "en": "Forex trading for income after this week:",
-          "ur": "Is week ke baad forex income:"
-        },
-        "opts": {
-          "en": [
-            "Still optional advanced — size only after Foundations sizing",
-            "Mandatory for all students",
-            "Risk-free with news"
-          ],
-          "ur": [
-            "Optional advanced — sizing ke baad",
-            "Sab ke liye mandatory",
-            "News se risk-free"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Literacy ≠ license to overtrade FX.",
-          "ur": "Literacy ≠ overtrade FX."
-        }
-      }
-    ]
-  },
-  {
-    "id": 5,
-    "title": {
-      "en": "Liquidity, Credit & Risk-On/Off",
-      "ur": "Liquidity, Credit aur Risk-On/Off"
-    },
-    "body": {
-      "en": "<p><strong>Liquidity</strong> and credit conditions drive whether markets forgive mistakes. Risk-on bids speculative assets; risk-off wants cash and quality.</p>\n<p>In risk-off: cut gross exposure; do not add leverage even if the micro setup “looks perfect.”</p>",
-      "ur": "<p><strong>Liquidity</strong> + credit = maafi ya nahi. Risk-on speculative; risk-off cash/quality.</p>\n<p>Risk-off: gross cut; leverage mat barhao.</p>"
-    },
-    "quiz": [
-      {
-        "q": {
-          "en": "Risk-off environments usually favor:",
-          "ur": "Risk-off aksar favor:"
-        },
-        "opts": {
-          "en": [
-            "Lower risk appetite / defensive positioning",
-            "Max leverage on meme assets",
-            "Ignoring stops"
-          ],
-          "ur": [
-            "Kam risk appetite / defensive",
-            "Meme pe max lev",
-            "Stops ignore"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Survive first.",
-          "ur": "Pehle survive."
-        }
-      },
-      {
-        "q": {
-          "en": "When liquidity is poor, your spreads and slippage:",
-          "ur": "Poor liquidity pe spreads/slippage:"
-        },
-        "opts": {
-          "en": [
-            "Widen — size down",
-            "Disappear",
-            "Only help you"
-          ],
-          "ur": [
-            "Widen — size down",
-            "Ghayab",
-            "Sirf madad"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Illiquidity is a cost.",
-          "ur": "Illiquidity = cost."
-        }
-      },
-      {
-        "q": {
-          "en": "A perfect chart in a credit crunch:",
-          "ur": "Credit crunch mein perfect chart:"
-        },
-        "opts": {
-          "en": [
-            "Can still fail — respect regime",
-            "Always wins",
-            "Means print money"
-          ],
-          "ur": [
-            "Fail ho sakta — regime respect",
-            "Hamesha jeete",
-            "Print money"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Regime > pattern name.",
-          "ur": "Regime > pattern."
-        }
-      },
-      {
-        "q": {
-          "en": "Beginner response to risk-off:",
-          "ur": "Risk-off pe beginner:"
-        },
-        "opts": {
-          "en": [
-            "Reduce size; do not add leverage",
-            "Double leverage to catch the knife",
-            "Move rent money into perps"
-          ],
-          "ur": [
-            "Size kam; leverage mat barhao",
-            "Double lev knife catch",
-            "Rent → perps"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Foundations still applies.",
-          "ur": "Foundations ab bhi."
-        }
-      }
-    ]
-  },
-  {
-    "id": 6,
-    "title": {
-      "en": "Macro → Your Plan",
-      "ur": "Macro → Tumhara Plan"
-    },
-    "body": {
-      "en": "<p>Write a one-page <strong>regime note</strong> monthly: inflation trend, humble rate view, FX stress, risk-on/off. Set max gross risk % for the month — do not change it off every headline.</p>\n<p>Graduation: macro informs DCA patience and trading size — it does not replace asset homework. Return to compound path.</p>",
-      "ur": "<p>Mahine ek-page <strong>regime note</strong>. Max gross risk % set. Har headline pe mat badlo.</p>\n<p>Graduation: macro = patience + size — asset homework replace nahi. Compound path.</p>"
-    },
-    "quiz": [
-      {
-        "q": {
-          "en": "A monthly regime note should change:",
-          "ur": "Monthly regime note change:"
-        },
-        "opts": {
-          "en": [
-            "Slowly — not every headline",
-            "Every 5 minutes with Twitter",
-            "Never forever"
-          ],
-          "ur": [
-            "Ahista — har headline nahi",
-            "Har 5 min Twitter",
-            "Kabhi nahi forever"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Process over noise.",
-          "ur": "Process > noise."
-        }
-      },
-      {
-        "q": {
-          "en": "Macro's job in MasteryCap is to:",
-          "ur": "MasteryCap mein macro ka kaam:"
-        },
-        "opts": {
-          "en": [
-            "Inform risk and horizon — not tip entries",
-            "Replace all other tracks",
-            "Promise riches"
-          ],
-          "ur": [
-            "Risk + horizon — tip entries nahi",
-            "Sab tracks replace",
-            "Riches promise"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "School stance unchanged.",
-          "ur": "School stance."
-        }
-      },
-      {
-        "q": {
-          "en": "After macro, continue wealth path via:",
-          "ur": "Macro ke baad wealth path:"
-        },
-        "opts": {
-          "en": [
-            "Investing / Spot compounding with records",
-            "Only 0DTE from CPI",
-            "Binary"
-          ],
-          "ur": [
-            "Investing/Spot + records",
-            "Sirf CPI 0DTE",
-            "Binary"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Boring wins decades.",
-          "ur": "Boring = decades."
-        }
-      },
-      {
-        "q": {
-          "en": "Humility in macro means:",
-          "ur": "Macro mein humility:"
-        },
-        "opts": {
-          "en": [
-            "You can be wrong; size accordingly",
-            "You are always right if loud",
-            "Leverage hides error"
-          ],
-          "ur": [
-            "Galat ho sakte; size us hisaab",
-            "Zor se bolo to sahi",
-            "Leverage error chhupaye"
-          ]
-        },
-        "correct": 0,
-        "explain": {
-          "en": "Size for being wrong.",
-          "ur": "Galat hone ke liye size."
-        }
-      }
-    ]
-  }
+{id:1, title:{en:"What Macro Is (and Is Not)", ur:"Macro Kya Hai (aur Nahi)"},
+ body:{en:`<p><strong>Macro</strong> is the economic backdrop: growth, inflation, policy rates, FX, and liquidity. It answers "what kind of weather is the market flying through?" — not "which candle prints tomorrow." Institutions use it to set risk budgets and asset-class weights; retail often misuse it as a tip feed for the next scalp after every central-bank speech.</p><p>Honest use for a Pakistani learner: decide whether this month is risk-on or risk-off for <em>your</em> sizing and horizon, then go do the asset homework (statements for stocks, levels for trades). Macro that replaces company reading or a written trade plan is cosplay. Macro that changes your max gross risk from 4% to 2% when dollar liquidity tightens is useful. Same rule for crypto and FX — backdrop first, then size, then setup.</p><p>{{redflag:Threads that promise exact tops/bottoms from one CPI print are entertainment, not edge.}}</p><p>This track teaches frameworks — not a market-mastery certificate and not income. If someone sells "macro signals = salary," walk away. Literacy here means fewer dumb all-ins, not a crystal ball.</p>`,
+      ur:`<p><strong>Macro</strong> economic backdrop hai: growth, inflation, policy rates, FX, aur liquidity. Jawab deta hai "market kis mausam mein ur rahi hai?" — "kal kaun sa candle print hoga" nahi. Institutions is se risk budget aur asset-class weights set karti hain; retail aksar har central-bank speech ke baad isay next scalp ke tip feed ki tarah galat use karti hai.</p><p>Pakistani learner ke liye imandar istemaal: pehle decide karo is mahine tumhari sizing aur horizon ke liye risk-on hai ya risk-off, phir asset homework karo (stocks ke liye statements, trades ke liye levels). Jo macro company reading ya likhi trade plan ko replace kare — wo cosplay hai. Jo macro dollar liquidity tight hone pe max gross risk 4% se 2% kar de — wo kaam ki hai. Crypto aur FX pe bhi wahi: pehle backdrop, phir size, phir setup.</p><p>{{redflag:Jo threads ek CPI print se exact tops/bottoms promise karen — entertainment hain, edge nahi.}}</p><p>Ye track frameworks sikhata hai — market-mastery certificate nahi, income nahi. Agar koi "macro signals = salary" beche, chale jao. Yahan literacy = kam bewakoof all-ins, crystal ball nahi.</p>`},
+ quiz:[
+   {q:{en:"Macro literacy mainly helps you:",ur:"Macro literacy mainly madad karti:"},
+    opts:{en:["Set context and risk appetite","Guarantee weekly trade wins","Replace all company analysis"],ur:["Context aur risk appetite set karna","Weekly wins guarantee","Company analysis replace"]},
+    correct:0, explain:{en:"Backdrop informs size and patience — it is not an entry signal by itself.",ur:"Backdrop size aur sabar batata hai — khud entry signal nahi."}},
+   {q:{en:"Calling every central-bank meeting for scalps is:",ur:"Har central-bank meeting pe scalp:"},
+    opts:{en:["Usually a losing retail hobby","A risk-free career","Required before Investing track"],ur:["Aksar losing retail hobby","Risk-free career","Investing se pehle zaroori"]},
+    correct:0, explain:{en:"Spreads, slippage, and noise eat amateurs who treat policy days like a video game.",ur:"Spreads, slippage aur noise un amateurs ko kha jate hain jo policy din ko video game samajhte hain."}},
+   {q:{en:"Best beginner use of macro is to:",ur:"Beginner ke liye macro ka behtareen use:"},
+    opts:{en:["Decide risk-on vs risk-off sizing and horizon","All-in leverage on one CPI print","Ignore emergency cash"],ur:["Risk-on/off sizing aur horizon decide karna","Ek CPI pe all-in leverage","Emergency cash ignore"]},
+    correct:0, explain:{en:"Size and patience beat prediction theater. Keep emergency cash untouched.",ur:"Size aur sabar prediction theater se jeet'te hain. Emergency cash chhoo na."}}
+ ]},
+{id:2, title:{en:"Inflation & Real Returns", ur:"Inflation aur Real Returns"},
+ body:{en:`<p><strong>Inflation</strong> is the silent tax on cash: the same PKR buys less food, fuel, and rent over time. What matters for wealth is <strong>real return</strong> — roughly nominal return minus inflation. A bank deposit paying 12% when inflation runs near 20% is not "safe growth"; it is a slow haircut dressed as prudence. Looking only at the account balance while prices sprint is how people feel rich in digits and poorer in life.</p><p>That is why the Investing track pushes productive assets (equities, diversified funds) for long horizons <em>after</em> an emergency cash buffer — not instead of it. Mattress cash still has a job: surviving job loss, medical bills, and forced selling. Surplus beyond that buffer should be measured in purchasing power, not only in account-currency digits. High-rate money-market funds can be a bridge while you learn — still not a forever mattress for every rupee.</p><p>{{xref:invest:1:Investing vs trading — time horizon first}}</p><p>Inflation prints are a backdrop, not a same-day lottery ticket. Reacting with 20× leverage to one CPI release is gambling wearing a macro costume. Log the trend in a monthly note; do not rebuild your life plan off every headline.</p>`,
+      ur:`<p><strong>Inflation</strong> cash pe silent tax hai: wahi PKR waqt ke sath kam khana, fuel, aur kiraya kharidti hai. Daulat ke liye asli cheez <strong>real return</strong> hai — roughly nominal return minus inflation. Jab inflation ~20% ho aur bank deposit 12% de, wo "safe growth" nahi — prudence ka bhes pehna hua ahista haircut hai. Sirf account balance dekhna jab prices dauren — digits mein ameer, zindagi mein gareeb mehsoos hone ka rasta.</p><p>Isi liye Investing track lambi horizon pe productive assets (equities, diversified funds) push karta hai — <em>emergency cash buffer ke baad</em>, us ki jagah nahi. Mattress cash ka kaam ab bhi hai: naukri gayab, medical bill, forced selling se bachna. Us buffer ke upar surplus ko sirf account digits se nahi — purchasing power se mapo. High-rate money-market funds seekhte hue bridge ho sakte — har rupaye ka forever mattress nahi.</p><p>{{xref:invest:1:Investing vs trading — pehle horizon}}</p><p>Inflation prints backdrop hain, same-day lottery ticket nahi. Ek CPI pe 20× leverage — macro costume pehna gambling. Trend monthly note mein likho; har headline pe zindagi ka plan mat todo.</p>`},
+ quiz:[
+   {q:{en:"Real return roughly equals:",ur:"Real return roughly barabar:"},
+    opts:{en:["Nominal return minus inflation","Only the dividend yield","Leverage times inflation"],ur:["Nominal return minus inflation","Sirf dividend yield","Leverage × inflation"]},
+    correct:0, explain:{en:"Purchasing-power math: what you keep after prices rise.",ur:"Purchasing-power math: prices barhne ke baad kya bachta hai."}},
+   {q:{en:"High inflation makes long-term pure cash:",ur:"High inflation pe long-term pure cash:"},
+    opts:{en:["Likely to lose purchasing power","Always the best asset","Immune to opportunity cost"],ur:["Purchasing power haarne ke qareeb","Hamesha best asset","Opportunity cost se immune"]},
+    correct:0, explain:{en:"Cash is for emergencies and dry powder — not the whole wealth plan.",ur:"Cash emergency aur dry powder ke liye — poori wealth plan nahi."}},
+   {q:{en:"Before investing surplus you should still have:",ur:"Surplus invest karne se pehle phir bhi:"},
+    opts:{en:["An emergency cash buffer","Max leverage ready","Zero records"],ur:["Emergency cash buffer","Max leverage ready","Zero records"]},
+    correct:0, explain:{en:"Foundations layering: survive first, then compound surplus.",ur:"Foundations layering: pehle survive, phir surplus compound."}}
+ ]},
+{id:3, title:{en:"Interest Rates & Discounting", ur:"Interest Rates aur Discounting"},
+ body:{en:`<p>When policy rates rise, the <strong>discount rate</strong> applied to future cash flows rises too. Distant profits — growth stocks, long-duration bonds, speculative stories that "pay off later" — get marked down. Cash and short-duration yields improve: holding dry powder hurts less. When rates fall, the opposite pressure often appears. Transmission is messy and lagged; markets price expectations, then reprice the surprise. One meeting rarely equals one candle; the path of rates over quarters matters more than the live reaction GIF.</p><p>For PSX and crypto, you still feel global dollar liquidity and US rate cycles through risk appetite — not as a 1:1 clock with SBP or Fed day. A rate hike can coexist with a local rally if liquidity, politics, or sector flows dominate. Treat rates as a headwind/tailwind dial, not a video-game cheat code.</p><p>{{xref:invest:3:Valuation vs the risk-free rate}}</p><p>Using one rate decision to justify 20× leverage is gambling dressed as macro. Professionals size for being wrong about the path of rates; amateurs size for being right on Twitter.</p>`,
+      ur:`<p>Jab policy rates barhte hain, future cash flows pe lagaya <strong>discount rate</strong> bhi barhta hai. Door ke munafa — growth stocks, long-duration bonds, speculative kahaniyan jo "baad mein pay" karen — mark down hote hain. Cash aur short-duration yields behtar: dry powder rakhna kam dard deta. Rates giren to aksar ulte dabao. Transmission messy aur lagged hai; markets expectations price karti hain, phir surprise pe reprice. Ek meeting shazz hi ek candle ke barabar; quarters pe rates ka path live reaction GIF se zyada ahm.</p><p>PSX aur crypto ab bhi global dollar liquidity aur US rate cycles ko risk appetite se mehsoos karte hain — SBP ya Fed din ke sath 1:1 clock nahi. Rate hike ke sath local rally ho sakti hai agar liquidity, politics, ya sector flows dominate karen. Rates ko headwind/tailwind dial samjho, video-game cheat nahi.</p><p>{{xref:invest:3:Valuation vs risk-free rate}}</p><p>Ek rate decision se 20× leverage justify karna — macro ka bhes pehna gambling. Professionals rates ke path pe galat hone ke liye size karte hain; amateurs Twitter pe sahi hone ke liye.</p>`},
+ quiz:[
+   {q:{en:"Rising policy rates often pressure:",ur:"Rising policy rates aksar pressure dalte:"},
+    opts:{en:["Long-duration risk assets","Only mattress cash positively forever","Nothing in markets"],ur:["Long-duration risk assets","Sirf mattress cash forever positive","Markets mein kuch nahi"]},
+    correct:0, explain:{en:"Higher discount rates weigh on distant cash flows.",ur:"Uncha discount rate door ke cash flows pe wazan dalta hai."}},
+   {q:{en:"Rate effects on markets are:",ur:"Rates ka markets pe asar:"},
+    opts:{en:["Lagged and imperfect — not a cheat code","Instant and exact every hour","Illegal to discuss"],ur:["Lagged aur imperfect — cheat code nahi","Har ghanta exact","Discuss karna illegal"]},
+    correct:0, explain:{en:"Respect lag and overconfidence. Path matters more than one meeting.",ur:"Lag aur overconfidence ka ehtram. Path ek meeting se zyada ahm."}},
+   {q:{en:"Cash yields rising can make:",ur:"Cash yields barhne se:"},
+    opts:{en:["Holding dry powder less painful","Leverage mandatory","Equities risk-free"],ur:["Dry powder rakhna kam painful","Leverage mandatory","Equities risk-free"]},
+    correct:0, explain:{en:"Opportunity cost of cash changes with the rate regime.",ur:"Cash ki opportunity cost rate regime ke sath badalti hai."}}
+ ]},
+{id:4, title:{en:"FX, Dollar & Local Currency", ur:"FX, Dollar aur Local Currency"},
+ body:{en:`<p>Local FX moves rewrite the real economy: weaker PKR raises import costs, feeds inflation, and can smash corporate earnings for firms that bill in rupees but buy inputs in dollars. Exporters and dollar-revenue names often tell a different story in the same week. Before you own a PSX name, ask: <em>revenue currency vs cost currency</em>? Nominal PKR rallies that ignore FX can fake "performance" for a PKR earner who actually lost purchasing power.</p><p>A strong USD often coincides with tighter global financial conditions — capital seeks safety, emerging-market risk assets feel the drain, and crypto frequently trades as a high-beta risk sleeve. That is correlation and channel talk, not a guarantee that "dollar up = everything dies." Still, ignoring the dollar when you earn in PKR is how people confuse nominal account growth with real wealth.</p><p>{{xref:forex:1:Forex track basics}}</p><p>{{redflag:Blaming every FX move on “manipulation” before checking rates, inflation, and flows is conspiracy cosplay.}}</p><p>Forex as an income career after this week is still optional advanced work — size only after Foundations risk rules. Literacy is not a license to overtrade USD pairs.</p>`,
+      ur:`<p>Local FX moves asli economy rewrite karti hain: kamzor PKR import costs barhata, inflation khilata, aur un firms ki earnings tod sakta hai jo bil PKR mein karti hain magar inputs dollar mein kharidti hain. Exporters aur dollar-revenue names usi hafte alag kahani sunate. PSX name kharidne se pehle poocho: <em>revenue currency vs cost currency</em>? Jo nominal PKR rallies FX ignore karen — PKR earner ke liye fake "performance" ban sakti jab purchasing power haari ho.</p><p>Strong USD aksar tighter global financial conditions ke sath chalta — capital safety dhoondhta, emerging-market risk assets drain mehsoos karte, crypto aksar high-beta risk sleeve ki tarah trade hota. Ye correlation aur channel ki baat hai — "dollar up = sab mar jaye" ki guarantee nahi. Phir bhi PKR kamane wale ke liye dollar ignore karna = nominal account growth ko real wealth samajhna.</p><p>{{xref:forex:1:Forex track basics}}</p><p>{{redflag:Rates, inflation, flows check kiye baghair har FX move pe “manipulation” chillana — conspiracy cosplay.}}</p><p>Is week ke baad forex income career ab bhi optional advanced hai — sizing Foundations risk rules ke baad. Literacy USD pairs overtrade karne ka license nahi.</p>`},
+ quiz:[
+   {q:{en:"Local currency weakness can raise:",ur:"Local currency weakness barha sakti:"},
+    opts:{en:["Import-driven inflation pressure","Only stock spreads","Nothing real"],ur:["Import-driven inflation pressure","Sirf stock spreads","Kuch asli nahi"]},
+    correct:0, explain:{en:"Imports cost more in local-currency terms — food and fuel feel it first.",ur:"Imports local currency mein mehngi — pehle khana aur fuel mehsoos."}},
+   {q:{en:"A strong USD often coincides with:",ur:"Strong USD aksar is ke sath:"},
+    opts:{en:["Tighter global financial conditions / risk-off pressure","Guaranteed crypto pumps","Zero FX risk everywhere"],ur:["Tighter global conditions / risk-off pressure","Guaranteed crypto pumps","Har jagah zero FX risk"]},
+    correct:0, explain:{en:"Dollar strength can drain liquidity from risk assets — not a free pump signal.",ur:"Dollar strength risk assets se liquidity drain kar sakti — free pump signal nahi."}},
+   {q:{en:"Before blaming “manipulation” for FX moves, first check:",ur:"FX pe “manipulation” se pehle pehle check:"},
+    opts:{en:["Rates, inflation, and flow basics","Only influencer livestreams","Binary payout %"],ur:["Rates, inflation, aur flow basics","Sirf influencer livestreams","Binary payout %"]},
+    correct:0, explain:{en:"Start with boring drivers. Conspiracy is usually lazy analysis.",ur:"Boring drivers se shuru. Conspiracy aksar sust analysis hoti."}}
+ ]},
+{id:5, title:{en:"Liquidity, Credit & Risk-On/Off", ur:"Liquidity, Credit aur Risk-On/Off"},
+ body:{en:`<p><strong>Liquidity</strong> and credit conditions decide whether markets forgive mistakes. In a risk-on regime, speculative assets get bid, thin names still find buyers, and bad timing gets a second chance. In risk-off, cash and quality win; spreads widen; leverage that looked clever becomes a margin call. Credit stress (banks cautious, funding expensive) is when "perfect" charts fail because the crowd cannot or will not finance the trade — pattern names stop mattering.</p><p>Practical rule for this school: when you mark the month risk-off, cut gross exposure and do <em>not</em> add leverage even if the micro setup looks textbook. Illiquidity is a cost — wider spreads and slippage are how the market taxes urgency. Second-tier PSX names and thin crypto pairs punish exit more than entry; size for the door, not the entry candle. Beginners who double size to "catch the knife" in a credit crunch are volunteering to be exit liquidity.</p><p>{{redflag:A perfect chart in a credit crunch can still fail — regime beats pattern name.}}</p><p>Survive first. Foundations risk % still applies when Twitter screams opportunity.</p>`,
+      ur:`<p><strong>Liquidity</strong> aur credit conditions decide karti hain market ghaltiyon ko maaf karti hai ya nahi. Risk-on mein speculative assets bid milte, patli names ko bhi buyers, buri timing ko doosra chance. Risk-off mein cash aur quality jeet'te; spreads phailte; jo leverage chalak lagta tha margin call ban jata. Credit stress (banks cautious, funding mehngi) mein "perfect" charts fail hote hain kyun ke crowd trade finance nahi kar sakti ya nahi karti — pattern names be-maani.</p><p>Is school ka amali rule: mahina risk-off mark karo to gross exposure kaato aur leverage <em>mat</em> barhao — micro setup textbook lage tab bhi. Illiquidity cost hai — wider spreads aur slippage urgency pe market ka tax. Second-tier PSX names aur patli crypto pairs entry se zyada exit saza dete; size door ke liye, entry candle ke liye nahi. Credit crunch mein "knife catch" ke liye double size — exit liquidity banne ki khushi.</p><p>{{redflag:Credit crunch mein perfect chart bhi fail ho sakta — regime pattern name se bhaari.}}</p><p>Pehle survive. Twitter opportunity chillaye tab bhi Foundations risk % lagu.</p>`},
+ quiz:[
+   {q:{en:"Risk-off environments usually favor:",ur:"Risk-off environments aksar favor:"},
+    opts:{en:["Lower risk appetite / defensive positioning","Max leverage on meme assets","Ignoring stops"],ur:["Kam risk appetite / defensive positioning","Meme pe max leverage","Stops ignore"]},
+    correct:0, explain:{en:"Survive first. Defensive sizing is not cowardice — it is process.",ur:"Pehle survive. Defensive sizing buzdili nahi — process hai."}},
+   {q:{en:"When liquidity is poor, spreads and slippage:",ur:"Poor liquidity pe spreads aur slippage:"},
+    opts:{en:["Widen — size down","Disappear","Only help you"],ur:["Widen — size kam karo","Ghayab","Sirf madad karte"]},
+    correct:0, explain:{en:"Illiquidity is a cost you pay with urgency. Size down.",ur:"Illiquidity cost hai jo jaldi pe chukate ho. Size kam."}},
+   {q:{en:"Beginner response to risk-off should be:",ur:"Risk-off pe beginner ka jawab:"},
+    opts:{en:["Reduce size; do not add leverage","Double leverage to catch the knife","Move rent money into perps"],ur:["Size kam; leverage mat barhao","Knife catch ke liye double lev","Rent perps mein"]},
+    correct:0, explain:{en:"Foundations still applies when the regime turns hostile.",ur:"Regime hostile ho to bhi Foundations lagu."}}
+ ]},
+{id:6, title:{en:"Monthly Regime Note Habit", ur:"Mahwari Regime Note ki Aadat"},
+ body:{en:`<p>Close the loop with a one-page <strong>regime note</strong> each month — not each headline. Capture four lines only: inflation trend (up/down/sticky), a humble rate view (tighten/hold/ease — with "I can be wrong"), FX stress for PKR earners, and risk-on vs risk-off. Then set a <strong>max gross risk %</strong> for the month and refuse to rewrite it off every Twitter panic or CPI rumor. Paste the note into your journal so future-you can see whether you actually obeyed it.</p><p>Macro's job in MasteryCap is to inform risk and horizon — never to tip entries or replace Investing/Spot homework. DCA patience, smaller size in risk-off, and clean records beat prediction theater over decades. After this track, return to the compound path: emergency cash → low-cost core → picks only with money and time you can commit.</p><p>{{xref:invest:8:Boring core beats cleverness}}</p><p>Humility means you size for being wrong about the regime. Loud confidence is not an edge; a boring monthly process is.</p>`,
+      ur:`<p>Loop band karo mahine ek-page <strong>regime note</strong> se — har headline se nahi. Sirf char lines: inflation trend (up/down/sticky), humble rate view (tighten/hold/ease — "galat ho sakta" ke sath), PKR earners ke liye FX stress, aur risk-on vs risk-off. Phir us mahine ka <strong>max gross risk %</strong> set karo aur har Twitter panic ya CPI rumor pe use mat todo. Note journal mein paste karo taake future-you dekh sake ke mana ya nahi.</p><p>MasteryCap mein macro ka kaam risk aur horizon batana hai — tip entries nahi, Investing/Spot homework replace nahi. Risk-off mein DCA sabar, chhoti size, aur saaf records decades pe prediction theater ko harate hain. Is track ke baad compound path pe wapas: emergency cash → low-cost core → picks sirf us paise aur waqt se jo de sako.</p><p>{{xref:invest:8:Boring core chalaki se jeet'ta}}</p><p>Humility = regime pe galat hone ke liye size. Zor se bolna edge nahi; boring mahwari process edge hai.</p>`},
+ quiz:[
+   {q:{en:"A monthly regime note should change:",ur:"Mahwari regime note change ho:"},
+    opts:{en:["Slowly — not every headline","Every 5 minutes with Twitter","Never forever"],ur:["Ahista — har headline nahi","Har 5 minute Twitter pe","Kabhi nahi forever"]},
+    correct:0, explain:{en:"Process over noise. Monthly cadence beats doomscrolling.",ur:"Process noise pe bhaari. Mahwari cadence doomscroll se jeet'ta."}},
+   {q:{en:"Macro's job in MasteryCap is to:",ur:"MasteryCap mein macro ka kaam:"},
+    opts:{en:["Inform risk and horizon — not tip entries","Replace all other tracks","Promise riches"],ur:["Risk aur horizon batana — tip entries nahi","Sab tracks replace","Riches promise"]},
+    correct:0, explain:{en:"School stance unchanged: literacy, not tip service or income claims.",ur:"School stance wahi: literacy — tip service ya income claim nahi."}},
+   {q:{en:"Humility in macro means:",ur:"Macro mein humility ka matlab:"},
+    opts:{en:["You can be wrong; size accordingly","You are always right if loud","Leverage hides error"],ur:["Galat ho sakte; size us hisaab","Zor se bolo to hamesha sahi","Leverage error chhupaye"]},
+    correct:0, explain:{en:"Size for being wrong. Leverage amplifies error — it does not hide it.",ur:"Galat hone ke liye size. Leverage error barhata — chhupata nahi."}}
+ ]}
 ];
 
 export const MACRO_PLACEMENT = [
-  {
-    "topic": 1,
-    "q": {
-      "en": "Macro literacy mainly helps you:",
-      "ur": "Macro literacy mainly:"
-    },
-    "opts": {
-      "en": [
-        "Set context and risk appetite",
-        "Guarantee weekly trade wins",
-        "Replace all company analysis"
-      ],
-      "ur": [
-        "Context + risk appetite",
-        "Weekly wins guarantee",
-        "Company analysis replace"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 1,
-    "q": {
-      "en": "Calling every central-bank meeting for scalps is:",
-      "ur": "Har CB meeting scalp:"
-    },
-    "opts": {
-      "en": [
-        "Usually a losing retail hobby",
-        "A risk-free career",
-        "Required before Investing track"
-      ],
-      "ur": [
-        "Aksar losing hobby",
-        "Risk-free career",
-        "Investing se pehle zaroori"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 2,
-    "q": {
-      "en": "Real return roughly equals:",
-      "ur": "Real return roughly:"
-    },
-    "opts": {
-      "en": [
-        "Nominal return minus inflation",
-        "Only the dividend yield",
-        "Leverage times inflation"
-      ],
-      "ur": [
-        "Nominal − inflation",
-        "Sirf dividend yield",
-        "Leverage × inflation"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 2,
-    "q": {
-      "en": "High inflation makes long-term pure cash:",
-      "ur": "High inflation pe long-term pure cash:"
-    },
-    "opts": {
-      "en": [
-        "Likely to lose purchasing power",
-        "Always the best asset",
-        "Immune to opportunity cost"
-      ],
-      "ur": [
-        "Purchasing power haar",
-        "Hamesha best",
-        "Opportunity cost immune"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 3,
-    "q": {
-      "en": "Rising policy rates often pressure:",
-      "ur": "Rising policy rates aksar pressure:"
-    },
-    "opts": {
-      "en": [
-        "Long-duration risk assets",
-        "Only mattress cash positively forever",
-        "Nothing in markets"
-      ],
-      "ur": [
-        "Long-duration risk assets",
-        "Sirf mattress forever positive",
-        "Kuch nahi"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 3,
-    "q": {
-      "en": "Rate effects on markets are:",
-      "ur": "Rates ka market asar:"
-    },
-    "opts": {
-      "en": [
-        "Lagged and imperfect — not a video-game cheat",
-        "Instant and exact every hour",
-        "Illegal to discuss"
-      ],
-      "ur": [
-        "Lagged + imperfect",
-        "Har ghanta exact",
-        "Discuss illegal"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 4,
-    "q": {
-      "en": "Local currency weakness can raise:",
-      "ur": "Local currency weakness barha sakti:"
-    },
-    "opts": {
-      "en": [
-        "Import-driven inflation pressure",
-        "Only stock spreads",
-        "Nothing real"
-      ],
-      "ur": [
-        "Import inflation pressure",
-        "Sirf stock spreads",
-        "Kuch nahi"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 4,
-    "q": {
-      "en": "A strong USD often coincides with:",
-      "ur": "Strong USD aksar:"
-    },
-    "opts": {
-      "en": [
-        "Tighter global financial conditions / risk-off pressure",
-        "Guaranteed crypto pumps",
-        "Zero FX risk everywhere"
-      ],
-      "ur": [
-        "Tighter global conditions / risk-off",
-        "Guaranteed crypto pump",
-        "Zero FX risk"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 5,
-    "q": {
-      "en": "Risk-off environments usually favor:",
-      "ur": "Risk-off aksar favor:"
-    },
-    "opts": {
-      "en": [
-        "Lower risk appetite / defensive positioning",
-        "Max leverage on meme assets",
-        "Ignoring stops"
-      ],
-      "ur": [
-        "Kam risk appetite / defensive",
-        "Meme pe max lev",
-        "Stops ignore"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 5,
-    "q": {
-      "en": "When liquidity is poor, your spreads and slippage:",
-      "ur": "Poor liquidity pe spreads/slippage:"
-    },
-    "opts": {
-      "en": [
-        "Widen — size down",
-        "Disappear",
-        "Only help you"
-      ],
-      "ur": [
-        "Widen — size down",
-        "Ghayab",
-        "Sirf madad"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 6,
-    "q": {
-      "en": "A monthly regime note should change:",
-      "ur": "Monthly regime note change:"
-    },
-    "opts": {
-      "en": [
-        "Slowly — not every headline",
-        "Every 5 minutes with Twitter",
-        "Never forever"
-      ],
-      "ur": [
-        "Ahista — har headline nahi",
-        "Har 5 min Twitter",
-        "Kabhi nahi forever"
-      ]
-    },
-    "correct": 0
-  },
-  {
-    "topic": 6,
-    "q": {
-      "en": "Macro's job in MasteryCap is to:",
-      "ur": "MasteryCap mein macro ka kaam:"
-    },
-    "opts": {
-      "en": [
-        "Inform risk and horizon — not tip entries",
-        "Replace all other tracks",
-        "Promise riches"
-      ],
-      "ur": [
-        "Risk + horizon — tip entries nahi",
-        "Sab tracks replace",
-        "Riches promise"
-      ]
-    },
-    "correct": 0
-  }
+ {topic:1,q:{en:"Macro literacy mainly helps you:",ur:"Macro literacy mainly madad:"},opts:{en:["Set context and risk appetite","Guarantee weekly trade wins","Replace all company analysis"],ur:["Context aur risk appetite","Weekly wins guarantee","Company analysis replace"]},correct:0},
+ {topic:1,q:{en:"Calling every central-bank meeting for scalps is:",ur:"Har CB meeting pe scalp:"},opts:{en:["Usually a losing retail hobby","A risk-free career","Required before Investing"],ur:["Aksar losing retail hobby","Risk-free career","Investing se pehle zaroori"]},correct:0},
+ {topic:2,q:{en:"Real return roughly equals:",ur:"Real return roughly:"},opts:{en:["Nominal return minus inflation","Only the dividend yield","Leverage times inflation"],ur:["Nominal − inflation","Sirf dividend yield","Leverage × inflation"]},correct:0},
+ {topic:2,q:{en:"High inflation makes long-term pure cash:",ur:"High inflation pe long-term cash:"},opts:{en:["Likely to lose purchasing power","Always the best asset","Immune to opportunity cost"],ur:["Purchasing power haarne ke qareeb","Hamesha best","Opportunity cost immune"]},correct:0},
+ {topic:3,q:{en:"Rising policy rates often pressure:",ur:"Rising rates aksar pressure:"},opts:{en:["Long-duration risk assets","Only mattress cash forever","Nothing in markets"],ur:["Long-duration risk assets","Sirf mattress forever","Kuch nahi"]},correct:0},
+ {topic:3,q:{en:"Rate effects on markets are:",ur:"Rates ka market asar:"},opts:{en:["Lagged and imperfect — not a cheat code","Instant and exact every hour","Illegal to discuss"],ur:["Lagged aur imperfect","Har ghanta exact","Discuss illegal"]},correct:0},
+ {topic:4,q:{en:"Local currency weakness can raise:",ur:"Local currency weakness barha sakti:"},opts:{en:["Import-driven inflation pressure","Only stock spreads","Nothing real"],ur:["Import inflation pressure","Sirf stock spreads","Kuch nahi"]},correct:0},
+ {topic:4,q:{en:"A strong USD often coincides with:",ur:"Strong USD aksar:"},opts:{en:["Tighter global financial conditions / risk-off","Guaranteed crypto pumps","Zero FX risk everywhere"],ur:["Tighter global conditions / risk-off","Guaranteed crypto pump","Zero FX risk"]},correct:0},
+ {topic:5,q:{en:"Risk-off environments usually favor:",ur:"Risk-off aksar favor:"},opts:{en:["Lower risk appetite / defensive positioning","Max leverage on meme assets","Ignoring stops"],ur:["Kam risk appetite / defensive","Meme pe max lev","Stops ignore"]},correct:0},
+ {topic:5,q:{en:"When liquidity is poor, spreads and slippage:",ur:"Poor liquidity pe spreads/slippage:"},opts:{en:["Widen — size down","Disappear","Only help you"],ur:["Widen — size kam","Ghayab","Sirf madad"]},correct:0},
+ {topic:6,q:{en:"A monthly regime note should change:",ur:"Regime note change:"},opts:{en:["Slowly — not every headline","Every 5 minutes with Twitter","Never forever"],ur:["Ahista — har headline nahi","Har 5 min Twitter","Kabhi nahi forever"]},correct:0},
+ {topic:6,q:{en:"Macro's job in MasteryCap is to:",ur:"MasteryCap mein macro:"},opts:{en:["Inform risk and horizon — not tip entries","Replace all other tracks","Promise riches"],ur:["Risk + horizon — tip entries nahi","Sab tracks replace","Riches promise"]},correct:0}
 ];

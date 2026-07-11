@@ -159,6 +159,7 @@ export function renderDashboard(App, c) {
 
     <div class="note-box" style="margin-bottom:14px">${App.t('campus_blurb')}</div>
     <div class="note-box warn" style="margin-bottom:14px">${App.t('campus_no_rich')}</div>
+    <div class="note-box" style="margin-bottom:14px"><strong>${App.t('mastery_title')}</strong><br/>${App.t('mastery_honest')}</div>
 
     ${(() => {
       const th = todayProgress();

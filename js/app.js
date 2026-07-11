@@ -409,7 +409,7 @@ function maybeWhatsNew() {
       <div class="sheet-head"><div class="slabel">${App.t('whats_new')} · ${APP_VERSION}</div>
         <button class="sheet-x" data-close>${icon('x', { size: 18 })}</button></div>
       <div class="sheet-body" style="font-size:14px;color:var(--t2);line-height:1.55">
-        <p>v34: Soft-start Foundations · Skip→Foundations · advanced locks · Options on path · lab gate · Greeks xref fix.</p>
+        <p>v35: Macro/Tax Invest-depth · Roman Urdu bodies · honest TRADE-READY (not forever, not a license).</p>
         <p style="color:var(--t3)">See CHANGELOG.md for full notes.</p>
       </div>
     </div>`;

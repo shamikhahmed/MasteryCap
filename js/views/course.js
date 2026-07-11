@@ -355,6 +355,7 @@ function graduationPanel(App, trackId, done, total, examPassed) {
   return `<div class="panel pad mt14">
     <div class="slabel">${App.t('grad_panel_title')}</div>
     <p style="font-size:13.5px;color:var(--t2);line-height:1.55;margin:8px 0 12px">${g.promise[lang] || g.promise.en}</p>
+    <div class="note-box warn" style="margin-bottom:12px">${App.t('mastery_honest')}<br/><span style="opacity:0.9">${App.t('cert_not_license')}</span></div>
     ${!weeksReady ? `<div class="note-box" style="margin-bottom:12px">${App.t('path_finish_weeks').replace('{n}', String(total - done))}</div>` : ''}
     ${weeksReady && !examPassed ? `<div class="note-box" style="margin-bottom:12px">${App.t('path_take_exam')}</div>` : ''}
     <div class="slabel" style="margin-bottom:8px">${App.t('grad_requirements')}</div>

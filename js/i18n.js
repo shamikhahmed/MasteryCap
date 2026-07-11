@@ -356,6 +356,11 @@ export const T = {
     track_lock_stocks: 'Open Stocks week 1 (or finish more Foundations) before Options.',
     track_lock_cta: 'Open Foundations',
     lab_gated: 'Drills first — trading lab unlocks after Foundations W4',
+
+    mastery_title: 'What TRADE-READY means',
+    mastery_honest: 'TRADE-READY = process competence on paper/tiny size at graduation time — not lifetime mastery, not income, not a broker license. Skills decay without practice. Re-run labs monthly.',
+    cert_not_license: 'Self-issued on this device only. Not SECP, not a broker, not CFA/FRM, not a government license. Offline PWA cannot create external credentials.',
+    cert_verify_hint: 'verify: hash is a local evidence fingerprint — anyone can forge a screenshot; trust the process logs on this device.',
     campus_today: 'Today',
     today_lesson: 'Lesson',
     today_lab: 'Lab',
@@ -706,6 +711,11 @@ export const T = {
     track_lock_stocks: 'Options se pehle Stocks week 1 (ya zyada Foundations).',
     track_lock_cta: 'Foundations kholo',
     lab_gated: 'Pehle drills — trading lab Foundations W4 ke baad',
+
+    mastery_title: 'TRADE-READY ka matlab',
+    mastery_honest: 'TRADE-READY = graduation waqt pe paper/tiny size process competence — lifetime mastery nahi, income nahi, broker license nahi. Practice ke baghair skills kamzor. Labs mahine mein dobara.',
+    cert_not_license: 'Sirf is device pe self-issued. SECP nahi, broker nahi, CFA/FRM nahi, sarkari license nahi. Offline PWA bahar credential nahi bana sakta.',
+    cert_verify_hint: 'verify: hash local evidence fingerprint — screenshot forge ho sakti; is device ke process logs pe bharosa.',
     campus_today: 'Aaj ka path',
     today_lesson: 'Lesson',
     today_lab: 'Lab',

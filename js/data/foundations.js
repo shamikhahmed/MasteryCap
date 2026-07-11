@@ -70,10 +70,10 @@ export const FOUNDATIONS_WEEKS = [
 <p><strong>Crypto / global brokers:</strong> Prefer regulated venues where you live. Complete KYC. Enable 2FA (app, not SMS if possible). Start with a tiny deposit. Never keep life savings on an exchange IOU.</p>
 <p><strong>Homework checklist:</strong> screenshot the license page, write the firm’s legal name, confirm withdrawal method works, set a monthly funding cap.</p>
 <p>{{xref:invest:4:PSX & CDC mechanics deepen in Investing}}</p>`,
-    ur: `<p>Ye “account kaise kholo” week — process, broker endorsement nahi.</p>
-<p><strong>PSX:</strong> (1) PSX/SECP pe listed TREC broker. (2) KYC (CNIC, selfie, address). (3) <strong>CDC sub-account</strong> — shares <em>tumhare</em> naam. (4) Official bank se fund. (5) Chhota deposit + withdrawal test.</p>
-<p><strong>Crypto / global:</strong> Regulated venue. KYC. 2FA. Tiny deposit. Life savings exchange pe mat rakho.</p>
-<p><strong>Homework:</strong> license page screenshot, legal name likho, withdrawal test, monthly funding cap.</p>`,
+    ur: `<p>Ye amali “account kaise kholo” week hai — process, broker endorsement nahi. Koi affiliate tip nahi; verify karne ka tareeqa hai.</p>
+<p><strong>Pakistan equities (PSX path):</strong> (1) PSX/SECP sites pe listed PSX-licensed broker (TREC) chuno. (2) KYC complete karo (CNIC, selfie, address proof jaisa maanga jaye). (3) <strong>CDC sub-account</strong> kholo taake shares <em>tumhare</em> naam electronically rahen — sirf broker house screen pe nahi. (4) Official bank channels se fund. (5) Size barhane se pehle chhota deposit aur chhota withdrawal test karo.</p>
+<p><strong>Crypto / global brokers:</strong> Jahan rehte ho wahan regulated venues prefer. KYC complete. 2FA on (mumkin ho to SMS ki jagah app). Tiny deposit se shuru. Life savings exchange IOU pe kabhi mat rakho.</p>
+<p><strong>Homework checklist:</strong> license page ka screenshot, firm ka legal name likho, confirm karo withdrawal method chal'ta, monthly funding cap set. {{xref:invest:4:PSX & CDC mechanics Investing mein gehre}}</p>`,
   },
   quiz: [
     { q: { en: 'On PSX, shares should ultimately sit in:', ur: 'PSX pe shares akhir mein:' },
@@ -99,10 +99,11 @@ export const FOUNDATIONS_WEEKS = [
 <p>Beginner drill (2 weeks): place only limits on paper or tiny size. Notice how often emotion wants a market chase.</p>
 <p>{{compare:limit-vs-market}}</p>
 <p>Paper trading: use the broker’s demo if available, or log hypothetical fills in Journal with emotion tags — same discipline, zero capital risk.</p>`,
-    ur: `<p>Har quote: <strong>bid</strong> / <strong>ask</strong>. Spread = cost.</p>
-<p><strong>Market:</strong> abhi fill — slip ho sakta. <strong>Limit:</strong> sirf tumhari price ya behtar — fill na ho. <strong>Stop:</strong> trigger ke baad — venue rules padho.</p>
-<p>Beginner: 2 hafte sirf limits (paper/tiny). Dekho emotion kitni baar market chase mangti.</p>
-<p>Paper: demo ya Journal mein hypothetical fills + emotion — discipline, zero capital risk.</p>`,
+    ur: `<p>Har quote mein <strong>bid</strong> (buyers) aur <strong>ask</strong> (sellers) hote. Spread us waqt cost banta jab tum use cross karte — jaldi ki qeemat.</p>
+<p><strong>Market order:</strong> abhi jo available hai us pe fill — tez, slip ho sakta. <strong>Limit order:</strong> sirf tumhari price ya behtar pe fill — sabar, fill na ho. <strong>Stop / stop-limit:</strong> trigger ke baad active — exits aur breakout entries ke liye; apne venue ki exact rules samjho.</p>
+<p>Beginner drill (2 hafte): paper ya tiny size pe sirf limits. Dekho emotion kitni baar market chase mangti hai.</p>
+<p>{{compare:limit-vs-market}}</p>
+<p>Paper trading: broker ka demo ho to use karo, ya Journal mein hypothetical fills + emotion tags log — wahi discipline, zero capital risk.</p>`,
   },
   quiz: [
     { q: { en: 'A limit buy fills:', ur: 'Limit buy fill:' },

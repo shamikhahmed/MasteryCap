@@ -160,8 +160,8 @@ export function downloadCertificate({
   ctx.font = '400 13px system-ui, sans-serif';
   ctx.fillText(
     lang === 'en'
-      ? 'Self-issued · device-local · not a broker/regulatory license · not investment advice'
-      : 'Self-issued · device-local · broker/regulatory license nahi · investment advice nahi',
+      ? 'Self-issued · device-local · NOT SECP/broker/CFA/gov license · not investment advice · competence decays'
+      : 'Self-issued · device-local · SECP/broker/CFA/sarkari license NAHI · advice nahi · competence kamzor hoti',
     80, 640
   );
 
