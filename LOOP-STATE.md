@@ -1,22 +1,20 @@
 # LOOP-STATE — MasteryCap agent ledger
 
 status: COMPLETE
-iteration: 20
-phase: SCHOOL-v35
-next_task: owner offline PWA hard-refresh; optional human URQA of thick Macro/Tax
-version_on_disk: v35
+iteration: 21
+phase: SCHOOL-v36
+next_task: owner hard-refresh PWA
+version_on_disk: v36
 
 ## done
-- v34 zero-beginner shepherd
-- **v35:** Macro/Tax Invest-depth · UR short-body fix · honest TRADE-READY + cert (not forever, not license)
+- v35 honesty + Macro/Tax depth
+- **v36:** glossary 215 terms school-complete coverage
 
 ## blocked
 (none)
 
 ## decisions
-- Forever mastery / external license = impossible offline — product states that honestly.
-- Macro/Tax restored on path after thicken.
-- Push OK.
+- Glossary = searchable bilingual dictionary + in-lesson tap links. Not every niche jargon forever — core school vocab covered.
 
 ## evidence
-- audit-all 7/7 PASS; smoke PASS; final-acceptance PASS
+- audit-all 7/7; MUST-know check 0 missing; smoke PASS

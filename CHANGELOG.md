@@ -1,5 +1,11 @@
 # Changelog
 
+## v36 — 2026-07-11 · Complete school glossary
+- Glossary **122 → 215** bilingual terms (foundations/macro/tax/options/greeks + core market vocab)
+- MUST-know coverage check green; weak EN=UR defs fixed
+- Campus → Glossary entry point
+- SW **v36**
+
 ## v35 — 2026-07-11 · Honest mastery + thick Macro/Tax + UR bodies
 - Macro + Tax rewritten to Investing depth (bilingual essays)
 - Foundations/Greeks short-UR bodies expanded; short-UR sweep clean

@@ -5,7 +5,7 @@ Curriculum + paper simulator (process-graded, not P/L) + discipline journal. Tru
 terminal design (Geist, accent `#FF6B2C`). No accounts, no backend, no income promises.
 Data stays on-device under `masterycap:`.
 
-**Version:** v35 · see [VERSION](VERSION) · [CHANGELOG.md](CHANGELOG.md) · [GUIDE.md](GUIDE.md)
+**Version:** v36 · see [VERSION](VERSION) · [CHANGELOG.md](CHANGELOG.md) · [GUIDE.md](GUIDE.md)
 
 ## School path
 1. **Learn** — tracks from Foundations through Binary; quizzes unlock weeks; exams local-only.

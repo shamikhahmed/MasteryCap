@@ -10,6 +10,7 @@ import { openSettings } from '../settings.js';
 import { getStreak, reviewAvailable, dueReviewCount } from '../retention.js';
 import { store, KEYS } from '../store.js';
 import { openHowto } from '../howto.js';
+import { openGlossary } from '../glossary.js';
 import { isGraduated } from '../graduation.js';
 import { SIM_SCENARIOS } from '../sim/scenarios.js';
 import { todayProgress } from '../today.js';
@@ -259,6 +260,7 @@ export function renderDashboard(App, c) {
     <button class="btn secondary mt10" id="goSim" style="width:100%">${icon('journal', { size: 17 })} ${App.t('sim_cta')}</button>
     <button class="btn ghost mt10" id="goCharts" style="width:100%">${icon('progress', { size: 17 })} ${App.t('chart_cta')}</button>
     ${reviewAvailable() ? `<button class="btn secondary mt10" id="goReview" style="width:100%">${icon('book', { size: 17 })} ${App.t('review_cta').replace('{n}', String(due || streak.current || 0))}</button>` : ''}
+    <button class="btn ghost mt10" id="goGlossCampus" style="width:100%">${icon('book', { size: 17 })} ${App.t('glossary')}</button>
     <button class="btn ghost mt14" id="goDesk" style="width:100%">${icon('journal', { size: 17 })} ${App.t('campus_desk')}</button>
   </div>`;
 
@@ -299,6 +301,7 @@ export function renderDashboard(App, c) {
   });
   document.getElementById('goReview')?.addEventListener('click', () => App.openReview());
   document.getElementById('goDesk')?.addEventListener('click', () => App.navigate('journal'));
+  document.getElementById('goGlossCampus')?.addEventListener('click', () => { App.haptic(); openGlossary(App); });
   c.querySelectorAll('[data-path]').forEach((el) => el.addEventListener('click', () => {
     App.haptic();
     App.navigate('learn');
