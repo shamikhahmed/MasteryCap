@@ -4,6 +4,7 @@
 
 import { store, KEYS } from './store.js';
 import { getTrack } from './data/tracks.js';
+import { missingPrereqs } from './syllabus.js';
 
 const ADVANCED = new Set(['crypto', 'forex', 'futures', 'options', 'greeks', 'bots', 'binary']);
 
@@ -34,24 +35,12 @@ export function seedFoundationsSoftStart(experience) {
  * @returns {false|string} false = open, else lock reason key suffix
  */
 export function trackLockReason(trackId, App) {
-  if (!ADVANCED.has(trackId)) return false;
-  const f = App.getCourse('foundations');
-  const fDone = weeksDone(f, 'foundations');
-  const fOk = fDone >= 3 || !!f.examPassed;
-  if (!fOk) return 'foundations';
-
-  if (trackId === 'greeks') {
-    const o = App.getCourse('options');
-    const oDone = weeksDone(o, 'options');
-    if (oDone < 2 && !o.examPassed) return 'options';
-  }
-  if (trackId === 'options') {
-    const s = App.getCourse('stocks');
-    const sDone = weeksDone(s, 'stocks');
-    // Stocks is 3 weeks — need ≥2 or Foundations already ok is enough for options intro
-    if (sDone < 1 && fDone < 4) return 'stocks';
-  }
-  return false;
+  // Strict university prerequisites (2026-07-12 decision): a track opens only
+  // when every prerequisite track is fully credited (all weeks completed).
+  // Placement/exam mastery marks weeks complete, so experienced learners
+  // accelerate through credits rather than skipping them.
+  const missing = missingPrereqs(App, trackId);
+  return missing.length ? missing[0] : false;
 }
 
 /** Trading sim / perps lab — not day-1 for zeros. */

@@ -293,6 +293,7 @@ export const KEYS = {
   skills: 'skills',
   teacher: 'teacher',
   appearance: 'appearance',
+  planStart: 'planStart',
   todayHabit: 'todayHabit',
   studyNotes: 'studyNotes',
   flashStats: 'flashStats',

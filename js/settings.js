@@ -27,8 +27,11 @@ function getSettings() {
 
 export function applySettings(App) {
   const s = getSettings();
-  const mult = { S: 0.92, M: 1, L: 1.08 }[s.fontSize] || 1;
+  const mult = { S: 0.92, M: 1, L: 1.08, XL: 1.2 }[s.fontSize] || 1;
   document.documentElement.style.setProperty('--fs', String(mult));
+  // px-based layout: --fs only reaches the body base rule, so scale the whole
+  // page uniformly — this is what makes the setting visibly work everywhere.
+  if (document.body) document.body.style.zoom = String(mult);
   document.documentElement.dataset.font = s.fontSize || 'M';
   document.documentElement.dataset.contrast = s.highContrast ? 'high' : 'normal';
   if (App) App._haptics = s.haptics !== false;
@@ -111,7 +114,7 @@ export function openSettings(App) {
 
         <div class="slabel" style="margin:0 0 10px">${App.t('set_font')}</div>
         <div class="seg" style="width:100%;margin-bottom:16px">
-          ${['S', 'M', 'L'].map((f) => `<button style="flex:1" class="${(s.fontSize || 'M') === f ? 'on' : ''}" data-fs="${f}">${f}</button>`).join('')}
+          ${['S', 'M', 'L', 'XL'].map((f) => `<button style="flex:1" class="${(s.fontSize || 'M') === f ? 'on' : ''}" data-fs="${f}">${f}</button>`).join('')}
         </div>
 
         <div class="slabel" style="margin:0 0 10px">${App.t('set_appearance')}</div>
@@ -122,6 +125,10 @@ export function openSettings(App) {
         <div class="slabel" style="margin:0 0 8px;font-size:11px;opacity:0.8">${App.t('set_theme_preset')}</div>
         <div class="seg" style="width:100%;margin-bottom:16px;flex-wrap:wrap">
           ${['original', 'paper', 'quiet', 'focus'].map((m) => `<button style="flex:1;min-width:22%" class="${(getAppearance().preset || 'original') === m ? 'on' : ''}" data-preset="${m}">${App.t('theme_' + (m === 'original' ? 'original' : m))}</button>`).join('')}
+        </div>
+        <div class="slabel" style="margin:0 0 8px;font-size:11px;opacity:0.8">${App.lang === 'en' ? 'Daily session length' : 'Rozana session'}</div>
+        <div class="seg" style="width:100%;margin-bottom:16px">
+          ${[15, 30, 45].map((m) => `<button style="flex:1" class="${(store.get(KEYS.settings, {}).sessionMins || 15) === m ? 'on' : ''}" data-sessionmins="${m}">${m} min</button>`).join('')}
         </div>
 
         <div class="slabel" style="margin:0 0 10px">${App.t('set_teacher')}</div>
@@ -221,6 +228,12 @@ export function openSettings(App) {
     setAppearance({ preset: b.dataset.preset });
     App.haptic();
     sheet.querySelectorAll('[data-preset]').forEach((x) => x.classList.toggle('on', x.dataset.preset === b.dataset.preset));
+  }));
+  sheet.querySelectorAll('[data-sessionmins]').forEach((b) => b.addEventListener('click', () => {
+    const cur = store.get(KEYS.settings, {});
+    store.set(KEYS.settings, { ...cur, sessionMins: Number(b.dataset.sessionmins) });
+    App.haptic();
+    sheet.querySelectorAll('[data-sessionmins]').forEach((x) => x.classList.toggle('on', x.dataset.sessionmins === b.dataset.sessionmins));
   }));
   sheet.querySelectorAll('[data-teacher]').forEach((b) => b.addEventListener('click', () => {
     setTeacher(b.dataset.teacher);

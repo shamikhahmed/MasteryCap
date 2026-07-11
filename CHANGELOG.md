@@ -1,5 +1,14 @@
 # Changelog
 
+## v40 (2026-07-12) — University core + appearance fixes
+- **Theme bugs fixed:** legacy default pinned preset 'dark' so the Light/Auto toggle looked dead — repaired (preset 'original' = follow mode, stored legacy values migrated on read). Auto now follows device live (matchMedia listener). --t4 was never themed (faint text unreadable in light) — now per-preset.
+- **Text size fixed:** S/M/L setting only reached one CSS rule; now scales the whole layout (body zoom), new XL step added.
+- **University structure (syllabus.js):** semesters (Ground School → Market Core → Specialisation → Electives), STRICT prerequisites (track opens only when prereq tracks fully credited; placement accelerates credits, never skips), dated personal plan with pace from session length.
+- **Settings:** daily session length 15/30/45 min.
+- **Home:** plan position strip — Week N/M, semester, on-track/behind pill; Continue button shows session length.
+- SW masterycap-v40.
+
+
 ## v39 (2026-07-12) — clarity pass
 - **Home decluttered:** "Up next" continue card now FIRST (accent border), three stacked honesty note-boxes collapsed to one compact footer line (copy unchanged), seven loose buttons merged into one Shortcuts grid panel.
 - **Quiz content honesty:** removed/reframed 8 app-meta questions ("what is the Home tab", "MasteryCap is primarily a...") — replaced with real market-content questions (counterparty, expectancy vs win rate, paper-trade-first). Course now teaches markets, not the app UI.
