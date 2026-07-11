@@ -10,6 +10,35 @@ import { openSettings } from '../settings.js';
 import { getStreak, reviewAvailable, dueReviewCount } from '../retention.js';
 import { store, KEYS } from '../store.js';
 import { openHowto } from '../howto.js';
+import { isGraduated } from '../graduation.js';
+import { SIM_SCENARIOS } from '../sim/scenarios.js';
+
+function ladderStages(App, trackId) {
+  const track = getTrack(trackId);
+  const prog = App.getCourse(trackId);
+  const learnDone = track.weeks.some((w) => ['completed', 'mastered'].includes(prog.weekStatus[w.id]))
+    || !!prog.examPassed;
+  const stats = store.get(KEYS.simStats, {});
+  const scIds = SIM_SCENARIOS.filter((s) => s.track === trackId).map((s) => s.id);
+  let practiceDone = scIds.some((id) => (stats[id]?.runs || 0) > 0);
+  if (!scIds.length) {
+    practiceDone = track.weeks.length > 0
+      && track.weeks.every((w) => ['completed', 'mastered'].includes(prog.weekStatus[w.id]));
+  }
+  return [
+    { id: 'learn', done: learnDone, ic: 'learn' },
+    { id: 'practice', done: practiceDone, ic: 'target' },
+    { id: 'graduate', done: isGraduated(trackId), ic: 'circleCheck' },
+  ];
+}
+
+function ladderChips(App, trackId) {
+  const stages = ladderStages(App, trackId);
+  return `<span style="display:inline-flex;flex-wrap:wrap;align-items:center;gap:4px 6px;margin-top:6px;font-size:11px;text-transform:uppercase;letter-spacing:0.04em">
+    ${stages.map((s, i) => `${i ? '<span style="color:var(--t3);opacity:0.5">→</span>' : ''}
+      <span style="display:inline-flex;align-items:center;gap:3px;opacity:${s.done ? 1 : 0.35};color:${s.done ? 'var(--acc)' : 'var(--t3)'}">${icon(s.ic, { size: 12 })} ${App.t('ladder_' + s.id)}</span>`).join('')}
+  </span>`;
+}
 
 function greeting(App) {
   const h = new Date().getHours();
@@ -168,7 +197,7 @@ export function renderDashboard(App, c) {
           const pct = t.weeks.length ? Math.round((wdone / t.weeks.length) * 100) : 0;
           return `<button type="button" class="check-row" data-path="${t.id}" style="width:100%;text-align:left;background:none;border:0;color:inherit;cursor:pointer">
             <span class="check-box" style="opacity:0.85">${icon(TRACK_ICON[t.id] || 'learn', { size: 14 })}</span>
-            <span class="check-t"><strong>${t.name[lang]}</strong><br/><span style="color:var(--t3);font-size:12px">${wdone}/${t.weeks.length} · ${pct}%</span></span>
+            <span class="check-t"><strong>${t.name[lang]}</strong><br/><span style="color:var(--t3);font-size:12px">${wdone}/${t.weeks.length} · ${pct}%</span>${ladderChips(App, t.id)}</span>
           </button>`;
         }).join('')}
       </div>
@@ -183,7 +212,7 @@ export function renderDashboard(App, c) {
           const wdone = t.weeks.filter((w) => ['completed', 'mastered'].includes(prog.weekStatus[w.id])).length;
           return `<button type="button" class="check-row" data-path="${p.id}" style="width:100%;text-align:left;background:none;border:0;color:inherit;cursor:pointer">
             <span class="check-box" style="opacity:0.85">${icon(TRACK_ICON[p.id] || 'learn', { size: 14 })}</span>
-            <span class="check-t"><strong>${i + 1}. ${t.name[lang]}</strong><br/><span style="color:var(--t3);font-size:12px">${wdone}/${t.weeks.length} · ${p.why[lang]}</span></span>
+            <span class="check-t"><strong>${i + 1}. ${t.name[lang]}</strong><br/><span style="color:var(--t3);font-size:12px">${wdone}/${t.weeks.length} · ${p.why[lang]}</span>${ladderChips(App, p.id)}</span>
           </button>`;
         }).join('')}
       </div>

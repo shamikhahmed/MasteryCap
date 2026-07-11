@@ -2,25 +2,22 @@
 # Single source of truth. Re-read every iteration.
 
 status: RUNNING
-iteration: 8
-phase: S3
-next_task: S3.4
-version_on_disk: v26
+iteration: 9
+phase: S4
+next_task: S4.1
+version_on_disk: v27
 
 ## done
 - S1 → v25 (i0)
-- S2.1–S2.5 → **v26** (i1–i5)
-- S3.1 graduation.js
-- S3.2 Learn UI Graduation panel
-- S3.3 Certificate TRADE-READY rewrite
+- S2 → **v26** (i1–i5)
+- S3.1–S3.4 → **v27** (i6–i9)
 
 ## blocked
 (none)
 
 ## decisions
 - Do not push.
-- Cert honesty line: "Certifies process competence. Markets decide outcomes."
-- downloadCertificate accepts optional `evidence` for sim/exam line.
+- Campus ladder: Learn=any week/exam; Practice=sim runs (or all weeks if no scenarios); Graduate=KEYS.graduation.
 
 ## evidence
-- i8: cert PNG path draws TRADE-READY + honesty line; evidence line when sim present; audit PASS.
+- i9: Home path chips show Learn→Practice→Graduate; CACHE/VERSION/APP_VERSION v27; audit PASS.

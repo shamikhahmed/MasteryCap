@@ -5,7 +5,7 @@
 import { store, KEYS } from './store.js';
 import { icon } from './icons.js';
 
-export const APP_VERSION = 'v26';
+export const APP_VERSION = 'v27';
 
 function todayStamp() {
   const d = new Date();

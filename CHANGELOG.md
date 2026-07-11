@@ -1,5 +1,12 @@
 # Changelog
 
+## v27 — 2026-07-11 · S3: Graduation gates + TRADE-READY cert
+- **`js/graduation.js`** — `gradStatus(trackId)` process gates (exam + sim process for trading tracks; invest/spot exam-only until S5; S4-missing graceful)
+- KEYS.graduation additive · Learn Graduation panel with live counts + Graduate CTA (+200 XP)
+- Certificate PNG: **TRADE-READY — process-measured** + honesty line ("Markets decide outcomes")
+- Home campus ladder chips: Learn → Practice → Graduate per track
+- SW **v27**
+
 ## v26 — 2026-07-11 · S2: Simulator completeness
 - **Limit orders** — `placeLimit` / `cancelLimit`; fills when bar range touches limit; stop validated vs limit price; Market/Limit UI + pending strip
 - **Partial close** — `closePartial(0.25|0.5)`; remainder keeps stop; `partials[]` on final trade; R vs original riskD

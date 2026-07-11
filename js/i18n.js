@@ -284,6 +284,7 @@ export const T = {
     grad_met_liq: 'Zero liquidations in latest 10',
     grad_miss_s4: 'Requires S4 scenarios for this track',
     grad_miss_portfolio: 'Coming: portfolio practice (S5)',
+    ladder_learn: 'Learn', ladder_practice: 'Practice', ladder_graduate: 'Graduate',
     path_size_rule: 'Size rule',
   },
   ur: {
@@ -558,6 +559,7 @@ export const T = {
     grad_met_liq: 'Latest 10 mein zero liquidation',
     grad_miss_s4: 'Is track ke liye S4 scenarios chahiye',
     grad_miss_portfolio: 'Coming: portfolio practice (S5)',
+    ladder_learn: 'Learn', ladder_practice: 'Practice', ladder_graduate: 'Graduate',
     path_size_rule: 'Size rule',
   },
 };
