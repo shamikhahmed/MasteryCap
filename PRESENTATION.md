@@ -1,4 +1,4 @@
-# MasteryCap — one-pager (v22)
+# MasteryCap — one-pager (v23)
 
 **What:** Offline bilingual (EN / Roman Urdu) trading-education PWA — curriculum,
 discipline journal, drills, chart replay, insights. For owner + 1–2 friends.
@@ -19,7 +19,7 @@ Journal + drills close the loop so reading becomes skill.
 
 ## Stack
 Static ES modules. No build, no npm deps, no backend.
-`localStorage` (`masterycap:`). GitHub Pages–ready. SW cache `masterycap-v22`.
+`localStorage` (`masterycap:`). GitHub Pages–ready. SW cache `masterycap-v23`.
 
 ## Design
 True-black `#08090A` · Geist · flat accent `#FF6B2C` · zero emoji · mono numerics.

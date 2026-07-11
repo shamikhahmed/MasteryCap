@@ -9,6 +9,7 @@ import { icon, TRACK_ICON } from '../icons.js';
 import { openSettings } from '../settings.js';
 import { getStreak, reviewAvailable, dueReviewCount } from '../retention.js';
 import { store, KEYS } from '../store.js';
+import { openHowto } from '../howto.js';
 
 function greeting(App) {
   const h = new Date().getHours();
@@ -126,11 +127,13 @@ export function renderDashboard(App, c) {
     })()}
 
     <div class="note-box" style="margin-bottom:14px">${App.t('campus_blurb')}</div>
+    <div class="note-box warn" style="margin-bottom:14px">${App.t('campus_no_rich')}</div>
 
     <div class="panel pad" style="margin-bottom:14px">
       <div class="slabel">${App.t('campus_next')}</div>
       <div style="font-size:16px;font-weight:600;letter-spacing:-0.02em;margin-top:8px;line-height:1.35">${nextLabel}</div>
       <button class="btn accent mt14" id="goContinue" style="width:100%">${icon('learn', { size: 17 })} ${App.t('continueLearning')}</button>
+      <button class="btn secondary mt10" id="goHowto" style="width:100%">${icon('check', { size: 17 })} ${App.t('howto_cta')}</button>
     </div>
 
     <div class="stat-strip">
@@ -153,6 +156,21 @@ export function renderDashboard(App, c) {
         <div class="sc-l">${App.t('stat_review')}</div>
         <div class="sc-v">${due}</div>
         <div class="sc-s">${lang === 'en' ? 'due' : 'due'}</div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-bottom:14px">
+      <div class="panel-h"><span class="ph-t">${App.t('campus_map')}</span></div>
+      <div class="pad" style="padding-top:4px">
+        ${TRACKS.filter((t) => t.status === 'live').map((t) => {
+          const prog = App.getCourse(t.id);
+          const wdone = t.weeks.filter((w) => ['completed', 'mastered'].includes(prog.weekStatus[w.id])).length;
+          const pct = t.weeks.length ? Math.round((wdone / t.weeks.length) * 100) : 0;
+          return `<button type="button" class="check-row" data-path="${t.id}" style="width:100%;text-align:left;background:none;border:0;color:inherit;cursor:pointer">
+            <span class="check-box" style="opacity:0.85">${icon(TRACK_ICON[t.id] || 'learn', { size: 14 })}</span>
+            <span class="check-t"><strong>${t.name[lang]}</strong><br/><span style="color:var(--t3);font-size:12px">${wdone}/${t.weeks.length} · ${pct}%</span></span>
+          </button>`;
+        }).join('')}
       </div>
     </div>
 
@@ -192,6 +210,7 @@ export function renderDashboard(App, c) {
     }));
   };
   document.getElementById('goContinue')?.addEventListener('click', openNext);
+  document.getElementById('goHowto')?.addEventListener('click', () => { App.haptic(); openHowto(App); });
   document.getElementById('goLearn')?.addEventListener('click', () => App.navigate('learn'));
   document.getElementById('goDrills')?.addEventListener('click', () => App.openDrills());
   document.getElementById('goCharts')?.addEventListener('click', () => App.openCharts());

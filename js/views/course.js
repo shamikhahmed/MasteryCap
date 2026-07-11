@@ -20,6 +20,7 @@ import {
 } from '../exam.js';
 import { openSearch } from '../search.js';
 import { GLOSSARY } from '../data/glossary.js';
+import { openHowto } from '../howto.js';
 
 let S = {
   track: 'foundations', view: 'home', activeWeek: null,
@@ -168,6 +169,11 @@ function drawHome() {
   }
 
   c.innerHTML = `<div class="screen">${header}${rail}
+    ${track.id === 'foundations' ? `<div class="panel pad" style="margin-bottom:14px">
+      <div class="slabel">${App.t('howto_title')}</div>
+      <p style="font-size:13.5px;color:var(--t3);margin:8px 0 14px;line-height:1.5">${App.t('howto_honest')}</p>
+      <button class="btn secondary" id="goHowtoLearn">${icon('check', { size: 17 })} ${App.t('howto_cta')}</button>
+    </div>` : ''}
     <div class="panel pad" style="margin-bottom:14px">
       <div class="slabel">${App.t('drill_title')}</div>
       <p style="font-size:13.5px;color:var(--t3);margin:8px 0 14px;line-height:1.5">${App.t('drill_home_hint')}</p>
@@ -179,6 +185,7 @@ function drawHome() {
   c.querySelectorAll('[data-track]').forEach((el) => el.addEventListener('click', () => { S.track = el.dataset.track; S.view = 'home'; App.haptic(); draw(); }));
   const activeChip = c.querySelector('.track-chip.on');
   if (activeChip) activeChip.scrollIntoView({ block: 'nearest', inline: 'center' });
+  document.getElementById('goHowtoLearn')?.addEventListener('click', () => { App.haptic(); openHowto(App); });
   document.getElementById('goDrillsLearn')?.addEventListener('click', () => App.openDrills());
   document.getElementById('goChartsLearn')?.addEventListener('click', () => App.openCharts());
   document.getElementById('openGloss')?.addEventListener('click', () => { App.haptic(); openGlossary(App); });

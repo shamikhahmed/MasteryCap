@@ -1,5 +1,11 @@
 # Changelog
 
+## v23 — 2026-07-11 · How-to hub + refuse get-rich goal
+- **Product lock:** zero-to-ready, not zero-to-rich. Honest wealth = Investing→Spot compound
+- How-to hub: PSX account, crypto venue, orders, first invest buy, self-custody, honest wealth path
+- Home: school map + How-to CTA; Foundations Learn links hub
+- `KEYS.howtoChecks` additive; SW **v23**
+
 ## v22 — 2026-07-11 · School campus + Foundations (zero-to-ready)
 - **Home** = school campus (next lesson, beginner path, study stats) — no balance/win rate/equity
 - **Journal** = practice desk (balance, equity, win rate, checklist, sizing, log)

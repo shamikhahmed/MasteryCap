@@ -285,6 +285,7 @@ export const KEYS = {
   binaryGate: 'binaryGate',
   tourDone: 'tourDone',
   morningPending: 'morningPending',
+  howtoChecks: 'howtoChecks',
 };
 
 export { djb2, QUOTA_WARN };
