@@ -109,6 +109,12 @@ function drawSession() {
 
   if (pos) {
     document.getElementById('simClose').addEventListener('click', () => { stopPlay(); sess.closeManual(); APP.haptic(14); draw(); });
+    c.querySelectorAll('[data-partial]').forEach((b) => b.addEventListener('click', () => {
+      const r = sess.closePartial(parseFloat(b.dataset.partial));
+      S.msg = r.ok ? null : APP.t('sim_err_' + r.err);
+      APP.haptic(r.ok ? 10 : 6);
+      draw();
+    }));
     document.getElementById('simMove').addEventListener('click', () => {
       const v = parseFloat(document.getElementById('newStop').value);
       if (!v) return;
@@ -206,6 +212,10 @@ function posPanel(App, pos, u) {
       <div class="f-row">
         <div class="field" style="margin-bottom:0"><label>${App.t('sim_move_stop')}</label><input id="newStop" class="num" type="number" inputmode="decimal" step="any" value="${fmt(pos.stop)}" /></div>
         <div class="field" style="margin-bottom:0;display:flex;align-items:flex-end"><button class="btn secondary" id="simMove">${App.t('sim_move')}</button></div>
+      </div>
+      <div class="seg" style="margin-top:12px">
+        <button type="button" data-partial="0.25">${App.t('sim_partial_25')}</button>
+        <button type="button" data-partial="0.5">${App.t('sim_partial_50')}</button>
       </div>
       <button class="btn mt14" id="simClose">${App.t('sim_close')}</button>
     </div>

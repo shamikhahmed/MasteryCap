@@ -187,13 +187,36 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
     return { ok: true, widened };
   }
 
+  /** Realize `fraction` of size at mark±slip+fee; keep remainder + same stop. R uses original riskD. */
+  function closePartial(fraction) {
+    if (!S.pos) return { ok: false, err: 'no_pos' };
+    if (S.done) return { ok: false, err: 'session_over' };
+    const f = Number(fraction);
+    if (!(f > 0 && f < 1)) return { ok: false, err: 'bad_fraction' };
+    const P = S.pos;
+    const exitPrice = price() * (P.dir === 'long' ? 1 - S.slipPct : 1 + S.slipPct);
+    const closeSize = P.sizeD * f;
+    const gross = (P.dir === 'long' ? exitPrice - P.entry : P.entry - exitPrice) / P.entry * closeSize;
+    const fee = closeSize * S.feePct;
+    const fundShare = P.funding * f;
+    const pl = gross - fee - fundShare;
+    S.balance += pl;
+    P.partials.push({ price: exitPrice, fraction: f, pl });
+    P.sizeD -= closeSize;
+    P.funding -= fundShare;
+    P.fees = (P.fees || 0) + fee;
+    log('partial', { fraction: f, exitPrice, pl, remaining: P.sizeD });
+    return { ok: true, pl, remaining: P.sizeD };
+  }
+
   function closeAt(exitPrice, reason) {
     const P = S.pos;
     const gross = (P.dir === 'long' ? exitPrice - P.entry : P.entry - exitPrice) / P.entry * P.sizeD;
     const fee = P.sizeD * S.feePct;
-    const pl = gross - fee - P.funding;
-    S.balance += pl;
-    S.balance -= 0; // fees already netted in pl
+    const plRemain = gross - fee - P.funding;
+    S.balance += plRemain;
+    const partialPl = (P.partials || []).reduce((s, x) => s + x.pl, 0);
+    const pl = plRemain + partialPl;
     const rDenom = P.riskD || 1;
     const trade = {
       id: Date.now() + Math.floor(Math.random() * 1e4),
@@ -203,6 +226,7 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
       pl, r: pl / rDenom, reason,
       movedStop: P.movedStop, overRisk: P.overRisk,
       bars: S.i - P.openedAt,
+      partials: P.partials || [],
       process: processScore(P, reason),
     };
     S.trades.push(trade);
@@ -274,6 +298,6 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
 
   return {
     get state() { return S; },
-    visible, price, enter, placeLimit, cancelLimit, moveStop, step, closeManual, unrealized,
+    visible, price, enter, placeLimit, cancelLimit, moveStop, step, closeManual, closePartial, unrealized,
   };
 }
