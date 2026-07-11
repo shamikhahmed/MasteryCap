@@ -60,10 +60,11 @@ function drawPicker() {
   c.querySelectorAll('[data-sc]').forEach((el) => el.addEventListener('click', () => startSession(el.dataset.sc)));
 }
 
-function startSession(id) {
+function startSession(id, seed) {
   const sc = getScenario(id);
   S.scenario = sc;
-  S.session = createSession({ scenario: sc, seed: Date.now() % 1e9, balance: 1000 });
+  const useSeed = seed != null && seed !== '' ? Number(seed) : (Date.now() % 1e9);
+  S.session = createSession({ scenario: sc, seed: useSeed, balance: 1000 });
   S.view = 'session'; S.msg = null;
   APP.haptic();
   draw();
@@ -298,7 +299,10 @@ function endSession() {
 
   if (typeof APP.bumpStreak === 'function') APP.bumpStreak();
 
-  S.debrief = { trades: st.trades, balance: st.balance, start: st.startBalance, noTrade: st.trades.length === 0 };
+  S.debrief = {
+    trades: st.trades, balance: st.balance, start: st.startBalance,
+    noTrade: st.trades.length === 0, seed: st.seed,
+  };
   S.view = 'debrief';
   draw();
 }
@@ -309,13 +313,27 @@ function drawDebrief() {
   const allPass = d.trades.length > 0 && d.trades.every((t) => t.process.pass);
   const netPl = d.balance - d.start;
   const rangeOk = sc.id === 'c3_range_patience' || sc.id === 'c8_news_gap';
+  const passN = d.trades.filter((t) => t.process.pass).length;
+  const processLine = d.trades.length
+    ? App.t('sim_process_summary').replace('{n}', String(passN)).replace('{m}', String(d.trades.length))
+    : null;
+  const rTimeline = d.trades.length
+    ? `<div class="panel mt14"><div class="panel-h"><span class="ph-t">${App.t('sim_r_timeline')}</span></div>
+      <div class="pad" style="padding:12px 16px 14px">
+        <div class="mono" style="font-size:13px;display:flex;flex-wrap:wrap;gap:8px 14px">
+          ${d.trades.map((t, i) => `<span>T${i + 1}: <span class="${t.r >= 0 ? 'up' : 'down'}">${fmt(t.r, 2)}R</span></span>`).join('')}
+        </div>
+      </div></div>`
+    : '';
 
   c.innerHTML = `<div class="screen">
     <div class="lesson-kicker">${sc.name[lang].toUpperCase()} · ${App.t('sim_debrief')}</div>
     <div class="result">
       <div class="r-score ${d.noTrade ? '' : allPass ? 'up' : 'down'}">${d.noTrade ? (rangeOk ? App.t('sim_no_trade_pass') : App.t('sim_no_trade')) : allPass ? App.t('sim_process_pass') : App.t('sim_process_fail')}</div>
+      ${processLine ? `<div class="r-msg mono" style="margin-top:8px">${processLine}</div>` : ''}
       <div class="r-msg">${App.t('sim_process_note')}</div>
     </div>
+    ${rTimeline}
     ${d.trades.length ? `<div class="panel mt14">${d.trades.map((t) => `
       ${tradeRow(App, t)}
       ${t.process.fails.length ? `<div style="padding:0 18px 12px"><span class="tag flag">${t.process.fails.map((f) => App.t('sim_fail_' + f)).join(' · ')}</span></div>` : ''}
@@ -325,12 +343,14 @@ function drawDebrief() {
       <span class="${netPl >= 0 ? 'up' : 'down'}">${netPl >= 0 ? '+' : ''}$${fmt(netPl)}</span>
     </div>
     <div class="note-box warn mt14">${App.t('sim_honesty')}</div>
-    <div class="btn-row mt18">
+    <div class="btn-row mt18" style="flex-wrap:wrap">
+      <button class="btn secondary" id="simSameSeed">${App.t('sim_same_seed')}</button>
       <button class="btn secondary" id="simAgain">${App.t('sim_again')}</button>
       <button class="btn accent" id="simDone">${App.t('next')}</button>
     </div>
   </div>`;
 
+  document.getElementById('simSameSeed').addEventListener('click', () => startSession(sc.id, d.seed));
   document.getElementById('simAgain').addEventListener('click', () => startSession(sc.id));
   document.getElementById('simDone').addEventListener('click', () => { S.view = 'picker'; draw(); });
 }

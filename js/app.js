@@ -383,7 +383,7 @@ function maybeWhatsNew() {
       <div class="sheet-head"><div class="slabel">${App.t('whats_new')} · ${APP_VERSION}</div>
         <button class="sheet-x" data-close>${icon('x', { size: 18 })}</button></div>
       <div class="sheet-body" style="font-size:14px;color:var(--t2);line-height:1.55">
-        <p>P11–P15: exam + cert, binary gate, search, cooldown, insights v2, drills challenge/timed, tour, a11y.</p>
+        <p>v26: sim limit orders, partial close, play speeds, Paper journal, same-seed debrief.</p>
         <p style="color:var(--t3)">See CHANGELOG.md for full notes.</p>
       </div>
     </div>`;

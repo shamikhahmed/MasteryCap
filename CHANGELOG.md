@@ -1,5 +1,13 @@
 # Changelog
 
+## v26 — 2026-07-11 · S2: Simulator completeness
+- **Limit orders** — `placeLimit` / `cancelLimit`; fills when bar range touches limit; stop validated vs limit price; Market/Limit UI + pending strip
+- **Partial close** — `closePartial(0.25|0.5)`; remainder keeps stop; `partials[]` on final trade; R vs original riskD
+- **Play speeds** — 1x/2x/4x (600/300/150ms), memory-only; leave sim clears interval
+- **Journal Paper|Live** — Paper = `simTrades` read-only with process tag; Live = existing trades; insights stay live-only
+- **Debrief** — R timeline, `{n}/{m} process pass`, same-seed practice rerun
+- SW **v26**
+
 ## v25 — 2026-07-11 · S1: Trade Simulator core (THE SCHOOL begins)
 - **`js/sim/engine.js`** — seeded deterministic paper-trading sessions: candle stream,
   market entries with **mandatory stop (no naked-entry path exists)**, optional TP,
