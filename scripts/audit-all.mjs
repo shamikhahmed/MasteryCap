@@ -12,6 +12,7 @@ const scripts = [
   'audit-content.mjs',
   'audit-sw.mjs',
   'audit-behavior.mjs',
+  'audit-sim.mjs',
 ];
 
 let failed = 0;

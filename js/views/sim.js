@@ -253,7 +253,7 @@ function orderPanel(App, sc, mark) {
       ${isLimit ? `<div class="field"><label>${App.t('sim_limit_price')}</label><input id="simLimit" class="num" type="number" inputmode="decimal" step="any" value="${fmt(mark * 0.995)}" /></div>` : ''}
       <div class="f-row three">
         <div class="field"><label>${App.t('risk_pct')}</label><input id="simRisk" class="num" type="number" inputmode="decimal" step="0.1" value="1" /></div>
-        <div class="field"><label>${App.t('stop')} *</label><input id="simStop" class="num" type="number" inputmode="decimal" step="any" /></div>
+        <div class="field"><label>${App.t('stop')} *</label><input id="simStop" class="num" type="number" inputmode="decimal" step="any" data-mark="${fmt(mark)}" /></div>
         <div class="field"><label>TP</label><input id="simTp" class="num" type="number" inputmode="decimal" step="any" /></div>
       </div>
       <button class="btn accent" id="simEnter">${isLimit ? App.t('sim_place_limit') : App.t('sim_enter')}</button>

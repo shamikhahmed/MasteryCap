@@ -131,6 +131,57 @@ async function onboard(page) {
         await page.waitForTimeout(200);
         const n = await page.evaluate(() => JSON.parse(localStorage.getItem('masterycap:trades') || '[]').length);
         if (n < 1) { console.error('FAIL: trade not saved'); failed = true; }
+
+        // S7: paper sim — enter w/ stop, 10 steps, close → simTrades + Paper tab
+        await page.locator('#tabbar button').filter({ hasText: /Home/i }).click();
+        await page.waitForTimeout(200);
+        await page.locator('#goSim').click();
+        await page.waitForSelector('[data-sc]');
+        await page.locator('[data-sc="c1_uptrend_pullback"]').click();
+        await page.waitForSelector('#simEnter');
+        await page.locator('[data-dir="long"]').click();
+        await page.locator('#simRisk').fill('1');
+        const markAttr = await page.locator('#simStop').getAttribute('data-mark');
+        const markPx = parseFloat(markAttr);
+        if (!(markPx > 0)) throw new Error('simStop data-mark missing');
+        await page.locator('#simStop').fill(String((markPx * 0.97).toFixed(4)));
+        await page.locator('#simEnter').click();
+        await page.waitForTimeout(200);
+        if (!(await page.locator('#simClose').count())) {
+          console.error('FAIL: sim position not opened');
+          failed = true;
+        } else {
+          for (let i = 0; i < 10; i++) {
+            if (!(await page.locator('#simStep').count())) break;
+            await page.locator('#simStep').click();
+            await page.waitForTimeout(40);
+            if (await page.locator('#simClose').count() === 0) break;
+          }
+          if (await page.locator('#simClose').count()) {
+            await page.locator('#simClose').click();
+            await page.waitForTimeout(100);
+          }
+          if (await page.locator('#simEnd').count()) {
+            await page.locator('#simEnd').click();
+            await page.waitForTimeout(250);
+          }
+          if (await page.locator('#simDone').count()) {
+            await page.locator('#simDone').click();
+            await page.waitForTimeout(150);
+          }
+          const simN = await page.evaluate(() => JSON.parse(localStorage.getItem('masterycap:simTrades') || '[]').length);
+          if (simN < 1) { console.error('FAIL: simTrades empty'); failed = true; }
+
+          await page.locator('#tabbar button').filter({ hasText: /Journal/i }).click();
+          await page.waitForTimeout(200);
+          await page.locator('[data-hist="paper"]').click();
+          await page.waitForTimeout(150);
+          const paperRows = await page.locator('.trade-row, .tb-t').count();
+          if (simN >= 1 && paperRows < 1) {
+            console.error('FAIL: Paper tab empty despite simTrades');
+            failed = true;
+          }
+        }
       }
 
       await page.screenshot({ path: path.join(outDir, `home-${width}.png`) });

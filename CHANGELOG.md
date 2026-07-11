@@ -1,5 +1,11 @@
 # Changelog
 
+## v31 — 2026-07-11 · S7: Sim audits + smoke + school complete
+- **`scripts/audit-sim.mjs`** — determinism, stop rejects, liq formula, limit fill, partial≈full, process fails, futures `size_zero`, forex pip lots, portfolio panic/stick
+- Registered in `audit-all` (7 audits)
+- Smoke: scripted sim session (enter+stop, 10 steps, close) → `simTrades` + Journal Paper tab
+- SW **v31** · FINAL ACCEPTANCE in `LOOP-STATE.md`
+
 ## v30 — 2026-07-11 · S6: School copy + income-promise lint
 - Onboarding / graduation / how-to copy: **zero to trade-ready**; ready → micro-size how-to
 - `audit-content.mjs` scans i18n + lesson bodies + sim missions + howto; expanded ban list; quiz distractors exempt
