@@ -13,6 +13,7 @@ import { renderProgress } from './views/progress.js';
 import { renderDrills } from './views/drills.js';
 import { renderReview } from './views/review.js';
 import { renderCharts } from './views/charts.js';
+import { renderSim } from './views/sim.js';
 import { touchStreak, touchStreakWithFreeze, markHabitDay, dueReviewCount, tryStreakRecovery, getStreak } from './retention.js';
 import { applySettings, openSettings, APP_VERSION } from './settings.js';
 import { mistakeCountDue } from './mistakes.js';
@@ -130,11 +131,23 @@ export const App = {
     this.render(); this.renderNav();
   },
 
+  openSim() {
+    this._simReturn = this.tab === 'sim' ? 'dashboard' : this.tab;
+    this.tab = 'sim'; this.haptic(6);
+    window.scrollTo({ top: 0 });
+    this.render(); this.renderNav();
+  },
+
+  closeSim() {
+    this.tab = this._simReturn || 'dashboard';
+    this.render(); this.renderNav();
+  },
+
   bumpStreak() { markHabitDay(); return touchStreakWithFreeze(); },
 
   render() {
     const c = root(); if (!c) return;
-    ({ dashboard: renderDashboard, learn: renderCourse, journal: renderJournal, progress: renderProgress, drills: renderDrills, review: renderReview, charts: renderCharts }[this.tab])(this, c);
+    ({ dashboard: renderDashboard, learn: renderCourse, journal: renderJournal, progress: renderProgress, drills: renderDrills, review: renderReview, charts: renderCharts, sim: renderSim }[this.tab])(this, c);
   },
 
   renderNav() {

@@ -62,3 +62,17 @@ Live prices / TradingView · cloud sync/accounts · server push · monetization 
 ## Remaining non-code
 - Native Roman Urdu review: [URDU-REVIEW.md](URDU-REVIEW.md)
 - Deploy / push GitHub Pages (owner)
+
+---
+
+## v25+ — THE SCHOOL (approved 2026-07-11)
+Pivot: complete school, zero → **trade-ready** (process-measured; never income promise).
+Still offline PWA, no backend/accounts. Full spec: `CURSOR-PROMPT-3-SCHOOL.md`.
+- S1 (v25) sim engine core + crypto scenarios (mandatory stop, liq math)
+- S2 (v26) sim UI + auto-journal + Paper/Live journal toggle
+- S3 (v27) process grading + hard graduation gates + trade-ready certificates
+- S4 (v28) futures/forex/stocks scenario packs
+- S5 (v29) invest/spot portfolio simulator
+- S6 (v30) school copy sweep + income-promise lint
+- S7 (v31) sim audits + smoke extension
+Keys added (additive): simTrades, simSessions, simStats, graduation.

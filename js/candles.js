@@ -6,6 +6,7 @@ export function renderCandles(ohlc, {
   w = 320, h = 180, pad = 12,
   up = 'var(--up)', down = 'var(--down)',
   highlight = null, // { lo, hi } price band
+  lines = null,     // [{ price, color, dash, label }] horizontal overlays (sim)
   volume = false,
 } = {}) {
   if (!ohlc?.length) return '';
@@ -18,6 +19,7 @@ export function renderCandles(ohlc, {
     min = Math.min(min, highlight.lo);
     max = Math.max(max, highlight.hi);
   }
+  if (lines) for (const L of lines) { if (L && L.price > 0) { min = Math.min(min, L.price); max = Math.max(max, L.price); } }
   const range = max - min || 1;
   const chartH = volume ? h * 0.72 : h - pad * 2;
   const top = pad;
@@ -39,6 +41,13 @@ export function renderCandles(ohlc, {
     const botB = y(Math.min(c.o, c.c));
     body += `<rect x="${cx - bw / 2}" y="${topB}" width="${bw}" height="${Math.max(1.5, botB - topB)}" fill="${col}" stroke="${col}"/>`;
   });
+
+  if (lines) for (const L of lines) {
+    if (!L || !(L.price > 0)) continue;
+    const ly = y(L.price);
+    body += `<line x1="${pad}" y1="${ly}" x2="${w - pad}" y2="${ly}" stroke="${L.color || 'var(--t2)'}" stroke-width="1.25" ${L.dash ? `stroke-dasharray="${L.dash}"` : ''}/>`;
+    if (L.label) body += `<text x="${w - pad - 2}" y="${ly - 3}" text-anchor="end" font-size="8.5" font-family="Geist Mono, monospace" fill="${L.color || 'var(--t2)'}">${L.label}</text>`;
+  }
 
   return `<svg class="fig-svg candle-chart" viewBox="0 0 ${w} ${h}" width="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${body}</svg>`;
 }

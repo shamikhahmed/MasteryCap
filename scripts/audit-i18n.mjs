@@ -52,6 +52,13 @@ const urKeys = new Set(Object.keys(T.ur));
 const missing = [];
 
 for (const k of used) {
+  // keys ending in '_' are dynamic prefixes (e.g. t('sim_err_' + code)) —
+  // verify at least one concrete key exists with that prefix instead
+  if (k.endsWith('_')) {
+    if (![...enKeys].some((x) => x.startsWith(k))) missing.push(`missing T.en prefix '${k}*' (dynamic)`);
+    if (![...urKeys].some((x) => x.startsWith(k))) missing.push(`missing T.ur prefix '${k}*' (dynamic)`);
+    continue;
+  }
   if (!enKeys.has(k)) missing.push(`missing T.en['${k}'] (referenced)`);
   if (!urKeys.has(k)) missing.push(`missing T.ur['${k}'] (referenced)`);
 }

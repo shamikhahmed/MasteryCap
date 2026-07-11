@@ -177,7 +177,8 @@ function drawHome() {
     <div class="panel pad" style="margin-bottom:14px">
       <div class="slabel">${App.t('drill_title')}</div>
       <p style="font-size:13.5px;color:var(--t3);margin:8px 0 14px;line-height:1.5">${App.t('drill_home_hint')}</p>
-      <button class="btn secondary" id="goDrillsLearn">${icon('target', { size: 17 })} ${App.t('drill_cta')}</button>
+      <button class="btn secondary" id="goSimLearn" style="width:100%">${icon('journal', { size: 17 })} ${App.t('sim_cta')}</button>
+      <button class="btn ghost mt10" id="goDrillsLearn" style="width:100%">${icon('target', { size: 17 })} ${App.t('drill_cta')}</button>
       <button class="btn ghost mt10" id="goChartsLearn" style="width:100%">${icon('progress', { size: 17 })} ${App.t('chart_cta')}</button>
     </div>
   ${body}</div>`;
@@ -188,6 +189,7 @@ function drawHome() {
   document.getElementById('goHowtoLearn')?.addEventListener('click', () => { App.haptic(); openHowto(App); });
   document.getElementById('goDrillsLearn')?.addEventListener('click', () => App.openDrills());
   document.getElementById('goChartsLearn')?.addEventListener('click', () => App.openCharts());
+  document.getElementById('goSimLearn')?.addEventListener('click', () => App.openSim());
   document.getElementById('openGloss')?.addEventListener('click', () => { App.haptic(); openGlossary(App); });
   document.getElementById('openSearch')?.addEventListener('click', () => {
     App.haptic();

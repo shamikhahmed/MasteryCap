@@ -286,6 +286,8 @@ export const KEYS = {
   tourDone: 'tourDone',
   morningPending: 'morningPending',
   howtoChecks: 'howtoChecks',
+  simTrades: 'simTrades',
+  simStats: 'simStats',
 };
 
 export { djb2, QUOTA_WARN };

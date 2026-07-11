@@ -1,5 +1,19 @@
 # Changelog
 
+## v25 — 2026-07-11 · S1: Trade Simulator core (THE SCHOOL begins)
+- **`js/sim/engine.js`** — seeded deterministic paper-trading sessions: candle stream,
+  market entries with **mandatory stop (no naked-entry path exists)**, optional TP,
+  fees/slippage, funding ticks, leverage from risk math, liquidation price (only >1x,
+  drawn on chart), conservative liq→stop→TP fill order, move-stop (widening = logged violation)
+- **`js/sim/scenarios.js`** — 8 crypto process-mission scenarios (pullback, rally short,
+  range patience, stop-hunt wick, liq-line lesson, reversal, hold-the-winner, violent vol)
+- **`js/views/sim.js`** — picker → live session (chart w/ ENTRY/STOP/TP/LIQ lines,
+  step/play, position panel w/ uP/L + R) → debrief. **Grading is process, not P/L:**
+  disciplined stop-out passes; over-risk/widened-stop/against-mission/liquidated fail
+- `candles.js`: additive `lines` overlay param · KEYS: `simTrades`, `simStats` (additive)
+- Entries: Home + Learn CTAs · honest paper≠real note in every debrief
+- audit-i18n: dynamic-prefix key support · SW **v25**
+
 ## v24 — 2026-07-11 · Greeks + Tax + Macro depth tracks
 - New tracks: **Options Greeks Deep** (6), **Tax Literacy** (5), **Macro Backdrop** (6)
 - Beginner path: Foundations → Macro → Invest → Tax → Spot → Stocks → Greeks → …
