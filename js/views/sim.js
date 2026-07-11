@@ -9,13 +9,22 @@ import { renderCandles } from '../candles.js';
 import { createSession } from '../sim/engine.js';
 import { SIM_SCENARIOS, getScenario } from '../sim/scenarios.js';
 
-let S = { view: 'picker', session: null, scenario: null, playTimer: null, msg: null, debrief: null, orderType: 'market' };
+let S = {
+  view: 'picker', session: null, scenario: null,
+  playTimer: null, playSpeed: 1, // memory only — 1|2|4
+  msg: null, debrief: null, orderType: 'market',
+};
 let APP = null, ROOT = null;
+
+const PLAY_MS = { 1: 600, 2: 300, 4: 150 };
 
 export function renderSim(App, c) {
   APP = App; ROOT = c;
   draw();
 }
+
+/** Kill play interval — call when leaving sim (tabs / closeSim). */
+export function stopSimPlayback() { stopPlay(); }
 
 function stopPlay() { if (S.playTimer) { clearInterval(S.playTimer); S.playTimer = null; } }
 
@@ -88,9 +97,12 @@ function drawSession() {
       </div>
     </div>
 
-    <div class="btn-row" style="margin-bottom:14px">
+    <div class="btn-row" style="margin-bottom:10px">
       <button class="btn secondary" id="simStep">${App.t('sim_step')}</button>
       <button class="btn secondary" id="simPlay">${S.playTimer ? App.t('sim_pause') : App.t('sim_play')}</button>
+    </div>
+    <div class="seg" style="margin-bottom:14px">
+      ${[1, 2, 4].map((sp) => `<button type="button" class="${S.playSpeed === sp ? 'on' : ''}" data-speed="${sp}">${sp}x</button>`).join('')}
     </div>
 
     ${S.msg ? `<div class="note-box err" style="margin-bottom:12px">${S.msg}</div>` : ''}
@@ -106,6 +118,14 @@ function drawSession() {
   document.getElementById('simEnd').addEventListener('click', endSession);
   document.getElementById('simStep').addEventListener('click', () => { doStep(); });
   document.getElementById('simPlay').addEventListener('click', togglePlay);
+  c.querySelectorAll('[data-speed]').forEach((b) => b.addEventListener('click', () => {
+    const sp = parseInt(b.dataset.speed, 10);
+    if (S.playSpeed === sp) return;
+    S.playSpeed = sp;
+    APP.haptic();
+    if (S.playTimer) { stopPlay(); startPlay(); }
+    else draw();
+  }));
 
   if (pos) {
     document.getElementById('simClose').addEventListener('click', () => { stopPlay(); sess.closeManual(); APP.haptic(14); draw(); });
@@ -243,12 +263,18 @@ function doStep() {
 
 function togglePlay() {
   if (S.playTimer) { stopPlay(); draw(); return; }
+  startPlay();
+  draw();
+}
+
+function startPlay() {
+  stopPlay();
+  const ms = PLAY_MS[S.playSpeed] || 600;
   S.playTimer = setInterval(() => {
     const r = S.session.step();
     if (r.closed || r.done) { stopPlay(); if (r.done) { endSession(); return; } }
     draw();
-  }, 600);
-  draw();
+  }, ms);
 }
 
 /* ---------------- debrief ---------------- */

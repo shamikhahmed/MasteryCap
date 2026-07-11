@@ -13,7 +13,7 @@ import { renderProgress } from './views/progress.js';
 import { renderDrills } from './views/drills.js';
 import { renderReview } from './views/review.js';
 import { renderCharts } from './views/charts.js';
-import { renderSim } from './views/sim.js';
+import { renderSim, stopSimPlayback } from './views/sim.js';
 import { touchStreak, touchStreakWithFreeze, markHabitDay, dueReviewCount, tryStreakRecovery, getStreak } from './retention.js';
 import { applySettings, openSettings, APP_VERSION } from './settings.js';
 import { mistakeCountDue } from './mistakes.js';
@@ -105,6 +105,7 @@ export const App = {
       if (!confirmCourseLeave(this)) return;
       clearCourseDirty();
     }
+    if (this.tab === 'sim' && tab !== 'sim') stopSimPlayback();
     this.tab = tab; this.haptic(6);
     window.scrollTo({ top: 0 });
     this.render(); this.renderNav();
@@ -139,6 +140,7 @@ export const App = {
   },
 
   closeSim() {
+    stopSimPlayback();
     this.tab = this._simReturn || 'dashboard';
     this.render(); this.renderNav();
   },
@@ -147,6 +149,7 @@ export const App = {
 
   render() {
     const c = root(); if (!c) return;
+    if (this.tab !== 'sim') stopSimPlayback();
     ({ dashboard: renderDashboard, learn: renderCourse, journal: renderJournal, progress: renderProgress, drills: renderDrills, review: renderReview, charts: renderCharts, sim: renderSim }[this.tab])(this, c);
   },
 
