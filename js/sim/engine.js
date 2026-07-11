@@ -76,6 +76,15 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
 
   function log(type, data = {}) { S.events.push({ type, bar: S.i, ...data }); }
 
+  /** Optional gen.slipBoost: { from, n, mult } — news-spike double slippage window. */
+  function currentSlip() {
+    const boost = scenario.gen?.slipBoost;
+    if (boost && S.i >= boost.from && S.i < boost.from + (boost.n || 3)) {
+      return S.slipPct * (boost.mult || 2);
+    }
+    return S.slipPct;
+  }
+
   function validateStopSide(dir, refPrice, stop, tp) {
     if (!(stop > 0)) return 'stop_required';
     if (dir === 'long' && stop >= refPrice) return 'stop_side';
@@ -202,7 +211,7 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
     if (scenario.constraints?.dirAllowed && scenario.constraints.dirAllowed !== dir) {
       log('violation', { kind: 'direction' });
     }
-    const entry = p * (dir === 'long' ? 1 + S.slipPct : 1 - S.slipPct);
+    const entry = p * (dir === 'long' ? 1 + currentSlip() : 1 - currentSlip());
     return openPosition({ dir, entry, riskPct: rp, stop, tp, overRisk });
   }
 
@@ -276,7 +285,7 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
     const f = Number(fraction);
     if (!(f > 0 && f < 1)) return { ok: false, err: 'bad_fraction' };
     const P = S.pos;
-    const exitPrice = price() * (P.dir === 'long' ? 1 - S.slipPct : 1 + S.slipPct);
+    const exitPrice = price() * (P.dir === 'long' ? 1 - currentSlip() : 1 + currentSlip());
     const closeSize = P.sizeD * f;
     const gross = pnlGross(P, exitPrice, f);
     const fee = closeSize * S.feePct;
@@ -354,7 +363,7 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
       if (P.liq !== null && (P.dir === 'long' ? bar.l <= P.liq : bar.h >= P.liq)) {
         closed = closeAt(P.liq, 'liquidated');
       } else if (P.dir === 'long' ? bar.l <= P.stop : bar.h >= P.stop) {
-        closed = closeAt(P.stop * (P.dir === 'long' ? 1 - S.slipPct : 1 + S.slipPct), 'stop');
+        closed = closeAt(P.stop * (P.dir === 'long' ? 1 - currentSlip() : 1 + currentSlip()), 'stop');
       } else if (P.tp !== null && (P.dir === 'long' ? bar.h >= P.tp : bar.l <= P.tp)) {
         closed = closeAt(P.tp, 'tp');
       }
@@ -369,7 +378,7 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
 
   function closeManual() {
     if (!S.pos) return { ok: false };
-    const exit = price() * (S.pos.dir === 'long' ? 1 - S.slipPct : 1 + S.slipPct);
+    const exit = price() * (S.pos.dir === 'long' ? 1 - currentSlip() : 1 + currentSlip());
     return { ok: true, trade: closeAt(exit, 'manual') };
   }
 

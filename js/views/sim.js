@@ -7,7 +7,7 @@ import { icon } from '../icons.js';
 import { store, KEYS } from '../store.js';
 import { renderCandles } from '../candles.js';
 import { createSession } from '../sim/engine.js';
-import { SIM_SCENARIOS, getScenario } from '../sim/scenarios.js';
+import { SIM_SCENARIOS, getScenario, SIM_TRACK_ORDER, SIM_TRACK_LABEL, scenariosByTrack } from '../sim/scenarios.js';
 
 let S = {
   view: 'picker', session: null, scenario: null,
@@ -40,21 +40,33 @@ function draw() {
 function drawPicker() {
   const App = APP, c = ROOT, lang = App.lang;
   const stats = store.get(KEYS.simStats, {});
-  c.innerHTML = `<div class="screen">
-    <button class="backlink" id="simBack">${icon('back', { size: 16 })} ${App.t('back')}</button>
-    <div class="lt-head"><div class="kicker">${App.t('sim_kicker')}</div><h1>${App.t('sim_title')}</h1></div>
-    <p style="font-size:13.5px;color:var(--t3);margin:-8px 0 16px;line-height:1.55">${App.t('sim_intro')}</p>
-    <div class="panel">${SIM_SCENARIOS.map((sc) => {
+  const byTrack = scenariosByTrack();
+  let idx = 0;
+  const sections = SIM_TRACK_ORDER.map((trackId) => {
+    const list = byTrack[trackId] || [];
+    if (!list.length) return '';
+    const label = (SIM_TRACK_LABEL[trackId] || { en: trackId, ur: trackId })[lang];
+    const rows = list.map((sc) => {
+      idx += 1;
       const st = stats[sc.id] || { runs: 0, pass: 0 };
       return `<div class="week-row" data-sc="${sc.id}">
-        <span class="week-idx mono">${String(SIM_SCENARIOS.indexOf(sc) + 1).padStart(2, '0')}</span>
+        <span class="week-idx mono">${String(idx).padStart(2, '0')}</span>
         <div class="week-body">
           <div class="wb-t">${sc.name[lang]}</div>
           <div class="wb-s ${st.pass > 0 ? 's-done' : 's-current'}">${st.runs ? `${st.pass}/${st.runs} ${App.t('sim_process_pass')}` : App.t('sim_not_run')}</div>
         </div>
         ${icon('chevron', { size: 20, cls: 'week-state-ic' })}
       </div>`;
-    }).join('')}</div>
+    }).join('');
+    return `<div class="slabel" style="margin:16px 0 8px;padding:0 4px">${label}</div>
+      <div class="panel">${rows}</div>`;
+  }).join('');
+
+  c.innerHTML = `<div class="screen">
+    <button class="backlink" id="simBack">${icon('back', { size: 16 })} ${App.t('back')}</button>
+    <div class="lt-head"><div class="kicker">${App.t('sim_kicker')}</div><h1>${App.t('sim_title')}</h1></div>
+    <p style="font-size:13.5px;color:var(--t3);margin:-8px 0 16px;line-height:1.55">${App.t('sim_intro')}</p>
+    ${sections}
   </div>`;
   document.getElementById('simBack').addEventListener('click', () => APP.closeSim());
   c.querySelectorAll('[data-sc]').forEach((el) => el.addEventListener('click', () => startSession(el.dataset.sc)));
