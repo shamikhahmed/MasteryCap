@@ -294,6 +294,8 @@ export const KEYS = {
   teacher: 'teacher',
   appearance: 'appearance',
   todayHabit: 'todayHabit',
+  studyNotes: 'studyNotes',
+  flashStats: 'flashStats',
 };
 
 export { djb2, QUOTA_WARN };

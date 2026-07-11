@@ -1,20 +1,20 @@
 # LOOP-STATE — MasteryCap agent ledger
 
 status: COMPLETE
-iteration: 21
-phase: SCHOOL-v36
-next_task: owner hard-refresh PWA
-version_on_disk: v36
+iteration: 22
+phase: SCHOOL-v37
+next_task: owner hard-refresh PWA for Study desk
+version_on_disk: v37
 
 ## done
-- v35 honesty + Macro/Tax depth
-- **v36:** glossary 215 terms school-complete coverage
+- v36 glossary 215
+- **v37:** Study desk — flashcards, notes, mix rounds
 
 ## blocked
 (none)
 
 ## decisions
-- Glossary = searchable bilingual dictionary + in-lesson tap links. Not every niche jargon forever — core school vocab covered.
+- Fun = flip motion + Got it/Again loop + notes. No emoji carnival. Offline local only.
 
 ## evidence
-- audit-all 7/7; MUST-know check 0 missing; smoke PASS
+- audit-all 7/7; smoke pending

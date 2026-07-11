@@ -26,6 +26,7 @@ import { skillsForWeek, markSkillMastered, challengeOffer, CHALLENGE, scoreChall
 import { startTime, pauseTime, softSessionNudge } from '../time.js';
 import { markToday } from '../today.js';
 import { trackLockReason, preferredStartTrack, seedFoundationsSoftStart } from '../gates.js';
+import { openWeekFlash, openStudyNotes } from './study.js';
 
 let S = {
   track: 'foundations', view: 'home', activeWeek: null,
@@ -439,6 +440,8 @@ function drawWeek() {
     <div class="lesson-body mt18" id="lessonBody">${body}</div>
     ${memo}
     <button class="btn accent mt22" id="startQuiz">${st === 'completed' || st === 'mastered' ? App.t('retakeQuiz') : App.t('takeQuiz')}</button>
+    <button class="btn secondary mt10" id="weekFlash" style="width:100%">${icon('bolt', { size: 17 })} ${App.t('study_week_cards')}</button>
+    <button class="btn ghost mt10" id="weekNote" style="width:100%">${icon('journal', { size: 17 })} ${App.t('study_save_note')}</button>
     ${(track.id === 'crypto' || track.id === 'futures' || track.id === 'forex' || track.id === 'stocks' || track.id === 'options' || track.id === 'invest' || track.id === 'spot')
       ? `<button class="btn secondary mt10" id="weekLab">${App.t('lab_cta')}</button>` : ''}
   </div>`;
@@ -461,6 +464,15 @@ function drawWeek() {
     buildQuizOrders(w); App.haptic(); draw();
   });
   document.getElementById('weekLab')?.addEventListener('click', () => { pauseTime(); App.openSim(); });
+  document.getElementById('weekFlash')?.addEventListener('click', () => {
+    pauseTime();
+    openWeekFlash(App, track.id, w.id);
+  });
+  document.getElementById('weekNote')?.addEventListener('click', () => {
+    const title = w.title?.[lang] || w.title?.en || '';
+    const seed = `${track.name[lang]} · ${App.t('week')} ${w.id} — ${title}\n\n`;
+    openStudyNotes(App, { text: seed });
+  });
   document.getElementById('startChallenge')?.addEventListener('click', (ev) => {
     const skillId = ev.currentTarget.dataset.skill;
     const bank = CHALLENGE[skillId] || [];

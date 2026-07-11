@@ -1,5 +1,11 @@
 # Changelog
 
+## v37 — 2026-07-11 · Study desk (flashcards + notes)
+- Flip flashcards from glossary / week quizzes / mix rounds (Got it / Again)
+- Local study notes (device-only); lesson → note + flash this week
+- Campus Study entry; card streak stats
+- SW **v37**
+
 ## v36 — 2026-07-11 · Complete school glossary
 - Glossary **122 → 215** bilingual terms (foundations/macro/tax/options/greeks + core market vocab)
 - MUST-know coverage check green; weak EN=UR defs fixed

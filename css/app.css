@@ -574,3 +574,50 @@ html[data-contrast="high"] {
   font-size: 12px; font-weight: 600; padding: 7px 12px; border-radius: var(--r-pill);
   background: var(--acc); color: #0A0A0B; border: none;
 }
+
+/* ============================================================
+   Study — flashcards + notes
+   ============================================================ */
+.study-hub .study-launch { min-height: 52px; font-size: 16px; letter-spacing: -0.01em; }
+.fc-stage {
+  display: block; width: 100%; border: 0; padding: 0; background: transparent;
+  perspective: 1200px; cursor: pointer; min-height: 220px;
+}
+.fc-inner {
+  position: relative; width: 100%; min-height: 220px;
+  transform-style: preserve-3d;
+  transition: transform 0.45s var(--spring);
+}
+.fc-stage.flipped .fc-inner { transform: rotateY(180deg); }
+.fc-face {
+  position: absolute; inset: 0;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  border: 1px solid var(--line-2); border-radius: var(--r3);
+  background: var(--surface-2);
+  padding: 22px 20px; display: flex; flex-direction: column; justify-content: center;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.28);
+}
+.fc-back { transform: rotateY(180deg); background: var(--surface-3); border-color: var(--acc-line); }
+.fc-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--t3); margin-bottom: 12px;
+}
+.fc-text {
+  font-size: 20px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.35;
+  color: var(--t0); text-align: center;
+}
+.fc-back .fc-text { font-size: 16px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.5; text-align: left; }
+.fc-hint { margin-top: 18px; font-size: 12px; color: var(--t3); text-align: center; }
+.study-burst {
+  height: 4px; border-radius: var(--r-pill); margin: 0 0 18px;
+  background: linear-gradient(90deg, transparent, var(--acc), transparent);
+  animation: study-pulse 1.2s var(--out) infinite;
+}
+@keyframes study-pulse {
+  0%, 100% { opacity: 0.35; transform: scaleX(0.85); }
+  50% { opacity: 1; transform: scaleX(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fc-inner { transition: none; }
+  .study-burst { animation: none; }
+}

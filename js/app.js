@@ -14,6 +14,7 @@ import { renderDrills } from './views/drills.js';
 import { renderReview } from './views/review.js';
 import { renderCharts } from './views/charts.js';
 import { renderSim, stopSimPlayback } from './views/sim.js';
+import { renderStudy } from './views/study.js';
 import { touchStreak, touchStreakWithFreeze, markHabitDay, dueReviewCount, tryStreakRecovery, getStreak } from './retention.js';
 import { applySettings, openSettings, APP_VERSION } from './settings.js';
 import { mistakeCountDue } from './mistakes.js';
@@ -147,6 +148,13 @@ export const App = {
     this.render(); this.renderNav();
   },
 
+  openStudy() {
+    this._studyReturn = this.tab === 'study' ? 'dashboard' : this.tab;
+    this.tab = 'study'; this.haptic(6);
+    window.scrollTo({ top: 0 });
+    this.render(); this.renderNav();
+  },
+
   closeSim() {
     stopSimPlayback();
     this.tab = this._simReturn || 'dashboard';
@@ -158,7 +166,7 @@ export const App = {
   render() {
     const c = root(); if (!c) return;
     if (this.tab !== 'sim') stopSimPlayback();
-    ({ dashboard: renderDashboard, learn: renderCourse, journal: renderJournal, progress: renderProgress, drills: renderDrills, review: renderReview, charts: renderCharts, sim: renderSim }[this.tab])(this, c);
+    ({ dashboard: renderDashboard, learn: renderCourse, journal: renderJournal, progress: renderProgress, drills: renderDrills, review: renderReview, charts: renderCharts, sim: renderSim, study: renderStudy }[this.tab])(this, c);
   },
 
   renderNav() {
@@ -409,7 +417,7 @@ function maybeWhatsNew() {
       <div class="sheet-head"><div class="slabel">${App.t('whats_new')} · ${APP_VERSION}</div>
         <button class="sheet-x" data-close>${icon('x', { size: 18 })}</button></div>
       <div class="sheet-body" style="font-size:14px;color:var(--t2);line-height:1.55">
-        <p>v36: School glossary complete — 215 bilingual terms, all tracks, Campus glossary entry.</p>
+        <p>v37: Study desk — flip flashcards, lesson notes, mix rounds. Fun without fluff.</p>
         <p style="color:var(--t3)">See CHANGELOG.md for full notes.</p>
       </div>
     </div>`;

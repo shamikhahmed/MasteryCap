@@ -56,8 +56,8 @@ export function renderMemoPanel(week, lang) {
       .map((s) => (s.length > 120 ? s.slice(0, 117) + '…' : s));
   }
   if (!items?.length) return '';
-  return `<details class="panel mt14"><summary class="pad" style="cursor:pointer;font-weight:600">${lang === 'en' ? 'Must memorize' : 'Yad rakho'}</summary>
-    <ul class="pad" style="margin:0;padding:0 18px 14px;color:var(--t2);font-size:14px;line-height:1.55">${items.map((i) => `<li>${i}</li>`).join('')}</ul></details>`;
+  return `<details class="panel mt14 study-memo"><summary class="pad" style="cursor:pointer;font-weight:600">${lang === 'en' ? 'Must memorize' : 'Yad rakho'} · ${items.length}</summary>
+    <ul class="pad" style="margin:0;padding:0 18px 14px;color:var(--t2);font-size:14px;line-height:1.55">${items.map((i) => `<li style="margin-bottom:8px">${i}</li>`).join('')}</ul></details>`;
 }
 
 export function renderSkim(week, lang) {
