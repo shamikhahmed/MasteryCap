@@ -34,7 +34,7 @@ function walk(rng, start, n, drift, vol) {
 /* Build the full (visible + hidden future) bar series from a scenario gen config. */
 export function buildBars(gen, seed) {
   const rng = mulberry32(seed >>> 0);
-  const start = 100 + rng() * 60;
+  const start = gen.start != null ? gen.start : (100 + rng() * 60);
   const segs = gen.segments || [{ n: gen.bars || 80, drift: gen.drift || 0, vol: gen.vol || 0.008 }];
   let bars = [];
   let p = start;
@@ -87,25 +87,103 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
     return null;
   }
 
+  function pnlGross(P, exitPrice, sizeFrac = 1) {
+    const inst = scenario.instrument || 'perp';
+    const qty = (P.qty != null ? P.qty : 1) * sizeFrac;
+    if (inst === 'futures') {
+      const ticks = (exitPrice - P.entry) / P.tickSize;
+      const signed = P.dir === 'long' ? ticks : -ticks;
+      return signed * P.tickValue * qty;
+    }
+    if (inst === 'forex') {
+      const pips = (exitPrice - P.entry) / P.pipSize;
+      const signed = P.dir === 'long' ? pips : -pips;
+      return signed * P.pipValue * qty;
+    }
+    if (inst === 'stock') {
+      const signed = P.dir === 'long' ? (exitPrice - P.entry) : (P.entry - exitPrice);
+      return signed * qty;
+    }
+    // perp: sizeD is notional
+    return (P.dir === 'long' ? exitPrice - P.entry : P.entry - exitPrice) / P.entry * (P.sizeD * sizeFrac);
+  }
+
   function openPosition({ dir, entry, riskPct, stop, tp, overRisk }) {
-    const stopDist = Math.abs(entry - stop) / entry;
+    const inst = scenario.instrument || 'perp';
     const riskD = S.balance * (riskPct / 100);
-    const sizeD = riskD / stopDist;
-    const lev = sizeD / S.balance;
-    const liq = (scenario.instrument === 'perp' && lev > 1)
-      ? (dir === 'long' ? entry * (1 - 1 / lev + MMR) : entry * (1 + 1 / lev - MMR))
-      : null;
+    let sizeD;
+    let lev;
+    let liq = null;
+    let qty = null;
+    let tickSize; let tickValue; let margin;
+    let pipSize; let pipValue;
+
+    if (inst === 'futures') {
+      const spec = scenario.spec || {};
+      tickSize = spec.tickSize || 0.25;
+      tickValue = spec.tickValue || 12.5;
+      margin = spec.margin || 1000;
+      const ticksToStop = Math.max(1, Math.round(Math.abs(entry - stop) / tickSize));
+      const contracts = Math.floor(riskD / (ticksToStop * tickValue));
+      if (contracts < 1) return { ok: false, err: 'size_zero' };
+      qty = contracts;
+      sizeD = contracts * margin; // margin capital at risk / fee base
+      lev = sizeD / S.balance;
+      const ticksToLiq = margin / tickValue;
+      liq = dir === 'long'
+        ? entry - ticksToLiq * tickSize
+        : entry + ticksToLiq * tickSize;
+    } else if (inst === 'forex') {
+      const spec = scenario.spec || {};
+      pipSize = spec.pipSize || 0.0001;
+      pipValue = spec.pipValue || 10; // $ per pip per 1.0 lot
+      const pipsToStop = Math.abs(entry - stop) / pipSize;
+      if (!(pipsToStop > 0)) return { ok: false, err: 'stop_side' };
+      let lots = riskD / (pipsToStop * pipValue);
+      lots = Math.floor(lots * 100) / 100; // 0.01 lot steps
+      if (lots < 0.01) return { ok: false, err: 'size_zero' };
+      qty = lots;
+      sizeD = lots * pipValue * 100; // fee / display notional proxy
+      lev = sizeD / S.balance;
+      liq = null; // margin-stop only — no liq
+    } else if (inst === 'stock') {
+      const stopDist = Math.abs(entry - stop);
+      if (!(stopDist > 0)) return { ok: false, err: 'stop_side' };
+      let shares = Math.floor(riskD / stopDist);
+      if (shares < 1) return { ok: false, err: 'size_zero' };
+      // no leverage: cannot buy more than balance allows
+      const maxShares = Math.floor(S.balance / entry);
+      if (maxShares < 1) return { ok: false, err: 'size_zero' };
+      shares = Math.min(shares, maxShares);
+      qty = shares;
+      sizeD = shares * entry;
+      lev = 1;
+      liq = null;
+    } else {
+      // perp (default)
+      const stopDist = Math.abs(entry - stop) / entry;
+      if (!(stopDist > 0)) return { ok: false, err: 'stop_side' };
+      sizeD = riskD / stopDist;
+      lev = sizeD / S.balance;
+      liq = (lev > 1)
+        ? (dir === 'long' ? entry * (1 - 1 / lev + MMR) : entry * (1 + 1 / lev - MMR))
+        : null;
+      qty = sizeD; // treat notional as qty for partial frac
+    }
+
     const fee = sizeD * S.feePct;
     S.balance -= fee;
     S.pos = {
-      dir, entry, stop, tp, sizeD, lev, liq,
+      dir, entry, stop, tp, sizeD, lev, liq, qty,
+      tickSize, tickValue, margin, pipSize, pipValue,
       riskPct, riskD, openedAt: S.i,
       movedStop: 0, funding: 0, fees: fee,
       overRisk,
       stopBeyondLiq: liq !== null && (dir === 'long' ? stop < liq : stop > liq),
       partials: [],
+      instrument: inst,
     };
-    log('enter', { dir, entry, stop, tp, sizeD, lev, overRisk });
+    log('enter', { dir, entry, stop, tp, sizeD, lev, qty, overRisk, instrument: inst });
     return { ok: true, pos: S.pos };
   }
 
@@ -168,6 +246,10 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
     const r = openPosition({
       dir: L.dir, entry, riskPct: L.riskPct, stop: L.stop, tp: L.tp, overRisk: L.overRisk,
     });
+    if (!r.ok) {
+      log('limit_reject', { err: r.err });
+      return r;
+    }
     S.pending = null;
     log('limit_fill', { price: entry });
     return r;
@@ -196,13 +278,14 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
     const P = S.pos;
     const exitPrice = price() * (P.dir === 'long' ? 1 - S.slipPct : 1 + S.slipPct);
     const closeSize = P.sizeD * f;
-    const gross = (P.dir === 'long' ? exitPrice - P.entry : P.entry - exitPrice) / P.entry * closeSize;
+    const gross = pnlGross(P, exitPrice, f);
     const fee = closeSize * S.feePct;
     const fundShare = P.funding * f;
     const pl = gross - fee - fundShare;
     S.balance += pl;
     P.partials.push({ price: exitPrice, fraction: f, pl });
     P.sizeD -= closeSize;
+    if (P.qty != null) P.qty = P.qty * (1 - f);
     P.funding -= fundShare;
     P.fees = (P.fees || 0) + fee;
     log('partial', { fraction: f, exitPrice, pl, remaining: P.sizeD });
@@ -211,7 +294,7 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
 
   function closeAt(exitPrice, reason) {
     const P = S.pos;
-    const gross = (P.dir === 'long' ? exitPrice - P.entry : P.entry - exitPrice) / P.entry * P.sizeD;
+    const gross = pnlGross(P, exitPrice, 1);
     const fee = P.sizeD * S.feePct;
     const plRemain = gross - fee - P.funding;
     S.balance += plRemain;
@@ -222,11 +305,12 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
       id: Date.now() + Math.floor(Math.random() * 1e4),
       scenarioId: S.scenario.id, seed: S.seed,
       dir: P.dir, entry: P.entry, stop: P.stop, tp: P.tp, exit: exitPrice,
-      sizeD: P.sizeD, lev: P.lev, riskPct: P.riskPct,
+      sizeD: P.sizeD, lev: P.lev, riskPct: P.riskPct, qty: P.qty,
       pl, r: pl / rDenom, reason,
       movedStop: P.movedStop, overRisk: P.overRisk,
       bars: S.i - P.openedAt,
       partials: P.partials || [],
+      instrument: P.instrument || scenario.instrument || 'perp',
       process: processScore(P, reason),
     };
     S.trades.push(trade);
@@ -292,7 +376,7 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
   function unrealized() {
     if (!S.pos) return null;
     const P = S.pos;
-    const gross = (P.dir === 'long' ? price() - P.entry : P.entry - price()) / P.entry * P.sizeD;
+    const gross = pnlGross(P, price(), 1);
     return { pl: gross - P.funding, r: (gross - P.funding) / P.riskD };
   }
 
