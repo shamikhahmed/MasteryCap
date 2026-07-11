@@ -1,5 +1,15 @@
 # Changelog
 
+## v34 — 2026-07-11 · Zero-beginner ready path
+- Soft-start Foundations (Skip / new → Week 1, no placement wall)
+- Skip no longer routes to Crypto; markets copy = learn not trade
+- Beginner path: Foundations → Invest → Spot → Stocks → **Options** → Greeks…
+- Macro/Tax demoted later on path (side literacy)
+- Advanced track soft-locks until Foundations W1–3; Greeks needs Options
+- Trading lab gated until Foundations W4 (Today Lab → drills instead)
+- Greeks xrefs fixed (stocks:4/6 → options); missing-week guard
+- SW **v34**
+
 ## v33 — 2026-07-11 · Campus Today + Urdu shell + smoke harden
 - **Campus Today:** lesson · lab · review checklist on Campus (`KEYS.todayHabit`)
 - **Roman Urdu:** nav Seekho/Hasil, shell labels, track names/blurbs, remaining week-title bleed

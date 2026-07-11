@@ -69,7 +69,7 @@ export const FOUNDATIONS_WEEKS = [
 <p><strong>Pakistan equities (PSX path):</strong> (1) Pick a PSX-licensed broker (TREC) listed on PSX/SECP sites. (2) Complete KYC (CNIC, selfie, proof of address as required). (3) Open a <strong>CDC sub-account</strong> so shares sit in <em>your</em> name — not only on a broker house screen. (4) Fund via official bank channels. (5) Test a small deposit and a small withdrawal before size.</p>
 <p><strong>Crypto / global brokers:</strong> Prefer regulated venues where you live. Complete KYC. Enable 2FA (app, not SMS if possible). Start with a tiny deposit. Never keep life savings on an exchange IOU.</p>
 <p><strong>Homework checklist:</strong> screenshot the license page, write the firm’s legal name, confirm withdrawal method works, set a monthly funding cap.</p>
-<p>{{xref:invest:2:PSX & CDC mechanics deepen in Investing}}</p>`,
+<p>{{xref:invest:4:PSX & CDC mechanics deepen in Investing}}</p>`,
     ur: `<p>Ye “account kaise kholo” week — process, broker endorsement nahi.</p>
 <p><strong>PSX:</strong> (1) PSX/SECP pe listed TREC broker. (2) KYC (CNIC, selfie, address). (3) <strong>CDC sub-account</strong> — shares <em>tumhare</em> naam. (4) Official bank se fund. (5) Chhota deposit + withdrawal test.</p>
 <p><strong>Crypto / global:</strong> Regulated venue. KYC. 2FA. Tiny deposit. Life savings exchange pe mat rakho.</p>

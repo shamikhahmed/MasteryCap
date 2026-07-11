@@ -115,7 +115,7 @@ export const TAX_WEEKS = [
       "ur": "Pakistan: Capital Gains Framing"
     },
     "body": {
-      "en": "<p><strong>Pakistan framing (high level):</strong> Equity and other capital gains can be taxed under rules that change with Finance Acts, holding periods, and filer status. Broker statements and NCCPL/CDC records matter. This is not a rate table — verify on FBR / current law or with a practitioner.</p>\n<p>Homework: locate your broker's annual tax certificate; store CNIC-linked statements offline.</p>\n<p>{{xref:invest:2:PSX account mechanics}}</p>",
+      "en": "<p><strong>Pakistan framing (high level):</strong> Equity and other capital gains can be taxed under rules that change with Finance Acts, holding periods, and filer status. Broker statements and NCCPL/CDC records matter. This is not a rate table — verify on FBR / current law or with a practitioner.</p>\n<p>Homework: locate your broker's annual tax certificate; store CNIC-linked statements offline.</p>\n<p>{{xref:invest:4:PSX account mechanics}}</p>",
       "ur": "<p><strong>Pakistan framing:</strong> Capital gains rules Finance Acts / holding / filer se badal sakte. Broker + NCCPL/CDC. Rate table nahi — FBR/practitioner verify.</p>\n<p>Homework: broker tax certificate; statements offline.</p>"
     },
     "quiz": [

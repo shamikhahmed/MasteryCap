@@ -10,8 +10,8 @@ export const GREEKS_WEEKS = [
       "ur": "Delta aur Direction"
     },
     "body": {
-      "en": "<p><strong>Delta</strong> estimates how much an option's price moves when the underlying moves $1. Calls have positive delta; puts have negative. Deep ITM options behave more like stock (delta near ±1); far OTM near 0.</p>\n<p>Position delta = sum of (contracts × 100 × delta) for US equity options. Positive delta = net long the underlying's direction.</p>\n<p>{{xref:stocks:4:Options basics in Stocks}}</p>\n<p>{{redflag:Buying OTM options because “delta is cheap” is often just buying lottery tickets.}}</p>",
-      "ur": "<p><strong>Delta</strong> estimate: underlying $1 move pe option price kitna. Calls positive; puts negative. Deep ITM ≈ stock (±1); far OTM ≈ 0.</p>\n<p>Position delta = contracts × 100 × delta (US equity). Positive = net long direction.</p>\n<p>{{redflag:OTM is liye kharidna ke “delta sasta” — aksar lottery.}}</p>"
+      "en": "<p><strong>Delta</strong> estimates how much an option's price moves when the underlying moves $1. Calls have positive delta; puts have negative. Deep ITM options behave more like stock (delta near ±1); far OTM near 0.</p>\n<p>Position delta = sum of (contracts × 100 × delta) for US equity options. Positive delta = net long the underlying's direction.</p>\n<p>{{xref:options:1:Options basics}}</p>\n<p>{{redflag:Buying OTM options because “delta is cheap” is often just buying lottery tickets.}}</p>",
+      "ur": "<p><strong>Delta</strong> estimate: underlying $1 move pe option price kitna. Calls positive; puts negative. Deep ITM ≈ stock (±1); far OTM ≈ 0.</p>\n<p>Position delta = contracts × 100 × delta (US equity). Positive = net long direction.</p>\n<p>{{xref:options:1:Options basics}}</p>\n<p>{{redflag:OTM is liye kharidna ke “delta sasta” — aksar lottery.}}</p>"
     },
     "quiz": [
       {
@@ -325,7 +325,7 @@ export const GREEKS_WEEKS = [
       "ur": "Vega aur Implied Volatility"
     },
     "body": {
-      "en": "<p><strong>Vega</strong> measures sensitivity to implied volatility (IV). Long options are long vega; short options are short vega.</p>\n<p><strong>IV crush</strong> after known events (earnings) can destroy long premium even if direction was right. Compare IV to recent realized vol.</p>\n<p>{{fig:iv-crush}}</p>\n<p>{{xref:stocks:6:Greeks intro in Stocks}}</p>",
+      "en": "<p><strong>Vega</strong> measures sensitivity to implied volatility (IV). Long options are long vega; short options are short vega.</p>\n<p><strong>IV crush</strong> after known events (earnings) can destroy long premium even if direction was right. Compare IV to recent realized vol.</p>\n<p>{{fig:iv-crush}}</p>\n<p>{{xref:options:3:Options greeks intro}}</p>",
       "ur": "<p><strong>Vega</strong> = IV sensitivity. Long = long vega; short = short vega.</p>\n<p><strong>IV crush</strong> event ke baad long premium kha sakta — direction sahi ho tab bhi.</p>\n<p>{{fig:iv-crush}}</p>"
     },
     "quiz": [

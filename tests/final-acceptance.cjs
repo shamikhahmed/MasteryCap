@@ -194,9 +194,9 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
 
     await page.evaluate(() => {
       localStorage.setItem('masterycap:course', JSON.stringify({
-        foundations: { placementDone: true, weekStatus: { 1: 'current' }, xp: 0 },
-        crypto: { placementDone: true, weekStatus: { 1: 'current' }, xp: 0 },
-      }));
+          foundations: { placementDone: true, weekStatus: { 1: 'completed', 2: 'completed', 3: 'completed', 4: 'completed', 5: 'current' }, xp: 200 },
+          crypto: { placementDone: true, weekStatus: { 1: 'current' }, xp: 0 },
+        }));
     });
     await goHome(page);
 

@@ -1,24 +1,22 @@
 # LOOP-STATE — MasteryCap agent ledger
 
-status: RUNNING
-iteration: 18
-phase: SCHOOL-v33
-next_task: (optional) deeper lesson-body UR; owner device offline PWA check
-version_on_disk: v33
+status: COMPLETE
+iteration: 19
+phase: SCHOOL-v34
+next_task: owner device offline PWA check; optional deeper lesson-body UR QA
+version_on_disk: v34
 
 ## done
-- S1–S7 school loop → v31
-- FINAL harness i16
-- **v32 school shell** (i17): tabs, themes, teacher, time, cert split, Stocks/Options, skills challenge, UX spoilers
-- **v33** (i18): Campus Today habit · Roman Urdu shell · smoke/FINAL `data-tab` · track meta UR
+- S1–S7 → v31 · school shell v32 · Today/Urdu v33
+- **v34 zero-beginner path** (i19): soft-start, Skip→Foundations, path Options, locks, lab gate, xref fix
 
 ## blocked
 (none)
 
 ## decisions
+- Honest: ready to *shepherd* zero→literacy on Foundations→Invest→Spot; not a license; not income.
+- Macro/Tax side literacy after core compound path.
 - Push OK.
-- Certs honest-strong (Course ≠ TRADE-READY); still self-issued / not a license.
-- Binary/Bots elective+warning.
 
 ## evidence
-- audit-all 7/7 PASS; smoke PASS @375/390/430; final-acceptance PASS @375
+- audit-all 7/7 PASS; smoke PASS; final-acceptance PASS @375

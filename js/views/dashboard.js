@@ -13,6 +13,7 @@ import { openHowto } from '../howto.js';
 import { isGraduated } from '../graduation.js';
 import { SIM_SCENARIOS } from '../sim/scenarios.js';
 import { todayProgress } from '../today.js';
+import { canOpenTradingLab } from '../gates.js';
 
 function ladderStages(App, trackId) {
   const track = getTrack(trackId);
@@ -181,7 +182,7 @@ export function renderDashboard(App, c) {
         </button>
         <button type="button" class="check-row" id="todayLab" style="width:100%;text-align:left;background:none;border:0;color:inherit;cursor:pointer">
           ${chk(th.lab)}
-          <span class="check-t"><strong>${App.t('today_lab')}</strong><br/><span style="color:var(--t3);font-size:12px">${App.t('sim_cta')}</span></span>
+          <span class="check-t"><strong>${App.t('today_lab')}</strong><br/><span style="color:var(--t3);font-size:12px">${canOpenTradingLab(App) ? App.t('sim_cta') : App.t('lab_gated')}</span></span>
         </button>
         <button type="button" class="check-row" id="todayReview" style="width:100%;text-align:left;background:none;border:0;color:inherit;cursor:pointer">
           ${chk(th.review)}
@@ -274,7 +275,11 @@ export function renderDashboard(App, c) {
   document.getElementById('goContinue')?.addEventListener('click', openNext);
   document.getElementById('goHowto')?.addEventListener('click', () => { App.haptic(); openHowto(App); });
   document.getElementById('todayLesson')?.addEventListener('click', openNext);
-  document.getElementById('todayLab')?.addEventListener('click', () => { App.haptic(); App.openSim(); });
+  document.getElementById('todayLab')?.addEventListener('click', () => {
+    App.haptic();
+    if (canOpenTradingLab(App)) App.openSim();
+    else App.openDrills();
+  });
   document.getElementById('todayReview')?.addEventListener('click', () => {
     App.haptic();
     if (reviewAvailable()) App.openReview();
@@ -283,7 +288,14 @@ export function renderDashboard(App, c) {
   document.getElementById('goLearn')?.addEventListener('click', () => App.navigate('learn'));
   document.getElementById('goDrills')?.addEventListener('click', () => App.openDrills());
   document.getElementById('goCharts')?.addEventListener('click', () => App.openCharts());
-  document.getElementById('goSim')?.addEventListener('click', () => App.openSim());
+  document.getElementById('goSim')?.addEventListener('click', () => {
+    if (canOpenTradingLab(App)) App.openSim();
+    else {
+      App.haptic();
+      // show brief note via drills for zeros
+      App.openDrills();
+    }
+  });
   document.getElementById('goReview')?.addEventListener('click', () => App.openReview());
   document.getElementById('goDesk')?.addEventListener('click', () => App.navigate('journal'));
   c.querySelectorAll('[data-path]').forEach((el) => el.addEventListener('click', () => {

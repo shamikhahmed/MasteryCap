@@ -19,6 +19,8 @@ import { applySettings, openSettings, APP_VERSION } from './settings.js';
 import { mistakeCountDue } from './mistakes.js';
 import { applyTheme } from './theme.js';
 import { pauseTime, touchTime } from './time.js';
+import { seedFoundationsSoftStart, preferredStartTrack } from './gates.js';
+import { canOpenTradingLab } from './gates.js';
 
 const root = () => document.getElementById('app-root');
 
@@ -135,6 +137,10 @@ export const App = {
   },
 
   openSim() {
+    if (!canOpenTradingLab(this)) {
+      this.openDrills();
+      return;
+    }
     this._simReturn = this.tab === 'sim' ? 'dashboard' : this.tab;
     this.tab = 'sim'; this.haptic(6);
     window.scrollTo({ top: 0 });
@@ -204,7 +210,7 @@ function renderOnboarding() {
     if (key === 'welcome') {
       main = `<div class="onb-main">
         <div class="onb-eyebrow">MasteryCap</div>
-        <h1 class="onb-title">Learn every market.<br/>Trade with discipline.</h1>
+        <h1 class="onb-title">${App.t('onb_welcome_title')}</h1>
         <p class="onb-sub">${App.t('onb_welcome_sub')}</p>
       </div>`;
     } else if (key === 'name') {
@@ -262,22 +268,32 @@ function renderOnboarding() {
     if (back) back.addEventListener('click', () => { App.haptic(); step--; draw(); });
     document.getElementById('onbSkip')?.addEventListener('click', () => {
       data.name = data.name || 'Trader';
-      data.experience = data.experience || 'new';
-      if (!data.markets.length) data.markets = ['crypto'];
+      data.experience = 'new';
+      data.markets = ['foundations'];
       finish();
     });
     document.getElementById('onbNext').addEventListener('click', () => {
       App.haptic();
+      if (key === 'exp' && !data.experience) return;
+      if (key === 'markets' && !data.markets.length && data.experience === 'new') {
+        data.markets = ['foundations'];
+      }
       if (last) return finish();
       step++; draw();
     });
   }
 
   function finish() {
-    const markets = data.markets.length ? data.markets : (data.experience === 'new' ? ['foundations'] : ['crypto']);
-    App.profile = { name: (data.name || '').trim() || 'Trader', experience: data.experience || 'new', markets };
+    const experience = data.experience || 'new';
+    let markets = data.markets.length ? [...data.markets] : ['foundations'];
+    if (experience === 'new' && !markets.includes('foundations')) {
+      markets = ['foundations', ...markets];
+    }
+    if (!markets.length) markets = ['foundations'];
+    App.profile = { name: (data.name || '').trim() || 'Trader', experience, markets };
     store.set(KEYS.profile, App.profile);
     store.set(KEYS.onboarded, true);
+    seedFoundationsSoftStart(experience);
     App.tab = 'dashboard'; App.render(); App.renderNav();
     setTimeout(() => maybeTour(), 300);
   }
@@ -393,7 +409,7 @@ function maybeWhatsNew() {
       <div class="sheet-head"><div class="slabel">${App.t('whats_new')} · ${APP_VERSION}</div>
         <button class="sheet-x" data-close>${icon('x', { size: 18 })}</button></div>
       <div class="sheet-body" style="font-size:14px;color:var(--t2);line-height:1.55">
-        <p>v33: Campus Today habit path · Roman Urdu shell polish · smoke uses data-tab · certs still self-issued local only.</p>
+        <p>v34: Soft-start Foundations · Skip→Foundations · advanced locks · Options on path · lab gate · Greeks xref fix.</p>
         <p style="color:var(--t3)">See CHANGELOG.md for full notes.</p>
       </div>
     </div>`;

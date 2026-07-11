@@ -25,6 +25,7 @@ import { gradStatus, markGraduated, isGraduated } from '../graduation.js';
 import { skillsForWeek, markSkillMastered, challengeOffer, CHALLENGE, scoreChallenge, SKILLS } from '../skills.js';
 import { startTime, pauseTime, softSessionNudge } from '../time.js';
 import { markToday } from '../today.js';
+import { trackLockReason, preferredStartTrack, seedFoundationsSoftStart } from '../gates.js';
 
 let S = {
   track: 'foundations', view: 'home', activeWeek: null,
@@ -58,6 +59,11 @@ function buildPlacementOrders(track) {
 
 export function renderCourse(App, c) {
   APP = App; ROOT = c;
+  if (!S._startSeeded) {
+    S.track = preferredStartTrack(App);
+    S._startSeeded = true;
+    seedFoundationsSoftStart(App.profile?.experience);
+  }
   if (S.view === 'placementResult') S.view = 'home';
   draw();
 }
@@ -104,11 +110,14 @@ function drawHome() {
   const App = APP, c = ROOT, lang = App.lang;
   const track = getTrack(S.track);
 
-  const rail = `<div class="track-rail">${TRACKS.map((t) => `
-    <button class="track-chip ${t.id === S.track ? 'on' : ''}" data-track="${t.id}">
+  const rail = `<div class="track-rail">${TRACKS.map((t) => {
+    const lock = trackLockReason(t.id, App);
+    return `
+    <button class="track-chip ${t.id === S.track ? 'on' : ''} ${lock ? 'dim' : ''}" data-track="${t.id}" ${lock ? `data-lock="${lock}"` : ''} style="${lock ? 'opacity:0.55' : ''}">
       <span class="tc-ic">${icon(TRACK_ICON[t.id], { size: 18 })}</span>
-      <span><span class="tc-name">${t.name[lang]}${t.elective ? ' · EL' : ''}</span><br/><span class="tc-meta">${t.weeks.length} MOD · <span class="tc-dot ${t.status === 'live' ? 'dot-live' : 'dot-soon'}" style="display:inline-block"></span> ${t.status === 'live' ? 'LIVE' : 'SOON'}</span></span>
-    </button>`).join('')}</div>`;
+      <span><span class="tc-name">${t.name[lang]}${t.elective ? ' · EL' : ''}${lock ? ' · LOCK' : ''}</span><br/><span class="tc-meta">${t.weeks.length} MOD · <span class="tc-dot ${t.status === 'live' ? 'dot-live' : 'dot-soon'}" style="display:inline-block"></span> ${t.status === 'live' ? 'LIVE' : 'SOON'}</span></span>
+    </button>`;
+  }).join('')}</div>`;
 
   const header = `<div class="lt-head"><div class="head-row">
     <div><div class="kicker">${App.t('nav_learn')}</div><h1>${track.name[lang]}</h1></div>
@@ -138,12 +147,21 @@ function drawHome() {
       </div>`;
   } else {
     const prog = App.getCourse(track.id);
-    const warnBox = track.warning || track.elective ? `<div class="note-box warn" style="margin-bottom:16px"><strong>${track.elective ? App.t('elective_warn') : (lang === 'en' ? 'High-risk.' : 'High-risk.')}</strong> ${lang === 'en' ? (track.id === 'binary' ? 'Binary options are banned for retail in many countries and sit closer to gambling than trading. This track teaches the math and the traps — self-defense, not endorsement.' : 'Elective literacy — permanent warning framing.') : (track.id === 'binary' ? 'Binary options bohot mulkon mein banned — self-defense track.' : 'Elective literacy — permanent warning.')}</div>` : '';
-    if (!prog.placementDone) {
+    const lockWhy = trackLockReason(track.id, App);
+    const warnBox = track.warning || track.elective ? `<div class="note-box warn" style="margin-bottom:16px"><strong>${track.elective ? App.t('elective_warn') : (lang === 'en' ? 'High-risk.' : 'High-risk.')}</strong> ${lang === 'en' ? (track.id === 'binary' ? 'Binary options are banned for retail in many countries and sit closer to gambling than trading. This track teaches the math and the traps — self-defense, not endorsement.' : 'Elective literacy — permanent warning framing. Never buy a “profit bot.”') : (track.id === 'binary' ? 'Binary options bohot mulkon mein banned — self-defense track.' : 'Elective literacy — permanent warning. Profit bot mat kharido.')}</div>` : '';
+    if (lockWhy) {
+      body = `${warnBox}<div class="note-box warn" style="margin-bottom:16px"><strong>${App.t('track_locked')}</strong><br/>${App.t('track_lock_' + lockWhy)}</div>
+        <button class="btn accent" id="goUnlockFoundations">${App.t('track_lock_cta')}</button>`;
+    } else if (!prog.placementDone) {
+      const softBtn = track.id === 'foundations'
+        ? `<button class="btn secondary mt10" id="softStartFoundations" style="width:100%">${App.t('soft_start_cta')}</button>
+           <p style="font-size:12px;color:var(--t3);margin-top:8px;line-height:1.45">${App.t('soft_start_hint')}</p>`
+        : '';
       body = `${warnBox}<div class="panel pad">
         <div class="slabel">${App.t('startPlacement')}</div>
         <p class="lesson-body" style="font-size:14.5px;color:var(--t1)">${App.t('placementIntro').replace('22', String(track.placement.length))}</p>
         <button class="btn accent mt18" id="startPlacement">${App.t('startPlacement')}</button>
+        ${softBtn}
       </div>`;
     } else {
       const weeks = track.weeks;
@@ -194,6 +212,13 @@ function drawHome() {
   document.getElementById('goDrillsLearn')?.addEventListener('click', () => App.openDrills());
   document.getElementById('goChartsLearn')?.addEventListener('click', () => App.openCharts());
   document.getElementById('goSimLearn')?.addEventListener('click', () => App.openSim());
+  document.getElementById('goUnlockFoundations')?.addEventListener('click', () => {
+    S.track = 'foundations'; S.view = 'home'; App.haptic(); draw();
+  });
+  document.getElementById('softStartFoundations')?.addEventListener('click', () => {
+    seedFoundationsSoftStart('new');
+    App.haptic(); draw();
+  });
   document.getElementById('openGloss')?.addEventListener('click', () => { App.haptic(); openGlossary(App); });
   document.getElementById('openSearch')?.addEventListener('click', () => {
     App.haptic();
@@ -259,7 +284,9 @@ function drawHome() {
   });
   c.querySelectorAll('[data-week]').forEach((el) => el.addEventListener('click', () => { S.activeWeek = Number(el.dataset.week); S.view = 'week'; App.haptic(); draw(); }));
   c.querySelectorAll('[data-path-track]').forEach((el) => el.addEventListener('click', () => {
-    S.track = el.dataset.pathTrack; S.view = 'home'; App.haptic(); draw();
+    const id = el.dataset.pathTrack;
+    S.track = trackLockReason(id, App) ? 'foundations' : id;
+    S.view = 'home'; App.haptic(); draw();
   }));
 }
 
@@ -369,6 +396,12 @@ function drawWeek() {
   const App = APP, c = ROOT, lang = App.lang;
   const track = getTrack(S.track);
   const raw = track.weeks.find((x) => x.id === S.activeWeek);
+  if (!raw) {
+    S.view = 'home';
+    S.activeWeek = null;
+    drawHome();
+    return;
+  }
   const w = mergeWeekExtras(track.id, raw);
   const st = App.getCourse(track.id).weekStatus[w.id];
   const skimOn = !!store.get(STORE_KEYS.skimMode);
@@ -471,9 +504,15 @@ function drawWeek() {
     showGlossPop(App, el);
   }));
   c.querySelectorAll('[data-xref-track]').forEach((el) => el.addEventListener('click', () => {
+    const xt = getTrack(el.dataset.xrefTrack);
+    const xw = Number(el.dataset.xrefWeek);
+    if (!xt?.weeks?.find((w) => w.id === xw)) {
+      App.haptic();
+      return;
+    }
     S._back = { track: S.track, week: S.activeWeek };
     S.track = el.dataset.xrefTrack;
-    S.activeWeek = Number(el.dataset.xrefWeek);
+    S.activeWeek = xw;
     S.view = 'week'; App.haptic(); draw();
   }));
   const bodyEl = document.getElementById('lessonBody');
