@@ -65,6 +65,7 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
     feePct, slipPct,
     bars, i: visibleStart - 1,        // index of latest visible bar
     pos: null,                         // open position
+    pending: null,                     // limit order awaiting fill
     trades: [],                        // closed trades this session
     events: [],                        // log lines for debrief
     done: false,
@@ -75,47 +76,101 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
 
   function log(type, data = {}) { S.events.push({ type, bar: S.i, ...data }); }
 
+  function validateStopSide(dir, refPrice, stop, tp) {
+    if (!(stop > 0)) return 'stop_required';
+    if (dir === 'long' && stop >= refPrice) return 'stop_side';
+    if (dir === 'short' && stop <= refPrice) return 'stop_side';
+    if (tp !== null && tp !== undefined && !Number.isNaN(tp)) {
+      if (dir === 'long' && tp <= refPrice) return 'tp_side';
+      if (dir === 'short' && tp >= refPrice) return 'tp_side';
+    }
+    return null;
+  }
+
+  function openPosition({ dir, entry, riskPct, stop, tp, overRisk }) {
+    const stopDist = Math.abs(entry - stop) / entry;
+    const riskD = S.balance * (riskPct / 100);
+    const sizeD = riskD / stopDist;
+    const lev = sizeD / S.balance;
+    const liq = (scenario.instrument === 'perp' && lev > 1)
+      ? (dir === 'long' ? entry * (1 - 1 / lev + MMR) : entry * (1 + 1 / lev - MMR))
+      : null;
+    const fee = sizeD * S.feePct;
+    S.balance -= fee;
+    S.pos = {
+      dir, entry, stop, tp, sizeD, lev, liq,
+      riskPct, riskD, openedAt: S.i,
+      movedStop: 0, funding: 0, fees: fee,
+      overRisk,
+      stopBeyondLiq: liq !== null && (dir === 'long' ? stop < liq : stop > liq),
+      partials: [],
+    };
+    log('enter', { dir, entry, stop, tp, sizeD, lev, overRisk });
+    return { ok: true, pos: S.pos };
+  }
+
   /* ---- entry: stop is REQUIRED and validated. No stop, no trade. ---- */
   function enter({ dir, riskPct, stop, tp = null }) {
     if (S.pos) return { ok: false, err: 'position_open' };
+    if (S.pending) return { ok: false, err: 'pending_open' };
     if (S.done) return { ok: false, err: 'session_over' };
     if (dir !== 'long' && dir !== 'short') return { ok: false, err: 'bad_dir' };
     const p = price();
-    if (!(stop > 0)) return { ok: false, err: 'stop_required' };
-    if (dir === 'long' && stop >= p) return { ok: false, err: 'stop_side' };
-    if (dir === 'short' && stop <= p) return { ok: false, err: 'stop_side' };
-    if (tp !== null) {
-      if (dir === 'long' && tp <= p) return { ok: false, err: 'tp_side' };
-      if (dir === 'short' && tp >= p) return { ok: false, err: 'tp_side' };
-    }
+    const sideErr = validateStopSide(dir, p, stop, tp);
+    if (sideErr) return { ok: false, err: sideErr };
     const cap = scenario.constraints?.maxRiskPct ?? 2;
     const rp = Math.min(Math.max(riskPct || 1, 0.1), 100);
     const overRisk = rp > cap;
     if (scenario.constraints?.dirAllowed && scenario.constraints.dirAllowed !== dir) {
       log('violation', { kind: 'direction' });
     }
-
     const entry = p * (dir === 'long' ? 1 + S.slipPct : 1 - S.slipPct);
-    const stopDist = Math.abs(entry - stop) / entry;
-    const riskD = S.balance * (rp / 100);
-    const sizeD = riskD / stopDist;
-    const lev = sizeD / S.balance;
-    // simplified isolated liquidation price — only meaningful above 1x leverage
-    const liq = (scenario.instrument === 'perp' && lev > 1)
-      ? (dir === 'long' ? entry * (1 - 1 / lev + MMR) : entry * (1 + 1 / lev - MMR))
-      : null;
-    const fee = sizeD * S.feePct;
-    S.balance -= fee;
+    return openPosition({ dir, entry, riskPct: rp, stop, tp, overRisk });
+  }
 
-    S.pos = {
-      dir, entry, stop, tp, sizeD, lev, liq,
-      riskPct: rp, riskD, openedAt: S.i,
-      movedStop: 0, funding: 0, fees: fee,
-      overRisk,
-      stopBeyondLiq: liq !== null && (dir === 'long' ? stop < liq : stop > liq),
+  /** Limit order: stop validated vs LIMIT price (not mark). Fills when bar range touches. */
+  function placeLimit({ dir, price: limitPx, riskPct, stop, tp = null }) {
+    if (S.pos) return { ok: false, err: 'position_open' };
+    if (S.pending) return { ok: false, err: 'pending_open' };
+    if (S.done) return { ok: false, err: 'session_over' };
+    if (dir !== 'long' && dir !== 'short') return { ok: false, err: 'bad_dir' };
+    if (!(limitPx > 0)) return { ok: false, err: 'limit_price' };
+    const sideErr = validateStopSide(dir, limitPx, stop, tp);
+    if (sideErr) return { ok: false, err: sideErr };
+    const cap = scenario.constraints?.maxRiskPct ?? 2;
+    const rp = Math.min(Math.max(riskPct || 1, 0.1), 100);
+    const overRisk = rp > cap;
+    if (scenario.constraints?.dirAllowed && scenario.constraints.dirAllowed !== dir) {
+      log('violation', { kind: 'direction' });
+    }
+    S.pending = {
+      dir, price: limitPx, stop, tp: tp ?? null,
+      riskPct: rp, overRisk,
+      placedAt: S.i,
     };
-    log('enter', { dir, entry, stop, tp, sizeD, lev, overRisk });
-    return { ok: true, pos: S.pos };
+    log('limit_place', { dir, price: limitPx, stop, tp });
+    return { ok: true, pending: S.pending };
+  }
+
+  function cancelLimit() {
+    if (!S.pending) return { ok: false, err: 'no_pending' };
+    log('limit_cancel', {});
+    S.pending = null;
+    return { ok: true };
+  }
+
+  function tryFillLimit(bar) {
+    const L = S.pending;
+    if (!L || S.pos) return null;
+    const hit = L.dir === 'long' ? bar.l <= L.price : bar.h >= L.price;
+    if (!hit) return null;
+    const entry = L.price; // fill at limit
+    const r = openPosition({
+      dir: L.dir, entry, riskPct: L.riskPct, stop: L.stop, tp: L.tp, overRisk: L.overRisk,
+    });
+    S.pending = null;
+    log('limit_fill', { price: entry });
+    return r;
   }
 
   function moveStop(newStop) {
@@ -173,6 +228,11 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
     S.i++;
     const bar = S.bars[S.i];
     let closed = null;
+    let filled = null;
+
+    if (S.pending && !S.pos) {
+      filled = tryFillLimit(bar);
+    }
 
     if (S.pos) {
       const P = S.pos;
@@ -193,9 +253,10 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
     }
     if (S.i >= S.bars.length - 1) {
       if (S.pos) closed = closeAt(price(), 'session_end');
+      S.pending = null;
       S.done = true;
     }
-    return { done: S.done, closed };
+    return { done: S.done, closed, filled: !!filled };
   }
 
   function closeManual() {
@@ -213,6 +274,6 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
 
   return {
     get state() { return S; },
-    visible, price, enter, moveStop, step, closeManual, unrealized,
+    visible, price, enter, placeLimit, cancelLimit, moveStop, step, closeManual, unrealized,
   };
 }

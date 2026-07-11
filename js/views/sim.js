@@ -9,7 +9,7 @@ import { renderCandles } from '../candles.js';
 import { createSession } from '../sim/engine.js';
 import { SIM_SCENARIOS, getScenario } from '../sim/scenarios.js';
 
-let S = { view: 'picker', session: null, scenario: null, playTimer: null, msg: null, debrief: null };
+let S = { view: 'picker', session: null, scenario: null, playTimer: null, msg: null, debrief: null, orderType: 'market' };
 let APP = null, ROOT = null;
 
 export function renderSim(App, c) {
@@ -95,7 +95,9 @@ function drawSession() {
 
     ${S.msg ? `<div class="note-box err" style="margin-bottom:12px">${S.msg}</div>` : ''}
 
-    ${pos ? posPanel(App, pos, u) : orderPanel(App, sc)}
+    ${st.pending && !pos ? pendingStrip(App, st.pending) : ''}
+
+    ${pos ? posPanel(App, pos, u) : orderPanel(App, sc, sess.price())}
 
     ${st.trades.length ? `<div class="panel mt14"><div class="panel-h"><span class="ph-t">${App.t('sim_closed')}</span></div>
       ${st.trades.map((t) => tradeRow(App, t)).join('')}</div>` : ''}
@@ -122,36 +124,72 @@ function drawSession() {
       c.querySelectorAll('[data-dir]').forEach((x) => { x.classList.remove('on', 'long', 'short'); });
       b.classList.add('on', dir);
     }));
+    c.querySelectorAll('[data-otype]').forEach((b) => b.addEventListener('click', () => {
+      S.orderType = b.dataset.otype;
+      APP.haptic();
+      draw();
+    }));
     document.getElementById('simEnter').addEventListener('click', () => {
       const riskPct = parseFloat(document.getElementById('simRisk').value);
       const stop = parseFloat(document.getElementById('simStop').value);
       const tpv = parseFloat(document.getElementById('simTp').value);
       if (!dir) { S.msg = APP.t('sim_err_bad_dir'); draw(); return; }
-      const r = S.session.enter({ dir, riskPct, stop, tp: isNaN(tpv) ? null : tpv });
+      const tp = isNaN(tpv) ? null : tpv;
+      let r;
+      if (S.orderType === 'limit') {
+        const limitPx = parseFloat(document.getElementById('simLimit').value);
+        r = S.session.placeLimit({ dir, price: limitPx, riskPct, stop, tp });
+      } else {
+        r = S.session.enter({ dir, riskPct, stop, tp });
+      }
       S.msg = r.ok ? null : APP.t('sim_err_' + r.err);
       APP.haptic(r.ok ? 14 : 6);
       draw();
     });
   }
+  document.getElementById('simCancelLimit')?.addEventListener('click', () => {
+    S.session.cancelLimit();
+    S.msg = null;
+    APP.haptic();
+    draw();
+  });
 }
 
-function orderPanel(App, sc) {
+function pendingStrip(App, pending) {
+  return `<div class="panel pad" style="margin-bottom:12px">
+    <div class="spread" style="align-items:center">
+      <div>
+        <div class="slabel">${App.t('sim_pending')}</div>
+        <div class="mono" style="font-size:13px;margin-top:6px">${App.t(pending.dir)} @ ${fmt(pending.price)} · stop ${fmt(pending.stop)}</div>
+      </div>
+      <button class="pill" id="simCancelLimit">${App.t('sim_cancel_limit')}</button>
+    </div>
+  </div>`;
+}
+
+function orderPanel(App, sc, mark) {
+  const isLimit = S.orderType === 'limit';
   return `<div class="panel">
     <div class="panel-h"><span class="ph-t">${App.t('sim_order')}</span><span class="pill mono">${App.t('sim_max_risk')} ${sc.constraints?.maxRiskPct ?? 2}%</span></div>
     <div class="pad" style="padding:14px 16px 16px">
+      <div class="seg" style="margin-bottom:12px">
+        <button type="button" class="${!isLimit ? 'on' : ''}" data-otype="market">${App.t('sim_otype_market')}</button>
+        <button type="button" class="${isLimit ? 'on' : ''}" data-otype="limit">${App.t('sim_otype_limit')}</button>
+      </div>
       <div class="field"><label>${App.t('direction')}</label>
         <div class="dir-seg">
           <button data-dir="long">${icon('arrowUp', { size: 16 })} ${App.t('long')}</button>
           <button data-dir="short">${icon('arrowDown', { size: 16 })} ${App.t('short')}</button>
         </div>
       </div>
+      ${isLimit ? `<div class="field"><label>${App.t('sim_limit_price')}</label><input id="simLimit" class="num" type="number" inputmode="decimal" step="any" value="${fmt(mark * 0.995)}" /></div>` : ''}
       <div class="f-row three">
         <div class="field"><label>${App.t('risk_pct')}</label><input id="simRisk" class="num" type="number" inputmode="decimal" step="0.1" value="1" /></div>
         <div class="field"><label>${App.t('stop')} *</label><input id="simStop" class="num" type="number" inputmode="decimal" step="any" /></div>
         <div class="field"><label>TP</label><input id="simTp" class="num" type="number" inputmode="decimal" step="any" /></div>
       </div>
-      <button class="btn accent" id="simEnter">${App.t('sim_enter')}</button>
-      <p style="font-size:11.5px;color:var(--t3);margin:10px 0 0;line-height:1.5">${App.t('sim_stop_note')}</p>
+      <button class="btn accent" id="simEnter">${isLimit ? App.t('sim_place_limit') : App.t('sim_enter')}</button>
+      <p style="font-size:11.5px;color:var(--t3);margin:10px 0 0;line-height:1.5">${isLimit ? App.t('sim_limit_note') : App.t('sim_stop_note')}</p>
     </div>
   </div>`;
 }
