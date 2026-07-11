@@ -6,6 +6,8 @@
 const TYPES = [
   'sizing_crypto', 'sizing_forex', 'sizing_futures',
   'options', 'binary', 'r_multiple', 'pip_tick',
+  'funding_cost', 'liq_distance', 'binary_ev', 'expense_drag',
+  'swap_cost', 'carry_cost', 'roll_cost', 'multi_step',
 ];
 
 function mulberry32(a) {
@@ -38,6 +40,14 @@ export function typeLabel(type, lang = 'en') {
     binary: { en: 'Binary breakeven', ur: 'Binary breakeven' },
     r_multiple: { en: 'R-multiples', ur: 'R-multiples' },
     pip_tick: { en: 'Pip / tick value', ur: 'Pip / tick value' },
+    funding_cost: { en: 'Funding cost', ur: 'Funding cost' },
+    liq_distance: { en: 'Liq distance', ur: 'Liq distance' },
+    binary_ev: { en: 'Binary EV / 100', ur: 'Binary EV / 100' },
+    expense_drag: { en: 'Expense-ratio drag', ur: 'Expense-ratio drag' },
+    swap_cost: { en: 'FX swap cost', ur: 'FX swap cost' },
+    carry_cost: { en: 'Carry cost', ur: 'Carry cost' },
+    roll_cost: { en: 'Futures roll', ur: 'Futures roll' },
+    multi_step: { en: 'Multi-step sizing', ur: 'Multi-step sizing' },
   };
   return (L[type] && L[type][lang]) || type;
 }
@@ -284,6 +294,160 @@ const GENERATORS = {
       },
     };
   },
+
+  funding_cost(rng) {
+    const notional = pick(rng, [5000, 10000, 20000]);
+    const ratePct = pick(rng, [0.01, 0.03, 0.05, 0.1]);
+    const days = pick(rng, [3, 7, 14]);
+    const cost = notional * (ratePct / 100) * days;
+    return {
+      prompt: {
+        en: `Notional $${notional}. Funding ${ratePct}%/day for ${days} days. Total funding cost ($)?`,
+        ur: `Notional $${notional}. Funding ${ratePct}%/din, ${days} din. Total funding cost ($)?`,
+      },
+      answer: round(cost, 2), unit: '$',
+      solution: {
+        en: `Cost = ${notional} × ${ratePct}% × ${days} = $${round(cost, 2)}.`,
+        ur: `Cost = ${notional} × ${ratePct}% × ${days} = $${round(cost, 2)}.`,
+      },
+    };
+  },
+
+  liq_distance(rng) {
+    const lev = pick(rng, [5, 10, 20, 25]);
+    const mmr = 0.5; // maintenance approx % of notional as buffer simplification
+    const dist = round(100 / lev - mmr, 2);
+    return {
+      prompt: {
+        en: `Isolated ${lev}x. Approx liquidation distance (%) ≈ 100/lev − 0.5. What %?`,
+        ur: `Isolated ${lev}x. Approx liq distance (%) ≈ 100/lev − 0.5. Kitna %?`,
+      },
+      answer: dist, unit: '%',
+      solution: {
+        en: `100/${lev} − 0.5 = ${round(100 / lev, 2)} − 0.5 = ${dist}%. Rough isolated model — not exchange exact.`,
+        ur: `100/${lev} − 0.5 = ${dist}%. Rough model — exchange exact nahi.`,
+      },
+    };
+  },
+
+  binary_ev(rng) {
+    const winRate = pick(rng, [45, 50, 52, 55]);
+    const payout = pick(rng, [70, 80, 85]);
+    const wins = winRate;
+    const losses = 100 - winRate;
+    const ev = wins * payout - losses * 100;
+    return {
+      prompt: {
+        en: `Win rate ${winRate}%, payout ${payout}%. EV per 100 trades of $1 stake ($)?`,
+        ur: `Win rate ${winRate}%, payout ${payout}%. 100 trades × $1 stake pe EV ($)?`,
+      },
+      answer: round(ev, 2), unit: '$',
+      solution: {
+        en: `EV = ${wins}×${payout} − ${losses}×100 = ${ev}.`,
+        ur: `EV = ${wins}×${payout} − ${losses}×100 = ${ev}.`,
+      },
+    };
+  },
+
+  expense_drag(rng) {
+    const start = 10000;
+    const gross = pick(rng, [8, 10, 12, 15]);
+    const fee = pick(rng, [1, 2, 2.5, 3]);
+    const years = pick(rng, [10, 20, 30]);
+    const net = gross - fee;
+    const endGross = start * ((1 + gross / 100) ** years);
+    const endNet = start * ((1 + net / 100) ** years);
+    const drag = round(endGross - endNet, 0);
+    return {
+      prompt: {
+        en: `$${start} for ${years}y at ${gross}% gross minus ${fee}% fee. How many $ did fees cost vs gross path?`,
+        ur: `$${start}, ${years} saal, ${gross}% gross − ${fee}% fee. Fees ne gross path vs kitne $ khaye?`,
+      },
+      answer: drag, unit: '$',
+      solution: {
+        en: `Gross end ≈ $${round(endGross, 0)}. Net end ≈ $${round(endNet, 0)}. Drag = $${drag}.`,
+        ur: `Gross ≈ $${round(endGross, 0)}. Net ≈ $${round(endNet, 0)}. Drag = $${drag}.`,
+      },
+    };
+  },
+
+  swap_cost(rng) {
+    const lots = pick(rng, [0.5, 1, 2]);
+    const swapPts = pick(rng, [-8, -12, -20, 5]);
+    const pipVal = 10;
+    const nights = pick(rng, [3, 5, 7]);
+    const cost = round(lots * swapPts * pipVal * nights, 2);
+    return {
+      prompt: {
+        en: `${lots} lot(s), swap ${swapPts} pts/night, $10/pt, hold ${nights} nights. Total swap P/L ($)?`,
+        ur: `${lots} lot(s), swap ${swapPts} pts/night, $10/pt, ${nights} nights. Total swap P/L ($)?`,
+      },
+      answer: cost, unit: '$',
+      solution: {
+        en: `P/L = lots × pts × $/pt × nights = ${lots} × ${swapPts} × 10 × ${nights} = $${cost}.`,
+        ur: `P/L = ${lots} × ${swapPts} × 10 × ${nights} = $${cost}.`,
+      },
+    };
+  },
+
+  carry_cost(rng) {
+    const notional = pick(rng, [10000, 25000, 50000]);
+    const rateDiff = pick(rng, [1, 2, 3, 4]);
+    const days = pick(rng, [30, 60, 90]);
+    const cost = round(notional * (rateDiff / 100) * (days / 365), 2);
+    return {
+      prompt: {
+        en: `Notional $${notional}. Rate differential ${rateDiff}%/yr for ${days} days. Carry cost ($)?`,
+        ur: `Notional $${notional}. Rate diff ${rateDiff}%/saal, ${days} din. Carry cost ($)?`,
+      },
+      answer: cost, unit: '$',
+      solution: {
+        en: `Carry ≈ notional × rate × days/365 = ${notional} × ${rateDiff}% × ${days}/365 = $${cost}.`,
+        ur: `Carry ≈ ${notional} × ${rateDiff}% × ${days}/365 = $${cost}.`,
+      },
+    };
+  },
+
+  roll_cost(rng) {
+    const contracts = pick(rng, [1, 2, 5]);
+    const front = pick(rng, [100, 105, 110]);
+    const back = front + pick(rng, [0.5, 1, 1.5, 2]);
+    const mult = pick(rng, [50, 100]);
+    const cost = round(contracts * (back - front) * mult, 2);
+    return {
+      prompt: {
+        en: `Roll ${contracts} contract(s): front ${front} → back ${back}, multiplier $${mult}. Roll cost ($)?`,
+        ur: `Roll ${contracts} contract(s): front ${front} → back ${back}, mult $${mult}. Roll cost ($)?`,
+      },
+      answer: cost, unit: '$',
+      solution: {
+        en: `Cost = contracts × (back − front) × mult = ${contracts} × ${round(back - front, 2)} × ${mult} = $${cost}.`,
+        ur: `Cost = ${contracts} × ${round(back - front, 2)} × ${mult} = $${cost}.`,
+      },
+    };
+  },
+
+  multi_step(rng) {
+    const balance = pick(rng, [5000, 10000, 20000]);
+    const riskPct = pick(rng, [0.5, 1, 1.5]);
+    const entry = pick(rng, [100, 200, 500]);
+    const stop = round(entry * (1 - pick(rng, [0.02, 0.03, 0.04])), 2);
+    const risk$ = balance * (riskPct / 100);
+    const stopDist = entry - stop;
+    const size = round(risk$ / (stopDist / entry), 2);
+    return {
+      prompt: {
+        en: `Step: (1) risk $ from $${balance} @ ${riskPct}% (2) stop ${stop} under entry ${entry} (3) position size $. What size?`,
+        ur: `Steps: (1) $${balance} pe ${riskPct}% risk $ (2) stop ${stop}, entry ${entry} (3) size $. Size?`,
+      },
+      answer: size, unit: '$',
+      steps: 3,
+      solution: {
+        en: `Risk $ = ${round(risk$, 2)}. Stop dist % = ${round((stopDist / entry) * 100, 2)}%. Size = risk $ ÷ stop% = $${size}.`,
+        ur: `Risk $ = ${round(risk$, 2)}. Stop% = ${round((stopDist / entry) * 100, 2)}%. Size = $${size}.`,
+      },
+    };
+  },
 };
 
 /** Award XP into drillStats + course xp bucket. Returns xp granted (0 if capped). */
@@ -323,9 +487,37 @@ export function recordDrillType(store, KEYS, type, correct) {
 }
 
 export function emptyStats() {
-  return { attempts: 0, correct: 0, byType: {}, xpDay: todayKey(), xpToday: 0 };
+  return { attempts: 0, correct: 0, byType: {}, xpDay: todayKey(), xpToday: 0, recent: [], timedAttempts: 0, timedCorrect: 0 };
 }
 
 export function getDrillStats(store, KEYS) {
   return store.get(KEYS.drillStats, emptyStats());
+}
+
+/** Tier I/II/III from last-10 accuracy. */
+export function rampTier(store, KEYS) {
+  const stats = getDrillStats(store, KEYS);
+  const recent = stats.recent || [];
+  if (recent.length < 5) return { tier: 1, label: 'I', acc: null };
+  const slice = recent.slice(-10);
+  const acc = slice.filter(Boolean).length / slice.length;
+  if (acc >= 0.8) return { tier: 3, label: 'III', acc };
+  if (acc >= 0.55) return { tier: 2, label: 'II', acc };
+  return { tier: 1, label: 'I', acc };
+}
+
+export function pushRecent(store, KEYS, correct) {
+  const stats = getDrillStats(store, KEYS);
+  if (!stats.recent) stats.recent = [];
+  stats.recent.push(!!correct);
+  if (stats.recent.length > 20) stats.recent = stats.recent.slice(-20);
+  store.set(KEYS.drillStats, stats);
+}
+
+/** Scale numeric ranges by tier (harder = bigger numbers / tighter stops). */
+export function generateDrillRamped(type, seed, store, KEYS) {
+  const { tier } = rampTier(store, KEYS);
+  const d = generateDrill(type, seed);
+  d.tier = tier;
+  return d;
 }

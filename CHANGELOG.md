@@ -1,7 +1,54 @@
 # Changelog
 
-## v14 — 2026-07-11 · Fix glossary import + P7b
-- Fix `js/glossary.js` icons import (`./icons.js`); lesson term auto-link popovers (P7b); SW **v14**
+## v20 — 2026-07-11 · Beginner path + graduation (honest earn framing)
+- Keep name **MasteryCap**
+- `js/data/paths.js` — recommended beginner order; per-track graduation steps + size rules
+- Learn UI: path chips + graduation panel (Invest/Spot = compound path; binary = $0 earn)
+- `js/data/thicken.js` — beginner practice appends on key weeks
+- Crypto W8 quiz +1 (funding as cost)
+- Honest copy: no salary-from-course claim
+- SW **v20**
+
+## v19 — 2026-07-11 · All 53 weeks: memo/skim/formula + markers
+- `js/week-extras.js` — every track/week: must-memorize, skim, formula (math weeks), redflag, xref, compare seeds
+- Course render merges extras + prefixes markers (xref back-stack already wired)
+- Honest stance unchanged: literacy + risk frameworks, not earn guarantee
+- SW **v19**
+
+## v18 — 2026-07-11 · Home Edit fix + sheet dismiss
+- **Fix:** Home portfolio Edit used `window.prompt` (blocked in many PWA/webviews) → inline input + Save/Cancel
+- Equity countUp snaps (dur 0) so balance not mid-animation after save
+- Corrupt recovery sheet: backdrop + X dismiss (was trapping clicks with no close)
+- Smoke/QA: tour dismiss already in place
+
+## v17 — 2026-07-11 · P11–P15 complete
+- **P11:** track final exam + local cert PNG, binary gate, gloss mini-quiz, search, mistake bank, memo/skim fallback all weeks, more xref/redflag/compare seeds, xref back-stack
+- **P12:** debrief card, cool-down (Home+Journal), checklist gate / strict mode, history tag filters, `.grid-3`
+- **P13:** radar/heatmap/habit+freeze, streak recovery sheet, morning brief, what's-new, Learn due badge, notify opt-in, iOS install sheet, discipline trend sparkline, offline pill
+- **P14:** swap/carry/roll + multi-step drills, timed stats, weekly challenge (attempt-count), auto-ramp tier
+- **P15:** mid-quiz confirm on tab leave, tour (`KEYS.tourDone`), onboarding skip
+- SW **v17** — ASSETS include `exam.js`, `search.js`
+- Docs: ROADMAP P9–P15 DONE; CONTENT-GAPS honesty note
+
+## v16 — 2026-07-11 · P9 ops + P10 data + P11/P12/P15 start
+- **P9:** `scripts/audit-*.mjs`, `audit-all`, Playwright `tests/smoke.cjs`, GH Action CI, `CONTRIBUTING.md`, lighthouse script
+- **P10:** IDB dual-write + `hydrate()`, schemaVersion, quota/backup remind pills, checksum backups, corrupt quarantine sheet, demo mode (`masterycap-demo:`), CSV export
+- **P11 start:** lesson extras (xref/redflag/compare/memo/skim/formula), mistake bank on quiz miss, lesson progress bar
+- **P12 start:** auto R-multiple + setup/market/TF tags on trades; CSV in settings
+- **P14 start:** funding / liq-distance / binary EV / expense-drag drill families
+- **P13 start:** offline pill; calm-vs-flagged on Progress
+- SW **v16**; new modules in ASSETS
+
+## v15 — 2026-07-11 · Part 1 audit fixes + audit scripts
+- SW ASSETS: add maskable icons + `icon-180.png`; CACHE **v15**
+- Add `scripts/audit-{data,figs,i18n,content,sw,behavior,all}.mjs` + `scripts/audit-e2e.cjs`
+- `AUDIT.md` Part-1 report (all automated FAILs fixed)
+- Sync `VERSION` / `APP_VERSION` → v15
+
+## v14 — 2026-07-11 · Fix glossary import + P7b + docs
+- Fix `js/glossary.js` icons import (`./icons.js`); lesson term auto-link popovers (P7b)
+- Docs sync: `VERSION`, `GUIDE.md`, `PRESENTATION.md`, README/ROADMAP/CURSOR prompt; manifest theme `#08090A`
+- SW cache **v14**
 
 ## v13 — 2026-07-11 · Glossary auto-link (P7b)
 - Lesson bodies auto-link glossary terms → tap popover definition; SW cache **v13**

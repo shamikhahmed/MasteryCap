@@ -7,14 +7,15 @@ import { store, KEYS } from './store.js';
 import { tr } from './i18n.js';
 import { icon } from './icons.js';
 import { renderDashboard } from './views/dashboard.js';
-import { renderCourse } from './views/course.js';
+import { renderCourse, confirmCourseLeave, clearCourseDirty } from './views/course.js';
 import { renderJournal } from './views/journal.js';
 import { renderProgress } from './views/progress.js';
 import { renderDrills } from './views/drills.js';
 import { renderReview } from './views/review.js';
 import { renderCharts } from './views/charts.js';
-import { touchStreak } from './retention.js';
-import { applySettings } from './settings.js';
+import { touchStreak, touchStreakWithFreeze, markHabitDay, dueReviewCount, tryStreakRecovery, getStreak } from './retention.js';
+import { applySettings, openSettings, APP_VERSION } from './settings.js';
+import { mistakeCountDue } from './mistakes.js';
 
 const root = () => document.getElementById('app-root');
 
@@ -57,8 +58,11 @@ export const App = {
 
   countUp(node, to, { dp = 2, prefix = '$', dur = 850 } = {}) {
     if (!node) return;
-    const start = performance.now();
+    // skip animation when reduced-motion or tiny change
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const fmt = (v) => prefix + v.toLocaleString('en-US', { minimumFractionDigits: dp, maximumFractionDigits: dp });
+    if (reduce || dur <= 0) { node.textContent = fmt(to); return; }
+    const start = performance.now();
     const tick = (now) => {
       const p = Math.min(1, (now - start) / dur);
       const e = 1 - Math.pow(1 - p, 3);
@@ -96,6 +100,10 @@ export const App = {
   /* ----- routing ----- */
   navigate(tab) {
     if (tab === this.tab) { this.render(); return; }
+    if (this.tab === 'learn' && tab !== 'learn') {
+      if (!confirmCourseLeave(this)) return;
+      clearCourseDirty();
+    }
     this.tab = tab; this.haptic(6);
     window.scrollTo({ top: 0 });
     this.render(); this.renderNav();
@@ -122,7 +130,7 @@ export const App = {
     this.render(); this.renderNav();
   },
 
-  bumpStreak() { return touchStreak(); },
+  bumpStreak() { markHabitDay(); return touchStreakWithFreeze(); },
 
   render() {
     const c = root(); if (!c) return;
@@ -133,10 +141,11 @@ export const App = {
     const nav = document.getElementById('tabbar');
     if (!nav) return;
     nav.classList.remove('hidden');
+    const due = dueReviewCount() + mistakeCountDue();
     const tabs = [['dashboard', 'home', 'nav_dashboard'], ['learn', 'learn', 'nav_learn'], ['journal', 'journal', 'nav_journal'], ['progress', 'progress', 'nav_progress']];
     nav.innerHTML = `<div class="tabbar-inner">${tabs.map(([id, ic, key]) => `
       <button class="tab ${this.tab === id ? 'active' : ''}" data-tab="${id}">
-        ${icon(ic, { size: 21 })}<span class="tab-label">${this.t(key)}</span>
+        ${icon(ic, { size: 21 })}<span class="tab-label">${this.t(key)}${id === 'learn' && due > 0 ? ` <span class="mono" style="color:var(--acc)">${due}</span>` : ''}</span>
       </button>`).join('')}</div>`;
     nav.querySelectorAll('.tab').forEach((b) => b.addEventListener('click', () => this.navigate(b.dataset.tab)));
   },
@@ -213,7 +222,7 @@ function renderOnboarding() {
       <div class="onb-top">
         ${step > 0 ? `<button class="icon-btn" id="onbBack" style="width:34px;height:34px">${icon('back', { size: 17 })}</button>` : '<span style="width:34px"></span>'}
         <div class="onb-progress"><i style="width:${((step + 1) / steps.length) * 100}%"></i></div>
-        <span class="onb-step mono">0${step + 1} / 0${steps.length}</span>
+        <button class="pill" id="onbSkip" style="font-size:11px">${App.t('onb_skip')}</button>
       </div>
       ${main}
       <div class="onb-foot"><button class="btn accent" id="onbNext">${btnLabel}</button></div>
@@ -229,6 +238,12 @@ function renderOnboarding() {
     }));
     const back = document.getElementById('onbBack');
     if (back) back.addEventListener('click', () => { App.haptic(); step--; draw(); });
+    document.getElementById('onbSkip')?.addEventListener('click', () => {
+      data.name = data.name || 'Trader';
+      data.experience = data.experience || 'new';
+      if (!data.markets.length) data.markets = ['crypto'];
+      finish();
+    });
     document.getElementById('onbNext').addEventListener('click', () => {
       App.haptic();
       if (last) return finish();
@@ -237,10 +252,11 @@ function renderOnboarding() {
   }
 
   function finish() {
-    App.profile = { name: (data.name || '').trim() || 'Trader', experience: data.experience || 'new', markets: data.markets };
+    App.profile = { name: (data.name || '').trim() || 'Trader', experience: data.experience || 'new', markets: data.markets.length ? data.markets : ['crypto'] };
     store.set(KEYS.profile, App.profile);
     store.set(KEYS.onboarded, true);
     App.tab = 'dashboard'; App.render(); App.renderNav();
+    maybeTour();
   }
 
   draw();
@@ -281,20 +297,175 @@ function watchServiceWorker() {
 }
 
 function boot() {
-  const settings = store.get(KEYS.settings, {});
-  App.lang = settings.lang || 'en';
-  App.profile = store.get(KEYS.profile, null);
-  const onboarded = store.get(KEYS.onboarded, false);
-  applySettings(App);
-  watchServiceWorker();
+  store.hydrate().then(() => {
+    const settings = store.get(KEYS.settings, {});
+    App.lang = settings.lang || 'en';
+    App.profile = store.get(KEYS.profile, null);
+    const onboarded = store.get(KEYS.onboarded, false);
+    applySettings(App);
+    watchServiceWorker();
+    watchOnline();
+    maybeCorruptSheet();
+    maybeWhatsNew();
+    maybeMorningBrief();
+    maybeNotifyReviews();
+    maybeStreakRecovery();
 
-  setTimeout(() => {
-    const splash = document.getElementById('splash');
-    if (splash) splash.classList.add('hide');
-    setTimeout(() => splash && splash.remove(), 500);
-    if (onboarded && App.profile) { App.render(); App.renderNav(); }
-    else renderOnboarding();
-  }, 1700);
+    setTimeout(() => {
+      const splash = document.getElementById('splash');
+      if (splash) splash.classList.add('hide');
+      setTimeout(() => splash && splash.remove(), 500);
+      if (onboarded && App.profile) { App.render(); App.renderNav(); }
+      else renderOnboarding();
+    }, 1700);
+  });
+}
+
+function maybeCorruptSheet() {
+  const bad = store.listCorrupt();
+  if (!bad.length) return;
+  if (document.getElementById('corrupt-sheet')) return;
+  const el = document.createElement('div');
+  el.id = 'corrupt-sheet';
+  el.className = 'sheet-root on';
+  el.innerHTML = `<div class="sheet-backdrop" data-close></div>
+    <div class="sheet" role="dialog">
+      <div class="sheet-handle"></div>
+      <div class="sheet-head"><div class="slabel">${App.t('corrupt_title')}</div>
+        <button class="sheet-x" data-close aria-label="Close">${icon('x', { size: 18 })}</button></div>
+      <div class="sheet-body">
+        <p style="font-size:14px;color:var(--t2);line-height:1.55">${App.t('corrupt_body')}</p>
+        <p class="mono" style="font-size:12px;color:var(--t3)">${bad.join(', ')}</p>
+        <button class="btn secondary mt14" id="corruptKeep">${App.t('corrupt_keep')}</button>
+        <button class="btn ghost mt10" id="corruptBackup">${App.t('backup_export')}</button>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+  const close = () => el.remove();
+  el.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', close));
+  document.getElementById('corruptKeep')?.addEventListener('click', () => {
+    bad.forEach((k) => store.discardCorrupt(k));
+    close();
+  });
+  document.getElementById('corruptBackup')?.addEventListener('click', () => {
+    close();
+    openSettings(App);
+  });
+}
+
+function maybeWhatsNew() {
+  const seen = store.get(KEYS.lastSeenVersion);
+  if (seen === APP_VERSION) return;
+  store.set(KEYS.lastSeenVersion, APP_VERSION);
+  if (!seen) return; // first install — skip sheet
+  const el = document.createElement('div');
+  el.id = 'whatsnew-sheet';
+  el.className = 'sheet-root on';
+  el.innerHTML = `<div class="sheet-backdrop" data-close></div>
+    <div class="sheet" role="dialog">
+      <div class="sheet-handle"></div>
+      <div class="sheet-head"><div class="slabel">${App.t('whats_new')} · ${APP_VERSION}</div>
+        <button class="sheet-x" data-close>${icon('x', { size: 18 })}</button></div>
+      <div class="sheet-body" style="font-size:14px;color:var(--t2);line-height:1.55">
+        <p>P11–P15: exam + cert, binary gate, search, cooldown, insights v2, drills challenge/timed, tour, a11y.</p>
+        <p style="color:var(--t3)">See CHANGELOG.md for full notes.</p>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+  el.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', () => el.remove()));
+}
+
+function maybeTour() {
+  if (store.get(KEYS.tourDone)) return;
+  let step = 0;
+  const lines = [App.t('tour_1'), App.t('tour_2'), App.t('tour_3')];
+  const el = document.createElement('div');
+  el.id = 'tour-sheet';
+  el.className = 'sheet-root on';
+  const paint = () => {
+    el.innerHTML = `<div class="sheet-backdrop"></div>
+      <div class="sheet" role="dialog">
+        <div class="sheet-handle"></div>
+        <div class="sheet-body">
+          <div class="slabel">0${step + 1} / 03</div>
+          <p style="font-size:16px;color:var(--t1);line-height:1.5;margin:12px 0 18px">${lines[step]}</p>
+          <button class="btn accent" id="tourNext">${step < 2 ? App.t('tour_next') : App.t('tour_done')}</button>
+        </div>
+      </div>`;
+    document.getElementById('tourNext').addEventListener('click', () => {
+      if (step < 2) { step++; paint(); }
+      else { store.set(KEYS.tourDone, true); el.remove(); }
+    });
+  };
+  document.body.appendChild(el);
+  paint();
+}
+
+function maybeMorningBrief() {
+  const today = new Date().toISOString().slice(0, 10);
+  if (store.get(KEYS.morningBriefDay) === today) return;
+  if (!store.get(KEYS.onboarded)) return;
+  store.set(KEYS.morningPending, true);
+}
+
+function maybeStreakRecovery() {
+  const s = getStreak();
+  if (!s?.broken || s.recovered) return;
+  const el = document.createElement('div');
+  el.id = 'streak-recover';
+  el.className = 'sheet-root on';
+  el.innerHTML = `<div class="sheet-backdrop" data-close></div>
+    <div class="sheet" role="dialog">
+      <div class="sheet-handle"></div>
+      <div class="sheet-body">
+        <div class="slabel">${App.t('streak_broken')}</div>
+        <p style="font-size:14px;color:var(--t2);line-height:1.5;margin:10px 0 16px">${App.t('streak_recover_body')}</p>
+        <button class="btn accent" id="srDo">${App.t('streak_recover_cta')}</button>
+        <button class="btn ghost mt10" data-close>${App.t('morning_dismiss')}</button>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+  el.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', () => {
+    s.broken = false; store.set(KEYS.streak, s); el.remove();
+  }));
+  document.getElementById('srDo')?.addEventListener('click', () => {
+    el.remove();
+    App.openReview();
+    // recovery granted after reviews via mark on review complete — soft grant now if user commits
+    tryStreakRecovery();
+  });
+}
+
+function maybeNotifyReviews() {
+  if (!store.get(KEYS.notifyOptIn)) return;
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+  import('./retention.js').then(({ dueReviewCount }) => {
+    const n = dueReviewCount();
+    if (n > 0) {
+      try { new Notification('MasteryCap', { body: `${n} review(s) due`, silent: true }); } catch (e) {}
+    }
+  });
+}
+
+function watchOnline() {
+  const paint = () => {
+    let pill = document.getElementById('offline-pill');
+    if (navigator.onLine) {
+      pill?.remove();
+      return;
+    }
+    if (!pill) {
+      pill = document.createElement('div');
+      pill.id = 'offline-pill';
+      pill.className = 'pill';
+      pill.style.cssText = 'position:fixed;top:calc(10px + var(--st));left:50%;transform:translateX(-50%);z-index:80;background:var(--surface-2);border:1px solid var(--line-2)';
+      pill.textContent = 'Offline';
+      document.body.appendChild(pill);
+    }
+  };
+  window.addEventListener('online', paint);
+  window.addEventListener('offline', paint);
+  paint();
 }
 
 boot();

@@ -1,160 +1,64 @@
-# MasteryCap — Roadmap v4 → v6
+# MasteryCap — Roadmap
 
-Goal: close the learning-loop gap. Shell, design, and curriculum breadth exist (v3);
-what's missing is **visuals, practice, feedback, and retention**. Eight phases, ordered
-so data safety and exploit fixes land first, heaviest build last.
+## v4 → v17 · COMPLETE (2026-07-11)
+See phases P0–P8 / P5 below. App at **v17** (`masterycap-v17`).
 
-Ground rules for every phase:
-- Bump `CACHE` in `sw.js`, add a `CHANGELOG.md` entry, verify in preview (zero console
-  errors + screenshots) before calling it done.
+Ground rules (still apply):
+- Bump `CACHE` in `sw.js`, CHANGELOG entry, verify at 375px before done.
 - No live data, no backend, no accounts — offline-first stays.
-- Content policy unchanged: frameworks and risk control; no tips, signals, or win promises.
+- Content policy unchanged: frameworks and risk control; no tips/signals/win promises.
+- Additive-only storage.
 
 ---
 
-## Phase 0 — Hygiene & data safety (do first)
+## Phase 0 — Hygiene · DONE (v4)
+## Phase 1 — Lesson diagrams · DONE (v5)
+## Phase 2 — Practice drills · DONE (v6)
+## Phase 3 — Journal insights · DONE (v7)
+## Phase 4 — Streaks + daily review · DONE (v8)
+## Phase 6 — Discipline score · DONE (v9)
+## Phase 7 — Glossary · DONE (v10 + v13/v14 P7b)
+## Phase 8 — Settings & a11y · DONE (v11)
+## Phase 5 — Chart-replay · DONE (v12)
 
-**0.1 Shuffle quiz + placement options at render.**
-Problem: correct answers cluster on option A; retakes repeat order — pattern-passing.
-- Implementation: Fisher–Yates shuffle of option indices per question at render time in
-  `js/views/course.js` (`drawQuiz`, `drawPlacement`). Store an order array in view state
-  `S.quizOrder[qi] = [2,0,1]`; map clicks back to original indices so scoring and
-  `correct` stay untouched. Reshuffle on every quiz start/retake.
-- Test: retake same quiz twice → different option order; scoring still correct;
-  explanations still attach to the right options.
-
-**0.2 Backup / restore UI.**
-Problem: `store.js` has `exportAll()/importAll()` but no UI; browser-data clear wipes months.
-- Implementation: settings sheet opened from the dashboard avatar. Export = JSON blob
-  download `masterycap-backup-YYYY-MM-DD.json` (works from iOS share sheet). Import =
-  `<input type="file">`, validate namespace keys before writing, confirm overwrite.
-- Test: export → wipe localStorage → import → identical state (trades, course, profile).
-
-**0.3 Update toast.** SW `activate` posts a message; app shows "Updated to v4 — reload"
-pill. Prevents stale-build confusion that already bit us twice.
-
-**0.4 Urdu QA doc.** `URDU-REVIEW.md` checklist; have a native-speaker friend review 2–3
-weeks per track; fix list lands as content patch. (Human task, app-independent.)
+Order: P0→P1→P2→P3→P4→P6→P7→P8→P5 (+P7b).
 
 ---
 
-## Phase 1 — Lesson diagrams (worst gap)
+## v5 backlog (P9–P15) · DONE (v16–v17)
 
-Inline SVG figures, design-system native (currentColor, CSS vars, `.fig` panel).
+### P9 — Ops & quality gates · DONE (v16)
+Audit scripts + `audit-all` · Playwright smoke · GH Action · CONTRIBUTING · lighthouse script
 
-- New `js/figures.js`: parametric SVG builders, each 30–60 lines. Initial set (~24):
-  - Crypto/charting: candle anatomy (OHLC labeled), engulfing pattern, pin bar at level,
-    HH/HL vs LH/LL trend structure, range box, S/R zone flip (role reversal), EMA lag,
-    RSI divergence, ATR-based stop distance, liquidity sweep / equal-highs stop hunt,
-    funding-rate crowding.
-  - Options: long call / long put payoff, covered call, vertical spread payoff,
-    intrinsic vs extrinsic premium split, theta decay curve, IV crush before/after.
-  - Futures/forex: contango vs backwardation term structure, margin waterfall
-    (initial→maintenance→liquidation), session clock (Asia/London/NY overlap),
-    correlated-pairs = one theme.
-  - Bots/binary/invest: grid-bot payoff (many small wins, one trend loss),
-    martingale ruin curve, binary breakeven vs payout curve, expense-ratio
-    compounding drag, IPO lockup timeline.
-- Wiring: lesson bodies get `{{fig:candle-anatomy}}` markers; `drawWeek()` replaces
-  markers via `figures.render(name, lang)`. Captions bilingual.
-- Test: every lesson renders, no horizontal overflow at 375px, dark-theme consistent.
+### P10 — Data reliability core · DONE (v16)
+IDB dual-write · quota warn · schemaVersion · corrupt recovery · checksum backup · 7-day reminder · demo mode · CSV export
 
-## Phase 2 — Practice drills (turn reading into skill)
+### P11 — Learning loop deepening · DONE (v17)
+Mistake bank · must-memorize/skim/formula (seeded + quiz-explain fallback all weeks) · xrefs/red-flags/compares · lesson progress % · track exam + cert PNG · binary gate · mini glossary quiz · lesson search · xref back-stack
 
-- New `js/drills.js` (generators + checkers) + `js/views/drills.js` (UI). Entry points:
-  dashboard quick-action + card on Learn home.
-- Drill types (seeded random parameters, worked solution shown after answer):
-  1. Position sizing — crypto % variant, forex lots variant, futures contracts variant.
-  2. Options: max loss / breakeven / spread risk from strike+premium.
-  3. Binary breakeven win-rate from payout % (reinforces the track's core math).
-  4. R-multiple: entry/stop/target → R; win-rate needed at that R to break even.
-  5. Pip/tick value conversions.
-- Scoring: ±1% tolerance numeric input; +5 XP per correct, daily XP cap 50;
-  `mc.drillStats = {attempts, correct, byType}`.
-- Progress tab gains drill-accuracy bar per type.
-- Test: 20-drill session each type; solutions arithmetically verified.
+### P12 — Journal & discipline v2 · DONE (v17)
+Auto-R · tags (setup/market/TF) · history filters · CSV · calm-vs-flagged · debrief card · cool-down (Home + Journal) · checklist gate + strict mode
 
-## Phase 3 — Journal insights (make the journal pay rent)
+### P13 — Insights & retention v2 · DONE (v17)
+Offline pill · insight rules + n-badges · radar · heatmap · habit + freeze label · streak recovery sheet · notify opt-in · morning brief · what's-new sheet · Learn-tab due badge · iOS install sheet · discipline trend sparkline
 
-- New `js/insights.js`, pure functions over `trades[]`:
-  win rate + net P/L per emotion; cost of flagged (revenge/greed) trades; per-pair
-  stats; avg win vs avg loss + expectancy; longest win/loss streaks; day-of-week table.
-- Guard: an insight renders only when its slice has n ≥ 3 trades (no noise claims).
-- Render: "Insights" panel on Progress (bullet rows, mono numbers, up/down colors);
-  single worst-cost insight surfaces as one line on the dashboard.
-- Test: seeded datasets with known answers; verify each computed line.
+### P14 — Drills v2 · DONE (v17)
+Families: funding/liq/binary EV/expense + swap/carry/roll + multi-step · timed mode + timed stats · weekly challenge · auto-ramp tier pill · always-show solution
 
-## Phase 4 — Streaks + daily review (retention loop)
+### P15 — UX & a11y · DONE (v17)
+reduced-motion · 44px · high-contrast · mid-quiz confirm (back + tab leave) · lesson search · onboarding skip · 3-step tour · `.grid-3`
 
-- Streak: any qualifying action per local day (lesson opened, quiz submitted, drill
-  answered, trade logged, review completed) → `mc.streak = {lastDay, current, best}`.
-  Displayed on dashboard with flame icon (line-icon, no emoji).
-- Daily review: 3 questions/day sampled from completed/mastered weeks across all tracks.
-  Leitner-lite spaced repetition: `mc.review[qKey] = {box:1-3, due}`; wrong → box 1
-  (resurfaces next day), right → box+1 (due in 3/7 days). qKey = `track:week:index`.
-  +15 XP on completion.
-- Dashboard card: "Daily review · 3 questions · streak N".
-- Test: complete review two consecutive days → streak 2; wrong answer resurfaces sooner.
-
-## Phase 5 — Chart-replay drills (heaviest build, biggest payoff)
-
-- 5a `js/candles.js`: SVG candlestick renderer (OHLC array → chart, up/down colors,
-  wicks, volume optional). Reused later anywhere.
-- 5b Synthetic data generator: seeded RNG price paths (GBM base) with injected,
-  labeled structures — trend legs, ranges, S/R touches, engulfing at level, stop-hunt
-  wick. Infinite drills, zero bundled data files, still offline.
-- 5c Drill modes:
-  - "Trend, range, or reversal?" (classify last 30 candles)
-  - "Tap the resistance zone" (tap/click a price band; generator knows truth band)
-  - "Engulfing at support — higher-probability next move?" (MCQ)
-- Scoring + XP same as Phase 2; accuracy tracked per mode.
-- Test: label correctness spot-checked against generator ground truth across 50 seeds.
-
-## Phase 6 — Discipline score
-
-- Journal form adds two toggles (max, keep friction low): "stop placed before entry",
-  "moved my stop". Auto-detected: revenge candidate = entry within 30 min of a losing
-  trade (timestamps); oversized = planned risk (|entry−stop|/entry × size) > user max %.
-- Rolling 20-trade discipline grade A–F on dashboard; grade breakdown on Progress.
-- Trade model additions: `stopPlaced:bool, movedStop:bool` (optional, default null —
-  old trades excluded from the score, no migration needed).
-- Test: seeded trade sets produce expected grades.
-
-## Phase 7 — Glossary
-
-- `js/data/glossary.js`: ~120 terms, EN + Roman Urdu definitions, tagged by track.
-- Search sheet from Learn header icon (fuzzy substring, mono list rows).
-- 7b (optional): lesson render auto-links known terms → tap opens definition popover.
-
-## Phase 8 — Settings & polish
-
-- Settings sheet (avatar): edit name, language, export/import (P0.2 lives here),
-  font-size S/M/L (CSS var multiplier), haptics toggle, danger-zone reset
-  (double-confirm), version + changelog link.
-- Accessibility pass: verify t3/t4 contrast against WCAG AA at small sizes; bump values
-  if failing.
+Curriculum honesty: see [CONTENT-GAPS.md](CONTENT-GAPS.md) — literacy + risk frameworks, not “fully learned” trader.
+**v19:** all 53 weeks have memo/skim/redflag (+ formula/xref/compare where useful) via `js/week-extras.js`.
 
 ---
 
-## Order & rationale
+## v6 candidates (list only — do not build now)
+Cheat-sheet one-pagers · flashcard deck expansion · ELI5 toggle · scenario branching lessons · TTS read-aloud · EN↔UR diff view · owner voice notes · 30-day placement re-test · case-study weeks · order-book static viz · "would you take this" MCQs · drill→journal one-tap · options payoff playground · standalone calculator tab · screenshot attachments · daily-loss soft lock · weekly auto-summary · equity annotations · CSV broker import · paper/live dual balance · DD/R goals · shareable progress PNG · XP levels/titles · forgetting-curve estimates · Sunday wrap · pin today's job · landscape/tablet · keyboard shortcuts · focus-trap audit · swipe weeks · icon-only tabs · encrypted ZIP export · multi-profile · crash-log ring · share-target/shortcuts · file handler · new tracks (commodities, macro, PK tax, psychology, Greeks, fee literacy, news literacy) · challenge codes / QR compare / teach-a-friend · rules-based Smart Coach phrasing (never call AI) · invite/FAQ/typo mailto polish beyond P13.
 
-P0 → P1 → P2 → P3 → P4 → P6 → P7 → P8 → P5.
-Safety/exploits first; diagrams fix the worst learning gap; drills+insights build the
-practice/feedback loop; streak+review builds retention; discipline score ties the app's
-thesis together; glossary+settings are quality; chart replay last because it's the
-largest isolated build and everything else compounds while it waits.
-(P5 can jump the queue if chart practice becomes the priority.)
+## Rejected — do not build
+Live prices / TradingView · cloud sync/accounts · server push · monetization / App Store · React/framework rewrite · community feed · copy-trading hooks · broker OAuth · any local/remote LLM · fake-AI chat.
 
-## Estimates (working sessions)
-
-P0: 1 · P1: 1–2 · P2: 1 · P3: 1 · P4: 1 · P5: 2–3 · P6: 1 · P7: 1 · P8: 1 → ~10–12 total.
-
-## Data-model additions (all localStorage, namespaced)
-
-`mc.drillStats` · `mc.review` · `mc.streak` · trade fields `stopPlaced/movedStop` ·
-settings `fontSize/haptics`. All additive — no migrations, old data keeps working.
-
-## Explicit non-goals
-
-Live prices (breaks offline-first) · cloud sync/accounts (breaks no-backend) ·
-new curriculum tracks before the loop exists (depth > breadth) · monetization.
+## Remaining non-code
+- Native Roman Urdu review: [URDU-REVIEW.md](URDU-REVIEW.md)
+- Deploy / push GitHub Pages (owner)

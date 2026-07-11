@@ -9,6 +9,7 @@ import { openSettings } from '../settings.js';
 import { worstCostLine } from '../insights.js';
 import { getStreak, reviewAvailable } from '../retention.js';
 import { disciplineReport } from '../discipline.js';
+import { store, KEYS } from '../store.js';
 
 const CHECK_RULES = [
   { id: 'stop', en: 'Stop loss placed before entry', ur: 'Entry se pehle stop loss laga' },
@@ -65,7 +66,7 @@ export function renderDashboard(App, c) {
     <div class="lt-head">
       <div class="head-row">
         <div>
-          <div class="kicker">${greeting(App)}</div>
+          <div class="kicker">${greeting(App)}${store.getNs().startsWith('masterycap-demo') ? ` · <span class="pill acc">${App.t('demo_pill')}</span>` : ''}</div>
           <h1>${App.profile?.name || 'Trader'}</h1>
         </div>
         <div class="hstack">
@@ -79,13 +80,50 @@ export function renderDashboard(App, c) {
       </div>
     </div>
 
+    ${(() => {
+      const notices = [];
+      if (store.get(KEYS.morningPending)) {
+        notices.push(`<div class="panel pad" id="morningBrief" style="margin-bottom:12px">
+          <div class="slabel">${App.t('morning_brief')}</div>
+          <div class="hstack" style="gap:8px;margin-top:10px;flex-wrap:wrap">
+            <button class="btn secondary" id="mbReview" style="flex:1">${App.t('morning_review')}</button>
+            <button class="btn secondary" id="mbDrill" style="flex:1">${App.t('morning_drill')}</button>
+          </div>
+          <button class="pill mt10" id="mbDismiss">${App.t('morning_dismiss')}</button>
+        </div>`);
+      }
+      const cdUntil = store.get(KEYS.coolDownUntil);
+      if (cdUntil && Date.now() < Number(cdUntil)) {
+        notices.push(`<div class="note-box warn" style="margin-bottom:12px">${App.t('cooldown_pill').replace('{t}', new Date(Number(cdUntil)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))}</div>`);
+      }
+      if (store.overQuota() && !store.get(KEYS.quotaDismissed)) {
+        notices.push(`<div class="note-box warn" id="quotaPill" style="margin-bottom:12px">${App.t('quota_warn')} <button class="pill" id="quotaDismiss" style="margin-left:8px">${App.t('backup_remind_dismiss')}</button></div>`);
+      }
+      const last = store.get(KEYS.lastExportAt);
+      const overdue = !last || (Date.now() - new Date(last).getTime() > 7 * 86400000);
+      if (overdue && !store.get(KEYS.backupRemindDismissed) && store.get(KEYS.onboarded)) {
+        notices.push(`<div class="note-box" id="backupPill" style="margin-bottom:12px">${App.t('backup_remind')} <button class="pill" id="backupDismiss" style="margin-left:8px">${App.t('backup_remind_dismiss')}</button></div>`);
+      }
+      return notices.join('');
+    })()}
+
     <!-- EQUITY -->
     <div class="equity">
       <div class="spread">
         <div class="eq-label">${App.t('portfolio')}</div>
-        <button class="pill" id="editBal">${icon('edit', { size: 13 })} ${App.t('edit')}</button>
+        <button type="button" class="pill" id="editBal">${icon('edit', { size: 13 })} ${App.t('edit')}</button>
       </div>
-      <div class="eq-bal mono">$<span id="eqBal">0.00</span></div>
+      <div class="eq-bal mono" id="eqBalWrap">$<span id="eqBal">0.00</span></div>
+      <div id="eqEditRow" class="hidden" style="margin-top:12px">
+        <div class="field" style="margin:0">
+          <label>${App.t('portfolio')} ($)</label>
+          <input id="eqEditIn" class="num mono" type="number" inputmode="decimal" step="0.01" value="${balance}" />
+        </div>
+        <div class="hstack" style="gap:8px;margin-top:10px">
+          <button type="button" class="btn accent" id="eqSave" style="flex:1">${App.t('save_bal')}</button>
+          <button type="button" class="btn secondary" id="eqCancel" style="flex:1">${App.t('cancel')}</button>
+        </div>
+      </div>
       <div class="eq-delta ${up ? 'up' : 'down'}">
         ${icon(up ? 'triUp' : 'triDown', { size: 13 })} ${App.money(totalPl)} · ${count} ${count === 1 ? 'trade' : 'trades'}
       </div>
@@ -151,12 +189,33 @@ export function renderDashboard(App, c) {
     ${reviewAvailable() ? `<button class="btn secondary mt10" id="goReview" style="width:100%">${icon('book', { size: 17 })} ${App.t('review_cta').replace('{n}', String(streak.current || 0))}</button>` : ''}
   </div>`;
 
-  App.countUp(document.getElementById('eqBal'), balance, { prefix: '' });
+  App.countUp(document.getElementById('eqBal'), balance, { prefix: '', dur: 0 });
 
   c.querySelectorAll('[data-lang]').forEach((b) => b.addEventListener('click', () => App.setLang(b.dataset.lang)));
-  document.getElementById('editBal').addEventListener('click', () => {
-    const v = prompt(App.t('portfolio') + ' ($)', balance);
-    if (v !== null && !isNaN(parseFloat(v))) { App.setBalance(parseFloat(v)); App.render(); }
+  const openEqEdit = () => {
+    document.getElementById('eqBalWrap')?.classList.add('hidden');
+    document.getElementById('eqEditRow')?.classList.remove('hidden');
+    document.getElementById('editBal')?.classList.add('hidden');
+    const inp = document.getElementById('eqEditIn');
+    if (inp) { inp.value = String(App.getBalance()); inp.focus(); inp.select(); }
+    App.haptic();
+  };
+  document.getElementById('editBal')?.addEventListener('click', openEqEdit);
+  document.getElementById('eqCancel')?.addEventListener('click', () => App.render());
+  document.getElementById('eqSave')?.addEventListener('click', () => {
+    const raw = document.getElementById('eqEditIn')?.value;
+    const n = parseFloat(raw);
+    if (!Number.isFinite(n) || n < 0) {
+      document.getElementById('eqEditIn')?.focus();
+      return;
+    }
+    App.setBalance(n);
+    App.haptic(12);
+    App.render();
+  });
+  document.getElementById('eqEditIn')?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') document.getElementById('eqSave')?.click();
+    if (e.key === 'Escape') App.render();
   });
   c.querySelectorAll('.check-row').forEach((el) => el.addEventListener('click', () => {
     const cl = App.getChecklist(); cl[el.dataset.rule] = !cl[el.dataset.rule]; App.setChecklist(cl);
@@ -168,6 +227,27 @@ export function renderDashboard(App, c) {
   document.getElementById('goDrills').addEventListener('click', () => App.openDrills());
   document.getElementById('goCharts')?.addEventListener('click', () => App.openCharts());
   document.getElementById('goReview')?.addEventListener('click', () => App.openReview());
+  document.getElementById('quotaDismiss')?.addEventListener('click', () => {
+    store.set(KEYS.quotaDismissed, true); App.render();
+  });
+  document.getElementById('backupDismiss')?.addEventListener('click', () => {
+    store.set(KEYS.backupRemindDismissed, true); App.render();
+  });
+  document.getElementById('mbDismiss')?.addEventListener('click', () => {
+    store.remove(KEYS.morningPending);
+    store.set(KEYS.morningBriefDay, new Date().toISOString().slice(0, 10));
+    App.render();
+  });
+  document.getElementById('mbReview')?.addEventListener('click', () => {
+    store.remove(KEYS.morningPending);
+    store.set(KEYS.morningBriefDay, new Date().toISOString().slice(0, 10));
+    App.openReview();
+  });
+  document.getElementById('mbDrill')?.addEventListener('click', () => {
+    store.remove(KEYS.morningPending);
+    store.set(KEYS.morningBriefDay, new Date().toISOString().slice(0, 10));
+    App.openDrills();
+  });
   const av = document.getElementById('openSettings');
   if (av) {
     av.addEventListener('click', () => { App.haptic(); openSettings(App); });

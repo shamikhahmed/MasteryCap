@@ -3,11 +3,15 @@
 Human task — native Roman Urdu speaker reviews curriculum copy.
 App-independent; fixes land as content patches later.
 
+**App version when checklist created:** v4 · **Current app:** v19 (P0–P15 + week-extras).
+UI strings + glossary also bilingual — sample those if reviewing shell, not only lessons.
+
 ## How to review
 
-1. Open each track in Learn (EN / UR toggle).
+1. Open each track in Learn (EN / UR toggle). Hard-reload once if SW toast appears.
 2. For **2–3 weeks per track**, read lesson body + quiz Q/opts/explain + any placement items for that week.
-3. Mark issues below. Prefer: wrong meaning, awkward phrasing, English that should stay English, missing technical terms.
+3. Optional: glance glossary sheet (Learn header book icon) + a few Home/Journal UR strings.
+4. Mark issues below. Prefer: wrong meaning, awkward phrasing, English that should stay English, missing technical terms.
 
 ## Tracks
 

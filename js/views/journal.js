@@ -4,8 +4,10 @@
    ============================================================ */
 
 import { icon } from '../icons.js';
+import { store, KEYS } from '../store.js';
 
 let direction = null;
+let pendingDebriefId = null;
 const EMOTIONS = [
   { v: 'calm', key: 'emo_calm' }, { v: 'fomo', key: 'emo_fomo' },
   { v: 'revenge', key: 'emo_revenge' }, { v: 'greed', key: 'emo_greed' }, { v: 'bored', key: 'emo_bored' },
@@ -13,14 +15,37 @@ const EMOTIONS = [
 const FLAGGED = ['revenge', 'greed'];
 const emoShort = (e) => ({ calm: 'Calm', fomo: 'FOMO', revenge: 'Revenge', greed: 'Greed', bored: 'Bored' }[e] || e);
 
+function settings() {
+  return store.get(KEYS.settings, {});
+}
+
+function checklistComplete(App) {
+  const cl = App.getChecklist() || {};
+  return ['stop', 'risk', 'calm', 'plan'].every((id) => !!cl[id]);
+}
+
+function cooldownActive() {
+  const until = store.get(KEYS.coolDownUntil);
+  if (!until) return null;
+  const t = new Date(until).getTime();
+  if (Date.now() >= t) { store.remove(KEYS.coolDownUntil); return null; }
+  return until;
+}
+
 export function renderJournal(App, c) {
   const lang = App.lang;
   const balance = App.getBalance();
+  const cd = cooldownActive();
+  const s = settings();
 
   c.innerHTML = `
   <div class="screen">
     <div class="lt-head"><div class="kicker">${App.t('nav_journal')}</div><h1>${App.t('j_title')}</h1></div>
     <p style="font-size:13.5px;color:var(--t3);margin:-10px 0 18px;line-height:1.5">${App.t('j_sub')}</p>
+    ${cd ? `<div class="note-box warn" id="cdPill" style="margin-bottom:12px">${App.t('cooldown_pill').replace('{t}', new Date(cd).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))}
+      ${s.strictMode ? '' : `<button class="pill" id="cdOverride" style="margin-left:8px">${App.t('cooldown_override')}</button>`}
+    </div>` : ''}
+    <div id="debriefBox" class="hidden"></div>
 
     <div class="panel" style="margin-bottom:16px">
       <div class="balance-bar">
@@ -59,8 +84,18 @@ export function renderJournal(App, c) {
         <div class="f-row three">
           <div class="field"><label>${App.t('entry')}</label><input id="entry" class="num" type="number" step="any" /></div>
           <div class="field"><label>${App.t('stop')}</label><input id="stop" class="num" type="number" step="any" /></div>
-          <div class="field"><label>${App.t('exit')}</label><input id="exit" class="num" type="number" step="any" /></div>
+          <div class="field"><label>${App.t('exit')}</label><input id="exit" class="num" type="number" step="any" inputmode="decimal" /></div>
         </div>
+        <div class="grid-3">
+          <div class="field"><label>Setup</label><input id="setup" type="text" list="setupList" placeholder="breakout" /></div>
+          <div class="field"><label>Market</label>
+            <select id="market"><option value="">—</option><option>crypto</option><option>stocks</option><option>forex</option><option>futures</option><option>other</option></select>
+          </div>
+          <div class="field"><label>TF</label>
+            <select id="timeframe"><option value="">—</option><option>scalp</option><option>intraday</option><option>swing</option><option>position</option></select>
+          </div>
+        </div>
+        <datalist id="setupList"></datalist>
         <div class="f-row">
           <div class="field"><label>${App.t('result')}</label><input id="pl" class="num" type="number" step="0.01" placeholder="+/− $" /></div>
           <div class="field"><label>${App.t('mental')}</label><select id="emotion">${EMOTIONS.map((e) => `<option value="${e.v}">${App.t(e.key)}</option>`).join('')}</select></div>
@@ -81,6 +116,17 @@ export function renderJournal(App, c) {
 
     <div class="panel mt14">
       <div class="panel-h"><span class="ph-t">${App.t('history')}</span></div>
+      <div class="pad" style="padding-bottom:8px">
+        <div class="grid-3">
+          <div class="field" style="margin:0"><label>Setup</label><input id="filtSetup" type="search" placeholder="…" /></div>
+          <div class="field" style="margin:0"><label>Market</label>
+            <select id="filtMarket"><option value="">—</option><option>crypto</option><option>stocks</option><option>forex</option><option>futures</option><option>other</option></select>
+          </div>
+          <div class="field" style="margin:0"><label>TF</label>
+            <select id="filtTf"><option value="">—</option><option>scalp</option><option>intraday</option><option>swing</option><option>position</option></select>
+          </div>
+        </div>
+      </div>
       <div id="log"></div>
     </div>
   </div>`;
@@ -138,32 +184,124 @@ export function renderJournal(App, c) {
     const pl = parseFloat(g('pl'));
     if (!direction) { alert(lang === 'en' ? 'Pick long or short.' : 'Long ya short chuno.'); return; }
     if (isNaN(pl)) { alert(lang === 'en' ? 'Enter the P/L result in dollars.' : 'P/L result dollars mein daalo.'); return; }
+    if (s.checklistGate && !checklistComplete(App)) {
+      alert(lang === 'en' ? 'Checklist must be 4/4 on Home first.' : 'Pehle Home pe checklist 4/4.');
+      return;
+    }
+    const until = cooldownActive();
+    if (until) {
+      alert(App.t('cooldown_pill').replace('{t}', new Date(until).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })));
+      return;
+    }
+    const emotion = g('emotion');
     const list = App.getTrades();
-    list.unshift({
+    const trade = {
       id: Date.now(), date: new Date().toISOString(),
       pair: g('pair').trim() || '—', direction, leverage: g('leverage'), size: g('size'),
-      entry: g('entry'), stop: g('stop'), exit: g('exit'), pl, emotion: g('emotion'), notes: g('notes').trim(),
+      entry: g('entry'), stop: g('stop'), exit: g('exit'), pl, emotion, notes: g('notes').trim(),
       stopPlaced: document.getElementById('togStop').dataset.on === '1',
       movedStop: document.getElementById('togMoved').dataset.on === '1',
-    });
-    App.setTrades(list); App.haptic(14); App.bumpStreak(); App.render();
+      setup: (document.getElementById('setup')?.value || '').trim() || undefined,
+      market: document.getElementById('market')?.value || undefined,
+      timeframe: document.getElementById('timeframe')?.value || undefined,
+      r: (() => {
+        const entry = parseFloat(g('entry')), stop = parseFloat(g('stop')), exit = parseFloat(g('exit'));
+        if (!(entry > 0) || !(stop > 0) || !(exit > 0) || entry === stop) return undefined;
+        const risk = Math.abs(entry - stop);
+        if (!(risk > 0)) return undefined;
+        const signed = direction === 'short' ? (entry - exit) : (exit - entry);
+        return Math.round((signed / risk) * 100) / 100;
+      })(),
+    };
+    list.unshift(trade);
+    App.setTrades(list);
+    if (FLAGGED.includes(emotion)) {
+      store.set(KEYS.coolDownUntil, new Date(Date.now() + 30 * 60 * 1000).toISOString());
+    }
+    App.haptic(14); App.bumpStreak();
+    pendingDebriefId = trade.id;
+    App.render();
+    showDebrief(App, trade.id);
+  });
+
+  document.getElementById('cdOverride')?.addEventListener('click', () => {
+    // long-press simulated: require confirm
+    if (!confirm(App.t('cooldown_override') + '?')) return;
+    store.remove(KEYS.coolDownUntil);
+    const list = App.getTrades();
+    if (list[0]) { list[0].overrode = true; App.setTrades(list); }
+    App.render();
+  });
+
+  // setup autocomplete from history
+  const setups = [...new Set(App.getTrades().map((t) => t.setup).filter(Boolean))];
+  const dl = document.getElementById('setupList');
+  if (dl) dl.innerHTML = setups.map((s) => `<option value="${s}">`).join('');
+
+  ['filtSetup', 'filtMarket', 'filtTf'].forEach((id) => {
+    document.getElementById(id)?.addEventListener('input', () => renderLog());
+    document.getElementById(id)?.addEventListener('change', () => renderLog());
   });
 
   renderLog();
+  if (pendingDebriefId) showDebrief(App, pendingDebriefId);
+
+  function showDebrief(App, id) {
+    const box = document.getElementById('debriefBox');
+    if (!box) return;
+    box.classList.remove('hidden');
+    box.className = 'panel pad mt14';
+    box.innerHTML = `<div class="slabel">${App.t('debrief_title')}</div>
+      <div class="field"><label>${App.t('debrief_plan')}</label>
+        <div class="seg" style="width:100%"><button data-fp="1">Y</button><button data-fp="0">N</button></div></div>
+      <div class="field"><label>${App.t('debrief_worked')}</label><input id="dbWorked" type="text" /></div>
+      <div class="field"><label>${App.t('debrief_fix')}</label><input id="dbFix" type="text" /></div>
+      <button class="btn secondary" id="dbSave">${App.t('debrief_save')}</button>
+      <button class="btn ghost mt10" id="dbSkip">${App.t('debrief_skip')}</button>`;
+    let followed = null;
+    box.querySelectorAll('[data-fp]').forEach((b) => b.addEventListener('click', () => {
+      followed = b.dataset.fp === '1';
+      box.querySelectorAll('[data-fp]').forEach((x) => x.classList.toggle('on', x === b));
+    }));
+    const close = () => { pendingDebriefId = null; box.classList.add('hidden'); box.innerHTML = ''; };
+    document.getElementById('dbSkip').addEventListener('click', close);
+    document.getElementById('dbSave').addEventListener('click', () => {
+      const list = App.getTrades();
+      const t = list.find((x) => x.id === id);
+      if (t) {
+        t.followedPlan = followed;
+        t.worked = document.getElementById('dbWorked').value.trim();
+        t.toFix = document.getElementById('dbFix').value.trim();
+        App.setTrades(list);
+      }
+      close();
+    });
+  }
+
   function renderLog() {
     const log = document.getElementById('log');
-    const list = App.getTrades();
-    if (!list.length) { log.innerHTML = `<div class="empty">${icon('journal', { size: 40, cls: 'e-ic', sw: 1.3 })}${App.t('no_trades')}</div>`; return; }
+    let list = App.getTrades();
+    const fSetup = document.getElementById('filtSetup')?.value?.trim().toLowerCase() || '';
+    const fMarket = document.getElementById('filtMarket')?.value || '';
+    const fTf = document.getElementById('filtTf')?.value || '';
+    if (fSetup) list = list.filter((t) => (t.setup || '').toLowerCase().includes(fSetup));
+    if (fMarket) list = list.filter((t) => t.market === fMarket);
+    if (fTf) list = list.filter((t) => t.timeframe === fTf);
+    if (!list.length) {
+      log.innerHTML = `<div class="empty">${icon('journal', { size: 40, cls: 'e-ic', sw: 1.3 })}${App.t('no_trades')}</div>`;
+      return;
+    }
     log.innerHTML = list.map((t) => {
       const pos = Number(t.pl) >= 0;
       const d = new Date(t.date);
       const ds = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       const flagged = FLAGGED.includes(t.emotion);
+      const tags = [t.setup, t.market, t.timeframe].filter(Boolean).join(' · ');
       return `<div class="trade-row">
         <span class="trade-dir ${t.direction}">${icon(t.direction === 'long' ? 'arrowUp' : 'arrowDown', { size: 16 })}</span>
         <div class="trade-body">
           <div class="tb-t">${t.pair} <span class="tag ${flagged ? 'flag' : ''}">${emoShort(t.emotion)}</span></div>
-          <div class="tb-m">${t.leverage || '?'}x · ${ds}${t.notes ? ' · ' + t.notes : ''}</div>
+          <div class="tb-m">${t.leverage || '?'}x · ${ds}${t.r != null ? ` · ${t.r}R` : ''}${tags ? ' · ' + tags : ''}${t.notes ? ' · ' + t.notes : ''}</div>
         </div>
         <span class="trade-pl ${pos ? 'up' : 'down'}">${pos ? '+' : ''}${App.money(t.pl)}</span>
         <button class="del" data-del="${t.id}">${icon('trash', { size: 15 })}</button>

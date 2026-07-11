@@ -352,6 +352,56 @@ a { color: inherit; text-decoration: none; }
 .note-box.warn { background: var(--warn-dim); border-color: rgba(245,166,35,0.25); color: var(--warn); }
 .note-box.warn strong { color: var(--warn); }
 .note-box.err { background: var(--down-dim); border-color: rgba(234,57,67,0.3); color: var(--down); }
+.note-box.flag { background: rgba(234,57,67,0.08); border-color: rgba(234,57,67,0.35); color: var(--t1); }
+.note-box.flag strong { color: var(--down); }
+
+.formula-strip {
+  position: sticky; top: 0; z-index: 5;
+  padding: 10px 12px; margin: 0 0 12px;
+  background: var(--surface-2); border: 1px solid var(--line);
+  border-radius: var(--r2); font-size: 12px; color: var(--t2);
+  overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch;
+}
+.lesson-progress { height: 2px; background: var(--line); margin: 8px 0 0; border-radius: 1px; }
+.lesson-progress i { display: block; height: 100%; background: var(--acc); width: 0; }
+
+.compare-card {
+  margin: 14px 0; border: 1px solid var(--line); border-radius: var(--r2); overflow: hidden;
+}
+.compare-head, .compare-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  font-size: 13px;
+}
+.compare-head { background: var(--surface-2); font-weight: 600; color: var(--t0); }
+.compare-head span, .compare-row span {
+  padding: 10px 12px; border-bottom: 1px solid var(--line);
+}
+.compare-head span + span, .compare-row span + span { border-left: 1px solid var(--line); }
+.compare-row:last-child span { border-bottom: 0; }
+.compare-row span { color: var(--t2); line-height: 1.4; }
+
+.pill.xref { cursor: pointer; margin: 4px 4px 4px 0; }
+
+/* P15 a11y */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+html[data-contrast="high"] {
+  --t2: #C8CDD4;
+  --t3: #A8B0BA;
+  --t4: #8A939E;
+  --line: rgba(255,255,255,0.16);
+  --line-2: rgba(255,255,255,0.22);
+}
+.opt, .check-row, .tab, .pill, .backlink, .del, .sheet-x, .btn {
+  min-height: 44px;
+}
+.opt { padding-top: 12px; padding-bottom: 12px; }
+.del { min-width: 44px; display: grid; place-items: center; }
 
 /* ============================================================
    Journal
@@ -374,6 +424,10 @@ a { color: inherit; text-decoration: none; }
 .field input::placeholder { color: var(--t4); }
 .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .f-row.three { grid-template-columns: 1fr 1fr 1fr; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+@media (max-width: 420px) {
+  .grid-3 { grid-template-columns: 1fr; }
+}
 
 .calc-result { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--acc-line); border-radius: var(--r2); overflow: hidden; background: var(--acc-dim); }
 .calc-result .cr { padding: 14px 12px; border-right: 1px solid var(--line); text-align: center; }

@@ -123,3 +123,72 @@ export function completeReviewXp() {
 export function reviewAvailable() {
   return poolQuestions().length > 0;
 }
+
+/** Habit calendar: mark today as active day. */
+export function markHabitDay() {
+  const today = dayKey();
+  const days = store.get(KEYS.habitDays, {}) || {};
+  days[today] = true;
+  store.set(KEYS.habitDays, days);
+  return days;
+}
+
+export function getHabitDays() {
+  return store.get(KEYS.habitDays, {}) || {};
+}
+
+/**
+ * Streak with 1 freeze/week. If gap of 1 day and freeze available, consume silently.
+ */
+export function touchStreakWithFreeze() {
+  const today = dayKey();
+  const s = getStreak();
+  if (s.lastDay === today) return s;
+  const yday = addDays(today, -1);
+  const freeze = store.get(KEYS.streakFreeze, { week: null, used: false });
+  const week = isoWeek(today);
+  if (freeze.week !== week) { freeze.week = week; freeze.used = false; }
+
+  if (s.lastDay === yday) {
+    s.current = (s.current || 0) + 1;
+  } else if (s.lastDay === addDays(today, -2) && !freeze.used) {
+    freeze.used = true;
+    store.set(KEYS.streakFreeze, freeze);
+    s.current = (s.current || 0) + 1;
+    s.froze = true;
+  } else {
+    s.current = 1;
+    s.broken = true;
+  }
+  if (s.current > (s.best || 0)) s.best = s.current;
+  s.lastDay = today;
+  store.set(KEYS.streak, s);
+  store.set(KEYS.streakFreeze, freeze);
+  markHabitDay();
+  return s;
+}
+
+function isoWeek(dayStr) {
+  const [y, m, d] = dayStr.split('-').map(Number);
+  const dt = new Date(y, m - 1, d);
+  const onejan = new Date(y, 0, 1);
+  return `${y}-W${Math.ceil((((dt - onejan) / 86400000) + onejan.getDay() + 1) / 7)}`;
+}
+
+/** Offer recovery after streak break (once). Call from CTA after user commits to reviews. */
+export function tryStreakRecovery() {
+  const s = getStreak();
+  if (!s.broken || s.recovered) return false;
+  s.current = Math.max(s.current || 1, 2);
+  s.broken = false;
+  s.recovered = true;
+  store.set(KEYS.streak, s);
+  return true;
+}
+
+export function dueReviewCount() {
+  const today = dayKey();
+  const pool = poolQuestions();
+  const review = getReview();
+  return dueItems(pool, review, today).length;
+}

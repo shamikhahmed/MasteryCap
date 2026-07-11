@@ -1,0 +1,17 @@
+{
+  "name": "masterycap",
+  "version": "15.0.0",
+  "private": true,
+  "description": "MasteryCap offline trading-education PWA",
+  "scripts": {
+    "audit": "node scripts/audit-all.mjs",
+    "smoke": "node tests/smoke.cjs",
+    "e2e": "node scripts/audit-e2e.cjs",
+    "lighthouse": "node scripts/lighthouse-check.cjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "chrome-launcher": "^1.1.2",
+    "lighthouse": "^12.0.0"
+  }
+}

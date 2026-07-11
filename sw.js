@@ -1,5 +1,5 @@
 /* MasteryCap service worker — offline-first shell cache */
-const CACHE = 'masterycap-v14';
+const CACHE = 'masterycap-v20';
 const ASSETS = [
   './',
   './index.html',
@@ -15,6 +15,11 @@ const ASSETS = [
   './js/retention.js',
   './js/discipline.js',
   './js/glossary.js',
+  './js/mistakes.js',
+  './js/lesson-extras.js',
+  './js/week-extras.js',
+  './js/exam.js',
+  './js/search.js',
   './js/candles.js',
   './js/chartgen.js',
   './js/data/glossary.js',
@@ -27,6 +32,8 @@ const ASSETS = [
   './js/data/binary.js',
   './js/data/invest.js',
   './js/data/bots.js',
+  './js/data/paths.js',
+  './js/data/thicken.js',
   './js/views/dashboard.js',
   './js/views/course.js',
   './js/views/journal.js',
@@ -43,6 +50,9 @@ const ASSETS = [
   './manifest.webmanifest',
   './icons/icon-192.png',
   './icons/icon-512.png',
+  './icons/icon-maskable-192.png',
+  './icons/icon-maskable-512.png',
+  './icons/icon-180.png',
 ];
 
 self.addEventListener('install', (e) => {
