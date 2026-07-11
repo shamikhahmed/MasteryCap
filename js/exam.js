@@ -59,8 +59,8 @@ export function trackComplete(trackId, App) {
   return track.weeks.every((w) => ['completed', 'mastered'].includes(prog.weekStatus[w.id]));
 }
 
-/** Draw certificate to canvas → PNG download. */
-export function downloadCertificate({ name, trackName, dateIso, lang = 'en' }) {
+/** Draw TRADE-READY certificate to canvas → PNG download. Process-measured honesty. */
+export function downloadCertificate({ name, trackName, dateIso, lang = 'en', evidence = null }) {
   const canvas = document.createElement('canvas');
   canvas.width = 1200;
   canvas.height = 675;
@@ -72,42 +72,75 @@ export function downloadCertificate({ name, trackName, dateIso, lang = 'en' }) {
   ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
 
   ctx.fillStyle = '#FF6B2C';
-  ctx.font = '600 28px system-ui, sans-serif';
-  ctx.fillText('MasteryCap', 80, 120);
+  ctx.font = '600 26px system-ui, sans-serif';
+  ctx.fillText('MasteryCap', 80, 110);
 
   ctx.fillStyle = '#F2F4F7';
-  ctx.font = '600 48px system-ui, sans-serif';
-  ctx.fillText(lang === 'en' ? 'Self-assessed pass' : 'Self-assessed pass', 80, 220);
+  ctx.font = '600 44px system-ui, sans-serif';
+  ctx.fillText(lang === 'en' ? 'TRADE-READY' : 'TRADE-READY', 80, 190);
 
   ctx.fillStyle = '#A8B0BA';
-  ctx.font = '400 22px system-ui, sans-serif';
-  const line1 = lang === 'en'
-    ? `${name} completed the final exam for`
-    : `${name} ne final exam pass kiya:`;
-  ctx.fillText(line1, 80, 290);
-  ctx.fillStyle = '#F2F4F7';
-  ctx.font = '600 32px system-ui, sans-serif';
-  ctx.fillText(trackName, 80, 340);
+  ctx.font = '500 20px system-ui, sans-serif';
+  ctx.fillText(
+    lang === 'en' ? 'process-measured' : 'process-measured',
+    80, 230
+  );
 
-  const d = new Date(dateIso);
+  ctx.fillStyle = '#F2F4F7';
+  ctx.font = '600 28px system-ui, sans-serif';
+  ctx.fillText(name || 'Trader', 80, 300);
+
+  ctx.fillStyle = '#A8B0BA';
+  ctx.font = '400 20px system-ui, sans-serif';
+  ctx.fillText(
+    lang === 'en' ? `Track: ${trackName}` : `Track: ${trackName}`,
+    80, 340
+  );
+
+  const d = new Date(dateIso || Date.now());
   ctx.fillStyle = '#8A939E';
   ctx.font = '500 18px ui-monospace, monospace';
-  ctx.fillText(d.toISOString().slice(0, 10), 80, 420);
+  ctx.fillText(d.toISOString().slice(0, 10), 80, 380);
 
-  ctx.fillStyle = '#8A939E';
-  ctx.font = '400 16px system-ui, sans-serif';
+  const sim = evidence?.sim;
+  const examLine = evidence?.examPassedAt
+    ? (lang === 'en' ? 'Exam passed' : 'Exam pass')
+    : (lang === 'en' ? 'Exam on record' : 'Exam record');
+  let evidenceLine = examLine;
+  if (sim && sim.tradeCount != null) {
+    const rate = Math.round((sim.processPassRate || 0) * 100);
+    evidenceLine = lang === 'en'
+      ? `${examLine} · Sim trades ${sim.tradeCount} · Process ${rate}% (latest 10)`
+      : `${examLine} · Sim trades ${sim.tradeCount} · Process ${rate}% (latest 10)`;
+  }
+  ctx.fillStyle = '#A8B0BA';
+  ctx.font = '400 17px system-ui, sans-serif';
+  ctx.fillText(evidenceLine.slice(0, 90), 80, 440);
+
+  ctx.fillStyle = '#FF6B2C';
+  ctx.font = '500 18px system-ui, sans-serif';
   ctx.fillText(
     lang === 'en'
-      ? 'Self-assessed — MasteryCap. Not a professional credential. No tips or signals.'
-      : 'Self-assessed — MasteryCap. Professional credential nahi. Tips/signals nahi.',
+      ? 'Certifies process competence. Markets decide outcomes.'
+      : 'Process competence certify. Outcomes markets decide.',
     80, 520
   );
 
+  ctx.fillStyle = '#8A939E';
+  ctx.font = '400 14px system-ui, sans-serif';
+  ctx.fillText(
+    lang === 'en'
+      ? 'Self-assessed local certificate — not a professional credential. No tips or signals.'
+      : 'Self-assessed local certificate — professional credential nahi. Tips/signals nahi.',
+    80, 580
+  );
+
   const a = document.createElement('a');
-  a.download = `masterycap-cert-${trackName.replace(/\s+/g, '-').toLowerCase()}.png`;
+  a.download = `masterycap-cert-${String(trackName).replace(/\s+/g, '-').toLowerCase()}.png`;
   a.href = canvas.toDataURL('image/png');
   a.click();
 }
+
 
 /** Binary harm-reduction gate — 3 fixed questions. */
 export const BINARY_GATE = [
