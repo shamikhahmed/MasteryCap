@@ -16,6 +16,7 @@ import { SIM_SCENARIOS } from '../sim/scenarios.js';
 import { todayProgress } from '../today.js';
 import { canOpenTradingLab } from '../gates.js';
 import { planPosition, semesterOf } from '../syllabus.js';
+import { weeklyReport, lastReport } from '../report.js';
 
 function ladderStages(App, trackId) {
   const track = getTrack(trackId);
@@ -161,6 +162,24 @@ export function renderDashboard(App, c) {
       return notices.join('');
     })()}
 
+
+    ${(() => {
+      const rep = weeklyReport(App) || lastReport();
+      if (!rep || store.get(KEYS.reportSeen) === rep.week) return '';
+      return `<div class="panel pad" style="margin-bottom:14px" id="reportCard">
+        <div class="hstack" style="justify-content:space-between;align-items:baseline">
+          <div class="slabel">${lang === 'en' ? 'Report card' : 'Report card'} · ${rep.week}</div>
+          <button class="pill" id="reportDismiss">${lang === 'en' ? 'Done' : 'Theek'}</button>
+        </div>
+        <div class="stat-strip" style="margin-top:10px">
+          <div class="stat-cell"><div class="sc-l">XP</div><div class="sc-v">+${rep.xpGained}</div><div class="sc-s">${lang === 'en' ? 'this week' : 'is hafte'}</div></div>
+          <div class="stat-cell"><div class="sc-l">${lang === 'en' ? 'Weeks' : 'Weeks'}</div><div class="sc-v">${rep.weeksCompleted}</div><div class="sc-s">${lang === 'en' ? 'completed' : 'mukammal'}</div></div>
+          <div class="stat-cell"><div class="sc-l">${lang === 'en' ? 'Reviews' : 'Reviews'}</div><div class="sc-v">${rep.reviewsDue}</div><div class="sc-s">${lang === 'en' ? 'due' : 'baqi'}</div></div>
+          <div class="stat-cell"><div class="sc-l">${lang === 'en' ? 'Streak' : 'Streak'}</div><div class="sc-v">${rep.streak}</div><div class="sc-s">${lang === 'en' ? 'days' : 'din'}</div></div>
+        </div>
+        <div class="note-box" style="margin-top:10px">${rep.focus[lang]}</div>
+      </div>`;
+    })()}
 
     ${(() => {
       const pos = planPosition(App);
@@ -322,6 +341,12 @@ export function renderDashboard(App, c) {
   document.getElementById('goDesk')?.addEventListener('click', () => App.navigate('journal'));
   document.getElementById('goGlossCampus')?.addEventListener('click', () => { App.haptic(); openGlossary(App); });
   document.getElementById('goStudy')?.addEventListener('click', () => App.openStudy());
+  document.getElementById('reportDismiss')?.addEventListener('click', () => {
+    const rep = lastReport();
+    if (rep) store.set(KEYS.reportSeen, rep.week);
+    App.haptic();
+    document.getElementById('reportCard')?.remove();
+  });
   c.querySelectorAll('[data-path]').forEach((el) => el.addEventListener('click', () => {
     App.haptic();
     App.navigate('learn');

@@ -20,7 +20,8 @@ const EMO = {
 
 import { getTimeStats, formatDuration } from '../time.js';
 import { getSkillState, SKILLS } from '../skills.js';
-import { isGraduated } from '../graduation.js';
+import { isGraduated, gradStatus } from '../graduation.js';
+import { getTrack } from '../data/tracks.js';
 
 export function renderProgress(App, c) {
   const lang = App.lang;
@@ -28,6 +29,38 @@ export function renderProgress(App, c) {
   const balance = App.getBalance();
   const ts = getTimeStats();
   const skills = getSkillState();
+
+  // Certificate progress preview — grayed cert + missing checklist pulls forward.
+  const certPanel = (() => {
+    const tid = (App.profile?.markets || [])[0] || 'foundations';
+    const track = getTrack(tid) || getTrack('foundations');
+    const gs = gradStatus(track.id, App);
+    const REQ_LABEL = {
+      exam: { en: 'Final exam passed', ur: 'Final exam pass' },
+      binary_gate: { en: 'Binary reality gate', ur: 'Binary reality gate' },
+      sim_requires_s4: { en: 'Practice scenarios (Journal desk)', ur: 'Practice scenarios (Journal desk)' },
+      sim_trades_20: { en: '20 sim trades logged', ur: '20 sim trades' },
+      sim_pass_rate_80: { en: 'Process pass ≥80% (latest 10)', ur: 'Process pass ≥80% (latest 10)' },
+      sim_no_liq: { en: 'Zero liquidations (latest 10)', ur: 'Zero liquidation (latest 10)' },
+      portfolio_adherence: { en: 'Portfolio plan adherence pass', ur: 'Portfolio adherence pass' },
+    };
+    const row = (id, ok) => `<div class="check-row" style="opacity:${ok ? 1 : 0.55}">
+      <span class="check-box" style="${ok ? 'background:var(--acc);border-color:var(--acc);color:#000' : ''}">${ok ? '✓' : ''}</span>
+      <span class="check-t">${(REQ_LABEL[id] || { en: id, ur: id })[lang]}</span>
+    </div>`;
+    return `<div class="panel pad" style="margin-bottom:14px">
+      <div class="hstack" style="justify-content:space-between;align-items:baseline">
+        <div class="slabel">${lang === 'en' ? 'Certificate progress' : 'Certificate progress'} · ${track.name[lang]}</div>
+        <span class="pill mono ${gs.ready ? 'acc' : ''}">${gs.met.length}/${gs.met.length + gs.missing.length}</span>
+      </div>
+      <div style="margin-top:10px;border:2px ${gs.ready ? 'solid var(--acc)' : 'dashed var(--line-2)'};border-radius:10px;padding:14px;text-align:center;${gs.ready ? '' : 'opacity:0.6'}">
+        <div class="mono" style="font-size:11px;letter-spacing:0.2em;color:var(--acc)">M A S T E R Y C A P</div>
+        <div style="font-family:Georgia,serif;font-size:20px;font-weight:650;margin-top:6px">${gs.ready ? (lang === 'en' ? 'Ready to issue' : 'Issue ke liye tayyar') : (lang === 'en' ? 'Certificate locked' : 'Certificate locked')}</div>
+        <div style="font-size:11px;color:var(--t3);margin-top:4px">${lang === 'en' ? 'Self-issued study record — not a license' : 'Self-issued study record — license nahi'}</div>
+      </div>
+      <div style="margin-top:10px">${gs.met.map((m) => row(m, true)).join('')}${gs.missing.map((m) => row(m, false)).join('')}</div>
+    </div>`;
+  })();
 
   const timePanel = `<div class="panel pad" style="margin-bottom:14px">
     <div class="slabel">${App.t('time_total')}</div>
@@ -54,7 +87,7 @@ export function renderProgress(App, c) {
     <div class="note-box" style="margin-bottom:14px;font-size:13px">${App.t('limits_honest')}</div>
     ${tradeReadyBadges(App)}`;
 
-  const header = `<div class="lt-head"><div class="kicker">${App.t('nav_progress')}</div><h1>${lang === 'en' ? 'Hasil' : 'Hasil'}</h1></div>${masteryPanel}${timePanel}${skillPanel}`;
+  const header = `<div class="lt-head"><div class="kicker">${App.t('nav_progress')}</div><h1>${lang === 'en' ? 'Hasil' : 'Hasil'}</h1></div>${masteryPanel}${certPanel}${timePanel}${skillPanel}`;
 
   if (!trades.length) {
     c.innerHTML = `<div class="screen">${header}${weeksPanel(App)}${drillsPanel(App)}

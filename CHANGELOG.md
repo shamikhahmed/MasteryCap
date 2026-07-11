@@ -1,5 +1,12 @@
 # Changelog
 
+## v41 (2026-07-12) — motivation + access
+- **Weekly report card** on Home: XP gained, weeks completed, reviews due, streak + one focus suggestion. Local snapshot per ISO week, dismissible.
+- **Certificate progress preview** in Progress: grayed/dashed cert placeholder + met/missing requirement checklist (exam, sim trades, process rate, liquidations, portfolio adherence) — shows exactly what stands between you and issue.
+- **Listen button** on every lesson: browser text-to-speech reads the lesson body (works for EN and Roman Urdu).
+- SW masterycap-v41.
+
+
 ## v40 (2026-07-12) — University core + appearance fixes
 - **Theme bugs fixed:** legacy default pinned preset 'dark' so the Light/Auto toggle looked dead — repaired (preset 'original' = follow mode, stored legacy values migrated on read). Auto now follows device live (matchMedia listener). --t4 was never themed (faint text unreadable in light) — now per-preset.
 - **Text size fixed:** S/M/L setting only reached one CSS rule; now scales the whole layout (body zoom), new XL step added.

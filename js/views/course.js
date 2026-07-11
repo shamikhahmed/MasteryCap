@@ -438,7 +438,10 @@ function drawWeek() {
     <button class="backlink" id="back">${icon('back', { size: 16 })} ${App.t('back')}</button>
     <div class="spread" style="align-items:center;margin-bottom:8px">
       <div class="lesson-kicker" style="margin:0">${App.t('week').toUpperCase()} ${String(w.id).padStart(2, '0')}</div>
-      <button class="pill ${skimOn ? 'acc' : ''}" id="togSkim">${lang === 'en' ? 'Skim' : 'Skim'}</button>
+      <div class="hstack" style="gap:6px">
+        <button class="pill" id="togListen" aria-label="Listen">${lang === 'en' ? '🔊 Listen' : '🔊 Sunein'}</button>
+        <button class="pill ${skimOn ? 'acc' : ''}" id="togSkim">${lang === 'en' ? 'Skim' : 'Skim'}</button>
+      </div>
     </div>
     ${nudge ? `<div class="note-box warn" style="margin-bottom:12px">${nudge}</div>` : ''}
     ${challengeBox}
@@ -467,6 +470,24 @@ function drawWeek() {
   });
   document.getElementById('togSkim')?.addEventListener('click', () => {
     store.set(STORE_KEYS.skimMode, !store.get(STORE_KEYS.skimMode)); App.haptic(); draw();
+  });
+  document.getElementById('togListen')?.addEventListener('click', (ev) => {
+    // Browser TTS — offline voices where installed. Roman Urdu reads via en voice.
+    const btn = ev.currentTarget;
+    if (window.speechSynthesis?.speaking) {
+      window.speechSynthesis.cancel();
+      btn.classList.remove('acc');
+      return;
+    }
+    const el = document.getElementById('lessonBody');
+    if (!el || !window.speechSynthesis) return;
+    const u = new SpeechSynthesisUtterance(`${w.title[lang]}. ${el.innerText.slice(0, 6000)}`);
+    u.lang = 'en-US';
+    u.rate = 0.95;
+    u.onend = () => btn.classList.remove('acc');
+    btn.classList.add('acc');
+    window.speechSynthesis.speak(u);
+    App.haptic();
   });
   document.getElementById('startQuiz').addEventListener('click', () => {
     S.view = 'quiz'; S.quizAnswers = {}; S.quizSubmitted = false; S.quizMsg = null;
