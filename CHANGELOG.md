@@ -1,5 +1,12 @@
 # Changelog
 
+## v28 — 2026-07-11 · S4: Futures / Forex / Stocks sim packs
+- Engine instrument modes: **perp · futures (tick) · forex (pip) · stock (shares)**; `size_zero` reject; optional `gen.start` + `slipBoost`
+- **18 new scenarios** (6 futures, 6 forex, 6 stocks) — process missions, bilingual
+- Sim picker grouped by track section labels
+- Graduation sim counts now real for futures/forex/stocks (no more `sim_requires_s4`)
+- SW **v28**
+
 ## v27 — 2026-07-11 · S3: Graduation gates + TRADE-READY cert
 - **`js/graduation.js`** — `gradStatus(trackId)` process gates (exam + sim process for trading tracks; invest/spot exam-only until S5; S4-missing graceful)
 - KEYS.graduation additive · Learn Graduation panel with live counts + Graduate CTA (+200 XP)
