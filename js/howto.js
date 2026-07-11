@@ -172,6 +172,38 @@ export const HOWTO_GUIDES = [
       ],
     },
   },
+  {
+    id: 'tax-accountant',
+    title: { en: 'Prep for a tax accountant', ur: 'Tax accountant ke liye prep' },
+    blurb: {
+      en: 'Bring evidence, not YouTube rates. Checklist ≠ filing. Zero rates listed as current law on purpose.',
+      ur: 'Evidence lao, YouTube rates nahi. Checklist = filing nahi. Current law ke tor pe rates jaan-bujh kar nahi.',
+    },
+    steps: {
+      en: [
+        'Folder per tax year (label year on the cover)',
+        'Monthly broker PDFs for that year',
+        'Annual broker tax / capital-gains certificate',
+        'CDC / NCCPL confirmations where relevant',
+        'Bank proofs for funding and withdrawals',
+        'MasteryCap Journal CSV export (dated memory — broker docs primary)',
+        'Dividend / corporate-action notices you kept',
+        'Write 5 questions for the practitioner (no rate memorization)',
+        'Book the appointment — app will not file for you',
+      ],
+      ur: [
+        'Har tax year ka folder (saal label)',
+        'Us saal ki monthly broker PDFs',
+        'Annual broker tax / CGT certificate',
+        'Jahan relevant CDC / NCCPL',
+        'Funding/withdrawal bank proofs',
+        'MasteryCap Journal CSV (memory — broker docs primary)',
+        'Dividend / corporate-action notices',
+        'Practitioner ke liye 5 sawal likho (rate hafiz mat)',
+        'Appointment book — app file nahi karegi',
+      ],
+    },
+  },
 ];
 
 function getHowtoState() {

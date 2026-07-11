@@ -13,9 +13,9 @@ function weeksDone(prog, trackId) {
   return t.weeks.filter((w) => ['completed', 'mastered'].includes(prog.weekStatus?.[w.id])).length;
 }
 
-/** Brand-new users skip Foundations placement wall → Week 1 open. */
+/** Brand-new / thin-experience users skip Foundations placement wall → Week 1 open. */
 export function seedFoundationsSoftStart(experience) {
-  if (experience && experience !== 'new') return;
+  if (experience && experience !== 'new' && experience !== 'some') return;
   const course = store.get(KEYS.course, {}) || {};
   const cur = course.foundations || {};
   if (cur.placementDone && Object.keys(cur.weekStatus || {}).length) return;

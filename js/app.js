@@ -197,17 +197,20 @@ function renderOnboarding() {
     ['some', 'spark', 'exp_some', { en: 'Traded a little, no system', ur: 'Thora kiya, koi system nahi' }],
     ['exp', 'target', 'exp_exp', { en: 'Trade regularly', ur: 'Regularly trade karta hoon' }],
   ];
-  const mktOpts = [
+  const mktOptsAll = [
     ['foundations', 'book', { en: 'Foundations (start here)', ur: 'Foundations (yahan se)' }],
     ['invest', 'book', { en: 'Investing', ur: 'Investing' }],
     ['spot', 'book', { en: 'Spot vs Derivatives', ur: 'Spot vs Derivatives' }],
-    ['crypto', 'crypto', { en: 'Crypto & Perps', ur: 'Crypto & Perps' }],
     ['stocks', 'stocks', { en: 'Stocks (equities)', ur: 'Stocks (equities)' }],
     ['options', 'stocks', { en: 'Options', ur: 'Options' }],
+    ['crypto', 'crypto', { en: 'Crypto & Perps', ur: 'Crypto & Perps' }],
     ['futures', 'futures', { en: 'Futures', ur: 'Futures' }],
     ['forex', 'forex', { en: 'Forex', ur: 'Forex' }],
     ['binary', 'binary', { en: 'Binary (elective)', ur: 'Binary (elective)' }],
   ];
+  const mktOptsBeginner = mktOptsAll.filter((x) =>
+    ['foundations', 'invest', 'spot', 'stocks'].includes(x[0]));
+  const ADV_ONBOARD = new Set(['crypto', 'futures', 'forex', 'binary', 'options']);
 
   function draw() {
     const c = root();
@@ -240,10 +243,11 @@ function renderOnboarding() {
           </button>`).join('')}</div>
       </div>`;
     } else if (key === 'markets') {
+      const mktOpts = (data.experience === 'new') ? mktOptsBeginner : mktOptsAll;
       main = `<div class="onb-main">
         <div class="onb-eyebrow">${App.lang === 'en' ? 'Markets' : 'Markets'}</div>
         <h1 class="onb-title">${App.t('onb_markets_t')}</h1>
-        <p class="onb-sub">${App.t('onb_markets_sub')}</p>
+        <p class="onb-sub">${data.experience === 'new' ? App.t('onb_markets_new') : App.t('onb_markets_sub')}</p>
         <div class="opt-list">${mktOpts.map(([v, ic, nm]) => `
           <button class="opt-card ${data.markets.includes(v) ? 'on' : ''}" data-mkt="${v}">
             <span class="oc-icon">${icon(ic, { size: 20 })}</span>
@@ -294,8 +298,11 @@ function renderOnboarding() {
   function finish() {
     const experience = data.experience || 'new';
     let markets = data.markets.length ? [...data.markets] : ['foundations'];
-    if (experience === 'new' && !markets.includes('foundations')) {
-      markets = ['foundations', ...markets];
+    if (experience === 'new') {
+      markets = markets.filter((m) => !ADV_ONBOARD.has(m));
+      if (!markets.includes('foundations')) markets = ['foundations', ...markets];
+    } else if (!markets.includes('foundations') && experience === 'some') {
+      /* soft-start still seeds Foundations; markets can stay as chosen */
     }
     if (!markets.length) markets = ['foundations'];
     App.profile = { name: (data.name || '').trim() || 'Trader', experience, markets };
@@ -303,7 +310,10 @@ function renderOnboarding() {
     store.set(KEYS.onboarded, true);
     seedFoundationsSoftStart(experience);
     App.tab = 'dashboard'; App.render(); App.renderNav();
-    setTimeout(() => maybeTour(), 300);
+    setTimeout(() => {
+      maybeFirstBackup();
+      maybeTour();
+    }, 300);
   }
 
   draw();
@@ -313,15 +323,52 @@ function renderOnboarding() {
    Boot
    ============================================================ */
 function showUpdateToast(version) {
-  if (document.getElementById('sw-toast')) return;
-  const pill = document.createElement('div');
-  pill.id = 'sw-toast';
-  pill.className = 'sw-toast';
+  if (document.getElementById('sw-sheet') || document.getElementById('sw-toast')) return;
+  const el = document.createElement('div');
+  el.id = 'sw-sheet';
+  el.className = 'sheet-root on';
   const label = App.t('sw_updated').replace('{v}', version || APP_VERSION);
-  pill.innerHTML = `<span>${label}</span><button type="button" id="swReload">${App.t('sw_reload')}</button>`;
-  document.body.appendChild(pill);
-  requestAnimationFrame(() => pill.classList.add('on'));
+  el.innerHTML = `<div class="sheet-backdrop"></div>
+    <div class="sheet" role="dialog" aria-modal="true">
+      <div class="sheet-handle"></div>
+      <div class="sheet-head"><div class="slabel">${App.t('sw_update_title')}</div></div>
+      <div class="sheet-body">
+        <p style="font-size:14.5px;color:var(--t2);line-height:1.55;margin:0 0 16px">${label}</p>
+        <p style="font-size:13px;color:var(--t3);line-height:1.5;margin:0 0 18px">${App.t('sw_update_body')}</p>
+        <button class="btn accent" id="swReload" style="width:100%">${App.t('sw_reload')}</button>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
   document.getElementById('swReload').addEventListener('click', () => location.reload());
+}
+
+function maybeFirstBackup() {
+  if (store.get(KEYS.firstBackupDone) || !store.get(KEYS.onboarded)) return;
+  if (document.getElementById('first-backup-sheet')) return;
+  const el = document.createElement('div');
+  el.id = 'first-backup-sheet';
+  el.className = 'sheet-root on';
+  el.innerHTML = `<div class="sheet-backdrop" data-close></div>
+    <div class="sheet" role="dialog">
+      <div class="sheet-handle"></div>
+      <div class="sheet-head"><div class="slabel">${App.t('backup_first_title')}</div>
+        <button class="sheet-x" data-close>${icon('x', { size: 18 })}</button></div>
+      <div class="sheet-body">
+        <p style="font-size:14px;color:var(--t2);line-height:1.55;margin:0 0 16px">${App.t('backup_first_body')}</p>
+        <button class="btn accent" id="firstBackupExport" style="width:100%">${App.t('backup_export')}</button>
+        <button class="btn ghost mt10" data-close style="width:100%">${App.t('backup_first_later')}</button>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+  const close = () => { store.set(KEYS.firstBackupDone, true); el.remove(); };
+  el.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', close));
+  document.getElementById('firstBackupExport')?.addEventListener('click', () => {
+    import('./settings.js').then(({ openSettings }) => {
+      close();
+      openSettings(App);
+      setTimeout(() => document.getElementById('setExport')?.click(), 200);
+    });
+  });
 }
 
 function watchServiceWorker() {
@@ -329,6 +376,13 @@ function watchServiceWorker() {
   navigator.serviceWorker.addEventListener('message', (e) => {
     if (e.data && e.data.type === 'SW_UPDATED') showUpdateToast(e.data.version);
   });
+  const check = () => {
+    navigator.serviceWorker.getRegistration().then((reg) => {
+      if (!reg) return;
+      reg.update().catch(() => {});
+      if (reg.waiting) showUpdateToast(APP_VERSION);
+    }).catch(() => {});
+  };
   navigator.serviceWorker.ready.then((reg) => {
     if (reg.waiting) showUpdateToast(APP_VERSION);
     reg.addEventListener('updatefound', () => {
@@ -336,11 +390,15 @@ function watchServiceWorker() {
       if (!nw) return;
       nw.addEventListener('statechange', () => {
         if (nw.state === 'installed' && navigator.serviceWorker.controller) {
-          /* activate posts SW_UPDATED; toast also covers waiting edge */
+          showUpdateToast(APP_VERSION);
         }
       });
     });
   }).catch(() => {});
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') check();
+  });
+  window.addEventListener('focus', check);
 }
 
 function boot() {
@@ -417,7 +475,7 @@ function maybeWhatsNew() {
       <div class="sheet-head"><div class="slabel">${App.t('whats_new')} · ${APP_VERSION}</div>
         <button class="sheet-x" data-close>${icon('x', { size: 18 })}</button></div>
       <div class="sheet-body" style="font-size:14px;color:var(--t2);line-height:1.55">
-        <p>v37: Study desk — flip flashcards, lesson notes, mix rounds. Fun without fluff.</p>
+        <p>v38: Leitner flash SRS · backup first-export · blocking SW update · thicker Greeks · cert honesty · tax accountant checklist · zero-beginner market soft-lock.</p>
         <p style="color:var(--t3)">See CHANGELOG.md for full notes.</p>
       </div>
     </div>`;

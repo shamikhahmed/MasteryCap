@@ -1,5 +1,5 @@
 /* ============================================================
-   study.js — flashcard decks + local study notes (additive).
+   study.js — flashcard decks + Leitner SRS + local notes.
    ============================================================ */
 
 import { store, KEYS } from './store.js';
@@ -7,8 +7,23 @@ import { GLOSSARY } from './data/glossary.js';
 import { TRACKS, getTrack } from './data/tracks.js';
 import { markToday } from './today.js';
 
+const BOX_DELAY = [1, 3, 7, 14, 30]; // days by box 1..5 after a "known"
+
 function uid() {
   return `n_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;
+}
+
+function dayKey(d = new Date()) {
+  const x = new Date(d);
+  const p = (n) => String(n).padStart(2, '0');
+  return `${x.getFullYear()}-${p(x.getMonth() + 1)}-${p(x.getDate())}`;
+}
+
+function addDays(key, n) {
+  const [y, m, d] = key.split('-').map(Number);
+  const dt = new Date(y, m - 1, d);
+  dt.setDate(dt.getDate() + n);
+  return dayKey(dt);
 }
 
 export function getNotes() {
@@ -49,18 +64,55 @@ export function notesForWeek(trackId, weekId) {
   return getNotes().filter((n) => n.trackId === trackId && Number(n.weekId) === Number(weekId));
 }
 
+function stableCardId(prefix, parts) {
+  return `${prefix}:${parts.join(':')}`;
+}
+
+function getSrs() {
+  return store.get(KEYS.flashSrs, {}) || {};
+}
+
+function setSrs(map) {
+  store.set(KEYS.flashSrs, map);
+}
+
+/** Is card due today (or never seen)? */
+export function isCardDue(cardId, today = dayKey()) {
+  const cur = getSrs()[cardId];
+  if (!cur || !cur.due) return true;
+  return cur.due <= today;
+}
+
+export function dueFlashCount(today = dayKey()) {
+  const srs = getSrs();
+  return Object.values(srs).filter((c) => c && c.due && c.due <= today).length;
+}
+
+function prioritizeDue(cards) {
+  const today = dayKey();
+  const due = [];
+  const later = [];
+  cards.forEach((c) => {
+    if (isCardDue(c.id, today)) due.push(c);
+    else later.push(c);
+  });
+  if (due.length >= 6) return shuffle(due).slice(0, 24);
+  return shuffle([...due, ...shuffle(later)]).slice(0, 24);
+}
+
 /** Flashcard: { id, front, back, source, trackId } */
 export function buildGlossaryDeck(trackId = null, lang = 'en') {
   let pool = GLOSSARY.slice();
   if (trackId) pool = pool.filter((g) => (g.tracks || []).includes(trackId));
   if (pool.length < 8) pool = GLOSSARY.slice();
-  return shuffle(pool).slice(0, 24).map((g, i) => ({
-    id: `g:${g.term}:${i}`,
+  const cards = shuffle(pool).slice(0, 32).map((g) => ({
+    id: stableCardId('g', [g.term]),
     front: g.term,
     back: lang === 'ur' ? g.ur : g.en,
     source: 'glossary',
     trackId: (g.tracks || [])[0] || null,
   }));
+  return prioritizeDue(cards);
 }
 
 export function buildWeekDeck(trackId, weekId, lang = 'en') {
@@ -74,7 +126,7 @@ export function buildWeekDeck(trackId, weekId, lang = 'en') {
       || (q.opts?.[lang] || q.opts?.en)?.[q.correct];
     if (front && back) {
       cards.push({
-        id: `q:${trackId}:${weekId}:${qi}`,
+        id: stableCardId('q', [trackId, weekId, qi]),
         front,
         back,
         source: 'quiz',
@@ -86,7 +138,7 @@ export function buildWeekDeck(trackId, weekId, lang = 'en') {
   if (Array.isArray(memo)) {
     memo.forEach((m, i) => {
       cards.push({
-        id: `m:${trackId}:${weekId}:${i}`,
+        id: stableCardId('m', [trackId, weekId, i]),
         front: lang === 'en' ? 'Must memorize' : 'Yad rakho',
         back: m,
         source: 'memo',
@@ -94,31 +146,33 @@ export function buildWeekDeck(trackId, weekId, lang = 'en') {
       });
     });
   }
-  // pad with glossary for that track
   if (cards.length < 6) {
     cards.push(...buildGlossaryDeck(trackId, lang).slice(0, 8));
   }
-  return shuffle(cards).slice(0, 20);
+  return prioritizeDue(shuffle(cards).slice(0, 24));
 }
 
 export function buildMixDeck(lang = 'en') {
   const live = TRACKS.filter((t) => t.status === 'live');
-  const pick = live[Math.floor(Math.random() * live.length)]?.id;
-  const gloss = buildGlossaryDeck(null, lang).slice(0, 12);
+  const gloss = buildGlossaryDeck(null, lang).slice(0, 14);
   const weekCards = [];
-  live.slice(0, 4).forEach((t) => {
+  live.slice(0, 5).forEach((t) => {
     const tr = getTrack(t.id);
     const w = tr.weeks[0];
-    if (w) weekCards.push(...buildWeekDeck(t.id, w.id, lang).slice(0, 2));
+    if (w) weekCards.push(...buildWeekDeck(t.id, w.id, lang).slice(0, 3));
   });
-  return shuffle([...gloss, ...weekCards]).slice(0, 16);
+  return prioritizeDue(shuffle([...gloss, ...weekCards]).slice(0, 18));
 }
 
 export function getCardStats() {
   return store.get(KEYS.flashStats, { seen: 0, known: 0, again: 0, streak: 0 }) || { seen: 0, known: 0, again: 0, streak: 0 };
 }
 
-export function recordCard(result) {
+/**
+ * Record answer + update Leitner box for cardId.
+ * Again → box 1, due tomorrow. Got it → bump box, delay [1,3,7,14,30].
+ */
+export function recordCard(result, cardId) {
   const s = getCardStats();
   s.seen = (s.seen || 0) + 1;
   if (result === 'known') {
@@ -129,6 +183,21 @@ export function recordCard(result) {
     s.streak = 0;
   }
   store.set(KEYS.flashStats, s);
+
+  if (cardId) {
+    const today = dayKey();
+    const map = getSrs();
+    const cur = map[cardId] || { box: 1, due: today };
+    if (result === 'known') {
+      const box = Math.min(5, (cur.box || 1) + 1);
+      const delay = BOX_DELAY[box - 1] || 30;
+      map[cardId] = { box, due: addDays(today, delay) };
+    } else {
+      map[cardId] = { box: 1, due: addDays(today, 1) };
+    }
+    setSrs(map);
+  }
+
   if (s.seen % 5 === 0) markToday('review');
   return s;
 }

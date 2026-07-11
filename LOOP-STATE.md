@@ -1,20 +1,21 @@
 # LOOP-STATE — MasteryCap agent ledger
 
 status: COMPLETE
-iteration: 22
-phase: SCHOOL-v37
-next_task: owner hard-refresh PWA for Study desk
-version_on_disk: v37
+iteration: 23
+phase: SCHOOL-v38
+next_task: owner hard-refresh PWA
+version_on_disk: v38
 
 ## done
-- v36 glossary 215
-- **v37:** Study desk — flashcards, notes, mix rounds
+- v37 Study desk
+- **v38:** confidence pass — SRS, backup, SW sheet, Greeks depth, cert honesty, beginner soft-lock, tax checklist, UR audit
 
 ## blocked
 (none)
 
 ## decisions
-- Fun = flip motion + Got it/Again loop + notes. No emoji carnival. Offline local only.
+- Absolute paper→live / native-UR certainty impossible offline — stated in `limits_honest` Settings + Progress.
+- Everything else in confidence inventory closed or hardened.
 
 ## evidence
-- audit-all 7/7; smoke pending
+- audit-all 8/8; smoke PASS

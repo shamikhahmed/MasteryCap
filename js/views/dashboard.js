@@ -152,7 +152,9 @@ export function renderDashboard(App, c) {
       }
       const last = store.get(KEYS.lastExportAt);
       const overdue = !last || (Date.now() - new Date(last).getTime() > 7 * 86400000);
-      if (overdue && !store.get(KEYS.backupRemindDismissed) && store.get(KEYS.onboarded)) {
+      const dismissedAt = store.get(KEYS.backupRemindDismissedAt);
+      const dismissFresh = dismissedAt && (Date.now() - Number(dismissedAt) < 7 * 86400000);
+      if (overdue && !dismissFresh && store.get(KEYS.onboarded)) {
         notices.push(`<div class="note-box" id="backupPill" style="margin-bottom:12px">${App.t('backup_remind')} <button class="pill" id="backupDismiss" style="margin-left:8px">${App.t('backup_remind_dismiss')}</button></div>`);
       }
       return notices.join('');
@@ -315,7 +317,7 @@ export function renderDashboard(App, c) {
     store.set(KEYS.quotaDismissed, true); App.render();
   });
   document.getElementById('backupDismiss')?.addEventListener('click', () => {
-    store.set(KEYS.backupRemindDismissed, true); App.render();
+    store.set(KEYS.backupRemindDismissedAt, Date.now()); App.render();
   });
   document.getElementById('mbDismiss')?.addEventListener('click', () => {
     store.remove(KEYS.morningPending);

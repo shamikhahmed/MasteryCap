@@ -25,7 +25,7 @@ import { gradStatus, markGraduated, isGraduated } from '../graduation.js';
 import { skillsForWeek, markSkillMastered, challengeOffer, CHALLENGE, scoreChallenge, SKILLS } from '../skills.js';
 import { startTime, pauseTime, softSessionNudge } from '../time.js';
 import { markToday } from '../today.js';
-import { trackLockReason, preferredStartTrack, seedFoundationsSoftStart } from '../gates.js';
+import { trackLockReason, preferredStartTrack, seedFoundationsSoftStart, canOpenTradingLab } from '../gates.js';
 import { openWeekFlash, openStudyNotes } from './study.js';
 
 let S = {
@@ -184,7 +184,8 @@ function drawHome() {
           <div class="slabel">${App.t('exam_title')}</div>
           <p style="font-size:13.5px;color:var(--t3);line-height:1.5;margin:8px 0 14px">${App.t('exam_body')}</p>
           ${prog.examPassed
-            ? `<button class="btn secondary" id="dlCert">${App.t('exam_cert')}</button>
+            ? `<button class="btn secondary" id="dlCert">${App.t('exam_cert_literacy')}</button>
+               <p style="font-size:12px;color:var(--t3);margin-top:8px;line-height:1.45">${App.t('exam_cert_hint')}</p>
                <div class="pill mono mt10">${App.t('exam_passed')}: ${String(prog.examPassed).slice(0, 10)}</div>`
             : `<button class="btn accent" id="startExam">${App.t('exam_start')}</button>`}
         </div>` : ''}`;
@@ -200,9 +201,13 @@ function drawHome() {
     <div class="panel pad" style="margin-bottom:14px">
       <div class="slabel">${App.t('drill_title')}</div>
       <p style="font-size:13.5px;color:var(--t3);margin:8px 0 14px;line-height:1.5">${App.t('drill_home_hint')}</p>
-      <button class="btn secondary" id="goSimLearn" style="width:100%">${icon('journal', { size: 17 })} ${App.t('sim_cta')}</button>
+      ${canOpenTradingLab(App)
+        ? `<button class="btn secondary" id="goSimLearn" style="width:100%">${icon('journal', { size: 17 })} ${App.t('sim_cta')}</button>`
+        : `<div class="note-box warn" style="margin-bottom:10px">${App.t('lab_locked_learn')}</div>
+           <button class="btn secondary" id="goUnlockFoundationsLab" style="width:100%">${App.t('track_lock_cta')}</button>`}
       <button class="btn ghost mt10" id="goDrillsLearn" style="width:100%">${icon('target', { size: 17 })} ${App.t('drill_cta')}</button>
       <button class="btn ghost mt10" id="goChartsLearn" style="width:100%">${icon('progress', { size: 17 })} ${App.t('chart_cta')}</button>
+      ${track.id === 'tax' ? `<button class="btn ghost mt10" id="goTaxHowto" style="width:100%">${icon('check', { size: 17 })} ${App.t('tax_checklist_cta')}</button>` : ''}
     </div>
   ${body}</div>`;
 
@@ -210,14 +215,18 @@ function drawHome() {
   const activeChip = c.querySelector('.track-chip.on');
   if (activeChip) activeChip.scrollIntoView({ block: 'nearest', inline: 'center' });
   document.getElementById('goHowtoLearn')?.addEventListener('click', () => { App.haptic(); openHowto(App); });
+  document.getElementById('goTaxHowto')?.addEventListener('click', () => { App.haptic(); openHowto(App, { guideId: 'tax-accountant' }); });
   document.getElementById('goDrillsLearn')?.addEventListener('click', () => App.openDrills());
   document.getElementById('goChartsLearn')?.addEventListener('click', () => App.openCharts());
   document.getElementById('goSimLearn')?.addEventListener('click', () => App.openSim());
   document.getElementById('goUnlockFoundations')?.addEventListener('click', () => {
     S.track = 'foundations'; S.view = 'home'; App.haptic(); draw();
   });
+  document.getElementById('goUnlockFoundationsLab')?.addEventListener('click', () => {
+    S.track = 'foundations'; S.view = 'home'; App.haptic(); draw();
+  });
   document.getElementById('softStartFoundations')?.addEventListener('click', () => {
-    seedFoundationsSoftStart('new');
+    seedFoundationsSoftStart(App.profile?.experience || 'new');
     App.haptic(); draw();
   });
   document.getElementById('openGloss')?.addEventListener('click', () => { App.haptic(); openGlossary(App); });
@@ -824,7 +833,8 @@ function drawExam() {
     const sc = scoreExam(exam, S.examAnswers);
     html += `<div class="result"><div class="r-score ${sc.passed ? 'up' : 'down'}">${sc.correct}/${sc.total}</div>
       <div class="r-msg">${sc.passed ? App.t('exam_pass_msg') : App.t('exam_fail_msg')}</div></div>`;
-    if (sc.passed) html += `<button class="btn accent mt14" id="dlCert2">${App.t('exam_cert')}</button>`;
+    if (sc.passed) html += `<button class="btn accent mt14" id="dlCert2">${App.t('exam_cert_literacy')}</button>
+      <p style="font-size:12px;color:var(--t3);margin-top:8px">${App.t('exam_cert_hint')}</p>`;
     html += `<button class="btn secondary mt10" id="examDone">${App.t('next')}</button>`;
   }
   html += `</div>`;

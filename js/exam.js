@@ -91,33 +91,42 @@ export function downloadCertificate({
   ctx.fillText('MasteryCap', 80, 100);
 
   ctx.fillStyle = '#F2F4F7';
-  ctx.font = '600 42px system-ui, sans-serif';
+  ctx.font = '600 36px system-ui, sans-serif';
   const title = isTR
     ? 'TRADE-READY'
-    : (lang === 'en' ? 'COURSE COMPLETE' : 'COURSE COMPLETE');
-  ctx.fillText(title, 80, 170);
+    : (lang === 'en' ? 'COURSE LITERACY' : 'COURSE LITERACY');
+  ctx.fillText(title, 80, 165);
 
-  ctx.fillStyle = '#A8B0BA';
-  ctx.font = '500 18px system-ui, sans-serif';
+  ctx.fillStyle = isTR ? '#FF6B2C' : '#EA3943';
+  ctx.font = '600 20px system-ui, sans-serif';
   ctx.fillText(
     isTR
-      ? (lang === 'en' ? 'process-measured graduation' : 'process-measured graduation')
-      : (lang === 'en' ? 'exam + weeks — literacy certificate' : 'exam + weeks — literacy certificate'),
-    80, 210
+      ? (lang === 'en' ? 'NOT A LICENSE · NOT SECP/BROKER/CFA' : 'LICENSE NAHI · SECP/BROKER/CFA NAHI')
+      : (lang === 'en' ? 'NOT TRADE-READY · NOT A LICENSE' : 'TRADE-READY NAHI · LICENSE NAHI'),
+    80, 200
+  );
+
+  ctx.fillStyle = '#A8B0BA';
+  ctx.font = '500 17px system-ui, sans-serif';
+  ctx.fillText(
+    isTR
+      ? (lang === 'en' ? 'process-measured · paper/tiny size · decays without practice' : 'process-measured · paper/tiny · practice ke baghair kamzor')
+      : (lang === 'en' ? 'exam + weeks only — Practice labs still required for TRADE-READY' : 'exam + weeks — TRADE-READY ke liye Practice labs abhi'),
+    80, 235
   );
 
   ctx.fillStyle = '#F2F4F7';
   ctx.font = '600 28px system-ui, sans-serif';
-  ctx.fillText(name || 'Trader', 80, 280);
+  ctx.fillText(name || 'Trader', 80, 290);
 
   ctx.fillStyle = '#A8B0BA';
   ctx.font = '400 20px system-ui, sans-serif';
-  ctx.fillText(`${lang === 'en' ? 'Course' : 'Course'}: ${trackName}`, 80, 320);
+  ctx.fillText(`${lang === 'en' ? 'Course' : 'Course'}: ${trackName}`, 80, 330);
 
   const d = new Date(dateIso || Date.now());
   ctx.fillStyle = '#8A939E';
   ctx.font = '500 18px ui-monospace, monospace';
-  ctx.fillText(d.toISOString().slice(0, 10), 80, 360);
+  ctx.fillText(d.toISOString().slice(0, 10), 80, 370);
 
   const hash = evidenceHash(evidence);
   const lines = [];

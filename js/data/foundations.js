@@ -14,10 +14,11 @@ export const FOUNDATIONS_WEEKS = [
 <p><strong>Honest earn path in this app:</strong> long-horizon investing and spot ownership with low fees — time + discipline. Trading (perps, forex, futures) is optional later, after paper practice. Binary options are harm-reduction only — earn size <strong>$0</strong>.</p>
 <p>Tabs: <strong>Home</strong> = campus (next lesson). <strong>Learn</strong> = courses. <strong>Journal</strong> = practice desk (balance, checklist, trade log) when <em>you</em> choose. <strong>Progress</strong> = study + journal analytics.</p>
 <p>{{redflag:Anyone promising “complete this course → weekly income” is selling fantasy. Literacy ≠ paycheck.}}</p>`,
-    ur: `<p>MasteryCap ek <strong>school</strong> hai — broker nahi, tip service nahi. Frameworks seekhte ho: markets kaise chalte, regulated account kaise kholo, risk size, journal. Lessons complete = charts se salary <em>nahi</em>.</p>
-<p><strong>Imandar earn path:</strong> long-horizon investing + spot, low fees — time + discipline. Trading (perps, forex, futures) baad mein, paper ke baad. Binary = harm-reduction — earn size <strong>$0</strong>.</p>
-<p>Tabs: <strong>Home</strong> = campus. <strong>Learn</strong> = courses. <strong>Journal</strong> = practice desk jab <em>tum</em> chaho. <strong>Progress</strong> = study + journal analytics.</p>
-<p>{{redflag:Jo “course complete → weekly income” promise kare — fantasy bech raha. Literacy ≠ paycheck.}}</p>`,
+    ur: `<p>Ye school <strong>process</strong> sikhata hai — salary-from-charts nahi. Markets outcomes decide karti; tum control karte ho rules: risk %, stop pehle, journal, aur “aj nahi” kehne ki himmat. MasteryCap offline PWA hai: koi broker license, SECP badge, ya income guarantee nahi. Jo bhi certificate PNG mile, woh device-local self-issue hai — bahar credential nahi.</p>
+<p>Zero se start: pehle vocabulary (long/short, order types, account vs tip-seller), phir paper workflow, phir hi tiny live size. Skip karke crypto/perps day-1 = bilkul aag pe haath. Scam radar on rakho: guaranteed returns, “VIP signals,” recovery agents, seed-phrase mangna — walk away.</p>
+<p>{{redflag:Jo “sure returns” / income promise beche — course nahi, trap.}}</p>
+<p>Is week ka kaam: ek jumla likho jo tum follow karoge — maslan “bina stop entry nahi.” Note Study desk pe save karo. Kal wapis aana = habit; ek viral reel pehle se behtar.</p>
+<p>Foundations poora hone se pehle advanced tracks soft-lock rehte. Jaldi feel nahi — safety. TRADE-READY baad mein Practice labs se aata; sirf weeks padhna = literacy, trade-ready nahi.</p>`,
   },
   quiz: [
     { q: { en: 'MasteryCap is primarily a:', ur: 'MasteryCap pehle:' },
@@ -42,9 +43,11 @@ export const FOUNDATIONS_WEEKS = [
 <p>Rules: never send money to a “manager” wallet. Never share seed phrases or OTP. Verify the firm on the official regulator site (SECP / PSX for Pakistan equities; your country’s securities regulator for brokers). If returns are “guaranteed,” walk away.</p>
 <p>{{compare:invest-vs-trade}}</p>
 <p>Leverage is not free money — it is a loan that can liquidate you. Beginners who skip Foundations and jump to 50x usually fund someone else’s bonus.</p>`,
-    ur: `<p>Account se pehle traps. <strong>Signal groups</strong> jo VIP fees mangte, <strong>recovery scammers</strong>, <strong>fake brokers</strong>, <strong>leverage ads</strong> jo sirf winners dikhate.</p>
-<p>Rules: “manager” wallet pe paisa mat bhejo. Seed/OTP share mat karo. Firm regulator site pe verify (SECP/PSX; apna country regulator). “Guaranteed returns” = walk away.</p>
-<p>Leverage free money nahi — loan hai jo liquidate kar sakta. Foundations skip karke 50x = aksar doosre ka bonus.</p>`,
+    ur: `<p><strong>Scam aur social pressure</strong> beginners ko pehle maar'te hain charts se pehle. Red flags: guaranteed returns, pressure “abhi fund karo,” fake celebrity endorsements, recovery agents jo pehle scammer ke baad aate, seed phrase / remote-access mangna. Agar koi “sirf aaj” urgency beche — default jawab no.</p>
+<p>Regulated path socho: jahan mumkin, licensed broker / exchange jo custody aur statements de. Tip Telegram group “guru” nahi hota risk manager. Apna process likho; kisi aur ka screenshot process nahi.</p>
+<p>{{xref:foundations:1:School stance — process not salary}}</p>
+<p>Homework: teen scam patterns apne alfaaz mein likho. Dost ko forward mat karo “easy money” — literacy share karo. Binary / signal rooms elective self-defense ke liye baad mein; pehle yahan solid.</p>
+<p>{{redflag:Remote desktop + “main trade kar dunga tumhare account pe” = account theft ka classic.}}</p>`,
   },
   quiz: [
     { q: { en: 'A stranger asks for your seed phrase to “help recover funds.” You:', ur: 'Stranger seed mangta “recover” ke liye. Tum:' },
@@ -128,9 +131,11 @@ export const FOUNDATIONS_WEEKS = [
 <p><strong>Workflow:</strong> (1) Write the setup in one sentence. (2) Complete the pre-trade checklist (stop, risk %, calm, plan). (3) Compute size with the calculator. (4) Place the paper/demo order. (5) Log entry, stop, exit, emotion. (6) Debrief: process followed? Yes/no — not “was I right about the market.”</p>
 <p>Home stays school. Desk stays optional until this week clicks. If checklist fails, no trade — that is the lesson.</p>
 <p>{{redflag:Skipping the checklist “just this once” is how revenge trades start.}}</p>`,
-    ur: `<p>Practice ke liye tayar ho — pehle nahi — <strong>Journal</strong> (practice desk) kholo.</p>
-<p><strong>Workflow:</strong> (1) Setup ek jumla. (2) Checklist (stop, risk %, calm, plan). (3) Calculator se size. (4) Paper/demo order. (5) Log entry/stop/exit/emotion. (6) Debrief: process? Haan/nahi — “market sahi thi?” nahi.</p>
-<p>Home = school. Desk optional jab tak ye week click na ho. Checklist fail = no trade.</p>`,
+    ur: `<p><strong>Paper workflow</strong> asli paise se pehle muscle memory banata. Rule: har paper trade pe pehle stop, size risk % se, emotion tag, aur ek line “kyun enter.” P/L green hona pass nahi — process follow hona pass. MasteryCap sim / journal isi liye: process grade, sirf profit worship nahi.</p>
+<p>Workflow loop: setup checklist → size calc → entry → stop already live → exit rule → journal → review. Koi step skip = fail even if money up. Ye boring lagta; boring hi account bachata.</p>
+<p>{{xref:foundations:4:Orders — market vs limit}}</p>
+<p>Is week kam az kam 5 paper trades likho (sim ya journal). Revenge trade intentionally mat karo — agar urge aaye, note mein “urge aaya, skip kiya” likho. Woh bhi win hai.</p>
+<p>{{redflag:Paper pe jeet kar seedha full size live = common wipe story.}}</p>`,
   },
   quiz: [
     { q: { en: 'Practice desk (balance, checklist, log) lives in:', ur: 'Practice desk kahan:' },
@@ -155,10 +160,11 @@ export const FOUNDATIONS_WEEKS = [
 <p>Start at ≤0.5–1% risk per idea on paper. Never risk rent, tuition, or emergency cash.</p>
 <p><strong>Graduation:</strong> Finish Foundations exam when ready → open <strong>Investing: PSX & Beyond</strong> on the beginner path (compounding). Then Spot. Trading tracks only after sizing is boring.</p>
 <p>You now know: what the school is, how scams look, how to open a regulated account, how orders work, how to paper-trade with Journal, and how to size. That is zero-to-ready — not zero-to-rich.</p>`,
-    ur: `<p><strong>Risk $</strong> = balance × risk %. <strong>Size</strong> ≈ risk $ ÷ stop distance. Stop wide = size chhoti.</p>
-<p>Paper pe ≤0.5–1%/idea. Rent/emergency risk mat karo.</p>
-<p><strong>Graduation:</strong> Foundations exam → beginner path pe <strong>Investing</strong> → Spot. Trading baad mein jab sizing boring ho.</p>
-<p>Ab: school kya hai, scams, regulated account, orders, Journal paper trade, sizing. Zero-to-ready — zero-to-rich nahi.</p>`,
+    ur: `<p><strong>Risk %</strong> har trade pe account ka wo hissa jo tum haarne ko tayyar — size uska output, pehle input nahi. 0.25–1% beginners ke liye common range (tumhari neend pe depend); exact magic number nahi. Leverage result hai stop distance + risk money se — “10x chahiye” pehle sochna reverse hai.</p>
+<p>Formula soch: risk money = account × risk %. Size ≈ risk money / (entry − stop) distance (instrument units ke hisaab). Stop pehle; size baad. Stop widen = risk plan todna — school mein violation.</p>
+<p>{{xref:foundations:5:Paper workflow before live}}</p>
+<p>Graduation is week se: risk calculator Journal mein use karo, ek written max daily loss, aur rule “limit hit = screen band.” Skills decay — mahine baad labs dobara. Competence license nahi.</p>
+<p>{{redflag:“Is baar double size kyunki sure hoon” — surety risk % ka enemy.}}</p>`,
   },
   formula: {
     en: 'risk $ = balance × risk% · size ≈ risk $ ÷ stop distance',

@@ -21,6 +21,7 @@ export function openGlossary(App) {
         <button class="sheet-x" data-close aria-label="Close">${icon('x', { size: 18 })}</button>
       </div>
       <div class="sheet-body">
+        <div class="note-box" style="margin-bottom:12px;font-size:12.5px">${App.t('glossary_ceiling')}</div>
         <div class="field" style="margin-bottom:12px">
           <input id="glossQ" type="search" placeholder="${App.t('glossary_ph')}" autocomplete="off" />
         </div>

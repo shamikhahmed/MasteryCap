@@ -296,6 +296,10 @@ export const KEYS = {
   todayHabit: 'todayHabit',
   studyNotes: 'studyNotes',
   flashStats: 'flashStats',
+  flashSrs: 'flashSrs',
+  firstBackupDone: 'firstBackupDone',
+  backupRemindDismissedAt: 'backupRemindDismissedAt',
+  taxChecklist: 'taxChecklist',
 };
 
 export { djb2, QUOTA_WARN };

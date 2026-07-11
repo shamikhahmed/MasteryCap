@@ -26,7 +26,7 @@ export const GLOSSARY = [
   { term: 'Position size', en: 'Notional size of the trade in account currency.', ur: 'Trade ka notional size account currency mein.', tracks: ['crypto'] },
   { term: 'Risk percent', en: 'Max account % you allow to lose on one trade.', ur: 'Ek trade pe account ka max % loss.', tracks: ['crypto'] },
   { term: 'Slippage', en: 'Difference between expected and filled price.', ur: 'Expected aur filled price ka farq.', tracks: ['crypto'] },
-  { term: 'Spread', en: 'Difference between bid and ask.', ur: 'Bid aur ask ka farq.', tracks: ['crypto'] },
+  { term: 'Spread', en: 'Bid–ask gap you pay to trade — wider spread = higher friction.', ur: 'Bid–ask ka farq — spread bari = friction zyada.', tracks: ['crypto', 'forex'] },
   { term: 'Volume', en: 'Amount traded in a period — participation proxy.', ur: 'Period mein traded amount — participation proxy.', tracks: ['crypto'] },
   { term: 'Range', en: 'Sideways market between a ceiling and floor.', ur: 'Ceiling/floor ke beech sideways market.', tracks: ['crypto'] },
   { term: 'Breakout', en: 'Price leaving a range or level with conviction.', ur: 'Range/level se conviction ke sath nikalna.', tracks: ['crypto'] },
@@ -41,7 +41,7 @@ export const GLOSSARY = [
   { term: 'Delta', en: 'Option price sensitivity to underlying move.', ur: 'Underlying move pe option price sensitivity.', tracks: ['stocks'] },
   { term: 'Theta', en: 'Option value decay per day (time decay).', ur: 'Rozana option value decay (time decay).', tracks: ['stocks'] },
   { term: 'Vega', en: 'Option sensitivity to implied volatility.', ur: 'IV pe option sensitivity.', tracks: ['stocks'] },
-  { term: 'Gamma', en: 'Rate of change of delta.', ur: 'Delta ki change rate.', tracks: ['stocks'] },
+  { term: 'Gamma', en: 'How fast delta changes as the underlying moves — highest near ATM and expiry.', ur: 'Underlying move pe delta kitni tezi se badalta — ATM aur expiry pe sab se zyada.', tracks: ['greeks', 'options', 'stocks'] },
   { term: 'Breakeven', en: 'Price where option P/L is zero at expiry.', ur: 'Expiry pe jahan option P/L zero.', tracks: ['stocks'] },
   { term: 'Covered call', en: 'Long stock + short call — capped upside, premium income.', ur: 'Long stock + short call — capped upside.', tracks: ['stocks'] },
   { term: 'Vertical spread', en: 'Same-type options at two strikes, defined risk.', ur: 'Do strikes pe same-type options, defined risk.', tracks: ['stocks'] },
@@ -93,7 +93,7 @@ export const GLOSSARY = [
   { term: 'Settlement', en: 'When ownership of the asset actually transfers.', ur: 'Jab ownership transfer hoti hai.', tracks: ['spot'] },
   { term: 'Trading bot', en: 'Automated rules that place/manage orders.', ur: 'Automated rules jo orders place/manage karein.', tracks: ['bots'] },
   { term: 'Grid bot', en: 'Places buys/sells on a price grid in a range.', ur: 'Range mein price grid pe buys/sells.', tracks: ['bots'] },
-  { term: 'DCA', en: 'Dollar-cost averaging — fixed buys on a schedule.', ur: 'Schedule pe fixed buys.', tracks: ['bots'] },
+  { term: 'DCA', en: 'Dollar-cost averaging — fixed buys on a schedule, ignoring daily noise.', ur: 'Schedule pe fixed buys — daily noise ignore, long horizon.', tracks: ['bots', 'invest', 'spot'] },
   { term: 'Backtest', en: 'Running a strategy on historical data.', ur: 'Historical data pe strategy chalana.', tracks: ['bots'] },
   { term: 'Overfitting', en: 'Curve-fitting history so live results disappoint.', ur: 'History pe itna fit ke live fail.', tracks: ['bots'] },
   { term: 'Copy trading', en: "Mirroring another trader's orders automatically.", ur: 'Doosre trader ke orders auto mirror.', tracks: ['bots'] },
@@ -119,7 +119,7 @@ export const GLOSSARY = [
   { term: 'Variance', en: 'Natural randomness around expectancy.', ur: 'Expectancy ke around natural randomness.', tracks: ['crypto'] },
   { term: 'Sample size', en: 'Number of trades needed before trusting stats.', ur: 'Stats trust karne se pehle trades ki tadaad.', tracks: ['crypto'] },
   { term: 'Maintenance call', en: 'Broker demand for more margin after a drop.', ur: 'Drop ke baad broker ka zyada margin mangna.', tracks: ['futures'] },
-  { term: 'Basis', en: 'Futures price minus spot price.', ur: 'Futures minus spot.', tracks: ['futures'] },
+  { term: 'Basis', en: 'Futures minus spot — can converge or blow out in stress; not free money.', ur: 'Futures minus spot — stress mein blow out; free money nahi.', tracks: ['futures', 'spot'] },
   { term: 'Scalping', en: 'Very short holding period for small moves.', ur: 'Chhote moves ke liye bohat short hold.', tracks: ['forex'] },
   { term: 'Swing trade', en: 'Holding days to weeks for a structural move.', ur: 'Structural move ke liye din–hafte hold.', tracks: ['stocks'] },
 
@@ -217,6 +217,11 @@ export const GLOSSARY = [
   { term: 'T+1 / T+2', en: 'Settlement cycle — trade date plus one or two business days.', ur: 'Settlement cycle — trade date + 1/2 business days.', tracks: ['invest', 'stocks'] },
   { term: 'Legal advice', en: 'Personalized counsel from a qualified practitioner — this app is not that.', ur: 'Qualified practitioner ki personal salah — ye app woh nahi.', tracks: ['tax'] },
   { term: 'Investment advice', en: 'Personalized recommendation to buy/sell — MasteryCap teaches frameworks only.', ur: 'Buy/sell ki personal recommendation — MasteryCap sirf frameworks.', tracks: ['foundations', 'invest'] },
+  { term: 'TRADE-READY', en: 'Process competence on paper/tiny size at graduation time — not lifetime mastery, income, or a license. Skills decay.', ur: 'Graduation pe paper/tiny size process competence — lifetime mastery, income, ya license nahi. Skills kamzor hoti.', tracks: ['foundations'] },
+  { term: 'Process graduation', en: 'Gates that grade discipline (stops, size, no revenge) over P/L outcomes.', ur: 'Gates jo discipline grade karen (stop, size, no revenge) — P/L se upar.', tracks: ['foundations', 'crypto'] },
+  { term: 'Course certificate', en: 'Self-issued literacy PNG after exam — not TRADE-READY and not an external credential.', ur: 'Exam ke baad self-issued literacy PNG — TRADE-READY nahi, bahar credential nahi.', tracks: ['foundations'] },
+  { term: 'Mark price', en: 'Fair-price index used by perps venues for liquidation — can differ from last trade.', ur: 'Perps pe liquidation ke liye fair-price index — last trade se alag ho sakti.', tracks: ['crypto', 'futures'] },
+  { term: 'Risk of ruin', en: 'Chance of blowing the account given size, win rate, and payoff — size down to survive.', ur: 'Size, win rate, payoff se account blow hone ka chance — survive ke liye size chhota.', tracks: ['foundations', 'crypto'] },
 ];
 
 export function searchGlossary(q) {

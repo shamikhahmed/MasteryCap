@@ -50,7 +50,9 @@ export function renderProgress(App, c) {
     </div>
   </div>`;
 
-  const masteryPanel = `<div class="note-box warn" style="margin-bottom:14px"><strong>${App.t('mastery_title')}</strong><br/>${App.t('mastery_honest')}<br/><span style="opacity:0.85">${App.t('cert_not_license')}</span></div>`;
+  const masteryPanel = `<div class="note-box warn" style="margin-bottom:14px"><strong>${App.t('mastery_title')}</strong><br/>${App.t('mastery_honest')}<br/><span style="opacity:0.85">${App.t('cert_not_license')}</span></div>
+    <div class="note-box" style="margin-bottom:14px;font-size:13px">${App.t('limits_honest')}</div>
+    ${tradeReadyBadges(App)}`;
 
   const header = `<div class="lt-head"><div class="kicker">${App.t('nav_progress')}</div><h1>${lang === 'en' ? 'Hasil' : 'Hasil'}</h1></div>${masteryPanel}${timePanel}${skillPanel}`;
 
@@ -363,11 +365,30 @@ function weeksPanel(App) {
     const prog = App.getCourse(t.id);
     const done = t.weeks.filter((w) => ['completed', 'mastered'].includes(prog.weekStatus[w.id])).length;
     const p = t.weeks.length ? (done / t.weeks.length) * 100 : 0;
+    const tr = isGraduated(t.id);
     return `<div class="bar-line">
-      <div class="bl-l hstack" style="gap:8px">${icon(TRACK_ICON[t.id], { size: 15 })}<span>${t.name[lang].split(' ')[0]}</span></div>
+      <div class="bl-l hstack" style="gap:8px">${icon(TRACK_ICON[t.id], { size: 15 })}<span>${t.name[lang].split(' ')[0]}</span>${tr ? '<span class="pill" style="font-size:10px;margin-left:4px">TR</span>' : ''}</div>
       <div class="bl-track"><div class="bl-fill" style="width:${p}%;background:var(--acc)"></div></div>
       <div class="bl-v mono">${done}/${t.weeks.length}</div>
     </div>`;
   }).join('');
   return `<div class="panel"><div class="panel-h"><span class="ph-t">${App.t('weeks_done')}</span></div><div class="pad">${rows}</div></div>`;
+}
+
+function tradeReadyBadges(App) {
+  const lang = App.lang;
+  const ready = TRACKS.filter((t) => t.status === 'live' && isGraduated(t.id));
+  if (!ready.length) {
+    return `<div class="panel pad" style="margin-bottom:14px">
+      <div class="slabel">${App.t('tr_badges_title')}</div>
+      <p style="font-size:13px;color:var(--t3);margin:8px 0 0;line-height:1.5">${App.t('tr_badges_empty')}</p>
+    </div>`;
+  }
+  return `<div class="panel pad" style="margin-bottom:14px">
+    <div class="slabel">${App.t('tr_badges_title')}</div>
+    <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">
+      ${ready.map((t) => `<span class="pill" style="border-color:var(--acc)">${t.name[lang]} · TRADE-READY</span>`).join('')}
+    </div>
+    <p style="font-size:12px;color:var(--t3);margin:10px 0 0;line-height:1.45">${App.t('tr_badges_hint')}</p>
+  </div>`;
 }

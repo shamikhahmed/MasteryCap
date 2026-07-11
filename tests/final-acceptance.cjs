@@ -69,10 +69,11 @@ async function onboard(page) {
   await page.locator('#onbNext').click();
   await page.locator('[data-exp="new"]').click();
   await page.locator('#onbNext').click();
-  await page.locator('[data-mkt="crypto"]').click();
+  await page.locator('[data-mkt="foundations"]').click();
   await page.locator('#onbNext').click();
   await page.waitForSelector('#tabbar:not(.hidden)');
   await dismissNoise(page);
+  await page.locator('#first-backup-sheet [data-close]').first().click({ timeout: 800 }).catch(() => {});
 }
 
 async function goHome(page) {

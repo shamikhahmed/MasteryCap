@@ -49,10 +49,12 @@ async function onboard(page) {
   await page.locator('#onbNext').click();
   await page.locator('[data-exp="new"]').click();
   await page.locator('#onbNext').click();
-  await page.locator('[data-mkt="crypto"]').click();
+  await page.locator('[data-mkt="foundations"]').click();
   await page.locator('#onbNext').click();
   await page.waitForSelector('#tabbar:not(.hidden)');
   await dismissSheets(page);
+  // first-backup sheet may appear
+  await page.locator('#first-backup-sheet [data-close]').first().click({ timeout: 800 }).catch(() => {});
 }
 
 async function dismissSheets(page) {
@@ -64,7 +66,7 @@ async function dismissSheets(page) {
     await page.waitForTimeout(80);
   }
   for (let i = 0; i < 6; i++) {
-    const closed = await page.locator('.sheet-root.on [data-close], .sheet-root.on .sheet-x, #mbDismiss, #backupDismiss, #corruptKeep')
+    const closed = await page.locator('.sheet-root.on [data-close], .sheet-root.on .sheet-x, #mbDismiss, #backupDismiss, #corruptKeep, #first-backup-sheet [data-close]')
       .first().click({ timeout: 400 }).then(() => true).catch(() => false);
     if (!closed) break;
     await page.waitForTimeout(60);

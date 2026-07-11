@@ -1,5 +1,18 @@
 # Changelog
 
+## v38 — 2026-07-11 · Full confidence pass
+- Flashcards: real Leitner SRS (`flashSrs`, due-first, 1/3/7/14/30 day boxes)
+- Backup: first-export sheet, 7-day re-nag, reset requires export confirm + type `RESET`
+- SW: blocking update sheet + `reg.update()` on focus/visibility
+- Cert PNG: COURSE LITERACY vs TRADE-READY · NOT A LICENSE banners
+- Progress: TRADE-READY badges; limits honesty copy
+- Greeks bodies Invest-depth EN+UR; Foundations thin UR; Futures W3 UR
+- Onboard: new users only literacy markets; soft-start for `some`; lab gate on Learn
+- How-to: tax accountant prep checklist (no rate tables)
+- Glossary: TRADE-READY / process graduation / mark price / risk of ruin + thicker thin defs
+- `audit-ur-length.mjs` in audit-all (8 audits)
+- SW **v38**
+
 ## v37 — 2026-07-11 · Study desk (flashcards + notes)
 - Flip flashcards from glossary / week quizzes / mix rounds (Got it / Again)
 - Local study notes (device-only); lesson → note + flash this week

@@ -8,7 +8,7 @@ import { applyTheme, getAppearance, setAppearance } from './theme.js';
 import { getTeacher, setTeacher, TEACHERS } from './teacher.js';
 import { evidenceHash } from './exam.js';
 
-export const APP_VERSION = 'v37';
+export const APP_VERSION = 'v38';
 
 function todayStamp() {
   const d = new Date();
@@ -47,7 +47,9 @@ function doExport(App) {
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
   store.set(KEYS.lastExportAt, new Date().toISOString());
+  store.set(KEYS.firstBackupDone, true);
   store.remove(KEYS.backupRemindDismissed);
+  store.remove(KEYS.backupRemindDismissedAt);
   App.haptic(12);
   flash(App.t('backup_done'), 'warn');
 }
@@ -163,6 +165,7 @@ export function openSettings(App) {
         <button class="btn ghost mt10" id="setCsv">${icon('download', { size: 17 })} ${App.t('csv_export')}</button>
         <p style="font-size:13.5px;color:var(--t3);line-height:1.55;margin:14px 0 12px">${App.t('backup_import_hint')}</p>
         <button class="btn ghost" id="setImport">${icon('upload', { size: 17 })} ${App.t('backup_import')}</button>
+        <div class="note-box mt14" style="font-size:12.5px">${App.t('limits_honest')}</div>
         <input type="file" id="setFile" accept="application/json,.json" hidden />
 
         <div class="slabel" style="margin:22px 0 10px">${App.t('demo_pill')}</div>
@@ -318,6 +321,15 @@ export function openSettings(App) {
 
   document.getElementById('setReset').addEventListener('click', () => {
     if (!confirm(App.t('set_reset_1'))) return;
+    if (!confirm(App.t('set_reset_export_first'))) {
+      document.getElementById('setExport')?.click();
+      return;
+    }
+    const typed = prompt(App.t('set_reset_type'));
+    if (String(typed || '').trim().toUpperCase() !== 'RESET') {
+      flash(App.t('set_reset_abort'), 'err');
+      return;
+    }
     if (!confirm(App.t('set_reset_2'))) return;
     store.clearAll();
     location.reload();

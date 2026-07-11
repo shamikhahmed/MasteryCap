@@ -5,7 +5,7 @@
 import { icon } from '../icons.js';
 import {
   buildGlossaryDeck, buildWeekDeck, buildMixDeck,
-  getNotes, saveNote, deleteNote, getCardStats, recordCard,
+  getNotes, saveNote, deleteNote, getCardStats, recordCard, dueFlashCount,
 } from '../study.js';
 import { TRACKS } from '../data/tracks.js';
 import { markToday } from '../today.js';
@@ -41,9 +41,9 @@ function drawHub() {
     <p style="font-size:14px;color:var(--t2);line-height:1.55;margin:8px 0 18px">${App.t('study_blurb')}</p>
 
     <div class="stat-strip" style="margin-bottom:16px">
+      <div class="stat-cell"><div class="sc-l">${App.t('study_due')}</div><div class="sc-v" style="color:var(--acc)">${dueFlashCount()}</div></div>
       <div class="stat-cell"><div class="sc-l">${App.t('study_seen')}</div><div class="sc-v">${stats.seen || 0}</div></div>
       <div class="stat-cell"><div class="sc-l">${App.t('study_known')}</div><div class="sc-v" style="color:var(--up)">${stats.known || 0}</div></div>
-      <div class="stat-cell"><div class="sc-l">${App.t('study_streak')}</div><div class="sc-v" style="color:var(--acc)">${stats.streak || 0}</div></div>
       <div class="stat-cell"><div class="sc-l">${App.t('study_notes_n')}</div><div class="sc-v">${notes.length}</div></div>
     </div>
 
@@ -65,6 +65,7 @@ function drawHub() {
       </div>
     </div>
     <p class="note-box mt14" style="font-size:13px">${App.t('study_fun_hint')}</p>
+    <p class="note-box mt10" style="font-size:12.5px;color:var(--t3)">${App.t('study_srs_hint')}</p>
   </div>`;
 
   document.getElementById('studyBack')?.addEventListener('click', () => {
@@ -147,16 +148,15 @@ function drawCards() {
     drawCards();
   });
   document.getElementById('fcAgain')?.addEventListener('click', () => {
-    recordCard('again');
+    recordCard('again', card.id);
     App.haptic(6);
-    // put card near end
     const cur = S.deck.splice(S.idx, 1)[0];
     S.deck.push(cur);
     S.flipped = false;
     drawCards();
   });
   document.getElementById('fcKnown')?.addEventListener('click', () => {
-    recordCard('known');
+    recordCard('known', card.id);
     App.haptic(10);
     S.idx++;
     S.flipped = false;
