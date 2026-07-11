@@ -73,9 +73,12 @@ export function gradStatus(trackId, App) {
       else missing.push('sim_no_liq');
     }
   } else if (PORTFOLIO.has(trackId)) {
-    // Until S5: show coming requirement; gate on exam only
-    evidence.portfolio = { status: 'coming' };
-    missing.push('portfolio_coming');
+    const stats = store.get(KEYS.simStats, {});
+    const pid = trackId === 'spot' ? 'portfolio_spot' : 'portfolio_invest';
+    const st = stats[pid] || { runs: 0, pass: 0 };
+    evidence.portfolio = { id: pid, runs: st.runs || 0, pass: st.pass || 0 };
+    if ((st.pass || 0) >= 1) met.push('portfolio_adherence');
+    else missing.push('portfolio_adherence');
   } else if (!EXAM_PLUS.has(trackId) && !TRADING.has(trackId) && !PORTFOLIO.has(trackId)) {
     // Unknown track id — exam only, no crash
     evidence.unknownTrack = true;
@@ -84,9 +87,8 @@ export function gradStatus(trackId, App) {
   const gradStore = store.get(KEYS.graduation, {});
   evidence.gradAt = gradStore[trackId]?.gradAt || null;
 
-  // portfolio_coming is informational until S5 — does not block ready
-  const blocking = missing.filter((m) => m !== 'portfolio_coming');
-  const ready = blocking.length === 0;
+  // no non-blocking soft misses after S5
+  const ready = missing.length === 0;
 
   return { ready, met, missing, evidence };
 }

@@ -1,5 +1,12 @@
 # Changelog
 
+## v29 — 2026-07-11 · S5: Portfolio simulator (Invest + Spot)
+- **`js/sim/portfolio.js`** — seeded 24-month plan practice (broad / single / cash); crash months 8–10; decision events; stick / planned-add / panic-sell
+- **Adherence = process:** panic-sell or unplanned add → fail even if final value up; stick-through-crash → pass
+- Sim picker Invest/Spot portfolio rows · plan → run → debrief vs plan-followed baseline
+- Graduation invest/spot: `portfolio_adherence` from `simStats` (no soft “coming”)
+- SW **v29**
+
 ## v28 — 2026-07-11 · S4: Futures / Forex / Stocks sim packs
 - Engine instrument modes: **perp · futures (tick) · forex (pip) · stock (shares)**; `size_zero` reject; optional `gen.start` + `slipBoost`
 - **18 new scenarios** (6 futures, 6 forex, 6 stocks) — process missions, bilingual

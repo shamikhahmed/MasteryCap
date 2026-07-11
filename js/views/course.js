@@ -281,6 +281,7 @@ function missLabel(App, code, evidence) {
     sim_no_liq: App.t('grad_miss_liq'),
     sim_requires_s4: App.t('grad_miss_s4'),
     portfolio_coming: App.t('grad_miss_portfolio'),
+    portfolio_adherence: App.t('grad_miss_portfolio_adh'),
   };
   return map[code] || code;
 }
@@ -293,6 +294,7 @@ function metLabel(App, code, evidence) {
     sim_trades_20: App.t('grad_met_sim').replace('{n}', String(sim.tradeCount || 0)).replace('{m}', '20'),
     sim_pass_rate_80: App.t('grad_met_rate').replace('{n}', String(Math.round((sim.processPassRate || 0) * 100))),
     sim_no_liq: App.t('grad_met_liq'),
+    portfolio_adherence: App.t('grad_met_portfolio_adh'),
   };
   return map[code] || code;
 }

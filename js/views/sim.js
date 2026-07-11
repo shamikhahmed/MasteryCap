@@ -8,11 +8,13 @@ import { store, KEYS } from '../store.js';
 import { renderCandles } from '../candles.js';
 import { createSession } from '../sim/engine.js';
 import { SIM_SCENARIOS, getScenario, SIM_TRACK_ORDER, SIM_TRACK_LABEL, scenariosByTrack } from '../sim/scenarios.js';
+import { createPortfolioSession, PORTFOLIO_IDS } from '../sim/portfolio.js';
 
 let S = {
   view: 'picker', session: null, scenario: null,
-  playTimer: null, playSpeed: 1, // memory only — 1|2|4
+  playTimer: null, playSpeed: 1,
   msg: null, debrief: null, orderType: 'market',
+  pf: null, // portfolio session state
 };
 let APP = null, ROOT = null;
 
@@ -33,6 +35,9 @@ function fmt(n, dp = 2) { return Number(n).toLocaleString('en-US', { minimumFrac
 function draw() {
   if (S.view === 'session') return drawSession();
   if (S.view === 'debrief') return drawDebrief();
+  if (S.view === 'pf_plan') return drawPfPlan();
+  if (S.view === 'pf_run') return drawPfRun();
+  if (S.view === 'pf_debrief') return drawPfDebrief();
   drawPicker();
 }
 
@@ -40,6 +45,10 @@ function draw() {
 function drawPicker() {
   const App = APP, c = ROOT, lang = App.lang;
   const stats = store.get(KEYS.simStats, {});
+  const pfStat = (id) => {
+    const st = stats[id] || { runs: 0, pass: 0 };
+    return st.runs ? `${st.pass}/${st.runs} ${App.t('pf_pass')}` : App.t('sim_not_run');
+  };
   const byTrack = scenariosByTrack();
   let idx = 0;
   const sections = SIM_TRACK_ORDER.map((trackId) => {
@@ -66,10 +75,30 @@ function drawPicker() {
     <button class="backlink" id="simBack">${icon('back', { size: 16 })} ${App.t('back')}</button>
     <div class="lt-head"><div class="kicker">${App.t('sim_kicker')}</div><h1>${App.t('sim_title')}</h1></div>
     <p style="font-size:13.5px;color:var(--t3);margin:-8px 0 16px;line-height:1.55">${App.t('sim_intro')}</p>
+    <div class="slabel" style="margin:0 0 8px;padding:0 4px">${App.t('pf_section')}</div>
+    <div class="panel" style="margin-bottom:14px">
+      <div class="week-row" data-pf="invest">
+        <span class="week-idx mono">PF</span>
+        <div class="week-body">
+          <div class="wb-t">${App.t('pf_invest')}</div>
+          <div class="wb-s s-current">${pfStat('portfolio_invest')}</div>
+        </div>
+        ${icon('chevron', { size: 20, cls: 'week-state-ic' })}
+      </div>
+      <div class="week-row" data-pf="spot">
+        <span class="week-idx mono">PF</span>
+        <div class="week-body">
+          <div class="wb-t">${App.t('pf_spot')}</div>
+          <div class="wb-s s-current">${pfStat('portfolio_spot')}</div>
+        </div>
+        ${icon('chevron', { size: 20, cls: 'week-state-ic' })}
+      </div>
+    </div>
     ${sections}
   </div>`;
   document.getElementById('simBack').addEventListener('click', () => APP.closeSim());
   c.querySelectorAll('[data-sc]').forEach((el) => el.addEventListener('click', () => startSession(el.dataset.sc)));
+  c.querySelectorAll('[data-pf]').forEach((el) => el.addEventListener('click', () => startPortfolio(el.dataset.pf)));
 }
 
 function startSession(id, seed) {
@@ -367,4 +396,169 @@ function drawDebrief() {
   document.getElementById('simDone').addEventListener('click', () => { S.view = 'picker'; draw(); });
 }
 
-function fmtGuard() {} /* keep module tidy */
+/* ---------------- portfolio (S5) ---------------- */
+function startPortfolio(track) {
+  S.pf = { track, seed: Date.now() % 1e9, plan: null, session: null, debrief: null, event: null };
+  S.view = 'pf_plan';
+  APP.haptic();
+  draw();
+}
+
+function drawPfPlan() {
+  const App = APP, c = ROOT;
+  const title = S.pf.track === 'spot' ? App.t('pf_spot') : App.t('pf_invest');
+  c.innerHTML = `<div class="screen">
+    <button class="backlink" id="pfBack">${icon('back', { size: 16 })} ${App.t('back')}</button>
+    <div class="lesson-kicker">${title.toUpperCase()}</div>
+    <p style="font-size:13.5px;color:var(--t3);line-height:1.55;margin:0 0 14px">${App.t('pf_intro')}</p>
+    <div class="panel pad">
+      <div class="slabel">${App.t('pf_alloc')}</div>
+      <div class="f-row three" style="margin-top:10px">
+        <div class="field"><label>${App.t('pf_broad')}</label><input id="pfB" class="num" type="number" value="60" /></div>
+        <div class="field"><label>${App.t('pf_single')}</label><input id="pfS" class="num" type="number" value="20" /></div>
+        <div class="field"><label>${App.t('pf_cash')}</label><input id="pfC" class="num" type="number" value="20" /></div>
+      </div>
+      <div class="field"><label>${App.t('pf_dca')}</label><input id="pfDca" class="num" type="number" value="200" /></div>
+      <div class="field"><label>${App.t('pf_rebalance')}</label>
+        <div class="seg">
+          <button type="button" class="on" data-reb="none">${App.t('pf_reb_none')}</button>
+          <button type="button" data-reb="quarterly">${App.t('pf_reb_q')}</button>
+        </div>
+      </div>
+      <div class="check-row" id="pfPlanned" data-on="0" style="border:1px solid var(--line);border-radius:var(--r2);margin:12px 0">
+        <span class="check-box">${icon('checkThin', { size: 13, sw: 2.6 })}</span>
+        <span class="check-t">${App.t('pf_planned_add')}</span>
+      </div>
+      <button class="btn accent" id="pfGo">${App.t('pf_start')}</button>
+    </div>
+  </div>`;
+  let reb = 'none';
+  document.getElementById('pfBack').addEventListener('click', () => { S.view = 'picker'; draw(); });
+  c.querySelectorAll('[data-reb]').forEach((b) => b.addEventListener('click', () => {
+    reb = b.dataset.reb;
+    c.querySelectorAll('[data-reb]').forEach((x) => x.classList.toggle('on', x === b));
+  }));
+  const planned = document.getElementById('pfPlanned');
+  planned.addEventListener('click', () => {
+    const on = planned.dataset.on !== '1';
+    planned.dataset.on = on ? '1' : '0';
+    planned.classList.toggle('on', on);
+  });
+  document.getElementById('pfGo').addEventListener('click', () => {
+    const plan = {
+      alloc: {
+        broad: parseFloat(document.getElementById('pfB').value) || 0,
+        single: parseFloat(document.getElementById('pfS').value) || 0,
+        cash: parseFloat(document.getElementById('pfC').value) || 0,
+      },
+      dca: parseFloat(document.getElementById('pfDca').value) || 200,
+      rebalance: reb,
+      plannedAdd: planned.dataset.on === '1',
+    };
+    S.pf.plan = plan;
+    S.pf.session = createPortfolioSession({
+      seed: S.pf.seed, balance: 10000, plan, track: S.pf.track,
+    });
+    S.pf.event = null;
+    S.view = 'pf_run';
+    APP.haptic();
+    draw();
+  });
+}
+
+function drawPfRun() {
+  const App = APP, c = ROOT, lang = App.lang;
+  const sess = S.pf.session;
+  const st = sess.state;
+  const val = sess.portfolioValue();
+  const ev = S.pf.event;
+  const monthLabel = st.month < 0 ? '—' : String(st.month + 1);
+
+  c.innerHTML = `<div class="screen">
+    <button class="backlink" id="pfEnd">${icon('back', { size: 16 })} ${App.t('sim_end')}</button>
+    <div class="lesson-kicker">${App.t('pf_month')} ${monthLabel} / 24</div>
+    <div class="panel pad" style="margin-bottom:12px">
+      <div class="slabel">${App.t('pf_value')}</div>
+      <div class="mono" style="font-size:22px;margin-top:6px">$${fmt(val)}</div>
+    </div>
+    ${ev ? `<div class="panel pad" style="margin-bottom:12px">
+      <div class="slabel">${App.t('pf_decision')}</div>
+      <p style="font-size:14px;margin:8px 0 14px;line-height:1.5">${ev[lang] || ev.en}</p>
+      <button class="btn accent" id="pfStick" style="width:100%">${App.t('pf_stick')}</button>
+      <button class="btn secondary mt10" id="pfAdd" style="width:100%">${App.t('pf_add')}</button>
+      <button class="btn mt10" id="pfSell" style="width:100%">${App.t('pf_sell')}</button>
+    </div>` : `<button class="btn accent" id="pfNext" style="width:100%">${App.t('pf_next')}</button>`}
+    <div class="note-box warn mt14">${App.t('pf_honesty')}</div>
+  </div>`;
+
+  document.getElementById('pfEnd').addEventListener('click', () => { S.view = 'picker'; draw(); });
+  document.getElementById('pfNext')?.addEventListener('click', () => pfAdvance());
+  document.getElementById('pfStick')?.addEventListener('click', () => pfDecide('stick'));
+  document.getElementById('pfAdd')?.addEventListener('click', () => pfDecide('add'));
+  document.getElementById('pfSell')?.addEventListener('click', () => pfDecide('sell'));
+}
+
+function pfAdvance() {
+  const r = S.pf.session.step();
+  if (r.done) return endPortfolio(r.debrief || S.pf.session.debrief());
+  if (r.event) { S.pf.event = r.event; APP.haptic(8); }
+  else S.pf.event = null;
+  draw();
+}
+
+function pfDecide(choice) {
+  S.pf.session.decide(choice);
+  S.pf.event = null;
+  APP.haptic(choice === 'sell' ? 6 : 10);
+  // auto-continue until next event or end
+  let guard = 0;
+  while (guard++ < 30) {
+    const r = S.pf.session.step();
+    if (r.done) return endPortfolio(r.debrief || S.pf.session.debrief());
+    if (r.event) { S.pf.event = r.event; break; }
+  }
+  draw();
+}
+
+function endPortfolio(d) {
+  const id = PORTFOLIO_IDS[S.pf.track] || 'portfolio_invest';
+  const stats = store.get(KEYS.simStats, {});
+  const s = stats[id] || { runs: 0, pass: 0, trades: 0 };
+  s.runs += 1;
+  if (d.pass) s.pass += 1;
+  s.trades += 1;
+  stats[id] = s;
+  store.set(KEYS.simStats, stats);
+  if (typeof APP.bumpStreak === 'function') APP.bumpStreak();
+  S.pf.debrief = d;
+  S.view = 'pf_debrief';
+  draw();
+}
+
+function drawPfDebrief() {
+  const App = APP, c = ROOT;
+  const d = S.pf.debrief;
+  c.innerHTML = `<div class="screen">
+    <div class="lesson-kicker">${App.t('pf_debrief')}</div>
+    <div class="result">
+      <div class="r-score ${d.pass ? 'up' : 'down'}">${d.pass ? App.t('pf_pass') : App.t('pf_fail')}</div>
+      <div class="r-msg">${App.t('pf_compound_note')}</div>
+    </div>
+    ${d.fails?.length ? `<div class="note-box err mt14"><span class="tag flag">${d.fails.join(' · ')}</span></div>` : ''}
+    <div class="spread mono mt14" style="font-size:14px;padding:0 4px">
+      <span>${App.t('pf_value')}</span>
+      <span>$${fmt(d.final)}</span>
+    </div>
+    <div class="spread mono mt10" style="font-size:13px;padding:0 4px;color:var(--t3)">
+      <span>${App.t('pf_vs_plan')}</span>
+      <span>$${fmt(d.baseline)}</span>
+    </div>
+    <div class="note-box warn mt14">${App.t('pf_honesty')}</div>
+    <div class="btn-row mt18">
+      <button class="btn secondary" id="pfAgain">${App.t('pf_again')}</button>
+      <button class="btn accent" id="pfDone">${App.t('next')}</button>
+    </div>
+  </div>`;
+  document.getElementById('pfAgain').addEventListener('click', () => startPortfolio(S.pf.track));
+  document.getElementById('pfDone').addEventListener('click', () => { S.view = 'picker'; draw(); });
+}

@@ -6,7 +6,7 @@ analytics. True-black terminal-grade design (self-hosted Geist/Geist Mono, singl
 #FF6B2C accent). Fully offline after first load. Personal use — no accounts, no
 backend, no billing. Data stays on-device under `masterycap:`.
 
-**Version:** v28 · see [VERSION](VERSION) · [CHANGELOG.md](CHANGELOG.md) · [GUIDE.md](GUIDE.md)
+**Version:** v29 · see [VERSION](VERSION) · [CHANGELOG.md](CHANGELOG.md) · [GUIDE.md](GUIDE.md)
 
 ## Tabs
 - **Home** — equity-curve hero, stat strip, pre-trade checklist, streak, discipline
