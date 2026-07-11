@@ -11,6 +11,7 @@ import { SPOT_WEEKS, SPOT_PLACEMENT } from './spot.js';
 import { BINARY_WEEKS, BINARY_PLACEMENT } from './binary.js';
 import { INVEST_WEEKS, INVEST_PLACEMENT } from './invest.js';
 import { BOTS_WEEKS, BOTS_PLACEMENT } from './bots.js';
+import { enrichTrack } from './enrich.js';
 
 export const TRACKS = [
   {
@@ -81,5 +82,5 @@ export const TRACKS = [
 ];
 
 export function getTrack(id) {
-  return TRACKS.find((t) => t.id === id) || TRACKS[0];
+  return enrichTrack(TRACKS.find((t) => t.id === id) || TRACKS[0]);
 }

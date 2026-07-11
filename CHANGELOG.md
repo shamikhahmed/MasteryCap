@@ -1,5 +1,13 @@
 # Changelog
 
+## v21 — 2026-07-11 · All courses thickened (practice + 4th quiz)
+- `thicken.js` — beginner practice append on **all 53** weeks
+- `quiz-extra.js` — 4th literacy Q where weeks had only 3 (~50 weeks)
+- `enrich.js` + `getTrack()` — merge extras + quiz at read time (exam/review/course)
+- Retention pool uses enriched weeks
+- SW ASSETS: `quiz-extra.js`, `enrich.js` · CACHE **v21**
+- Stance unchanged: literacy ≠ income
+
 ## v20 — 2026-07-11 · Beginner path + graduation (honest earn framing)
 - Keep name **MasteryCap**
 - `js/data/paths.js` — recommended beginner order; per-track graduation steps + size rules

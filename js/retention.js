@@ -46,8 +46,9 @@ function setReview(obj) { store.set(KEYS.review, obj); }
 export function poolQuestions() {
   const course = store.get(KEYS.course, {});
   const out = [];
-  TRACKS.forEach((t) => {
-    if (t.status !== 'live') return;
+  TRACKS.forEach((raw) => {
+    if (raw.status !== 'live') return;
+    const t = getTrack(raw.id);
     const prog = course[t.id] || {};
     const ws = prog.weekStatus || {};
     t.weeks.forEach((w) => {
