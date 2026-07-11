@@ -9,6 +9,7 @@ import { CHECK_RULES, todayKey, equityPoints, tradeStats } from '../desk.js';
 
 let direction = null;
 let pendingDebriefId = null;
+let histSource = 'live'; // memory only: 'live' | 'paper'
 const EMOTIONS = [
   { v: 'calm', key: 'emo_calm' }, { v: 'fomo', key: 'emo_fomo' },
   { v: 'revenge', key: 'emo_revenge' }, { v: 'greed', key: 'emo_greed' }, { v: 'bored', key: 'emo_bored' },
@@ -171,7 +172,12 @@ export function renderJournal(App, c) {
 
     <div class="panel mt14">
       <div class="panel-h"><span class="ph-t">${App.t('history')}</span></div>
-      <div class="pad" style="padding-bottom:8px">
+      <div class="pad" style="padding:12px 16px 8px">
+        <div class="seg" style="margin-bottom:12px">
+          <button type="button" class="${histSource === 'live' ? 'on' : ''}" data-hist="live">${App.t('j_hist_live')}</button>
+          <button type="button" class="${histSource === 'paper' ? 'on' : ''}" data-hist="paper">${App.t('j_hist_paper')}</button>
+        </div>
+        <div id="histFilters" class="${histSource === 'paper' ? 'hidden' : ''}">
         <div class="grid-3">
           <div class="field" style="margin:0"><label>Setup</label><input id="filtSetup" type="search" placeholder="…" /></div>
           <div class="field" style="margin:0"><label>Market</label>
@@ -180,6 +186,7 @@ export function renderJournal(App, c) {
           <div class="field" style="margin:0"><label>TF</label>
             <select id="filtTf"><option value="">—</option><option>scalp</option><option>intraday</option><option>swing</option><option>position</option></select>
           </div>
+        </div>
         </div>
       </div>
       <div id="log"></div>
@@ -331,6 +338,14 @@ export function renderJournal(App, c) {
     document.getElementById(id)?.addEventListener('change', () => renderLog());
   });
 
+  c.querySelectorAll('[data-hist]').forEach((b) => b.addEventListener('click', () => {
+    histSource = b.dataset.hist;
+    App.haptic();
+    c.querySelectorAll('[data-hist]').forEach((x) => x.classList.toggle('on', x.dataset.hist === histSource));
+    document.getElementById('histFilters')?.classList.toggle('hidden', histSource === 'paper');
+    renderLog();
+  }));
+
   renderLog();
   if (pendingDebriefId) showDebrief(App, pendingDebriefId);
 
@@ -368,6 +383,32 @@ export function renderJournal(App, c) {
 
   function renderLog() {
     const log = document.getElementById('log');
+    if (histSource === 'paper') {
+      const list = store.get(KEYS.simTrades, []);
+      if (!list.length) {
+        log.innerHTML = `<div class="empty">${icon('journal', { size: 40, cls: 'e-ic', sw: 1.3 })}${App.t('j_no_paper')}</div>`;
+        return;
+      }
+      log.innerHTML = list.map((t) => {
+        const pos = Number(t.pl) >= 0;
+        const d = new Date(t.date || Date.now());
+        const ds = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const pass = t.process?.pass;
+        const reasonKey = 'sim_' + (t.reason || 'manual');
+        const reason = App.t(reasonKey) !== reasonKey ? App.t(reasonKey) : (t.reason || '');
+        const scLabel = t.scenarioId || 'sim';
+        return `<div class="trade-row">
+          <span class="trade-dir ${t.dir}">${icon(t.dir === 'long' ? 'arrowUp' : 'arrowDown', { size: 16 })}</span>
+          <div class="trade-body">
+            <div class="tb-t">${scLabel} · ${reason} <span class="tag ${pass ? '' : 'flag'}">${pass ? App.t('sim_process_pass') : App.t('sim_process_fail')}</span></div>
+            <div class="tb-m mono">${fmtLev(t.lev)}x · ${ds}${t.r != null ? ` · ${Number(t.r).toFixed(2)}R` : ''}${t.bars != null ? ` · ${t.bars} bars` : ''}</div>
+          </div>
+          <span class="trade-pl ${pos ? 'up' : 'down'}">${pos ? '+' : ''}${App.money(t.pl)}</span>
+        </div>`;
+      }).join('');
+      return;
+    }
+
     let list = App.getTrades();
     const fSetup = document.getElementById('filtSetup')?.value?.trim().toLowerCase() || '';
     const fMarket = document.getElementById('filtMarket')?.value || '';
@@ -397,4 +438,9 @@ export function renderJournal(App, c) {
     }).join('');
     log.querySelectorAll('[data-del]').forEach((b) => b.addEventListener('click', () => { App.setTrades(App.getTrades().filter((x) => x.id !== Number(b.dataset.del))); App.render(); }));
   }
+}
+
+function fmtLev(n) {
+  const v = Number(n);
+  return Number.isFinite(v) ? v.toFixed(1) : '?';
 }
