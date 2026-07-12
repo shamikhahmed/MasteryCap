@@ -1,5 +1,5 @@
 /* MasteryCap service worker — offline-first shell cache */
-const CACHE = 'masterycap-v41';
+const CACHE = 'masterycap-v42';
 const ASSETS = [
   './',
   './index.html',

@@ -19,6 +19,7 @@ const EMO = {
 };
 
 import { getTimeStats, formatDuration } from '../time.js';
+import { getStreak as getStreakImported } from '../retention.js';
 import { getSkillState, SKILLS } from '../skills.js';
 import { isGraduated, gradStatus } from '../graduation.js';
 import { getTrack } from '../data/tracks.js';
@@ -59,6 +60,7 @@ export function renderProgress(App, c) {
         <div style="font-size:11px;color:var(--t3);margin-top:4px">${lang === 'en' ? 'Self-issued study record — not a license' : 'Self-issued study record — license nahi'}</div>
       </div>
       <div style="margin-top:10px">${gs.met.map((m) => row(m, true)).join('')}${gs.missing.map((m) => row(m, false)).join('')}</div>
+      <button class="btn secondary mt10" id="shareCard" style="width:100%">${lang === 'en' ? 'Share progress card' : 'Progress card share karo'}</button>
     </div>`;
   })();
 
@@ -92,6 +94,7 @@ export function renderProgress(App, c) {
   if (!trades.length) {
     c.innerHTML = `<div class="screen">${header}${weeksPanel(App)}${drillsPanel(App)}
       <div class="panel mt14"><div class="empty">${icon('progress', { size: 40, cls: 'e-ic', sw: 1.3 })}${App.t('no_data')}</div></div></div>`;
+    attachShareCard(App);
     return;
   }
 
@@ -157,6 +160,7 @@ function dualMetricPanel(App, trades) {
     </div>
     <div class="pad" style="font-size:12.5px;color:var(--t3);padding-top:0">${App.t('dual_hint')}</div>
   </div>`;
+  attachShareCard(App);
 }
 
 function radarPanel(App) {
@@ -424,4 +428,48 @@ function tradeReadyBadges(App) {
     </div>
     <p style="font-size:12px;color:var(--t3);margin:10px 0 0;line-height:1.45">${App.t('tr_badges_hint')}</p>
   </div>`;
+}
+
+function attachShareCard(App) {
+  document.getElementById('shareCard')?.addEventListener('click', () => {
+    const lang = App.lang;
+    const streak = getStreakLocal();
+    let weeksDone = 0, weeksTotal = 0;
+    TRACKS.forEach((t) => {
+      if (t.status !== 'live') return;
+      const prog = App.getCourse(t.id);
+      weeksTotal += t.weeks.length;
+      weeksDone += t.weeks.filter((w) => ['completed', 'mastered'].includes(prog.weekStatus[w.id])).length;
+    });
+    const cv = document.createElement('canvas');
+    cv.width = 1080; cv.height = 1080;
+    const x = cv.getContext('2d');
+    x.fillStyle = '#08090A'; x.fillRect(0, 0, 1080, 1080);
+    const g = x.createRadialGradient(540, 540, 60, 540, 540, 760);
+    g.addColorStop(0, 'rgba(255,107,44,0.10)'); g.addColorStop(1, 'rgba(255,107,44,0)');
+    x.fillStyle = g; x.fillRect(0, 0, 1080, 1080);
+    x.strokeStyle = '#FF6B2C'; x.lineWidth = 4; x.strokeRect(50, 50, 980, 980);
+    const C = (t, y) => { x.fillText(t, (1080 - x.measureText(t).width) / 2, y); };
+    x.fillStyle = '#FF6B2C'; x.font = '600 34px ui-monospace, monospace';
+    C('M A S T E R Y C A P', 190);
+    x.fillStyle = '#F2F4F7'; x.font = '650 120px Georgia, serif';
+    C(String(streak), 460);
+    x.fillStyle = '#A8B0BA'; x.font = '500 40px system-ui, sans-serif';
+    C(lang === 'en' ? 'day study streak' : 'din ka streak', 530);
+    x.fillStyle = '#F2F4F7'; x.font = '650 72px Georgia, serif';
+    C(`${weeksDone}/${weeksTotal}`, 700);
+    x.fillStyle = '#A8B0BA'; x.font = '500 40px system-ui, sans-serif';
+    C(lang === 'en' ? 'course weeks completed' : 'course weeks mukammal', 762);
+    x.fillStyle = '#8A939E'; x.font = '400 28px system-ui, sans-serif';
+    C(lang === 'en' ? 'Studying markets. No promises — just process.' : 'Market parh raha hoon. Waade nahi — sirf process.', 900);
+    const a = document.createElement('a');
+    a.download = 'masterycap-progress.png';
+    a.href = cv.toDataURL('image/png');
+    a.click();
+    App.haptic(12);
+  });
+}
+
+function getStreakLocal() {
+  try { return getStreakImported().current || 0; } catch (e) { return 0; }
 }

@@ -1,5 +1,11 @@
 # Changelog
 
+## v42 (2026-07-12) — share card
+- **Share progress card**: 1080x1080 PNG (streak + weeks completed) from Progress tab — WhatsApp-ready, honest tagline, no income claims.
+- Confirmed: mistake museum already live since earlier version (wrong quiz answers seed SRS box 1 via mistakes.js) — removed from build queue.
+- SW masterycap-v42.
+
+
 ## v41 (2026-07-12) — motivation + access
 - **Weekly report card** on Home: XP gained, weeks completed, reviews due, streak + one focus suggestion. Local snapshot per ISO week, dismissible.
 - **Certificate progress preview** in Progress: grayed/dashed cert placeholder + met/missing requirement checklist (exam, sim trades, process rate, liquidations, portfolio adherence) — shows exactly what stands between you and issue.

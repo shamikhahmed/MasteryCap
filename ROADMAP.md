@@ -81,11 +81,11 @@ Keys added (additive): simTrades, simSessions, simStats, graduation.
 ## University build queue (2026-07-12, owner-approved)
 Done: v40 strict prereqs + dated plan + theme/text-size fixes · v41 report card + cert preview + TTS.
 Next (in order):
-1. **v42 Mistake museum** — wrong quiz answers + failed sim trades auto-feed the SRS review deck.
+1. ~~v42 Mistake museum~~ — ALREADY EXISTS (mistakes.js seeds SRS). Optional later: failed sim trades feed too.
 2. **v42 Guided session runner** — auto-chain lesson → cards → quiz per sessionMins (15/30/45 descriptors already in syllabus.buildDailySession).
 3. **v43 Worked chart examples** — one annotated chartgen scenario per key concept.
 4. **v43 Scenario ladder per track** — funding squeeze (crypto), theta burn (options), margin call (futures) drills.
 5. **v43 Post-trade debrief** — one interrogation question after each sim trade.
-6. **v44 Share card** — small streak/week PNG for WhatsApp.
+6. ~~v44 Share card~~ — DONE v42.
 7. **v44 Glossary popovers** — tap bold term → inline definition (215 terms ready).
 8. **v44 Competence statements** — Progress shows "can / can't yet" per track.
