@@ -1,13 +1,13 @@
 # MasteryCap — Handover
 
 > Read this + `ROADMAP.md` + `~/Capricorn-Brain/01 Projects/MasteryCap.md` before working here.
-> Last updated: 2026-07-11 · Fleet-wide standard: `capricorn-tooling/shared/CAP-STANDARD.md`
+> Last updated: 2026-07-19 · Fleet-wide standard: `capricorn-tooling/shared/CAP-STANDARD.md`
 
 ## What this is
 Bilingual (EN / Roman Urdu) trading school + discipline journal PWA. Personal, non-commercial.
 
 ## Facts
-**Version:** v38 (sw: masterycap-v38)
+**Version:** v42.1.0 (sw: masterycap-v42.1)
 **Live:** https://shamikhahmed.github.io/MasteryCap/
 **Repo:** https://github.com/shamikhahmed/MasteryCap
 **Stack:** Vanilla JS PWA. Self-hosted Geist/Geist Mono. localStorage (`masterycap:` namespace). Node test harness.
