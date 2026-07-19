@@ -131,7 +131,7 @@ export function planPosition(App) {
  *   15 → [lesson, cards(3), quiz(1)]
  *   30 → [lesson, lesson?, cards(5), quiz(2), sim?]
  *   45 → [lesson x2, cards(8), quiz(3), sim scenario]
- * Steps are descriptors; app.js session runner executes them.
+ * Steps are descriptors; js/session.js runner executes them.
  */
 export function buildDailySession(App) {
   const settings = store.get(KEYS.settings, {});

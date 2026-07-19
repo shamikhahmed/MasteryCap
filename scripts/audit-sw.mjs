@@ -56,9 +56,11 @@ for (const rel of must) {
 }
 
 // Optional apple touch icon
-const apple = 'icons/icon-180.png';
-if (fs.existsSync(path.join(root, apple)) && !assetSet.has(apple)) {
-  warns.push(`optional icon not in ASSETS: ${apple}`);
+const appleCandidates = ['icons/apple-touch-icon-180.png', 'icons/icon-180.png'];
+for (const apple of appleCandidates) {
+  if (fs.existsSync(path.join(root, apple)) && !assetSet.has(apple)) {
+    warns.push(`optional icon not in ASSETS: ${apple}`);
+  }
 }
 
 const cacheM = swText.match(/const CACHE = ['"]([^'"]+)['"]/);

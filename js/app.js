@@ -22,6 +22,7 @@ import { applyTheme } from './theme.js';
 import { pauseTime, touchTime } from './time.js';
 import { seedFoundationsSoftStart, preferredStartTrack } from './gates.js';
 import { canOpenTradingLab } from './gates.js';
+import { syncSessionBar } from './session.js';
 
 const root = () => document.getElementById('app-root');
 
@@ -167,6 +168,7 @@ export const App = {
     const c = root(); if (!c) return;
     if (this.tab !== 'sim') stopSimPlayback();
     ({ dashboard: renderDashboard, learn: renderCourse, journal: renderJournal, progress: renderProgress, drills: renderDrills, review: renderReview, charts: renderCharts, sim: renderSim, study: renderStudy }[this.tab])(this, c);
+    syncSessionBar(this);
   },
 
   renderNav() {

@@ -304,6 +304,7 @@ export const KEYS = {
   firstBackupDone: 'firstBackupDone',
   backupRemindDismissedAt: 'backupRemindDismissedAt',
   taxChecklist: 'taxChecklist',
+  sessionRun: 'sessionRun',
 };
 
 export { djb2, QUOTA_WARN };

@@ -1,5 +1,11 @@
 # Changelog
 
+## v42.1.0 (2026-07-19) — brand + session runner stub
+- **Brand icons:** Capricorn OS mark pack wired — favicon.svg, apple-touch-icon-180, maskable + any PNGs, mark.svg / icon-1024 in SW cache.
+- **Guided session runner (stub):** Campus Continue opens today's plan from `syllabus.buildDailySession` (lesson → cards → quiz → optional sim); floating bar advances steps. Additive key `sessionRun`.
+- VERSION / APP_VERSION → 42.1.0 · SW `masterycap-v42.1`.
+
+
 ## v42 (2026-07-12) — share card
 - **Share progress card**: 1080x1080 PNG (streak + weeks completed) from Progress tab — WhatsApp-ready, honest tagline, no income claims.
 - Confirmed: mistake museum already live since earlier version (wrong quiz answers seed SRS box 1 via mistakes.js) — removed from build queue.

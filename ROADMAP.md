@@ -82,7 +82,7 @@ Keys added (additive): simTrades, simSessions, simStats, graduation.
 Done: v40 strict prereqs + dated plan + theme/text-size fixes · v41 report card + cert preview + TTS.
 Next (in order):
 1. ~~v42 Mistake museum~~ — ALREADY EXISTS (mistakes.js seeds SRS). Optional later: failed sim trades feed too.
-2. **v42 Guided session runner** — auto-chain lesson → cards → quiz per sessionMins (15/30/45 descriptors already in syllabus.buildDailySession).
+2. ~~v42.1 Guided session runner~~ — STUB shipped: Campus Continue → plan sheet + step bar (`js/session.js`).
 3. **v43 Worked chart examples** — one annotated chartgen scenario per key concept.
 4. **v43 Scenario ladder per track** — funding squeeze (crypto), theta burn (options), margin call (futures) drills.
 5. **v43 Post-trade debrief** — one interrogation question after each sim trade.

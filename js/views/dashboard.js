@@ -17,6 +17,7 @@ import { todayProgress } from '../today.js';
 import { canOpenTradingLab } from '../gates.js';
 import { planPosition, semesterOf } from '../syllabus.js';
 import { weeklyReport, lastReport } from '../report.js';
+import { openSessionRunner } from '../session.js';
 
 function ladderStages(App, trackId) {
   const track = getTrack(trackId);
@@ -196,7 +197,7 @@ export function renderDashboard(App, c) {
       <div class="slabel">${App.t('campus_next')}</div>
       ${planLine}
       <div style="font-size:17px;font-weight:650;letter-spacing:-0.02em;margin-top:8px;line-height:1.35">${nextLabel}</div>
-      <button class="btn accent mt14" id="goContinue" style="width:100%">${icon('learn', { size: 17 })} ${App.t('continueLearning')} · ${sessionMins} min</button>
+      <button class="btn accent mt14" id="goContinue" style="width:100%">${icon('learn', { size: 17 })} ${App.t('session_start')} · ${sessionMins} min</button>
     </div>`;
     })()}
 
@@ -306,12 +307,7 @@ export function renderDashboard(App, c) {
 
   const openNext = () => {
     App.haptic();
-    if (!next) { App.navigate('learn'); return; }
-    App.navigate('learn');
-    // course view picks up via custom event / setCourseFocus
-    window.dispatchEvent(new CustomEvent('masterycap:focus-track', {
-      detail: { trackId: next.trackId, weekId: next.weekId, kind: next.kind },
-    }));
+    openSessionRunner(App);
   };
   document.getElementById('goContinue')?.addEventListener('click', openNext);
   document.getElementById('goHowto')?.addEventListener('click', () => { App.haptic(); openHowto(App); });

@@ -1,5 +1,5 @@
 /* MasteryCap service worker — offline-first shell cache */
-const CACHE = 'masterycap-v42';
+const CACHE = 'masterycap-v42.1';
 const ASSETS = [
   './',
   './index.html',
@@ -8,6 +8,7 @@ const ASSETS = [
   './js/store.js',
   './js/i18n.js',
   './js/icons.js',
+  './js/session.js',
   './js/settings.js',
   './js/figures.js',
   './js/drills.js',
@@ -77,6 +78,10 @@ const ASSETS = [
   './icons/icon-maskable-192.png',
   './icons/icon-maskable-512.png',
   './icons/icon-180.png',
+  './icons/apple-touch-icon-180.png',
+  './icons/favicon.svg',
+  './icons/mark.svg',
+  './icons/icon-1024.png',
 ];
 
 self.addEventListener('install', (e) => {
