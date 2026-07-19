@@ -1,5 +1,7 @@
 # MasteryCap
 
+**Version:** 42.1.1
+
 Offline bilingual (EN / Roman Urdu) **trading school**: Learn → Practice → Graduate.
 Curriculum + paper simulator (process-graded, not P/L) + discipline journal. True-black
 terminal design (Geist, accent `#FF6B2C`). No accounts, no backend, no income promises.
