@@ -1,5 +1,5 @@
 /* MasteryCap service worker — offline-first shell cache */
-const CACHE = 'masterycap-v42.1';
+const CACHE = 'masterycap-v4211';
 const ASSETS = [
   './',
   './index.html',
@@ -82,6 +82,7 @@ const ASSETS = [
   './icons/favicon.svg',
   './icons/mark.svg',
   './icons/icon-1024.png',
+  './assets/qr-masterycap.png',
 ];
 
 self.addEventListener('install', (e) => {

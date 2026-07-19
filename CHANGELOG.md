@@ -1,3 +1,8 @@
+## [42.1.1] — 2026-07-19
+
+- Capricorn QR asset in SW allowlist (`assets/qr-masterycap.png`)
+- SW `masterycap-v4211`
+
 # Changelog
 
 ## v42.1.0 (2026-07-19) — brand + session runner stub
