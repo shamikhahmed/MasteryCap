@@ -1,8 +1,6 @@
 /* ============================================================
-   MasteryCap — design system v2
-   Bloomberg-terminal precision × Geist/Linear software polish.
-   True-black OLED · bundled Geist · mono numerics · hairline
-   data rows · single precise accent · film grain.
+   MasteryCap — exam booklet / academic seal
+   Light + dark (via theme.js). Serif display + Geist UI.
    ============================================================ */
 
 /* ---------- Fonts (self-hosted, offline) ---------- */
@@ -14,38 +12,38 @@
 @font-face { font-family:'Geist Mono'; font-weight:600; font-display:swap; src:url('../fonts/geistmono-600.woff2') format('woff2'); }
 
 :root {
-  /* --- surfaces (true black, minimal elevation) --- */
-  --bg: #08090A;
-  --bg-1: #0B0C0E;
-  --surface: #101215;
-  --surface-2: #15181C;
-  --surface-3: #1B1F24;
+  /* --- surfaces (ink night) --- */
+  --bg: #0B0C0E;
+  --bg-1: #101215;
+  --surface: #14171B;
+  --surface-2: #1A1E24;
+  --surface-3: #222830;
 
-  /* --- borders (barely-there, precise) --- */
-  --line: rgba(255,255,255,0.06);
-  --line-2: rgba(255,255,255,0.10);
+  /* --- borders --- */
+  --line: rgba(255,255,255,0.07);
+  --line-2: rgba(255,255,255,0.11);
   --line-3: rgba(255,255,255,0.16);
 
-  /* --- neutral text ramp (6 steps, not 3) --- */
-  --t0: #F4F5F6;   /* near-white — primary */
-  --t1: #C4C8CD;   /* secondary */
-  --t2: #878D95;   /* tertiary / labels */
-  --t3: #7A828C;   /* quaternary — WCAG AA vs --bg */
-  --t4: #757C86;   /* faint — WCAG AA vs --bg */
+  /* --- neutral text ramp --- */
+  --t0: #F4F5F6;
+  --t1: #C4C8CD;
+  --t2: #878D95;
+  --t3: #7A828C;
+  --t4: #757C86;
 
-  /* --- accent: single precise orange, used sparingly --- */
-  --acc: #FF6B2C;
-  --acc-2: #FF8A4C;
-  --acc-dim: rgba(255,107,44,0.14);
-  --acc-line: rgba(255,107,44,0.30);
+  /* --- accent: seal/stamp orange (softer) --- */
+  --acc: #E86A2C;
+  --acc-2: #F08A52;
+  --acc-dim: rgba(232,106,44,0.14);
+  --acc-line: rgba(232,106,44,0.28);
 
-  /* --- market semantics (exchange-real) --- */
-  --up: #16C784;
-  --up-dim: rgba(22,199,132,0.13);
-  --down: #EA3943;
-  --down-dim: rgba(234,57,67,0.13);
-  --warn: #F5A623;
-  --warn-dim: rgba(245,166,35,0.12);
+  /* --- market semantics --- */
+  --up: #2F9B6E;
+  --up-dim: rgba(47,155,110,0.13);
+  --down: #C45B4E;
+  --down-dim: rgba(196,91,78,0.13);
+  --warn: #C4A35A;
+  --warn-dim: rgba(196,163,90,0.12);
 
   /* --- radius (tighter, less pillowy) --- */
   --r1: 8px; --r2: 12px; --r3: 16px; --r-pill: 999px;
@@ -61,8 +59,10 @@
   --sb: env(safe-area-inset-bottom, 0px);
 
   --sans: 'Geist', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --serif: 'Libre Baskerville', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --mono: 'Geist Mono', ui-monospace, 'SF Mono', monospace;
   --fs: 1;
+  --tabbar-bg: color-mix(in srgb, var(--bg) 88%, transparent);
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -164,8 +164,8 @@ a { color: inherit; text-decoration: none; }
    ============================================================ */
 .tabbar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
-  background: rgba(8,9,10,0.80);
-  backdrop-filter: blur(20px) saturate(1.4); -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  background: var(--tabbar-bg);
+  backdrop-filter: blur(20px) saturate(1.2); -webkit-backdrop-filter: blur(20px) saturate(1.2);
   border-top: 1px solid var(--line);
   padding-bottom: var(--sb);
 }
@@ -181,13 +181,12 @@ a { color: inherit; text-decoration: none; }
 .tab.active::before {
   content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
   width: 22px; height: 2px; border-radius: 2px; background: var(--acc);
-  box-shadow: 0 0 10px 0 var(--acc);
   animation: tab-ind 0.3s var(--spring);
 }
 @keyframes tab-ind { from { width: 0; opacity: 0; } to { width: 22px; opacity: 1; } }
 
 /* ============================================================
-   Splash
+   Splash — exam booklet / school stamp
    ============================================================ */
 #splash {
   position: fixed; inset: 0; z-index: 200; background: var(--bg);
@@ -196,15 +195,74 @@ a { color: inherit; text-decoration: none; }
 }
 #splash.hide { opacity: 0; pointer-events: none; }
 .splash-inner { display: flex; flex-direction: column; align-items: center; gap: 18px; }
-.splash-mark { width: 58px; height: 58px; }
-.spark-line { stroke-dasharray: 1; stroke-dashoffset: 1; animation: spark 0.9s var(--out) 0.1s forwards; }
-@keyframes spark { to { stroke-dashoffset: 0; } }
-.spark-dot { opacity: 0; transform: scale(0); transform-origin: 50px 18px; animation: dot 0.4s var(--spring) 0.85s forwards; }
-@keyframes dot { to { opacity: 1; transform: scale(1); } }
-.splash-word { font-size: 26px; font-weight: 600; letter-spacing: -0.03em; opacity: 0; animation: rise 0.6s var(--out) 0.4s forwards; }
+.splash-booklet {
+  width: min(58vw, 168px);
+  aspect-ratio: 3 / 4;
+  position: relative;
+  border-radius: 3px 10px 10px 3px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface) 88%, var(--acc)), var(--surface-2));
+  border: 1px solid var(--line-2);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+  overflow: hidden;
+  animation: rise 0.7s var(--out) both;
+}
+.splash-booklet::before {
+  content: '';
+  position: absolute;
+  inset: 12% 10% 16% 16%;
+  border: 1.5px solid color-mix(in srgb, var(--acc) 40%, transparent);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--t3) 18%, transparent) 1px, transparent 1px);
+  background-size: 100% 11px;
+}
+.splash-booklet::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 8%; bottom: 8%; width: 6px;
+  background: linear-gradient(180deg, var(--acc), color-mix(in srgb, var(--acc) 40%, var(--bg)));
+}
+.splash-stamp {
+  position: absolute;
+  right: 12%;
+  bottom: 16%;
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  border: 2px dashed color-mix(in srgb, var(--acc) 70%, transparent);
+  display: grid; place-items: center;
+  font-family: var(--serif);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--acc);
+  transform: rotate(-12deg);
+  animation: stampIn 0.5s var(--spring) 0.55s both;
+}
+@keyframes stampIn {
+  from { opacity: 0; transform: rotate(-12deg) scale(0.6); }
+  to { opacity: 1; transform: rotate(-12deg) scale(1); }
+}
+.splash-mark { width: 58px; height: 58px; display: none; }
+.splash-word {
+  font-family: var(--serif);
+  font-size: 28px; font-weight: 700; letter-spacing: -0.02em;
+  opacity: 0; animation: rise 0.6s var(--out) 0.35s forwards;
+}
 .splash-word span { color: var(--acc); }
-.splash-foot { position: absolute; bottom: calc(var(--sb) + 40px); font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--t3); opacity: 0; animation: rise 0.6s var(--out) 0.7s forwards; }
+.splash-foot {
+  position: absolute; bottom: calc(var(--sb) + 40px);
+  font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--t3);
+  opacity: 0; animation: rise 0.6s var(--out) 0.65s forwards;
+}
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.booklet-cover h1,
+.dash-greet-name,
+.panel-title,
+.onb-title {
+  font-family: var(--serif);
+}
 
 /* ============================================================
    Onboarding — editorial, full-bleed, no emoji/dots

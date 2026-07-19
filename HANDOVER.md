@@ -7,7 +7,7 @@
 Bilingual (EN / Roman Urdu) trading school + discipline journal PWA. Personal, non-commercial.
 
 ## Facts
-**Version:** v42.1.0 (sw: masterycap-v42.1)
+**Version:** v42.2.0 (sw: masterycap-v4220)
 **Live:** https://shamikhahmed.github.io/MasteryCap/
 **Repo:** https://github.com/shamikhahmed/MasteryCap
 **Stack:** Vanilla JS PWA. Self-hosted Geist/Geist Mono. localStorage (`masterycap:` namespace). Node test harness.

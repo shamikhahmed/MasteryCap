@@ -8,7 +8,7 @@ import { applyTheme, getAppearance, setAppearance } from './theme.js';
 import { getTeacher, setTeacher, TEACHERS } from './teacher.js';
 import { evidenceHash } from './exam.js';
 
-export const APP_VERSION = 'v42.1.0';
+export const APP_VERSION = 'v42.2.0';
 
 function todayStamp() {
   const d = new Date();
@@ -118,13 +118,8 @@ export function openSettings(App) {
         </div>
 
         <div class="slabel" style="margin:0 0 10px">${App.t('set_appearance')}</div>
-        <div class="slabel" style="margin:0 0 8px;font-size:11px;opacity:0.8">${App.t('set_theme_mode')}</div>
-        <div class="seg" style="width:100%;margin-bottom:12px">
+        <div class="seg" style="width:100%;margin-bottom:16px">
           ${['dark', 'light', 'auto'].map((m) => `<button style="flex:1" class="${(getAppearance().mode || 'dark') === m ? 'on' : ''}" data-mode="${m}">${App.t('theme_' + m)}</button>`).join('')}
-        </div>
-        <div class="slabel" style="margin:0 0 8px;font-size:11px;opacity:0.8">${App.t('set_theme_preset')}</div>
-        <div class="seg" style="width:100%;margin-bottom:16px;flex-wrap:wrap">
-          ${['original', 'paper', 'quiet', 'focus'].map((m) => `<button style="flex:1;min-width:22%" class="${(getAppearance().preset || 'original') === m ? 'on' : ''}" data-preset="${m}">${App.t('theme_' + (m === 'original' ? 'original' : m))}</button>`).join('')}
         </div>
         <div class="slabel" style="margin:0 0 8px;font-size:11px;opacity:0.8">${App.lang === 'en' ? 'Daily session length' : 'Rozana session'}</div>
         <div class="seg" style="width:100%;margin-bottom:16px">
@@ -223,11 +218,6 @@ export function openSettings(App) {
     setAppearance({ mode: b.dataset.mode });
     App.haptic();
     sheet.querySelectorAll('[data-mode]').forEach((x) => x.classList.toggle('on', x.dataset.mode === b.dataset.mode));
-  }));
-  sheet.querySelectorAll('[data-preset]').forEach((b) => b.addEventListener('click', () => {
-    setAppearance({ preset: b.dataset.preset });
-    App.haptic();
-    sheet.querySelectorAll('[data-preset]').forEach((x) => x.classList.toggle('on', x.dataset.preset === b.dataset.preset));
   }));
   sheet.querySelectorAll('[data-sessionmins]').forEach((b) => b.addEventListener('click', () => {
     const cur = store.get(KEYS.settings, {});

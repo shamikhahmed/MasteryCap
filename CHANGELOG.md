@@ -1,3 +1,11 @@
+## [42.2.0] — 2026-07-20
+
+### Beauty — exam booklet / school stamp
+- Splash: booklet + PASS stamp (Libre Baskerville display)
+- Light+dark only — paper/quiet/focus presets removed from Settings
+- Softer seal orange; tokenized tabbar; Home booklet-cover titles
+- SW `masterycap-v4220`
+
 ## [42.1.1] — 2026-07-19
 
 - Capricorn QR asset in SW allowlist (`assets/qr-masterycap.png`)

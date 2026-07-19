@@ -1,13 +1,13 @@
 # MasteryCap
 
-**Version:** 42.1.1
+**Version:** 42.2.0
 
 Offline bilingual (EN / Roman Urdu) **trading school**: Learn → Practice → Graduate.
 Curriculum + paper simulator (process-graded, not P/L) + discipline journal. True-black
 terminal design (Geist, accent `#FF6B2C`). No accounts, no backend, no income promises.
 Data stays on-device under `masterycap:`.
 
-**Version:** v42.1.0 · SW `masterycap-v42.1` · see [VERSION](VERSION) · [CHANGELOG.md](CHANGELOG.md) · [GUIDE.md](GUIDE.md)
+**Version:** v42.2.0 · SW `masterycap-v4220` · see [VERSION](VERSION) · [CHANGELOG.md](CHANGELOG.md) · [GUIDE.md](GUIDE.md)
 
 ## School path
 1. **Learn** — tracks from Foundations through Binary; quizzes unlock weeks; exams local-only.

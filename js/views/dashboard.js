@@ -116,12 +116,12 @@ export function renderDashboard(App, c) {
   })();
 
   c.innerHTML = `
-  <div class="screen">
+  <div class="screen booklet-cover">
     <div class="lt-head">
       <div class="head-row">
         <div>
           <div class="kicker">${greeting(App)}${store.getNs().startsWith('masterycap-demo') ? ` · <span class="pill acc">${App.t('demo_pill')}</span>` : ''}</div>
-          <h1>${App.profile?.name || (lang === 'en' ? 'Student' : 'Shagird')}</h1>
+          <h1 class="dash-greet-name">${App.profile?.name || (lang === 'en' ? 'Student' : 'Shagird')}</h1>
         </div>
         <div class="hstack">
           ${streak.current ? `<span class="pill mono acc">${icon('flame', { size: 13 })} ${streak.current}</span>` : ''}
