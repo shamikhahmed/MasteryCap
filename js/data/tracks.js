@@ -80,7 +80,7 @@ export const TRACKS = [
   {
     id: 'stocks',
     name: { en: 'Stocks Literacy', ur: 'Stocks Literacy' },
-    blurb: { en: 'Shares, sessions, earnings vs expectations', ur: 'Shares, sessions, earnings vs expectations' },
+    blurb: { en: 'Shares, sessions, earnings, practice loop', ur: 'Shares, sessions, earnings, practice loop' },
     status: 'live',
     weeks: STOCKS_DEEP_WEEKS,
     placement: STOCKS_DEEP_PLACEMENT,
@@ -120,7 +120,7 @@ export const TRACKS = [
   {
     id: 'forex',
     name: { en: 'Forex Literacy', ur: 'Forex Literacy' },
-    blurb: { en: 'Pairs, sessions, calendar, broker risk', ur: 'Pairs, sessions, calendar, broker risk' },
+    blurb: { en: 'Pairs, sessions, calendar, practice loop', ur: 'Pairs, sessions, calendar, practice loop' },
     status: 'live',
     weeks: FOREX_DEEP_WEEKS,
     placement: FOREX_DEEP_PLACEMENT,

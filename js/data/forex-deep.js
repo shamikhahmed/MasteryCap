@@ -166,6 +166,50 @@ export const FOREX_DEEP_WEEKS = [
         correct: 0, explain: { en: 'Do not feed the trap.', ur: 'Trap feed mat.' } },
     ],
   }),
+  week({
+    id: 4,
+    title: { en: 'FX Practice Loop', ur: 'FX Practice Loop' },
+    objective: {
+      en: 'Run a sober FX loop: venue → calendar → size → log → review.',
+      ur: 'Venue → calendar → size → log → review.',
+    },
+    teach: {
+      en: `<p>Rails: regulated venue, know session, size by risk, check calendar before first trade, respect swap, cap correlated themes, log every practice ticket.</p>
+<p>Signal groups are not literacy. If withdrawals fail, stop funding — leave.</p>`,
+      ur: `<p>Venue → session → risk size → calendar → swap → correlation cap → log. Signals ≠ literacy.</p>`,
+    },
+    workedExample: {
+      en: `<p>Practice card: “Micro size · no red-news entry · theme risk ≤1% · swap noted · journal row.”</p>`,
+      ur: `<p>Micro · no red news · theme ≤1% · swap + journal.</p>`,
+    },
+    commonMistake: {
+      en: `<p>Opening three “different” pairs that are one USD bet.</p>`,
+      ur: `<p>Teen pair = ek USD bet.</p>`,
+    },
+    exitTicket: { en: 'You can recite your FX practice loop.', ur: 'FX loop yad.' },
+    notebookPrompt: { en: 'Six-bullet FX loop on Study desk.', ur: '6-bullet FX loop.' },
+    flashcardSeeds: [
+      { front: { en: 'FX loop order', ur: 'Loop' }, back: { en: 'Venue → calendar → size → log → review.', ur: 'Venue → calendar → size → log → review.' } },
+      { front: { en: 'Signal group', ur: 'Signals' }, back: { en: 'Not a substitute for process.', ur: 'Process nahi.' } },
+      { front: { en: 'Three USD-correlated tickets', ur: '3 tickets' }, back: { en: 'Often one theme — size as one.', ur: 'Ek theme.' } },
+      { front: { en: 'Failed withdrawal', ur: 'Withdraw fail' }, back: { en: 'Stop funding; leave venue.', ur: 'Stop + leave.' } },
+      { front: { en: 'This week unlocks', ur: 'Week' }, back: { en: 'Habit rails — not pip tips.', ur: 'Habit — tips nahi.' } },
+    ],
+    quiz: [
+      { q: { en: 'Sober FX practice starts with:', ur: 'Start:' },
+        opts: { en: ['Regulated venue + calendar + risk size', 'Max leverage + signals', 'Ignore swap forever'], ur: ['Venue + calendar + size', 'Max lev + signals', 'Ignore swap'] },
+        correct: 0, explain: { en: 'Rails first.', ur: 'Rails pehle.' } },
+      { q: { en: 'Correlated tickets should be sized as:', ur: 'Corr size:' },
+        opts: { en: ['One theme budget', 'Three free risks', 'Unlimited'], ur: ['One theme', 'Three free', 'Unlimited'] },
+        correct: 0, explain: { en: 'Theme risk.', ur: 'Theme.' } },
+      { q: { en: 'Signal-only trading replaces:', ur: 'Signals:' },
+        opts: { en: ['Nothing durable — still need your rules', 'Risk math forever', 'Broker regulation'], ur: ['Nothing durable', 'Risk math', 'Regulation'] },
+        correct: 0, explain: { en: 'Signals ≠ literacy.', ur: 'Signals ≠ literacy.' } },
+      { q: { en: 'After this stub you should practice:', ur: 'Practice:' },
+        opts: { en: ['Small, logged, calendar-aware', 'All weekend holds', 'Unlock-fee brokers'], ur: ['Small + logged', 'Weekend all-in', 'Unlock fees'] },
+        correct: 0, explain: { en: 'Process competence.', ur: 'Process.' } },
+    ],
+  }),
 ];
 
 export const FOREX_DEEP_PLACEMENT = [
@@ -175,4 +219,6 @@ export const FOREX_DEEP_PLACEMENT = [
   { topic: 2, q: { en: 'Correlated USD shorts are:', ur: 'Corr:' }, opts: { en: ['Often one theme', 'Always hedges', 'Illegal'], ur: ['One theme', 'Hedges', 'Illegal'] }, correct: 0 },
   { topic: 3, q: { en: 'Before red news:', ur: 'Red news:' }, opts: { en: ['Flatten or reduce', 'Max size', 'Disable stops forever'], ur: ['Reduce', 'Max size', 'No stops'] }, correct: 0 },
   { topic: 3, q: { en: 'Blocked withdrawals mean:', ur: 'Withdraw:' }, opts: { en: ['Leave the venue', 'Send more unlock fees', 'Post seed in chat'], ur: ['Leave', 'Unlock fee', 'Seed chat'] }, correct: 0 },
+  { topic: 4, q: { en: 'FX practice loop starts with:', ur: 'Loop:' }, opts: { en: ['Venue, calendar, risk size', 'Max leverage', 'Signal first'], ur: ['Venue+calendar+size', 'Max lev', 'Signal'] }, correct: 0 },
+  { topic: 4, q: { en: 'Three correlated USD bets are:', ur: '3 bets:' }, opts: { en: ['Often one theme', 'Always diversification', 'Risk-free'], ur: ['One theme', 'Diversify', 'Risk-free'] }, correct: 0 },
 ];

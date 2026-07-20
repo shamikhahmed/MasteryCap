@@ -164,6 +164,50 @@ export const STOCKS_DEEP_WEEKS = [
         correct: 0, explain: { en: 'Plan exposure first.', ur: 'Exposure pehle.' } },
     ],
   }),
+  week({
+    id: 4,
+    title: { en: 'Equity Practice Loop', ur: 'Equity Practice Loop' },
+    objective: {
+      en: 'Run a sober stocks loop: broker → hours → size → log → review.',
+      ur: 'Broker → hours → size → log → review.',
+    },
+    teach: {
+      en: `<p>Put rails together: regulated broker, know session hours, prefer limits, size from risk %, skip blind binary events, log fills and fees, weekly review.</p>
+<p>Tips and “hot names” are not a syllabus. Process first; picking later — if ever.</p>`,
+      ur: `<p>Broker → hours → limits → risk% → skip blind events → log → review. Tips syllabus nahi.</p>`,
+    },
+    workedExample: {
+      en: `<p>Practice card: “Paper or micro size · limit only · no earnings hold · fee line in journal.”</p>`,
+      ur: `<p>Micro · limit · no earnings hold · fee log.</p>`,
+    },
+    commonMistake: {
+      en: `<p>Skipping the journal because “it was obvious.”</p>`,
+      ur: `<p>Journal skip — “obvious tha.”</p>`,
+    },
+    exitTicket: { en: 'You can recite your equity practice loop.', ur: 'Equity loop yad.' },
+    notebookPrompt: { en: 'Six-bullet stocks loop on Study desk.', ur: '6-bullet stocks loop.' },
+    flashcardSeeds: [
+      { front: { en: 'Equity loop order', ur: 'Loop' }, back: { en: 'Broker → hours → size → (limit) → log → review.', ur: 'Broker → hours → size → log → review.' } },
+      { front: { en: 'Tip channel as research', ur: 'Tips' }, back: { en: 'Not a substitute for process.', ur: 'Process nahi.' } },
+      { front: { en: 'Blind earnings hold', ur: 'Earnings hold' }, back: { en: 'Gambling unless size is defined flat/micro.', ur: 'Gambling unless defined.' } },
+      { front: { en: 'Weekly review asks', ur: 'Review' }, back: { en: 'What fee/slippage surprised you?', ur: 'Fee/slip surprise?' } },
+      { front: { en: 'This week unlocks', ur: 'Week' }, back: { en: 'A practice habit — not stock tips.', ur: 'Habit — tips nahi.' } },
+    ],
+    quiz: [
+      { q: { en: 'Sober equity practice starts with:', ur: 'Start:' },
+        opts: { en: ['Broker + session hours + risk size', 'Max day-trade leverage', 'Telegram calls'], ur: ['Broker + hours + size', 'Max lev', 'Telegram'] },
+        correct: 0, explain: { en: 'Rails first.', ur: 'Rails pehle.' } },
+      { q: { en: 'Logs matter because:', ur: 'Logs:' },
+        opts: { en: ['They expose fee and process failures', 'They guarantee alpha', 'Exchanges require public posts'], ur: ['Fee/process', 'Alpha', 'Public'] },
+        correct: 0, explain: { en: 'Review needs data.', ur: 'Data.' } },
+      { q: { en: 'Hot-name tips replace:', ur: 'Tips:' },
+        opts: { en: ['Nothing — still need your process', 'All research forever', 'Risk math'], ur: ['Nothing', 'All research', 'Risk math'] },
+        correct: 0, explain: { en: 'Tips ≠ syllabus.', ur: 'Tips ≠ syllabus.' } },
+      { q: { en: 'After this stub you should practice:', ur: 'Practice:' },
+        opts: { en: ['Small, logged, rule-bound', 'All-in overnight', 'Copy-only'], ur: ['Small + logged', 'All-in', 'Copy'] },
+        correct: 0, explain: { en: 'Process competence.', ur: 'Process.' } },
+    ],
+  }),
 ];
 
 export const STOCKS_DEEP_PLACEMENT = [
@@ -173,4 +217,6 @@ export const STOCKS_DEEP_PLACEMENT = [
   { topic: 2, q: { en: 'Open tape is often:', ur: 'Open:' }, opts: { en: ['Noisy while overnight flow clears', 'The calmest hour', 'Closed to retail'], ur: ['Noisy', 'Calmest', 'Closed'] }, correct: 0 },
   { topic: 3, q: { en: 'Catalysts move on:', ur: 'Catalyst:' }, opts: { en: ['Actual vs expected', 'Headline adjectives', 'Logo color'], ur: ['Actual vs expected', 'Adjectives', 'Logo'] }, correct: 0 },
   { topic: 3, q: { en: 'Full size through unknowns is:', ur: 'Full size:' }, opts: { en: ['Gambling posture', 'Professional requirement', 'Risk-free'], ur: ['Gambling', 'Required', 'Risk-free'] }, correct: 0 },
+  { topic: 4, q: { en: 'Equity practice loop starts with:', ur: 'Loop:' }, opts: { en: ['Broker, hours, risk size', 'Max leverage', 'Tip first'], ur: ['Broker+hours+size', 'Max lev', 'Tip'] }, correct: 0 },
+  { topic: 4, q: { en: 'Skipping the journal because it felt obvious:', ur: 'Skip journal:' }, opts: { en: ['Breaks the review loop', 'Is professional', 'Removes fees'], ur: ['Breaks review', 'Pro', 'Removes fees'] }, correct: 0 },
 ];

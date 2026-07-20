@@ -73,8 +73,8 @@ function renderSchool(App, el, schoolId, done, en) {
       const lockHint = lock
         ? (en ? ' · Complete Foundations (or pass exam) first' : ' · Pehle Foundations / exam')
         : '';
-      return `<button class="inst-card ${lock ? 'dim' : ''}" data-mkt="${t.id}" data-lock="${lock || ''}">
-        <div class="kicker mono">${badge}</div>
+      return `<button class="inst-card mkt-track ${lock ? 'dim' : 'open'} ${t.id === 'foundations' ? 'mkt-spine' : ''}" data-mkt="${t.id}" data-lock="${lock || ''}">
+        <div class="kicker mono">${badge}${t.id === 'foundations' ? (en ? ' · Gate' : ' · Gate') : ''}</div>
         <div class="inst-h3">${t.name[App.lang] || t.name.en}</div>
         <p class="inst-muted">${t.blurb?.[App.lang] || t.blurb?.en || ''}${lockHint}</p>
       </button>`;

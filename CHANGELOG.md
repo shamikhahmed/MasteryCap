@@ -1,3 +1,10 @@
+## [47.3.0] — 2026-07-20
+
+### Committee + ladder polish
+- Committee Approval sheet (quiz + exam paths) — Open Markets ladder CTA
+- Stocks/Forex week 4 practice-loop stubs; Markets spine card styling
+- SW `masterycap-v4730`
+
 ## [47.2.0] — 2026-07-20
 
 ### Markets core stubs + honesty

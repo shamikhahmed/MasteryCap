@@ -30,6 +30,7 @@ import { openWeekFlash, openStudyNotes } from './study.js';
 import { seedWeekStudy } from '../study.js';
 import { renderReading } from '../reading.js';
 import { foundationsGateOpen } from '../syllabus.js';
+import { showCommitteeApproval } from '../institute/committee.js';
 
 let S = {
   track: 'foundations', view: 'home', activeWeek: null, lessonMode: 'read',
@@ -710,13 +711,16 @@ function drawQuiz() {
   const sub = document.getElementById('submitQuiz'); if (sub) sub.addEventListener('click', submitQuiz);
   const done = document.getElementById('quizDone'); if (done) done.addEventListener('click', () => {
     if (S._pendingGloss) { S.view = 'glossMini'; draw(); return; }
-    if (S._committeeApproval) {
-      const msg = S._committeeApproval;
-      S._committeeApproval = null;
-      App.toast?.(msg.body);
-    }
+    maybeShowCommittee(App);
     S.view = 'home'; S.dirty = false; draw();
   });
+}
+
+function maybeShowCommittee(App) {
+  if (!S._committeeApproval) return;
+  const msg = S._committeeApproval;
+  S._committeeApproval = null;
+  showCommitteeApproval(App, msg);
 }
 
 function confirmLeave(App) {
@@ -945,10 +949,23 @@ function drawExam() {
     }
     const sc = scoreExam(exam, S.examAnswers);
     S.examSubmitted = true; S.dirty = false;
-    if (sc.passed) markExamPassed(exam.trackId, App);
+    if (sc.passed) {
+      markExamPassed(exam.trackId, App);
+      if (exam.trackId === 'foundations' && foundationsGateOpen(App)) {
+        S._committeeApproval = {
+          title: App.lang === 'en' ? 'Committee Approval' : 'Committee Approval',
+          body: App.lang === 'en'
+            ? 'Foundations exam passed. Crypto, Stocks, and Forex are now open on the Markets ladder.'
+            : 'Foundations exam pass. Crypto, Stocks, Forex unlock.',
+        };
+      }
+    }
     App.bumpStreak(); draw();
   });
-  document.getElementById('examDone')?.addEventListener('click', () => { S.view = 'home'; draw(); });
+  document.getElementById('examDone')?.addEventListener('click', () => {
+    maybeShowCommittee(App);
+    S.view = 'home'; draw();
+  });
   document.getElementById('dlCert2')?.addEventListener('click', () => {
     const track = getTrack(exam.trackId);
     downloadCertificate({
@@ -993,7 +1010,9 @@ function drawGlossMini() {
       });
       store.set(STORE_KEYS.glossWeak, weak);
     }
-    S._pendingGloss = null; S.glossAnswers = {}; S.view = 'home'; draw();
+    S._pendingGloss = null; S.glossAnswers = {};
+    maybeShowCommittee(App);
+    S.view = 'home'; draw();
   };
   document.getElementById('glossMiniDone').addEventListener('click', () => finish(false));
   document.getElementById('glossMiniSkip').addEventListener('click', () => finish(true));

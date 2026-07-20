@@ -261,3 +261,25 @@
   border-color: color-mix(in srgb, var(--down, #A3392E) 35%, var(--line));
 }
 .lesson-part.note-part { border-style: dashed; }
+
+.ladder-core .mkt-spine {
+  border-color: var(--acc);
+  box-shadow: inset 3px 0 0 var(--acc);
+}
+.ladder-core .mkt-track.open:not(.dim) .kicker {
+  color: var(--acc);
+}
+.committee-lead {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 10px;
+  color: var(--t0);
+  letter-spacing: -0.02em;
+}
+.lesson-part .kicker {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--t3);
+}
