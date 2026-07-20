@@ -25,8 +25,8 @@ export function renderCampus(App, el) {
   el.innerHTML = `<div class="screen inst-screen workbench-campus">
     <div class="wb-bench" aria-hidden="true"></div>
     <div class="lt-head">
-      <div class="kicker">${en ? 'MasteryCap' : 'MasteryCap'}</div>
-      <h1>${en ? 'Campus branches' : 'Campus branches'}</h1>
+      <div class="kicker">MasteryCap</div>
+      <h1>${en ? 'Campus branches' : 'Campus ke branches'}</h1>
       <p class="inst-muted">${en
         ? 'One school · three branches. Open courses you can start. Locked need prereqs.'
         : 'Ek school · teen branches. Open = shuru. Locked = pehle prereq.'}</p>
@@ -34,11 +34,11 @@ export function renderCampus(App, el) {
     <div class="inst-list branch-grid">
       ${CATALOG.schools.map((s) => `
         <button class="inst-card school-card branch-card" data-school="${s.id}">
-          <div class="kicker">${s.status === 'live' ? (en ? 'Branch open' : 'Branch open') : (en ? 'Coming' : 'Coming')}</div>
+          <div class="kicker">${s.status === 'live' ? (en ? 'Branch open' : 'Branch khula') : (en ? 'Coming' : 'Jald')}</div>
           <div class="inst-h3">${s.name[App.lang] || s.name.en}</div>
           <p class="inst-muted">${s.tagline[App.lang] || s.tagline.en}</p>
           ${s.honesty ? `<p class="inst-honesty">${en ? 'Education only. Not financial advice.' : 'Sirf education. Financial advice nahi.'}</p>` : ''}
-          <span class="mono branch-enter">${en ? 'Enter →' : 'Enter →'}</span>
+          <span class="mono branch-enter">${en ? 'Enter →' : 'Andar →'}</span>
         </button>`).join('')}
     </div>
   </div>`;
@@ -69,7 +69,7 @@ function renderSchool(App, el, schoolId, done, en) {
 
     const cardHtml = (t) => {
       const lock = trackLockReason(t.id, App);
-      const badge = lock ? (en ? 'Locked' : 'Locked') : (en ? 'Open' : 'Open');
+      const badge = lock ? (en ? 'Locked' : 'Band') : (en ? 'Open' : 'Khula');
       const lockHint = lock
         ? (en ? ' · Complete Foundations (or pass exam) first' : ' · Pehle Foundations / exam')
         : '';
@@ -81,20 +81,20 @@ function renderSchool(App, el, schoolId, done, en) {
     };
 
     el.innerHTML = `<div class="screen inst-screen">
-      <button class="text-back" id="camBack">${icon('back', { size: 16 })} ${en ? 'Branches' : 'Branches'}</button>
+      <button class="text-back" id="camBack">${icon('back', { size: 16 })} ${en ? 'Branches' : 'Shakhein'}</button>
       <div class="lt-head">
-        <div class="kicker">${en ? 'Branch' : 'Branch'}</div>
-        <h1>${school.name.en}</h1>
+        <div class="kicker">${en ? 'Branch' : 'Shaakh'}</div>
+        <h1>${school.name[App.lang] || school.name.en}</h1>
         <p class="inst-foot-note">${en
           ? 'Education only. Not financial advice or an income path.'
           : 'Sirf education. Financial advice ya income path nahi.'}</p>
       </div>
-      <div class="slabel">${en ? 'Core ladder' : 'Core ladder'}</div>
+      <div class="slabel">${en ? 'Core ladder' : 'Asli seedhi'}</div>
       <p class="inst-muted" style="margin-bottom:10px">${en
         ? 'Foundations first. Crypto, Stocks, and Forex unlock together when Foundations is complete or the exam is passed.'
         : 'Pehle Foundations. Crypto / Stocks / Forex ek saath unlock.'}</p>
       <div class="inst-list ladder-core">${core.map(cardHtml).join('')}</div>
-      <div class="slabel mt16">${en ? 'More tracks' : 'More tracks'}</div>
+      <div class="slabel mt16">${en ? 'More tracks' : 'Zyada tracks'}</div>
       <div class="inst-list">${more.map(cardHtml).join('')}</div>
     </div>`;
     document.getElementById('camBack')?.addEventListener('click', () => {
@@ -126,9 +126,9 @@ function renderSchool(App, el, schoolId, done, en) {
       const authored = loadCourse(code);
       const pct = authored ? courseProgressPct(authored) : 0;
       const enrolled = isEnrolled(code);
-      let badge = en ? 'Announced' : 'Announced';
+      let badge = en ? 'Announced' : 'Elaan';
       if (c.status === 'session') {
-        badge = locked ? (en ? 'Locked' : 'Locked') : (enrolled ? (en ? 'Enrolled' : 'Enrolled') : (en ? 'Open' : 'Open'));
+        badge = locked ? (en ? 'Locked' : 'Band') : (enrolled ? (en ? 'Enrolled' : 'Daakhil') : (en ? 'Open' : 'Khula'));
       }
       const dim = c.status !== 'session' || locked;
       cards.push(`<button class="inst-card ${dim ? 'dim' : ''}" data-code="${code}" data-locked="${locked ? '1' : '0'}" data-announced="${c.status !== 'session' ? '1' : '0'}">
@@ -140,9 +140,9 @@ function renderSchool(App, el, schoolId, done, en) {
   }
 
   el.innerHTML = `<div class="screen inst-screen">
-    <button class="text-back" id="camBack">${icon('back', { size: 16 })} ${en ? 'Branches' : 'Branches'}</button>
+    <button class="text-back" id="camBack">${icon('back', { size: 16 })} ${en ? 'Branches' : 'Shakhein'}</button>
     <div class="lt-head">
-      <div class="kicker">${en ? 'Branch' : 'Branch'}</div>
+      <div class="kicker">${en ? 'Branch' : 'Shaakh'}</div>
       <h1>${school.name[App.lang] || school.name.en}</h1>
       <p class="inst-muted">${school.tagline[App.lang] || school.tagline.en}</p>
       <p class="inst-foot-note">${en
@@ -195,20 +195,20 @@ function renderCourseDetail(App, el, code, done, en) {
     <div class="lt-head">
       <div class="kicker mono">${meta.code}</div>
       <h1>${meta.title[App.lang] || meta.title.en}</h1>
-      <p class="inst-muted">${meta.hours}h · ${en ? 'Pass final ≥' : 'Final ≥'}${course.passScore}%${tries ? ` · ${en ? 'Attempts' : 'Attempts'} ${tries}` : ''}</p>
+      <p class="inst-muted">${meta.hours}h · ${en ? 'Pass final ≥' : 'Final ≥'}${course.passScore}%${tries ? ` · ${en ? 'Attempts' : 'Tries'} ${tries}` : ''}</p>
       <p class="inst-foot-note">${en
         ? 'Education only — not a job guarantee, license, or income path. Admit to unlock lessons.'
         : 'Sirf education — job/license/income guarantee nahi. Admit se lessons.'}</p>
     </div>
     ${meta.outcomes ? `<div class="inst-card"><div class="kicker">${en ? 'You will be able to' : 'Aap kar sakenge'}</div>
       <ul class="inst-ul">${(meta.outcomes[App.lang] || meta.outcomes.en).map((o) => `<li>${o}</li>`).join('')}</ul></div>` : ''}
-    <div class="slabel">${en ? 'Lessons' : 'Lessons'}</div>
+    <div class="slabel">${en ? 'Lessons' : 'Sabak'}</div>
     <div class="inst-list">
       ${course.lessons.map((l, i) => `
         <button class="inst-row-item" data-lesson="${l.id}" ${enrolled ? '' : 'disabled'}>
           <span class="mono">${String(i + 1).padStart(2, '0')}</span>
           <span class="grow">${l.title[App.lang] || l.title.en}</span>
-          <span class="mono">${completed.has(l.id) ? 'done' : ''}</span>
+          <span class="mono">${completed.has(l.id) ? (en ? 'done' : 'ho gaya') : ''}</span>
         </button>`).join('')}
     </div>
     ${course.project ? `<div class="slabel mt16">${en ? 'Project' : 'Project'}</div>
@@ -218,7 +218,7 @@ function renderCourseDetail(App, el, code, done, en) {
       ${!enrolled
         ? `<button class="btn accent" id="camEnroll">${en ? `Admit to ${meta.code}` : `${meta.code} mein admit`}</button>`
         : `<button class="btn accent" id="camStart" ${passed ? 'disabled' : ''}>${en ? (completed.size ? 'Continue' : 'Begin course') : (completed.size ? 'Jari' : 'Shuru')}</button>
-           <button class="btn secondary mt10" id="camFinal" ${completed.size < course.lessons.length ? 'disabled' : ''}>${en ? 'Final assessment' : 'Final assessment'}</button>`}
+           <button class="btn secondary mt10" id="camFinal" ${completed.size < course.lessons.length ? 'disabled' : ''}>${en ? 'Final assessment' : 'Final imtihaan'}</button>`}
     </div>
   </div>`;
 

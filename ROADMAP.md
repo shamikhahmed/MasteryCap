@@ -115,6 +115,8 @@ Next (in order):
 
 **v50.8:** Parsons one-use pool + 5 course project checklists for cert honesty.
 
+**v51.5:** Campus UR chrome + remove dead dashboard.js.
+
 **v51.4:** Records UR chrome + html lang + settings aria.
 
 **v51.3:** subview back restores focus to opener.

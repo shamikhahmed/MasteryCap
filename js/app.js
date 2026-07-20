@@ -6,7 +6,6 @@
 import { store, KEYS } from './store.js';
 import { tr } from './i18n.js';
 import { icon } from './icons.js';
-import { renderDashboard } from './views/dashboard.js';
 import { renderCourse, confirmCourseLeave, clearCourseDirty } from './views/course.js';
 import { renderJournal } from './views/journal.js';
 import { renderProgress } from './views/progress.js';
@@ -273,7 +272,6 @@ export const App = {
         }
         renderHttpLab(App, el);
       },
-      dashboard: renderDashboard,
       learn: renderCourse,
       journal: renderJournal,
       progress: renderProgress,

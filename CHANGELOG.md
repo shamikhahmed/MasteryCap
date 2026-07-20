@@ -1,3 +1,12 @@
+## [51.5.0] — 2026-07-21
+
+### Campus UR + dead dashboard removed
+- Campus chrome UR: branches/khula/band/daakhil/shakhein/seedhi/…
+- Delete unreachable `js/views/dashboard.js` (navigate still remaps `dashboard`→`today`)
+- SW `masterycap-v5150`
+
+
+
 ## [51.4.0] — 2026-07-21
 
 ### Records UR chrome + lang a11y
