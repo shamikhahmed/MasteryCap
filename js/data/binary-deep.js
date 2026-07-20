@@ -39,12 +39,13 @@ export const BINARY_DEEP_WEEKS = [
       en: `<p>Binary options often pay a fixed win/lose on a yes/no price bet over a short timer. Many jurisdictions ban or restrict retail binaries because of abuse and negative EV.</p>
 <p>This elective is <strong>harm reduction</strong>. Completing it is not permission or endorsement.</p>
 <p>{{redflag:“90% win binary signals” = classic scam bait.}}</p>`,
-      ur: `<p>Binary = short timer yes/no bet. Bohat jagah retail ban/restrict. Ye elective = harm reduction.</p>
-<p>{{redflag:90% win binary signals = scam bait.}}</p>`,
+      ur: `<p>Binary options aksar short timer pe yes/no price bet pe fixed win/lose dete. Bohat jurisdictions retail binaries ban/restrict karti hain abuse aur negative EV ki wajah se.</p>
+<p>Ye elective <strong>harm reduction</strong> hai. Complete karna permission ya endorsement nahi.</p>
+<p>{{redflag:“90% win binary signals” = classic scam bait.}}</p>`,
     },
     workedExample: {
       en: `<p>Ad: “$100 → $1000 today binary.” Reality: house edge + deposit traps.</p>`,
-      ur: `<p>$100→$1000 ad = trap bait.</p>`,
+      ur: `<p>Ad: “$100 → $1000 aaj binary.” Haqeeqat: house edge + deposit traps.</p>`,
     },
     commonMistake: {
       en: `<p>Treating binary ads as a normal brokerage product.</p>`,
@@ -83,7 +84,7 @@ export const BINARY_DEEP_WEEKS = [
     },
     teach: {
       en: `<p>If win pays less than fair odds relative to true probability, long-run EV is negative. Short timers + spreads/payouts tilt toward the house. Winning streaks do not rewrite math.</p>`,
-      ur: `<p>Unfair payout = negative EV. Streaks math nahi badalte.</p>`,
+      ur: `<p>Agar win fair odds se kam pay karta true probability ke muqable, lambi run mein EV negative. Short timers + spreads/payouts house ki taraf tilt. Winning streaks math nahi badalti.</p>`,
     },
     workedExample: {
       en: `<p>Risk 100 to win 80 on ~50/50-ish short bet → EV negative even before venue tricks.</p>`,
@@ -93,8 +94,8 @@ export const BINARY_DEEP_WEEKS = [
       en: `<p>Martingale after losses on binaries — accelerates ruin.</p>`,
       ur: `<p>Binary pe martingale = tez ruin.</p>`,
     },
-    exitTicket: { en: 'You can explain negative EV in one sentence.', ur: 'Negative EV ek jumla.' },
-    notebookPrompt: { en: 'Write: I will not martingale binary losses.', ur: 'Martingale nahi.' },
+    exitTicket: { en: 'You can explain negative EV in one sentence.', ur: 'Negative EV ek jumle mein samjha sakte ho.' },
+    notebookPrompt: { en: 'Write: I will not martingale binary losses.', ur: 'Likho: binary losses pe martingale nahi karunga.' },
     flashcardSeeds: [
       { front: { en: 'Unfair fixed payout', ur: 'Payout' }, back: { en: 'Negative EV over time.', ur: 'Negative EV.' } },
       { front: { en: 'Winning streak means', ur: 'Streak' }, back: { en: 'Variance — not rewritten odds.', ur: 'Variance — odds same.' } },
@@ -138,7 +139,7 @@ export const BINARY_DEEP_WEEKS = [
       ur: `<p>Blocked withdraw pe aur deposit.</p>`,
     },
     exitTicket: { en: 'You can list four binary scam tells.', ur: 'Char scam tells.' },
-    notebookPrompt: { en: 'Never-pay list for binary unlock/recovery.', ur: 'Never-pay binary list.' },
+    notebookPrompt: { en: 'Never-pay list for binary unlock/recovery.', ur: 'Binary unlock/recovery ke liye never-pay list likho.' },
     flashcardSeeds: [
       { front: { en: 'Unlock withdrawal fee', ur: 'Unlock' }, back: { en: 'Trap — stop funding.', ur: 'Trap.' } },
       { front: { en: 'Fake regulator logo', ur: 'Fake reg' }, back: { en: 'Verify on official sites — not screenshots.', ur: 'Official verify.' } },
@@ -171,7 +172,8 @@ export const BINARY_DEEP_WEEKS = [
     teach: {
       en: `<p>Preferred action: <strong>do not deposit</strong>. If already stuck: document, stop funding, seek legitimate complaint channels — never recovery agents.</p>
 <p>No martingale. No “revenge one more.” Certificate = study of harm — not a playbook.</p>`,
-      ur: `<p>Deposit mat. Stuck: document, stop funding, legitimate complaint — recovery agent nahi. Cert = harm study.</p>`,
+      ur: `<p>Preferred action: <strong>deposit mat karo</strong>. Agar phas chuke: document, funding band, legitimate complaint channels — recovery agents kabhi nahi.</p>
+<p>No martingale. No “revenge one more.” Certificate = harm study — playbook nahi.</p>`,
     },
     workedExample: {
       en: `<p>Card: “Zero binary deposits · block ads · report scam domains · no VIP.”</p>`,
@@ -182,7 +184,7 @@ export const BINARY_DEEP_WEEKS = [
       ur: `<p>Ek aur trade — even hone.</p>`,
     },
     exitTicket: { en: 'You can recite the exit-first rule.', ur: 'Exit-first rule.' },
-    notebookPrompt: { en: 'Six-bullet binary refuse loop on Study desk.', ur: '6-bullet binary refuse.' },
+    notebookPrompt: { en: 'Six-bullet binary refuse loop on Study desk.', ur: 'Study desk pe six-bullet binary refuse loop likho.' },
     flashcardSeeds: [
       { front: { en: 'Default action', ur: 'Default' }, back: { en: 'Do not deposit / do not trade binaries.', ur: 'Deposit/trade nahi.' } },
       { front: { en: 'Revenge trade', ur: 'Revenge' }, back: { en: 'Forbidden — accelerates loss.', ur: 'Mana — tez loss.' } },

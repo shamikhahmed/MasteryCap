@@ -38,7 +38,8 @@ export const SPOT_DEEP_WEEKS = [
     teach: {
       en: `<p><strong>Spot</strong> = buy the asset, own it, settle now. No funding clock, no margin call, no liquidation price. Spot goes to zero only if the asset does.</p>
 <p>Cost: capital inefficiency — $1 exposure needs ~$1. Feature for long-horizon conviction: overexposure harder; leverage mistake-class removed.</p>`,
-      ur: `<p>Spot = malik. Waqt side pe. Cost = full cash. Feature = kam leverage ghaltiyan.</p>`,
+      ur: `<p><strong>Spot</strong> = asset khareedo, malik bano, ab settle. Funding clock nahi, margin call nahi, liquidation price nahi. Spot tab zero jab asset khud zero ho.</p>
+<p>Cost: capital inefficiency — $1 exposure ke liye ~$1 chahiye. Feature lambi horizon conviction ke liye: overexposure mushkil; leverage mistake-class hata di.</p>`,
     },
     workedExample: {
       en: `<p>Wrong for a year in spot can recover; wrong an hour in leverage can cease to exist.</p>`,
@@ -46,10 +47,10 @@ export const SPOT_DEEP_WEEKS = [
     },
     commonMistake: {
       en: `<p>Calling leveraged IOUs “spot” because the chart looks the same.</p>`,
-      ur: `<p>Lev IOU ko spot kehna.</p>`,
+      ur: `<p>Leveraged IOU ko “spot” kehna kyunki chart same dikhe.</p>`,
     },
     exitTicket: { en: 'You can name three things spot does not have.', ur: 'Teen cheezen spot mein nahi.' },
-    notebookPrompt: { en: 'Write: my core book is spot / mix — and why.', ur: 'Core spot/mix + kyun.' },
+    notebookPrompt: { en: 'Write: my core book is spot / mix — and why.', ur: 'Likho: mera core book spot / mix hai — aur kyun.' },
     flashcardSeeds: [
       { front: { en: 'Spot liquidation price', ur: 'Spot liq' }, back: { en: 'None — no borrowed margin.', ur: 'Nahi — no margin.' } },
       { front: { en: 'Spot main cost', ur: 'Cost' }, back: { en: 'Capital tied up 1:1.', ur: 'Capital 1:1.' } },
@@ -82,7 +83,8 @@ export const SPOT_DEEP_WEEKS = [
     teach: {
       en: `<p><strong>Spot:</strong> own it. <strong>Margin:</strong> borrow to buy more — interest + liquidation. <strong>Perps:</strong> synthetic via funding — never own, max efficiency, max death paths.</p>
 <p>Pro pattern: core conviction spot; tactical derivatives sized by risk math. Amateur invert: life savings in 20×, dust in spot.</p>`,
-      ur: `<p>Spot own. Margin borrow. Perps synthetic. Core spot, tactical lev — not ulta.</p>`,
+      ur: `<p><strong>Spot:</strong> own karo. <strong>Margin:</strong> zyada khareedne ke liye borrow — interest + liquidation. <strong>Perps:</strong> funding se synthetic — kabhi own nahi, max efficiency, max death paths.</p>
+<p>Pro pattern: core conviction spot; tactical derivatives risk math se sized. Amateur invert: life savings 20× mein, spot mein dust.</p>`,
     },
     workedExample: {
       en: `<p>Right direction, perp still dies on funding + wick liquidation — “right and ruined.”</p>`,
@@ -126,7 +128,8 @@ export const SPOT_DEEP_WEEKS = [
     teach: {
       en: `<p><strong>Spot</strong> when months+, survive vol, thesis = asset appreciates. <strong>Perps/futures</strong> when hours–weeks, need short, or hedge spot (short perps vs spot = insurance without selling).</p>
 <p><strong>Margin</strong> rarely beats owning less spot or defined-risk derivatives. Test: “What kills this?” If answer ≠ only “thesis wrong,” you pay those risks.</p>`,
-      ur: `<p>Spot = months+. Perps = short horizon / short / hedge. Margin rarely wins. “Kya maarta?” test.</p>`,
+      ur: `<p><strong>Spot</strong> jab months+, vol survive, thesis = asset appreciate. <strong>Perps/futures</strong> jab hours–weeks, short chahiye, ya spot hedge (short perps vs spot = insurance bina bechne ke).</p>
+<p><strong>Margin</strong> kam spot ya defined-risk derivatives beat karta hai. Test: “Kya maarta hai?” Agar jawab sirf “thesis wrong” nahi, wo risks pay karte ho.</p>`,
     },
     workedExample: {
       en: `<p>Hold spot, fear drawdown month → small short perp hedge, size defined — not flip to 20× long.</p>`,
@@ -170,7 +173,8 @@ export const SPOT_DEEP_WEEKS = [
     teach: {
       en: `<p>Loop: default spot for core → if derivatives, write kill list + risk % → log funding/interest → weekly review. Excitement is not a reason to leave spot.</p>
 <p>Certificate = study record. Not a license to max leverage.</p>`,
-      ur: `<p>Core spot → deriv = kill list + risk% → log → review. Cert = study record.</p>`,
+      ur: `<p>Loop: core ke liye default spot → agar derivatives, kill list + risk % likho → funding/interest log → weekly review. Excitement spot chhorne ka reason nahi.</p>
+<p>Certificate = study record. Max leverage license nahi.</p>`,
     },
     workedExample: {
       en: `<p>Card: “Core spot only · no perps until kill list written · 1% tactical max.”</p>`,
@@ -178,10 +182,10 @@ export const SPOT_DEEP_WEEKS = [
     },
     commonMistake: {
       en: `<p>Leaving spot because “it isn’t exciting.”</p>`,
-      ur: `<p>Bored → leave spot.</p>`,
+      ur: `<p>Spot chhorna kyunki “exciting nahi.”</p>`,
     },
     exitTicket: { en: 'You can recite spot-first loop.', ur: 'Spot-first loop.' },
-    notebookPrompt: { en: 'Six-bullet spot/deriv loop on Study desk.', ur: '6-bullet spot loop.' },
+    notebookPrompt: { en: 'Six-bullet spot/deriv loop on Study desk.', ur: 'Study desk pe six-bullet spot/deriv loop likho.' },
     flashcardSeeds: [
       { front: { en: 'Default for core', ur: 'Core' }, back: { en: 'Spot.', ur: 'Spot.' } },
       { front: { en: 'Before first perp', ur: 'Perp' }, back: { en: 'Write kill list + risk %.', ur: 'Kill list + risk%.' } },

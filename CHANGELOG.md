@@ -1,3 +1,11 @@
+## [50.1.0] — 2026-07-20
+
+### UR parity wave — all deep tracks
+- Foundations + crypto + forex/stocks/tax/invest/macro/spot/options/futures/greeks/bots/binary
+- Week parts (objective/teach/example/mistake/exit/notebook): `ur/en ≥ 0.55` when EN > 40 chars
+- SW `masterycap-v5010`
+
+
 ## [50.0.0] — 2026-07-20
 
 ### Unlock wave — do-all

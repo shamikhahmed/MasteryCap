@@ -4,14 +4,14 @@ Offline personal institute — Software Craft + Market Literacy. Honest certific
 
 # MasteryCap
 
-**Version:** 50.0.0
+**Version:** 50.1.0
 
 Offline bilingual (EN / Roman Urdu) **trading school**: Learn → Practice → Graduate.
 Curriculum + paper simulator (process-graded, not P/L) + discipline journal. True-black
 terminal design (Geist, accent `#FF6B2C`). No accounts, no backend, no income promises.
 Data stays on-device under `masterycap:`.
 
-**Version:** v50.0.0 · SW `masterycap-v5000` · see [VERSION](VERSION) · [CHANGELOG.md](CHANGELOG.md) · [GUIDE.md](GUIDE.md)
+**Version:** v50.1.0 · SW `masterycap-v5010` · see [VERSION](VERSION) · [CHANGELOG.md](CHANGELOG.md) · [GUIDE.md](GUIDE.md)
 
 ## School path
 1. **Learn** — tracks from Foundations through Binary; quizzes unlock weeks; exams local-only.

@@ -38,17 +38,18 @@ export const FUTURES_DEEP_WEEKS = [
     teach: {
       en: `<p><strong>Futures</strong> obligate buy/sell of an underlying at a future date at an agreed price (standardized). You usually mark-to-market daily; you do not “own the barrel/coin” like spot until delivery mechanics say so (most retail offsets before).</p>
 <p>Leverage is embedded via margin — efficiency with liquidation risk.</p>`,
-      ur: `<p>Futures = future contract. Daily MTM. Margin = leverage + liq risk. Spot ownership nahi.</p>`,
+      ur: `<p><strong>Futures</strong> future date pe underlying buy/sell ka obligation (standardized). Usually daily mark-to-market; spot jaisa “barrel/coin own” nahi jab tak delivery mechanics na kahein (zyada tar retail pehle offset).</p>
+<p>Leverage margin se embedded — efficiency liquidation risk ke saath.</p>`,
     },
     workedExample: {
       en: `<p>Long futures: price up → variation margin credit; price down → debit. Account can be closed if margin fails.</p>`,
-      ur: `<p>Price up = credit; down = debit; margin fail = close.</p>`,
+      ur: `<p>Long futures: price up → variation margin credit; price down → debit. Margin fail pe account close ho sakta.</p>`,
     },
     commonMistake: {
       en: `<p>Treating futures P/L like a non-levered ETF share count.</p>`,
       ur: `<p>Futures = non-lev ETF samajhna.</p>`,
     },
-    exitTicket: { en: 'You can say futures ≠ spot ownership in one line.', ur: 'Futures ≠ spot ek line.' },
+    exitTicket: { en: 'You can say futures ≠ spot ownership in one line.', ur: 'Futures ≠ spot ownership — ek line mein bata sakte ho.' },
     notebookPrompt: { en: 'Write: why futures need margin.', ur: 'Futures ko margin kyun.' },
     flashcardSeeds: [
       { front: { en: 'Futures are', ur: 'Futures' }, back: { en: 'Standardized future contracts.', ur: 'Standard future contracts.' } },
@@ -82,18 +83,19 @@ export const FUTURES_DEEP_WEEKS = [
     teach: {
       en: `<p>Each contract has multiplier/tick. <strong>Notional</strong> exposure can be huge vs margin posted. One tick × multiplier = money P/L per tick.</p>
 <p>Sizing from “I can afford the margin” alone is how people over-lever.</p>`,
-      ur: `<p>Tick × multiplier = $P/L. Notional >> margin. Margin afford ≠ safe size.</p>`,
+      ur: `<p>Har contract ka multiplier/tick hai. <strong>Notional</strong> exposure margin se posted ke muqable bohat bari ho sakti. Ek tick × multiplier = tick pe money P/L.</p>
+<p>Sirf “margin afford kar sakta hoon” se size karna log over-lever karte hain.</p>`,
     },
     workedExample: {
       en: `<p>If one tick = $12.50 and you risk $100, that’s 8 ticks stop distance budget — not “1 contract because margin is $2k.”</p>`,
-      ur: `<p>Risk $ se ticks count — sirf margin se 1 contract nahi.</p>`,
+      ur: `<p>Agar ek tick = $12.50 aur aap $100 risk karte ho, wo 8 ticks stop distance budget — “margin $2k hai is liye 1 contract” nahi.</p>`,
     },
     commonMistake: {
       en: `<p>Ignoring tick value until the first statement shock.</p>`,
       ur: `<p>Tick value ignore — statement shock.</p>`,
     },
-    exitTicket: { en: 'You can explain notional vs margin in one line.', ur: 'Notional vs margin.' },
-    notebookPrompt: { en: 'For one sample contract: tick $ and notional guess.', ur: 'Sample tick $ + notional.' },
+    exitTicket: { en: 'You can explain notional vs margin in one line.', ur: 'Notional vs margin ek line mein samjha sakte ho.' },
+    notebookPrompt: { en: 'For one sample contract: tick $ and notional guess.', ur: 'Ek sample contract: tick $ aur notional guess likho.' },
     flashcardSeeds: [
       { front: { en: 'Notional', ur: 'Notional' }, back: { en: 'Full contract exposure — often >> margin.', ur: 'Full exposure >> margin.' } },
       { front: { en: 'Tick value', ur: 'Tick' }, back: { en: 'Money per minimum price increment.', ur: '$ per min increment.' } },
@@ -126,7 +128,8 @@ export const FUTURES_DEEP_WEEKS = [
     teach: {
       en: `<p><strong>Initial</strong> margin to open; <strong>maintenance</strong> to keep. Breach → margin call / auto liquidate path.</p>
 <p><strong>Roll</strong> before expiry if you want continuity. <strong>Contango/backwardation</strong> describe curve shape — costs/benefits for holders over time, not magic signals.</p>`,
-      ur: `<p>Initial vs maintenance. Roll pehle. Contango/backwardation = curve shape — magic signal nahi.</p>`,
+      ur: `<p><strong>Initial</strong> margin open ke liye; <strong>maintenance</strong> rakhne ke liye. Breach → margin call / auto liquidate path.</p>
+<p><strong>Roll</strong> expiry se pehle agar continuity chahiye. <strong>Contango/backwardation</strong> curve shape batate — holders ke liye costs/benefits over time, magic signals nahi.</p>`,
     },
     workedExample: {
       en: `<p>Hold into expiry without plan → forced exit or delivery complexity you didn’t want.</p>`,
@@ -136,8 +139,8 @@ export const FUTURES_DEEP_WEEKS = [
       en: `<p>Treating contango as guaranteed profit tip.</p>`,
       ur: `<p>Contango = guaranteed tip.</p>`,
     },
-    exitTicket: { en: 'You can define initial vs maintenance margin.', ur: 'Initial vs maintenance.' },
-    notebookPrompt: { en: 'Write roll rule (DTE / never hold expiry).', ur: 'Roll rule.' },
+    exitTicket: { en: 'You can define initial vs maintenance margin.', ur: 'Initial vs maintenance margin define kar sakte ho.' },
+    notebookPrompt: { en: 'Write roll rule (DTE / never hold expiry).', ur: 'Roll rule likho (DTE / expiry pe kabhi hold nahi).' },
     flashcardSeeds: [
       { front: { en: 'Initial margin', ur: 'Initial' }, back: { en: 'To open the position.', ur: 'Open ke liye.' } },
       { front: { en: 'Maintenance margin', ur: 'Maint' }, back: { en: 'Minimum to keep — breach hurts.', ur: 'Keep minimum.' } },
@@ -170,7 +173,8 @@ export const FUTURES_DEEP_WEEKS = [
     teach: {
       en: `<p>Loop: know specs → risk $ → stop in ticks → margin cushion → roll/expiry plan → log. Signals that ignore notional are cosplay.</p>
 <p>Certificate = study record — not prop-desk license.</p>`,
-      ur: `<p>Specs → risk$ → ticks → cushion → roll plan → log. Cert = study.</p>`,
+      ur: `<p>Loop: specs jano → risk $ → stop ticks mein → margin cushion → roll/expiry plan → log. Notional ignore karne wale signals cosplay hain.</p>
+<p>Certificate = study record — prop-desk license nahi.</p>`,
     },
     workedExample: {
       en: `<p>Card: “1 micro · 1% risk · 10-tick stop · roll 5 DTE · no signal size.”</p>`,
@@ -181,7 +185,7 @@ export const FUTURES_DEEP_WEEKS = [
       ur: `<p>Margin allow → max contracts.</p>`,
     },
     exitTicket: { en: 'You can recite futures practice loop.', ur: 'Futures loop.' },
-    notebookPrompt: { en: 'Six-bullet futures loop on Study desk.', ur: '6-bullet futures loop.' },
+    notebookPrompt: { en: 'Six-bullet futures loop on Study desk.', ur: 'Study desk pe six-bullet futures loop likho.' },
     flashcardSeeds: [
       { front: { en: 'Futures loop', ur: 'Loop' }, back: { en: 'Specs → risk$ → ticks → cushion → roll → log.', ur: 'Specs → risk → ticks → roll → log.' } },
       { front: { en: 'Margin allows max', ur: 'Max' }, back: { en: 'Not a size rule.', ur: 'Size rule nahi.' } },

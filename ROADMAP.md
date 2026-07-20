@@ -96,5 +96,7 @@ Next (in order):
 - ~~HTTP Lab + typed editor flags ON~~
 - ~~FE-202→APP-403 catalog session + courses.js wired~~
 - ~~Sim fail → Mistake museum feed~~
-- ~~Crypto deep UR thicken~~ (other tracks still EN-heavy — next pass)
+- ~~Crypto deep UR thicken~~
 - Tag `v49.2.0` / `v50.0.0`
+
+**v50.1 UR parity:** all deep-track week parts ≥55% UR length (Foundations + 12 deep modules).

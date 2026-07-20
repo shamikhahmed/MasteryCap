@@ -38,7 +38,8 @@ export const GREEKS_DEEP_WEEKS = [
     teach: {
       en: `<p><strong>Delta</strong> ≈ how much option price moves when underlying moves $1 (model-dependent). Calls positive delta; puts negative. Higher |delta| ≈ more stock-like.</p>
 <p>Delta is not “probability of profit” as sold in tip culture — treat it as a sensitivity dial.</p>`,
-      ur: `<p>Delta = underlying move pe option sensitivity. Profit probability marketing nahi.</p>`,
+      ur: `<p><strong>Delta</strong> ≈ underlying $1 move pe option price kitna move (model-dependent). Calls positive delta; puts negative. Higher |delta| ≈ zyada stock-like.</p>
+<p>Delta “profit probability” nahi jaisa tip culture bechti — sensitivity dial samjho.</p>`,
     },
     workedExample: {
       en: `<p>Delta 0.40 call: underlying +1 → option ~+0.40 before other Greeks bite.</p>`,
@@ -48,7 +49,7 @@ export const GREEKS_DEEP_WEEKS = [
       en: `<p>Equating delta to guaranteed win odds.</p>`,
       ur: `<p>Delta = win odds samajhna.</p>`,
     },
-    exitTicket: { en: 'You can say what delta measures in one line.', ur: 'Delta ek line.' },
+    exitTicket: { en: 'You can say what delta measures in one line.', ur: 'Delta kya measure karta hai — ek line mein bata sakte ho.' },
     notebookPrompt: { en: 'Note delta of one sample long call/put.', ur: 'Sample delta note.' },
     flashcardSeeds: [
       { front: { en: 'Delta measures', ur: 'Delta' }, back: { en: 'Sensitivity to underlying move.', ur: 'Underlying sensitivity.' } },
@@ -82,18 +83,19 @@ export const GREEKS_DEEP_WEEKS = [
     teach: {
       en: `<p><strong>Theta</strong> ≈ value change per day from time passing. Long options usually pay theta; short options often collect it — with obligation risk.</p>
 <p>“Theta income” without max-loss plan is how accounts blow up on the one day vol spikes.</p>`,
-      ur: `<p>Long = theta pay. Short = collect + obligation. Income story bina max loss = blowup.</p>`,
+      ur: `<p><strong>Theta</strong> ≈ time guzarne se rozana value change. Long options usually theta pay; short options collect — obligation risk ke saath.</p>
+<p>“Theta income” bina max-loss plan = jis din vol spike ho account udd jata hai.</p>`,
     },
     workedExample: {
       en: `<p>Long weeklies into quiet tape → death by theta even if “almost right.”</p>`,
-      ur: `<p>Quiet weeklies long → theta death.</p>`,
+      ur: `<p>Quiet tape mein long weeklies → theta se maut chahe “almost right” ho.</p>`,
     },
     commonMistake: {
       en: `<p>Ignoring DTE when buying lottery weeklies.</p>`,
       ur: `<p>DTE ignore — lottery weeklies.</p>`,
     },
     exitTicket: { en: 'You can say who usually pays theta.', ur: 'Theta kaun pay.' },
-    notebookPrompt: { en: 'Write min DTE rule for long premium (or none).', ur: 'Long premium DTE rule.' },
+    notebookPrompt: { en: 'Write min DTE rule for long premium (or none).', ur: 'Long premium ke liye min DTE rule likho (ya none).' },
     flashcardSeeds: [
       { front: { en: 'Theta', ur: 'Theta' }, back: { en: 'Time decay per day (approx).', ur: 'Rozana time decay.' } },
       { front: { en: 'Long premium usually', ur: 'Long' }, back: { en: 'Pays theta.', ur: 'Theta pay.' } },
@@ -126,7 +128,8 @@ export const GREEKS_DEEP_WEEKS = [
     teach: {
       en: `<p><strong>Vega</strong> ≈ sensitivity to implied volatility. <strong>Gamma</strong> ≈ how fast delta changes — highest near ATM/expiry.</p>
 <p>Buying premium into events pays IV; after the print, IV crush can erase value even with correct direction.</p>`,
-      ur: `<p>Vega = IV sensitivity. Gamma = delta speed. Event baad IV crush.</p>`,
+      ur: `<p><strong>Vega</strong> ≈ implied volatility sensitivity. <strong>Gamma</strong> ≈ delta kitni tez badalta — ATM/expiry ke qareeb highest.</p>
+<p>Events mein premium khareedna IV pay karta; print ke baad IV crush direction sahi hone ke bawajood value mita sakta.</p>`,
     },
     workedExample: {
       en: `<p>Long straddle into earnings: huge IV → post-print IV crush → need a bigger move than priced.</p>`,
@@ -136,8 +139,8 @@ export const GREEKS_DEEP_WEEKS = [
       en: `<p>All-in long premium solely “for the event.”</p>`,
       ur: `<p>Event pe all-in long premium.</p>`,
     },
-    exitTicket: { en: 'You can explain IV crush in one sentence.', ur: 'IV crush ek jumla.' },
-    notebookPrompt: { en: 'Event rule: flat / defined debit / no hold.', ur: 'Event rule likho.' },
+    exitTicket: { en: 'You can explain IV crush in one sentence.', ur: 'IV crush ek jumle mein samjha sakte ho.' },
+    notebookPrompt: { en: 'Event rule: flat / defined debit / no hold.', ur: 'Event rule likho: flat / defined debit / no hold.' },
     flashcardSeeds: [
       { front: { en: 'Vega', ur: 'Vega' }, back: { en: 'Sensitivity to IV.', ur: 'IV sensitivity.' } },
       { front: { en: 'Gamma', ur: 'Gamma' }, back: { en: 'How fast delta changes.', ur: 'Delta speed.' } },
@@ -170,7 +173,8 @@ export const GREEKS_DEEP_WEEKS = [
     teach: {
       en: `<p>Loop: pick defined-risk structure → read delta/theta/vega in words → check event/IV → size by max loss → log. If someone sells “Greeks system = weekly rich,” walk away.</p>
 <p>Certificate = study record.</p>`,
-      ur: `<p>Defined-risk → Greeks in words → event/IV → max loss → log. Cert = study.</p>`,
+      ur: `<p>Loop: defined-risk structure chuno → delta/theta/vega words mein parho → event/IV check → max loss se size → log. “Greeks system = weekly rich” bechne wale se door chalo.</p>
+<p>Certificate = study record.</p>`,
     },
     workedExample: {
       en: `<p>Card: “Debit put spread · delta note · no earnings · max = debit.”</p>`,

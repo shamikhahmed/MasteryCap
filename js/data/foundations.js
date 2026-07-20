@@ -35,13 +35,14 @@ export const FOUNDATIONS_WEEKS = [
 <p>Price moves when orders arrive unevenly: more willing buyers lift the ask; more willing sellers hit the bid. News, positioning, liquidity, and fear all change who is willing. That is not magic and not a salary machine.</p>
 <p><strong>MasteryCap</strong> is a school on your device: frameworks, process, and practice. Completing lessons does <em>not</em> mean markets owe you money. Certificates here are self-issued study records — not licenses.</p>
 <p>{{redflag:Anyone selling “finish this course → weekly income” is selling fantasy.}}</p>`,
-    ur: `<p><strong>Market</strong> = jagah jahan buyer aur seller kisi cheez ki price pe agree karte. Har fill ke liye <strong>counterparty</strong> chahiye. Literacy process behtar karti — tankhwah nahi.</p>
-<p>MasteryCap school hai, broker ya tip service nahi. Certificate device-local self-issue — bahar credential nahi.</p>
+    ur: `<p><strong>Market</strong> physical ya electronic jagah hai jahan buyer aur seller kisi scarce cheez — share, currency, oil barrel, token — ki price pe agree karte hain. Har fill ke liye <strong>counterparty</strong> chahiye jo value ke baare mein tumse disagree kare — sab agree hon to trade hi nahi hota.</p>
+<p>Price tab hilti hai jab orders uneven aate: zyada buyers ask uthate, zyada sellers bid hit karte. News, positioning, liquidity, fear sab willingness badalte. Ye magic nahi aur na salary machine.</p>
+<p><strong>MasteryCap</strong> device pe school hai: frameworks, process, practice. Lessons complete karna markets se paise ka claim nahi. Certificate yahan self-issued study record — license nahi.</p>
 <p>{{redflag:“Course complete = income” = fantasy.}}</p>`,
   },
   workedExample: {
     en: `<p>Two people look at the same stock. A thinks “cheap at 100”; B thinks “still expensive.” A buys from B at 100. Both can be rational with different horizons. The print is agreement on <em>this</em> price now — not proof either will be right tomorrow.</p>`,
-    ur: `<p>A 100 pe kharidta, B bechta — dono rational ho sakte. Print = abhi ki agreement, kal ki guarantee nahi.</p>`,
+    ur: `<p>Do log same stock dekhte. A kehta "100 pe sasti"; B kehta "abhi bhi mehngi." A 100 pe B se kharidta. Dono alag horizon ke saath rational ho sakte. Print = abhi is price pe agreement — kal dono sahi hon iski guarantee nahi.</p>`,
   },
   commonMistake: {
     en: `<p>Treating charts or courses as a paycheck. Education improves decisions; markets still decide outcomes.</p>`,
@@ -53,7 +54,7 @@ export const FOUNDATIONS_WEEKS = [
   },
   notebookPrompt: {
     en: 'Write one rule you will follow before risking money (example: “no entry without a stop”).',
-    ur: 'Paise risk se pehle ek rule likho.',
+    ur: 'Paise risk se pehle ek rule likho jo follow karoge (misal: "stop ke bina entry nahi").',
   },
   flashcardSeeds: [
     { front: { en: 'What is a market?', ur: 'Market kya?' }, back: { en: 'A place where buyers and sellers agree on a price for something scarce.', ur: 'Buyer/seller price pe agree.' } },
@@ -93,12 +94,15 @@ export const FOUNDATIONS_WEEKS = [
 <p>Leverage is a loan that can liquidate you — not free money. Skipping Foundations for 50× usually funds someone else’s bonus.</p>
 <p>{{compare:invest-vs-trade}}</p>
 <p>{{redflag:Remote desktop + “I’ll trade your account” = classic theft.}}</p>`,
-    ur: `<p>Signal VIP, recovery agents, fake brokers, leverage-only-wins ads — pehchano. Seed/OTP kabhi nahi. Regulator site pe verify. Guarantee = walk away.</p>
-<p>{{redflag:Remote desktop + trade karunga = theft.}}</p>`,
+    ur: `<p>Account se pehle traps seekho: <strong>signal groups</strong> "VIP entries" bechte, <strong>recovery agents</strong> loss ke baad, <strong>fake brokers</strong>, aur <strong>leverage ads</strong> jo sirf winners dikhate.</p>
+<p>Rules: "manager" wallet ko paise kabhi nahi. Seed phrase ya OTP share kabhi nahi. Firm ko official regulator site pe verify karo (misal PSX/SECP lists Pakistan equities ke liye). "Guaranteed returns" = door chalo.</p>
+<p>Leverage loan hai jo liquidate kar sakta — free money nahi. Foundations skip karke 50× usually kisi aur ka bonus fund karta.</p>
+<p>{{compare:invest-vs-trade}}</p>
+<p>{{redflag:Remote desktop + "main tumhara account trade karunga" = classic theft.}}</p>`,
   },
   workedExample: {
     en: `<p>You lose money. A stranger DMs: “I can recover funds — send seed to verify wallet.” That person with the seed owns the wallet. Real support never needs your seed.</p>`,
-    ur: `<p>Loss ke baad seed mangna = theft. Support ko seed nahi chahiye.</p>`,
+    ur: `<p>Paise loss ho. Stranger DM karta: "Funds recover kar sakta — wallet verify ke liye seed bhejo." Seed wala wallet ka malik. Asli support ko seed kabhi nahi chahiye.</p>`,
   },
   commonMistake: {
     en: `<p>Trusting urgency (“only today”) or logos in a chat over regulator lists.</p>`,
@@ -110,7 +114,7 @@ export const FOUNDATIONS_WEEKS = [
   },
   notebookPrompt: {
     en: 'List three scam patterns in your own words. Note one you almost believed.',
-    ur: 'Teen scam patterns apne alfaaz mein.',
+    ur: 'Teen scam patterns apne alfaaz mein likho. Ek note karo jis pe almost bharosa aa gaya tha.',
   },
   flashcardSeeds: [
     { front: { en: 'Someone asks for your seed phrase', ur: 'Seed mange' }, back: { en: 'Refuse. Seed = ownership. No support needs it.', ur: 'Refuse. Seed = ownership.' } },
@@ -142,30 +146,33 @@ export const FOUNDATIONS_WEEKS = [
   title: { en: 'Open a Regulated Account', ur: 'Regulated Account' },
   objective: {
     en: 'Follow a custody-first checklist to open and test a regulated account — no broker endorsement.',
-    ur: 'Custody-first checklist — broker endorse nahi.',
+    ur: 'Custody-first checklist follow karo regulated account kholne aur test karne ke liye — koi broker endorse nahi.',
   },
   teach: {
     en: `<p>Process week — not an affiliate pitch.</p>
 <p><strong>Pakistan equities (PSX path):</strong> (1) Pick a PSX-licensed broker (TREC) from PSX/SECP lists. (2) Complete KYC. (3) Open a <strong>CDC sub-account</strong> so shares sit in <em>your</em> name. (4) Fund via official bank channels. (5) Test small deposit <em>and</em> small withdrawal before size.</p>
 <p><strong>Crypto / global:</strong> Prefer regulated venues where you live. KYC. 2FA (app > SMS if possible). Tiny first deposit. Do not park life savings on an exchange IOU.</p>
 <p>{{xref:invest:4:PSX & CDC deepen in Investing}}</p>`,
-    ur: `<p>PSX: licensed TREC → KYC → CDC sub-account → bank fund → chhota deposit+withdrawal test. Crypto: regulated venue, 2FA, tiny first deposit.</p>`,
+    ur: `<p>Process week — affiliate pitch nahi.</p>
+<p><strong>Pakistan equities (PSX path):</strong> (1) PSX/SECP lists se PSX-licensed broker (TREC) chuno. (2) KYC complete karo. (3) <strong>CDC sub-account</strong> kholo taake shares <em>tumhare</em> naam pe hon. (4) Official bank channels se fund karo. (5) Size se pehle chhota deposit <em>aur</em> chhota withdrawal test karo.</p>
+<p><strong>Crypto / global:</strong> Jahan rehte ho wahan regulated venues prefer karo. KYC. 2FA (app > SMS agar ho sake). Pehla deposit chhota. Life savings exchange IOU pe mat rakho.</p>
+<p>{{xref:invest:4:PSX & CDC deepen in Investing}}</p>`,
   },
   workedExample: {
     en: `<p>Homework: screenshot the regulator license page, write the firm’s legal name, confirm withdrawal method, set a monthly funding cap.</p>`,
-    ur: `<p>License screenshot, legal name, withdrawal test, monthly cap.</p>`,
+    ur: `<p>Homework: regulator license page ka screenshot, firm ka legal name likho, withdrawal method confirm karo, monthly funding cap set karo.</p>`,
   },
   commonMistake: {
     en: `<p>Funding large before a successful withdrawal test — deposits are easy; withdrawals prove the venue.</p>`,
-    ur: `<p>Badi fund bina withdrawal test.</p>`,
+    ur: `<p>Badi fund bina successful withdrawal test ke — deposit aasan; withdrawal venue prove karta hai.</p>`,
   },
   exitTicket: {
     en: 'You can recite the five-step PSX path and why CDC custody matters.',
-    ur: 'PSX 5 steps + CDC kyun.',
+    ur: 'PSX ke paanch steps bol sakte ho aur CDC custody kyun matter karti samjha sakte ho.',
   },
   notebookPrompt: {
     en: 'Write your funding cap and the exact withdrawal test you will run before size.',
-    ur: 'Funding cap + withdrawal test likho.',
+    ur: 'Apna funding cap likho aur exact withdrawal test jo size se pehle karoge.',
   },
   flashcardSeeds: [
     { front: { en: 'PSX shares should sit in', ur: 'PSX shares' }, back: { en: 'Your CDC / investor account in your name.', ur: 'CDC apne naam.' } },
@@ -197,27 +204,29 @@ export const FOUNDATIONS_WEEKS = [
   title: { en: 'Orders: Market, Limit, Stop', ur: 'Orders: Market, Limit, Stop' },
   objective: {
     en: 'Choose market vs limit vs stop with eyes open about spread and fill risk.',
-    ur: 'Market vs limit vs stop + spread.',
+    ur: 'Market vs limit vs stop chuno — spread aur fill risk khuli aankhon se samjho.',
   },
   teach: {
     en: `<p>Every quote has a <strong>bid</strong> (buyers) and <strong>ask</strong> (sellers). The <strong>spread</strong> is a cost when you cross it.</p>
 <p><strong>Market:</strong> fill now — fast, can slip. <strong>Limit:</strong> only at your price or better — may not fill. <strong>Stop / stop-limit:</strong> arms after a trigger — know your venue’s rules.</p>
 <p>Beginner drill (2 weeks): prefer limits on paper/tiny size. Notice how often emotion wants a market chase.</p>
 <p>{{compare:limit-vs-market}}</p>`,
-    ur: `<p>Bid/ask + spread cost. Market = tez/slip. Limit = price control, fill na ho. Stop = trigger ke baad.</p>
+    ur: `<p>Har quote mein <strong>bid</strong> (buyers) aur <strong>ask</strong> (sellers). <strong>Spread</strong> cost hai jab tum cross karte ho.</p>
+<p><strong>Market:</strong> abhi fill — tez, slip ho sakta. <strong>Limit:</strong> sirf tumhari price ya better — fill na ho sakta. <strong>Stop / stop-limit:</strong> trigger ke baad arm — venue ke rules samjho.</p>
+<p>Beginner drill (2 hafte): paper/tiny size pe limits prefer karo. Dekho kitni baar emotion market chase chahta hai.</p>
 <p>{{compare:limit-vs-market}}</p>`,
   },
   workedExample: {
     en: `<p>Stock bid 99.90 / ask 100.10. A market buy pays ~100.10. A limit buy at 100.00 waits — may never fill if price runs.</p>`,
-    ur: `<p>Ask pe market buy; limit 100 wait — fill na ho.</p>`,
+    ur: `<p>Stock bid 99.90 / ask 100.10. Market buy ~100.10 deta. Limit buy 100.00 pe wait — price bhaage to kabhi fill na ho.</p>`,
   },
   commonMistake: {
     en: `<p>Using market orders for every entry “for certainty” — you pay spread and teach FOMO fills.</p>`,
-    ur: `<p>Har entry pe market = FOMO + spread.</p>`,
+    ur: `<p>Har entry pe market order "certainty" ke liye — spread pay karte ho aur FOMO fills seekhte ho.</p>`,
   },
   exitTicket: {
     en: 'You can explain when you would use each order type.',
-    ur: 'Teen order types kab.',
+    ur: 'Har order type kab use karoge explain kar sakte ho.',
   },
   notebookPrompt: {
     en: 'For one imagined trade, write entry type, stop type, and why.',
@@ -263,17 +272,21 @@ export const FOUNDATIONS_WEEKS = [
 {{chart:range-sr}}
 <p>If checklist fails → no trade. That is the lesson.</p>
 <p>{{redflag:Skipping checklist “just once” starts revenge trades.}}</p>`,
-    ur: `<p>Checklist incomplete = no trade. Debrief = process, sirf P&L nahi. Structure pehle nam lo — charts literacy hain, live signal nahi.</p>
+    ur: `<p>Jab ready ho — pehle nahi — Practice / Practice Ledger (aur Journal desk) use karo.</p>
+<p><strong>Workflow:</strong> (1) One-sentence setup. (2) Pre-trade checklist (stop, risk %, calm, plan). (3) Calculator se size. (4) Paper/demo order. (5) Entry, stop, exit, emotion log karo. (6) Debrief: process follow hua? — sirf "sahi tha ya nahi" nahi.</p>
+<p>Size se pehle jo <strong>structure</strong> lagta hai uska naam lo. Neeche charts literacy labels hain — live signal nahi.</p>
 {{chart:hh-hl}}
 {{chart:range-sr}}
-<p>{{redflag:Checklist skip = revenge start.}}</p>`,
+<p>Checklist fail → no trade. Yehi lesson hai.</p>
+<p>{{redflag:Checklist ek baar skip karna revenge trades shuru karta hai.}}</p>`,
   },
   workedExample: {
     en: `<p>Five paper trades this week. If revenge urge appears, log “urge — skipped” — that counts as discipline win.</p>
 <p>Read these two context charts before your first paper entry this week:</p>
 {{chart:engulf-support}}
 {{chart:pin-reject}}`,
-    ur: `<p>5 paper trades. Urge aaye to skip + note. Pehle ye context charts padho:</p>
+    ur: `<p>Is hafte paanch paper trades. Revenge urge aaye to "urge — skipped" log karo — ye discipline win hai.</p>
+<p>Pehle paper entry se pehle ye do context charts padho:</p>
 {{chart:engulf-support}}
 {{chart:pin-reject}}`,
   },
@@ -283,7 +296,7 @@ export const FOUNDATIONS_WEEKS = [
   },
   exitTicket: {
     en: 'You can recite the six workflow steps without looking.',
-    ur: '6 steps yad.',
+    ur: 'Chhe workflow steps bina dekhe bol sakte ho.',
   },
   notebookPrompt: {
     en: 'Paste your pre-trade checklist. Mark any step you tend to skip.',
@@ -319,27 +332,29 @@ export const FOUNDATIONS_WEEKS = [
   title: { en: 'Risk % & Unlock Gate', ur: 'Risk % aur Unlock' },
   objective: {
     en: 'Compute risk $ and size from stop distance; know how Foundations unlocks specialties.',
-    ur: 'Risk $ + size; Foundations unlock samjho.',
+    ur: 'Stop distance se risk $ aur size compute karo; Foundations specialties kaise unlock karta samjho.',
   },
   teach: {
     en: `<p><strong>Risk $</strong> = balance × risk %. <strong>Size</strong> ≈ risk $ ÷ stop distance (in your venue’s units). Wider stop → smaller size.</p>
 <p>Paper start ≤0.5–1% risk per idea. Never risk rent, tuition, or emergency cash.</p>
 <p><strong>Unlock:</strong> Finish all Foundations weeks <em>or</em> pass the Foundations exam → Crypto, Stocks, and Forex open together. That is literacy readiness — not “trade-ready forever.”</p>
 <p>{{redflag:“Double size because I’m sure” fights risk %.}}</p>`,
-    ur: `<p>Risk $ = balance × risk %. Size ≈ risk $ / stop distance. Unlock = saari weeks ya exam → Crypto/Stocks/Forex.</p>
-<p>{{redflag:Surety pe double size = enemy.}}</p>`,
+    ur: `<p><strong>Risk $</strong> = balance × risk %. <strong>Size</strong> ≈ risk $ ÷ stop distance (venue units mein). Wider stop → chhoti size.</p>
+<p>Paper start ≤0.5–1% risk per idea. Rent, tuition, emergency cash kabhi risk mat karo.</p>
+<p><strong>Unlock:</strong> Saari Foundations weeks complete karo <em>ya</em> Foundations exam pass karo → Crypto, Stocks, aur Forex ek saath khulte. Ye literacy readiness — "trade-ready forever" nahi.</p>
+<p>{{redflag:"Sure hoon isliye double size" risk % se ladta hai.}}</p>`,
   },
   workedExample: {
     en: `<p>Balance $10,000, risk 1% → risk $100. If stop is $2 away per unit, size ≈ 50 units (venue rules apply).</p>`,
-    ur: `<p>$10,000 × 1% = $100 risk. Stop door → size chhoti.</p>`,
+    ur: `<p>Balance $10,000, risk 1% → risk $100. Stop per unit $2 door ho to size ≈ 50 units (venue rules apply).</p>`,
   },
   commonMistake: {
     en: `<p>Picking leverage first, then inventing a stop to match — reverse the order: stop first, size second.</p>`,
-    ur: `<p>Pehle leverage sochna — galat. Stop pehle.</p>`,
+    ur: `<p>Pehle leverage sochna phir stop match karna — ulta karo: pehle stop, phir size.</p>`,
   },
   exitTicket: {
     en: 'You can compute risk $ and explain the Foundations unlock gate.',
-    ur: 'Risk $ + unlock gate.',
+    ur: 'Risk $ compute kar sakte ho aur Foundations unlock gate explain kar sakte ho.',
   },
   notebookPrompt: {
     en: 'Write your max risk % and max daily loss rule. Sign it.',

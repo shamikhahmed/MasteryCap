@@ -33,25 +33,26 @@ export const FOREX_DEEP_WEEKS = [
     title: { en: 'Pairs, Pips & Quotes', ur: 'Pairs, Pips, Quotes' },
     objective: {
       en: 'Read a FX pair (base/quote), know what a pip is, and treat spread as cost.',
-      ur: 'Base/quote, pip, spread = cost.',
+      ur: 'FX pair padho (base/quote), pip kya hai samjho, aur spread ko cost samjho.',
     },
     teach: {
       en: `<p>FX trades <strong>pairs</strong>: EUR/USD means price of one euro in dollars. <strong>Base</strong> is first; <strong>quote</strong> is second. A <strong>pip</strong> is the usual smallest quoted increment (often 0.0001 on majors).</p>
 <p>You are always long one currency and short the other. Spread + commission is the cost of being wrong quickly. Leverage is not a skill metric — it is borrowed exposure that can liquidate you.</p>
 <p>{{redflag:“1:1000 leverage = smarter trader” is marketing, not literacy.}}</p>`,
-      ur: `<p>Pair = base/quote. Pip = chhoti increment. Hamesha ek long, ek short. Spread = cost. Leverage = borrow — skill nahi.</p>
-<p>{{redflag:1:1000 = smart — marketing.}}</p>`,
+      ur: `<p>FX <strong>pairs</strong> mein trade hota hai: EUR/USD = ek euro ki qeemat dollars mein. <strong>Base</strong> pehli currency; <strong>quote</strong> doosri. <strong>Pip</strong> = chhoti quoted increment (majors pe aksar 0.0001).</p>
+<p>Tum hamesha ek currency long, doosri short. Spread + commission = jaldi galat hone ka cost. Leverage skill metric nahi — borrowed exposure hai jo liquidate kar sakti.</p>
+<p>{{redflag:“1:1000 leverage = smart trader” marketing hai — literacy nahi.}}</p>`,
     },
     workedExample: {
       en: `<p>EUR/USD 1.1000 → 1.1010 is ~10 pips. If spread is 1.2 pips, a 5-pip “scalp” target can be fee-negative before edge.</p>`,
-      ur: `<p>10 pip move, 1.2 spread — 5-pip scalp thin.</p>`,
+      ur: `<p>EUR/USD 1.1000 → 1.1010 ≈ 10 pips. Spread 1.2 ho to 5-pip “scalp” target edge se pehle fee-negative ho sakta.</p>`,
     },
     commonMistake: {
       en: `<p>Counting wins in pips while ignoring spread and swap.</p>`,
       ur: `<p>Pips count, spread/swap ignore.</p>`,
     },
-    exitTicket: { en: 'You can name base vs quote on one major pair.', ur: 'Base vs quote ek pair.' },
-    notebookPrompt: { en: 'Write your venue’s typical EUR/USD spread and lot size meaning.', ur: 'Spread + lot meaning.' },
+    exitTicket: { en: 'You can name base vs quote on one major pair.', ur: 'Ek major pair pe base vs quote naam le sakte ho.' },
+    notebookPrompt: { en: 'Write your venue’s typical EUR/USD spread and lot size meaning.', ur: 'Apni venue ka typical EUR/USD spread aur lot size ka matlab likho.' },
     flashcardSeeds: [
       { front: { en: 'In EUR/USD, base is', ur: 'EUR/USD base' }, back: { en: 'EUR.', ur: 'EUR.' } },
       { front: { en: 'A pip is', ur: 'Pip' }, back: { en: 'Usual small price increment on the pair.', ur: 'Chhoti increment.' } },
@@ -79,23 +80,25 @@ export const FOREX_DEEP_WEEKS = [
     title: { en: 'Sessions, Size & Correlation', ur: 'Sessions, Size, Correlation' },
     objective: {
       en: 'Respect sessions, size by risk, and count correlated USD bets as one theme.',
-      ur: 'Sessions + risk size + correlation theme.',
+      ur: 'Sessions respect karo, risk se size karo, correlated USD bets ko ek theme count karo.',
     },
     teach: {
       en: `<p>Liquidity and behavior change across Asia / London / New York. Quiet sessions and news hours are different animals. Size from <strong>risk $ and stop distance</strong> — not from “feels like 1 lot.”</p>
 <p><strong>Correlation:</strong> long EUR/USD + long GBP/USD + short USD/JPY is often one short-dollar theme. If USD rips, all lose together. Count risk per theme.</p>
 <p>Weekend gaps can jump through stops — market closed means stops do not protect like you wish.</p>`,
-      ur: `<p>Sessions alag. Size = risk$ + stop. Correlation = ek theme. Weekend gap stops tod sakta.</p>`,
+      ur: `<p>Liquidity aur behavior Asia / London / New York mein alag. Quiet sessions aur news hours alag janwar hain. Size <strong>risk $ aur stop distance</strong> se — “feels like 1 lot” se nahi.</p>
+<p><strong>Correlation:</strong> long EUR/USD + long GBP/USD + short USD/JPY aksar ek short-dollar theme. USD rip kare to sab saath haarte. Risk per theme count karo.</p>
+<p>Weekend gaps stops ke through jump kar sakte — market band = stops utni protect nahi jaisi chaho.</p>`,
     },
     workedExample: {
       en: `<p>1% account risk, stop 20 pips → size so 20-pip loss ≈ 1%. Doubling lot “because London is trending” doubles ruin speed.</p>`,
-      ur: `<p>1% risk / 20 pip stop → size math. Lot double = ruin double.</p>`,
+      ur: `<p>1% account risk, 20 pip stop → size aise ke 20-pip loss ≈ 1%. Lot double “London trending” se = ruin speed double.</p>`,
     },
     commonMistake: {
       en: `<p>Three tickets, one dollar bet — thinking diversification happened.</p>`,
       ur: `<p>Teen ticket, ek USD bet = diversify nahi.</p>`,
     },
-    exitTicket: { en: 'You can name one correlated pair combo that is really one theme.', ur: 'Ek correlated theme.' },
+    exitTicket: { en: 'You can name one correlated pair combo that is really one theme.', ur: 'Ek correlated pair combo naam le sakte ho jo asal mein ek theme hai.' },
     notebookPrompt: { en: 'Write max theme risk % and your no-trade hours.', ur: 'Theme risk% + no-trade hours.' },
     flashcardSeeds: [
       { front: { en: 'Position size comes from', ur: 'Size' }, back: { en: 'Risk $ ÷ stop distance.', ur: 'Risk$ ÷ stop.' } },
@@ -124,26 +127,28 @@ export const FOREX_DEEP_WEEKS = [
     title: { en: 'Calendar, Swap & Broker Risk', ur: 'Calendar, Swap, Broker' },
     objective: {
       en: 'Check the calendar, know swap sign, and refuse unregulated high-leverage traps.',
-      ur: 'Calendar + swap + regulated broker only.',
+      ur: 'Calendar check karo, swap sign samjho, aur unregulated high-leverage traps refuse karo.',
     },
     teach: {
       en: `<p>NFP, CPI, central bank days are known in advance. Spreads explode; first spikes reverse. Flatten or reduce before red events on your pair. Trading the first spike is usually gambling with worse fills.</p>
 <p><strong>Swap</strong> is overnight interest — real P/L. <strong>Carry</strong> grinds slowly and can crash when risk flips.</p>
 <p>Offshore “1:1000 + easy withdraw” brokers with mystery spikes to your stop are a venue risk. Prefer regulated venues; failed withdrawals = walk away.</p>
 <p>{{redflag:Recovery agents after a loss are often a second scam.}}</p>`,
-      ur: `<p>Calendar pehle. Red event → reduce. Swap = P/L. Unregulated 1:1000 = trap. Withdraw fail = exit.</p>
-<p>{{redflag:Recovery agent = second scam.}}</p>`,
+      ur: `<p>NFP, CPI, central bank days pehle se pata. Spreads phat-te; pehle spikes reverse. Apne pair pe red events se pehle flatten ya reduce. Pehle spike trade karna aksar gambling hai — worse fills ke saath.</p>
+<p><strong>Swap</strong> = overnight interest — real P/L. <strong>Carry</strong> dheere grind karta, risk flip pe crash kar sakta.</p>
+<p>Offshore “1:1000 + easy withdraw” brokers jo stop pe mystery spikes karte = venue risk. Regulated venues prefer; withdrawal fail = chale jao.</p>
+<p>{{redflag:Loss ke baad recovery agent aksar doosra scam hai.}}</p>`,
     },
     workedExample: {
       en: `<p>Before NFP: cut size to flat or micro. After spike settles, if you trade at all — second move with a real stop, not market-in on the first tick.</p>`,
-      ur: `<p>NFP pehle flat/micro. Pehle spike pe market-in mat.</p>`,
+      ur: `<p>NFP se pehle size flat ya micro karo. Spike settle ke baad agar trade karo — doosri move real stop ke saath; pehle tick pe market-in mat.</p>`,
     },
     commonMistake: {
       en: `<p>Ignoring swap for a week then wondering why P/L bled.</p>`,
       ur: `<p>Swap ignore → silent bleed.</p>`,
     },
-    exitTicket: { en: 'You can list today’s red events for your pair (or “none”).', ur: 'Aaj red events list.' },
-    notebookPrompt: { en: 'Write broker regulation note + swap sign on your practice pair + calendar rule.', ur: 'Broker + swap + calendar rule.' },
+    exitTicket: { en: 'You can list today’s red events for your pair (or “none”).', ur: 'Apne pair ke aaj ke red events list kar sakte ho (ya “none”).' },
+    notebookPrompt: { en: 'Write broker regulation note + swap sign on your practice pair + calendar rule.', ur: 'Broker regulation note + practice pair pe swap sign + calendar rule likho.' },
     flashcardSeeds: [
       { front: { en: 'Red news spreads', ur: 'Red news' }, back: { en: 'Widen; stops slip.', ur: 'Wide + slip.' } },
       { front: { en: 'Markets react to data via', ur: 'Data' }, back: { en: 'Actual vs forecast.', ur: 'Actual vs forecast.' } },
@@ -176,7 +181,8 @@ export const FOREX_DEEP_WEEKS = [
     teach: {
       en: `<p>Rails: regulated venue, know session, size by risk, check calendar before first trade, respect swap, cap correlated themes, log every practice ticket.</p>
 <p>Signal groups are not literacy. If withdrawals fail, stop funding — leave.</p>`,
-      ur: `<p>Venue → session → risk size → calendar → swap → correlation cap → log. Signals ≠ literacy.</p>`,
+      ur: `<p>Rails: regulated venue, session pata, risk se size, pehle trade se pehle calendar, swap respect, correlated themes cap, har practice ticket log.</p>
+<p>Signal groups literacy nahi. Withdrawals fail hon to funding band — chale jao.</p>`,
     },
     workedExample: {
       en: `<p>Practice card: “Micro size · no red-news entry · theme risk ≤1% · swap noted · journal row.”</p>`,
@@ -184,7 +190,7 @@ export const FOREX_DEEP_WEEKS = [
     },
     commonMistake: {
       en: `<p>Opening three “different” pairs that are one USD bet.</p>`,
-      ur: `<p>Teen pair = ek USD bet.</p>`,
+      ur: `<p>Teen “alag” pair kholna jo asal mein ek USD bet hai.</p>`,
     },
     exitTicket: { en: 'You can recite your FX practice loop.', ur: 'FX loop yad.' },
     notebookPrompt: { en: 'Six-bullet FX loop on Study desk.', ur: '6-bullet FX loop.' },
@@ -215,24 +221,25 @@ export const FOREX_DEEP_WEEKS = [
     title: { en: 'Carry Honesty & Theme Risk', ur: 'Carry Honesty aur Theme Risk' },
     objective: {
       en: 'Treat carry as paid risk, not free yield; size correlated USD themes as one.',
-      ur: 'Carry = paid risk; USD theme = ek budget.',
+      ur: 'Carry ko paid risk samjho, free yield nahi; correlated USD themes ko ek budget se size karo.',
     },
     teach: {
       en: `<p><strong>Carry</strong> collects rate differential — until risk sentiment flips and the unwind is violent. Swap is real P/L; ignoring it is how “small” holds bleed.</p>
 <p>Long EUR/USD + long GBP/USD + short USD/JPY is often one short-dollar book. Count theme risk, not ticket count.</p>
 <p>{{redflag:“Passive FX yield with no risk” is a sales line.}}</p>`,
-      ur: `<p>Carry slow grind, fast crash. Swap = P/L. Teen ticket = ek USD theme ho sakta.</p>
-<p>{{redflag:Riskless FX yield = sales.}}</p>`,
+      ur: `<p><strong>Carry</strong> rate differential collect karta — jab tak risk sentiment flip na ho aur unwind violent ho. Swap real P/L hai; ignore karo to “chhote” holds bleed karte.</p>
+<p>Long EUR/USD + long GBP/USD + short USD/JPY aksar ek short-dollar book. Theme risk count karo, ticket count nahi.</p>
+<p>{{redflag:“Passive FX yield bina risk” sales line hai.}}</p>`,
     },
     workedExample: {
       en: `<p>Theme budget 1%. Three correlated tickets at 1% each = ~3% theme — not diversified.</p>`,
-      ur: `<p>Theme 1%. Teen correlated 1% = ~3% theme.</p>`,
+      ur: `<p>Theme budget 1%. Teen correlated ticket 1% each = ~3% theme — diversify nahi.</p>`,
     },
     commonMistake: {
       en: `<p>Calling three USD shorts “diversification.”</p>`,
       ur: `<p>Teen USD short = diversify samajhna.</p>`,
     },
-    exitTicket: { en: 'You can state max theme risk % for USD bets.', ur: 'Max USD theme risk%.' },
+    exitTicket: { en: 'You can state max theme risk % for USD bets.', ur: 'USD bets ke liye max theme risk % bata sakte ho.' },
     notebookPrompt: { en: 'Write carry rule + theme risk cap.', ur: 'Carry rule + theme cap.' },
     flashcardSeeds: [
       { front: { en: 'Carry failure mode', ur: 'Carry fail' }, back: { en: 'Slow grind up, violent unwind.', ur: 'Slow up, fast crash.' } },
@@ -267,8 +274,9 @@ export const FOREX_DEEP_WEEKS = [
       en: `<p>Unregulated 1:1000 venues, withdrawal “fees,” mystery stop-hunts, and recovery agents are venue/scam risk — not edge. Prefer regulated access; failed withdrawals = leave.</p>
 <p>End state: verified venue → calendar → risk/theme size → (micro) → log → weekly review. Charts without that stack are decoration.</p>
 <p>{{redflag:Deposit more to “unlock profits” = trap.}}</p>`,
-      ur: `<p>1:1000 offshore, unlock fees, recovery agent = trap. Venue → calendar → size → log → review.</p>
-<p>{{redflag:Unlock deposit = trap.}}</p>`,
+      ur: `<p>Unregulated 1:1000 venues, withdrawal “fees,” mystery stop-hunts, recovery agents = venue/scam risk — edge nahi. Regulated access prefer; failed withdrawals = chale jao.</p>
+<p>End state: verified venue → calendar → risk/theme size → (micro) → log → weekly review. Charts bina is stack ke decoration hain.</p>
+<p>{{redflag:Aur deposit “profits unlock” ke liye = trap.}}</p>`,
     },
     workedExample: {
       en: `<p>Final practice card: “Regulated demo/micro · no red-news entry · theme ≤1% · journal · no signal group.”</p>`,
@@ -278,8 +286,8 @@ export const FOREX_DEEP_WEEKS = [
       en: `<p>Sending more funds to unlock a blocked withdrawal.</p>`,
       ur: `<p>Blocked withdraw pe aur deposit.</p>`,
     },
-    exitTicket: { en: 'You can recite FX loop + one scam refuse rule.', ur: 'FX loop + ek refuse rule.' },
-    notebookPrompt: { en: 'Write never-fund list + FX loop six bullets.', ur: 'Never-fund + FX loop.' },
+    exitTicket: { en: 'You can recite FX loop + one scam refuse rule.', ur: 'FX loop aur ek scam refuse rule yad kar sakte ho.' },
+    notebookPrompt: { en: 'Write never-fund list + FX loop six bullets.', ur: 'Never-fund list + FX loop ke chhe bullets likho.' },
     flashcardSeeds: [
       { front: { en: '1:1000 offshore pitch', ur: '1:1000' }, back: { en: 'Venue risk theater — not skill.', ur: 'Venue risk.' } },
       { front: { en: 'Unlock withdrawal fee ask', ur: 'Unlock fee' }, back: { en: 'Trap — stop funding.', ur: 'Trap.' } },

@@ -39,18 +39,19 @@ export const OPTIONS_DEEP_WEEKS = [
       en: `<p>A <strong>call</strong> is the right to buy at strike before expiry; a <strong>put</strong> is the right to sell. Buyer pays <strong>premium</strong>; seller collects premium and takes obligation.</p>
 <p>Rights ≠ guarantees. Premium can go to zero. Options are contracts with expiry — time is a cost for buyers.</p>
 <p>{{redflag:“Options = free leverage lottery” ignores premium decay and ruin paths.}}</p>`,
-      ur: `<p>Call = buy right. Put = sell right. Premium = qeemat. Expiry pe time cost. Lottery nahi.</p>
-<p>{{redflag:Free leverage lottery = jhoot.}}</p>`,
+      ur: `<p><strong>Call</strong> strike pe expiry se pehle khareedne ka right; <strong>put</strong> bechne ka right. Buyer <strong>premium</strong> pay karta; seller premium collect karke obligation leta.</p>
+<p>Rights ≠ guarantees. Premium zero ho sakta. Options contracts hain expiry ke saath — buyers ke liye time cost hai.</p>
+<p>{{redflag:“Options = free leverage lottery” ignores premium decay and ruin paths.}}</p>`,
     },
     workedExample: {
       en: `<p>Buy call for 2. Stock never reaches strike usefully → premium → 0. Max loss = premium paid.</p>`,
-      ur: `<p>Call 2 buy → worthless → max loss = premium.</p>`,
+      ur: `<p>Call 2 pe buy karo. Stock strike tak usefully na pahunche → premium → 0. Max loss = premium paid.</p>`,
     },
     commonMistake: {
       en: `<p>Sizing like stock shares and ignoring premium as full risk for long options.</p>`,
       ur: `<p>Stock size sochna — premium = full risk ignore.</p>`,
     },
-    exitTicket: { en: 'You can state max loss for a long call/put.', ur: 'Long call/put max loss.' },
+    exitTicket: { en: 'You can state max loss for a long call/put.', ur: 'Long call/put ka max loss bata sakte ho.' },
     notebookPrompt: { en: 'Write call vs put in one sentence each.', ur: 'Call vs put ek jumla.' },
     flashcardSeeds: [
       { front: { en: 'Call', ur: 'Call' }, back: { en: 'Right to buy at strike.', ur: 'Strike pe buy right.' } },
@@ -84,18 +85,19 @@ export const OPTIONS_DEEP_WEEKS = [
     teach: {
       en: `<p><strong>Intrinsic</strong> = in-the-money amount. <strong>Extrinsic</strong> = time + implied vol premium. At expiry, extrinsic → 0; only intrinsic remains.</p>
 <p>Buying options into events pays for IV; after events <strong>IV crush</strong> can hurt even if direction is right.</p>`,
-      ur: `<p>Intrinsic = ITM. Extrinsic = time/IV. Expiry pe extrinsic 0. IV crush event baad.</p>`,
+      ur: `<p><strong>Intrinsic</strong> = in-the-money amount. <strong>Extrinsic</strong> = time + implied vol premium. Expiry pe extrinsic → 0; sirf intrinsic rehta.</p>
+<p>Events mein options khareedna IV ke liye pay karta; events ke baad <strong>IV crush</strong> direction sahi hone ke bawajood hurt kar sakta.</p>`,
     },
     workedExample: {
       en: `<p>Stock 100, call 95 premium 7 → intrinsic 5, extrinsic 2. At expiry if stock 100, call worth 5 — extrinsic gone.</p>`,
-      ur: `<p>Intrinsic 5 + extrinsic 2. Expiry pe extrinsic gayab.</p>`,
+      ur: `<p>Stock 100, call 95 premium 7 → intrinsic 5, extrinsic 2. Expiry pe agar stock 100, call worth 5 — extrinsic gayab.</p>`,
     },
     commonMistake: {
       en: `<p>Holding long premium through expiry week “for fun.”</p>`,
       ur: `<p>Expiry week pe long premium “mazay.”</p>`,
     },
-    exitTicket: { en: 'You can split one premium into intrinsic/extrinsic.', ur: 'Premium split.' },
-    notebookPrompt: { en: 'Pick a sample quote; estimate intrinsic vs rest.', ur: 'Sample quote split.' },
+    exitTicket: { en: 'You can split one premium into intrinsic/extrinsic.', ur: 'Ek premium ko intrinsic/extrinsic mein split kar sakte ho.' },
+    notebookPrompt: { en: 'Pick a sample quote; estimate intrinsic vs rest.', ur: 'Sample quote chuno; intrinsic vs baqi estimate karo.' },
     flashcardSeeds: [
       { front: { en: 'Intrinsic', ur: 'Intrinsic' }, back: { en: 'ITM amount.', ur: 'ITM amount.' } },
       { front: { en: 'Extrinsic', ur: 'Extrinsic' }, back: { en: 'Time + IV value.', ur: 'Time + IV.' } },
@@ -128,18 +130,19 @@ export const OPTIONS_DEEP_WEEKS = [
     teach: {
       en: `<p><strong>Long options / debit spreads:</strong> risk capped near debit. <strong>Naked short calls</strong> can have large/undefined upside risk. Credit collected ≠ “free money.”</p>
 <p>If you cannot state max loss before entry, you are not ready to click.</p>`,
-      ur: `<p>Long / debit spread = capped. Naked short call = bada upside risk. Max loss likho pehle.</p>`,
+      ur: `<p><strong>Long options / debit spreads:</strong> risk debit ke qareeb capped. <strong>Naked short calls</strong> bada/undefined upside risk. Credit collected ≠ “free money.”</p>
+<p>Entry se pehle max loss na bata sako to click ke liye ready nahi.</p>`,
     },
     workedExample: {
       en: `<p>Long call debit 2 → max loss 2. Short naked call premium 2 → loss can vastly exceed 2 if stock rips.</p>`,
-      ur: `<p>Long debit 2 = max 2. Naked short 2 ≠ max 2.</p>`,
+      ur: `<p>Long call debit 2 → max loss 2. Short naked call premium 2 → stock rip pe loss 2 se bohat zyada ho sakta.</p>`,
     },
     commonMistake: {
       en: `<p>Selling naked premium because “theta is income.”</p>`,
       ur: `<p>Naked sell — “theta income.”</p>`,
     },
-    exitTicket: { en: 'You can name one defined-risk vs one undefined structure.', ur: 'Defined vs undefined.' },
-    notebookPrompt: { en: 'Write: I will not sell naked until ___ (or never).', ur: 'Naked sell rule.' },
+    exitTicket: { en: 'You can name one defined-risk vs one undefined structure.', ur: 'Ek defined-risk aur ek undefined structure naam kar sakte ho.' },
+    notebookPrompt: { en: 'Write: I will not sell naked until ___ (or never).', ur: 'Likho: naked sell tab tak nahi jab tak ___ (ya kabhi nahi).' },
     flashcardSeeds: [
       { front: { en: 'Defined risk example', ur: 'Defined' }, back: { en: 'Long option or debit spread.', ur: 'Long / debit spread.' } },
       { front: { en: 'Naked short call risk', ur: 'Naked call' }, back: { en: 'Large/undefined to the upside.', ur: 'Upside undefined.' } },
@@ -172,7 +175,8 @@ export const OPTIONS_DEEP_WEEKS = [
     teach: {
       en: `<p>Loop: underlying thesis → choose defined-risk structure when learning → write max loss + expiry plan → avoid blind event longs → journal. Greeks deep track comes after basics.</p>
 <p>Certificate = study record — not a market-maker license.</p>`,
-      ur: `<p>Thesis → defined-risk → max loss + expiry → log. Cert = study record.</p>`,
+      ur: `<p>Loop: underlying thesis → seekhte waqt defined-risk structure → max loss + expiry plan likho → blind event longs avoid → journal. Greeks deep track basics ke baad.</p>
+<p>Certificate = study record — market-maker license nahi.</p>`,
     },
     workedExample: {
       en: `<p>Card: “Debit call spread · max loss = debit · exit 7 DTE · no earnings hold.”</p>`,

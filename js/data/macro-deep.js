@@ -38,8 +38,8 @@ export const MACRO_DEEP_WEEKS = [
     teach: {
       en: `<p><strong>Macro</strong> = growth, inflation, rates, FX, liquidity. It answers weather — not tomorrow’s candle. Useful when it changes your risk budget; cosplay when it replaces asset homework or a written plan.</p>
 <p>{{redflag:Exact tops/bottoms from one CPI thread = entertainment.}}</p>`,
-      ur: `<p>Macro = backdrop. Risk-on/off sizing. CPI crystal ball = entertainment.</p>
-<p>{{redflag:CPI = exact top — fantasy.}}</p>`,
+      ur: `<p><strong>Macro</strong> = growth, inflation, rates, FX, liquidity. Ye weather jawab deta hai — kal ki candle nahi. Useful jab risk budget badle; cosplay jab asset homework ya written plan replace kare.</p>
+<p>{{redflag:Exact tops/bottoms from one CPI thread = entertainment.}}</p>`,
     },
     workedExample: {
       en: `<p>Dollar liquidity tight → cut max gross risk 4%→2%, then do company/levels work. Not “all-in short from speech.”</p>`,
@@ -47,10 +47,10 @@ export const MACRO_DEEP_WEEKS = [
     },
     commonMistake: {
       en: `<p>Treating every central-bank day as a video-game scalp.</p>`,
-      ur: `<p>Har CB day = scalp game.</p>`,
+      ur: `<p>Har central-bank day ko video-game scalp samajhna.</p>`,
     },
-    exitTicket: { en: 'You can say one honest use of macro for your book.', ur: 'Ek honest macro use.' },
-    notebookPrompt: { en: 'Write this month: risk-on or risk-off + why (2 lines).', ur: 'Risk-on/off + kyun (2 lines).' },
+    exitTicket: { en: 'You can say one honest use of macro for your book.', ur: 'Apni book ke liye macro ka ek honest use bata sakte ho.' },
+    notebookPrompt: { en: 'Write this month: risk-on or risk-off + why (2 lines).', ur: 'Is mahine likho: risk-on ya risk-off + kyun (2 lines).' },
     flashcardSeeds: [
       { front: { en: 'Macro answers', ur: 'Macro' }, back: { en: 'Weather / context — not next candle.', ur: 'Weather — candle nahi.' } },
       { front: { en: 'Honest retail use', ur: 'Use' }, back: { en: 'Risk-on/off sizing and horizon.', ur: 'Sizing + horizon.' } },
@@ -83,7 +83,8 @@ export const MACRO_DEEP_WEEKS = [
     teach: {
       en: `<p><strong>Real return ≈ nominal − inflation.</strong> High inflation makes pure cash a slow haircut. Mattress cash still has a job: emergencies. Surplus beyond buffer → productive assets for long horizon — after Foundations layering.</p>
 <p>Inflation prints = backdrop, not same-day lottery with 20×.</p>`,
-      ur: `<p>Real return = nominal − inflation. Cash buffer pehle. Surplus compound. CPI ≠ 20× lottery.</p>`,
+      ur: `<p><strong>Real return ≈ nominal − inflation.</strong> High inflation pure cash ko slow haircut banati hai. Mattress cash ka kaam ab bhi hai: emergencies. Buffer ke baad surplus → productive assets lambi horizon ke liye — Foundations layering ke baad.</p>
+<p>Inflation prints = backdrop, same-day lottery nahi 20× ke saath.</p>`,
     },
     workedExample: {
       en: `<p>Deposit 12%, inflation ~20% → negative real. Feel rich in digits, poorer in life.</p>`,
@@ -127,7 +128,8 @@ export const MACRO_DEEP_WEEKS = [
     teach: {
       en: `<p>Rising rates → higher discount rates → pressure on long-duration risk assets; dry powder hurts less. Path of rates over quarters > one-meeting GIF.</p>
 <p>Local FX rewrites real economy (import costs, earnings mix). Strong USD often = tighter global conditions. Liquidity is the oxygen — when it thins, risk assets gasp.</p>`,
-      ur: `<p>Rates = discount dial. FX = real economy. Liquidity = oxygen. 1:1 Fed candle = no.</p>`,
+      ur: `<p><strong>Rising rates</strong> → higher discount rates → long-duration risk assets pe pressure; dry powder kam hurt karta. Rates ka path quarters pe > ek meeting GIF.</p>
+<p>Local FX real economy rewrite karti (import costs, earnings mix). Strong USD aksar = tighter global conditions. Liquidity oxygen hai — jab patli ho, risk assets saans lete hain.</p>`,
     },
     workedExample: {
       en: `<p>Rate hike + local rally possible if flows dominate — so don’t force a short from one headline.</p>`,
@@ -137,8 +139,8 @@ export const MACRO_DEEP_WEEKS = [
       en: `<p>20× on one rate decision “because macro.”</p>`,
       ur: `<p>Ek rate pe 20× — “macro.”</p>`,
     },
-    exitTicket: { en: 'You can name one rate dial + one FX channel for PK learner.', ur: 'Ek rate + ek FX channel.' },
-    notebookPrompt: { en: 'This quarter: rate bias + USD bias in one line each.', ur: 'Rate bias + USD bias.' },
+    exitTicket: { en: 'You can name one rate dial + one FX channel for PK learner.', ur: 'PK learner ke liye ek rate dial + ek FX channel naam kar sakte ho.' },
+    notebookPrompt: { en: 'This quarter: rate bias + USD bias in one line each.', ur: 'Is quarter: rate bias + USD bias — har ek ek line mein.' },
     flashcardSeeds: [
       { front: { en: 'Rising rates often pressure', ur: 'Rates up' }, back: { en: 'Long-duration risk assets.', ur: 'Long-duration risk.' } },
       { front: { en: 'Rates as', ur: 'Rates' }, back: { en: 'Headwind/tailwind dial — not cheat code.', ur: 'Dial — cheat nahi.' } },
@@ -166,12 +168,13 @@ export const MACRO_DEEP_WEEKS = [
     title: { en: 'Macro Process Loop', ur: 'Macro Process Loop' },
     objective: {
       en: 'Close with monthly note → size dial → asset homework — no tip cosplay.',
-      ur: 'Monthly note → size dial → homework.',
+      ur: 'Monthly note → size dial → asset homework — tip cosplay ke baghair band karo.',
     },
     teach: {
       en: `<p>Loop: monthly backdrop note (inflation/rates/FX/liquidity) → adjust max risk % → do asset work (statements or levels) → journal. Macro never replaces the plan.</p>
 <p>Certificate = study record. Not salary. Not crystal ball license.</p>`,
-      ur: `<p>Monthly note → risk% → asset work → journal. Cert = study record.</p>`,
+      ur: `<p>Loop: monthly backdrop note (inflation/rates/FX/liquidity) → max risk % adjust → asset work (statements ya levels) → journal. Macro plan kabhi replace nahi karta.</p>
+<p>Certificate = study record. Salary nahi. Crystal ball license nahi.</p>`,
     },
     workedExample: {
       en: `<p>Card: “Risk-off month · max 1.5% · no CB scalp · filings/levels next.”</p>`,

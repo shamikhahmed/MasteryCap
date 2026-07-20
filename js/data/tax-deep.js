@@ -39,19 +39,20 @@ export const TAX_DEEP_WEEKS = [
       en: `<p>Tax literacy here means: know which documents you need, which questions to ask a qualified practitioner, and which pitches are fantasy.</p>
 <p>This app does not file for you, auto-pay FBR, or issue legal opinions. Rules change; residency and facts matter.</p>
 <p>{{redflag:“Tax-free forever scheme — deposit now” = scam theater.}}</p>`,
-      ur: `<p>Documents + practitioner questions + scam refuse. App file/FBR/legal opinion nahi.</p>
-<p>{{redflag:Tax-free forever scheme = scam.}}</p>`,
+      ur: `<p>Tax literacy yahan matlab: kaun se documents chahiye, qualified practitioner se kaun se sawal poochne, aur kaun se pitches fantasy hain.</p>
+<p>Ye app aap ke liye file nahi karti, FBR auto-pay nahi, legal opinion nahi deti. Rules badalte rehte hain; residency aur facts matter karte hain.</p>
+<p>{{redflag:“Tax-free forever scheme — deposit now” = scam theater.}}</p>`,
     },
     workedExample: {
       en: `<p>Before any “tax hack” video: write three questions for a practitioner — then stop DIY on complex facts.</p>`,
-      ur: `<p>Teen practitioner questions likho — complex pe DIY band.</p>`,
+      ur: `<p>Kisi bhi “tax hack” video se pehle: practitioner ke liye teen sawal likho — phir complex facts pe DIY band karo.</p>`,
     },
     commonMistake: {
       en: `<p>Copying Discord tax advice into your return.</p>`,
       ur: `<p>Discord tax advice copy.</p>`,
     },
-    exitTicket: { en: 'You can say what this app will never do for tax.', ur: 'App tax pe kya nahi.' },
-    notebookPrompt: { en: 'List: not advice / not filing / not guarantee.', ur: 'Not advice / filing / guarantee.' },
+    exitTicket: { en: 'You can say what this app will never do for tax.', ur: 'App tax ke liye kya kabhi nahi karegi — woh bata sakte ho.' },
+    notebookPrompt: { en: 'List: not advice / not filing / not guarantee.', ur: 'List likho: not advice / not filing / not guarantee — teen boundaries.' },
     flashcardSeeds: [
       { front: { en: 'This track is', ur: 'Track' }, back: { en: 'Literacy framing — not legal advice.', ur: 'Literacy — advice nahi.' } },
       { front: { en: 'App will not', ur: 'App' }, back: { en: 'File, auto-pay, or legal-opinion.', ur: 'File / auto-pay / opinion nahi.' } },
@@ -84,18 +85,19 @@ export const TAX_DEEP_WEEKS = [
     teach: {
       en: `<p>Keep: trade confirms, broker statements, deposit/withdraw proofs, corporate action notes, crypto venue CSVs if any. Name files by year.</p>
 <p>Good records shrink practitioner cost and fight “I forgot” disasters. Bad records turn small gains into expensive reconstructions.</p>`,
-      ur: `<p>Confirms, statements, funding proofs, corp notes, crypto CSV. Year folders.</p>`,
+      ur: `<p>Rakho: trade confirms, broker statements, deposit/withdraw proofs, corporate action notes, crypto venue CSVs agar hon. Files ko saal ke naam se organize karo.</p>
+<p>Achhe records practitioner cost kam karte aur “I forgot” disasters se bachate. Bure records chhote gains ko mehngi reconstruction bana dete hain.</p>`,
     },
     workedExample: {
       en: `<p>Monthly: export broker CSV → folder <code>2026/broker/</code> → one-line journal “exports done.”</p>`,
-      ur: `<p>Mahana export → year folder → journal tick.</p>`,
+      ur: `<p>Mahana: broker CSV export karo → folder <code>2026/broker/</code> → journal mein ek line “exports done.”</p>`,
     },
     commonMistake: {
       en: `<p>Waiting until filing week to hunt screenshots.</p>`,
       ur: `<p>Filing week pe screenshot hunt.</p>`,
     },
-    exitTicket: { en: 'You can list five record types you will keep.', ur: 'Paanch record types.' },
-    notebookPrompt: { en: 'Create folder plan for this year’s broker exports.', ur: 'Is saal folder plan.' },
+    exitTicket: { en: 'You can list five record types you will keep.', ur: 'Paanch record types jo aap rakhenge — list kar sakte ho.' },
+    notebookPrompt: { en: 'Create folder plan for this year’s broker exports.', ur: 'Is saal ke broker exports ke liye folder plan banao.' },
     flashcardSeeds: [
       { front: { en: 'Records reduce', ur: 'Records' }, back: { en: 'Practitioner cost + panic.', ur: 'Cost + panic.' } },
       { front: { en: 'Minimum stack', ur: 'Stack' }, back: { en: 'Confirms, statements, funding proofs.', ur: 'Confirms + statements + funding.' } },
@@ -128,18 +130,19 @@ export const TAX_DEEP_WEEKS = [
     teach: {
       en: `<p>US stocks, foreign brokers, and crypto create cross-border questions: withholding, reporting, residency. Do not decide “I am invisible” from social media.</p>
 <p>Funding foreign accounts must stay inside legal banking channels per applicable rules. Informal channels add legal risk that dwarfs investment return.</p>`,
-      ur: `<p>Foreign/crypto = reporting questions. Invisible YouTube = no. Legal banking channels.</p>`,
+      ur: `<p>US stocks, foreign brokers, aur crypto cross-border sawal banate hain: withholding, reporting, residency. Social media se “main invisible hoon” decide mat karo.</p>
+<p>Foreign accounts fund karna legal banking channels se hona chahiye — applicable rules ke mutabiq. Informal channels legal risk add karte jo investment return se bada ho sakta hai.</p>`,
     },
     workedExample: {
       en: `<p>Practitioner questions: “I hold X broker + Y crypto venue — what records and forms apply to my residency?”</p>`,
-      ur: `<p>Pro se: broker + crypto + residency pe kaun se forms?</p>`,
+      ur: `<p>Practitioner sawal: “Mere paas X broker + Y crypto venue hai — meri residency pe kaun se records aur forms lagte hain?”</p>`,
     },
     commonMistake: {
       en: `<p>Assuming crypto is untaxable because it is digital.</p>`,
       ur: `<p>Crypto digital = tax-free assume.</p>`,
     },
-    exitTicket: { en: 'You can name two cross-border questions for a pro.', ur: 'Do cross-border Q.' },
-    notebookPrompt: { en: 'List venues you use + one question each for a practitioner.', ur: 'Venues + ek Q each.' },
+    exitTicket: { en: 'You can name two cross-border questions for a pro.', ur: 'Pro ke liye do cross-border sawal naam kar sakte ho.' },
+    notebookPrompt: { en: 'List venues you use + one question each for a practitioner.', ur: 'Apne venues list karo + har ek ke liye practitioner ko ek sawal.' },
     flashcardSeeds: [
       { front: { en: 'Foreign broker / crypto', ur: 'Foreign' }, back: { en: 'Ask a practitioner — don’t DIY residency.', ur: 'Practitioner — DIY residency nahi.' } },
       { front: { en: 'Informal funding', ur: 'Informal' }, back: { en: 'Legal risk can dwarf returns.', ur: 'Legal risk.' } },
@@ -173,17 +176,19 @@ export const TAX_DEEP_WEEKS = [
       en: `<p>Hire when: first meaningful market year, large unusual gains/losses, foreign/crypto accounts, unclear residency, conflicting docs.</p>
 <p>Refuse: tax-free guarantees, recovery agents after loss, pay-to-unlock filing portals, Discord “secret sections.”</p>
 <p>Graduation: records habit + practitioner on call when facts get complex. Wealth path stays clean paperwork — not evasion fantasy.</p>`,
-      ur: `<p>Hire triggers: pehla meaningful saal, bari P/L, foreign/crypto, residency unclear. Scam refuse. Clean paperwork.</p>`,
+      ur: `<p>Hire jab: pehla meaningful market saal, bade unusual gains/losses, foreign/crypto accounts, unclear residency, conflicting docs.</p>
+<p>Refuse: tax-free guarantees, loss ke baad recovery agents, pay-to-unlock filing portals, Discord “secret sections.”</p>
+<p>Graduation: records habit + complex facts pe practitioner on call. Wealth path = clean paperwork — evasion fantasy nahi.</p>`,
     },
     workedExample: {
       en: `<p>Checklist card: records folder OK? hire triggers? any scam DM this month? → journal.</p>`,
-      ur: `<p>Records? hire triggers? scam DM? → journal.</p>`,
+      ur: `<p>Checklist card: records folder OK? hire triggers? is mahine koi scam DM? → journal mein likho.</p>`,
     },
     commonMistake: {
       en: `<p>Paying a recovery agent to “fix” a tax or broker loss.</p>`,
       ur: `<p>Recovery agent ko tax/broker loss fix fee.</p>`,
     },
-    exitTicket: { en: 'You can list three hire triggers + two scam refuses.', ur: 'Teen hire + do refuse.' },
+    exitTicket: { en: 'You can list three hire triggers + two scam refuses.', ur: 'Teen hire triggers + do scam refuses list kar sakte ho.' },
     notebookPrompt: { en: 'Write hire triggers + never-pay list.', ur: 'Hire triggers + never-pay.' },
     flashcardSeeds: [
       { front: { en: 'Hire when', ur: 'Hire' }, back: { en: 'Complex facts / foreign / big unusual year.', ur: 'Complex / foreign / unusual.' } },

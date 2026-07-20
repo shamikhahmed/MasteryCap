@@ -39,19 +39,20 @@ export const INVEST_DEEP_WEEKS = [
       en: `<p><strong>Trading</strong> profits from price moves over short horizons; <strong>investing</strong> from business performance over years. Charts answer trading questions; statements answer investing questions.</p>
 <p>Retail’s rare edge is time — holding through what forces funds to sell — if behavior lets compounding run. Relabeling a failed trade as “long-term investment” is a refused stop in costume.</p>
 <p>{{redflag:“This course → passive salary” is fantasy.}}</p>`,
-      ur: `<p>Trading = short price. Investing = business years. Failed trade = long-term — costume stop.</p>
-<p>{{redflag:Course = salary — fantasy.}}</p>`,
+      ur: `<p><strong>Trading</strong> short horizon pe price moves se profit; <strong>investing</strong> saalon mein business performance se. Charts trading sawal jawab dete; statements investing sawal.</p>
+<p>Retail ka rare edge time hai — funds ko bechne wali pressure ke baghair hold karna — agar behavior compounding chalne de. Failed trade ko “long-term investment” relabel karna = refused stop loss costume mein.</p>
+<p>{{redflag:“This course → passive salary” is fantasy.}}</p>`,
     },
     workedExample: {
       en: `<p>Before entry write: “This rupee plays investing / trading.” If red and you change label without new thesis — you broke the rule.</p>`,
-      ur: `<p>Entry pe game likho. Red pe label change bina thesis = rule break.</p>`,
+      ur: `<p>Entry se pehle likho: “Ye rupee investing / trading khel raha hai.” Agar red ho aur bina nayi thesis label badlo — rule toot gaya.</p>`,
     },
     commonMistake: {
       en: `<p>Using one toolkit for both games.</p>`,
       ur: `<p>Ek toolkit dono games.</p>`,
     },
-    exitTicket: { en: 'You can name which game a rupee is playing.', ur: 'Rupee ka game naam.' },
-    notebookPrompt: { en: 'Split paper capital: % investing vs % trading practice.', ur: '% invest vs % trade practice.' },
+    exitTicket: { en: 'You can name which game a rupee is playing.', ur: 'Ek rupee kaun sa game khel raha hai — naam kar sakte ho.' },
+    notebookPrompt: { en: 'Split paper capital: % investing vs % trading practice.', ur: 'Paper capital split: % investing vs % trading practice.' },
     flashcardSeeds: [
       { front: { en: 'Investing questions answered by', ur: 'Invest Q' }, back: { en: 'Statements / business performance.', ur: 'Statements.' } },
       { front: { en: 'Trading questions answered by', ur: 'Trade Q' }, back: { en: 'Price/structure over shorter horizons.', ur: 'Price short horizon.' } },
@@ -84,18 +85,19 @@ export const INVEST_DEEP_WEEKS = [
     teach: {
       en: `<p>Income statement: revenue, costs, profit. Balance sheet: owns vs owes. Cash flow: cash that moved — hardest to fake.</p>
 <p><strong>Profit is an opinion; cash is a fact.</strong> Rising profits with shrinking operating cash for years is a red flag without a finance degree.</p>`,
-      ur: `<p>Teen statements. Munafa raye, cash haqeeqat. Rising profit + falling OCF = red flag.</p>`,
+      ur: `<p>Income statement: revenue, costs, profit. Balance sheet: owns vs owes. Cash flow: cash jo move hui — sab se mushkil fake karna.</p>
+<p><strong>Profit raye hai; cash haqeeqat.</strong> Saalon tak rising profit + shrinking operating cash bina finance degree ke red flag hai.</p>`,
     },
     workedExample: {
       en: `<p>Before any practice buy of a name: open last annual + prior annual. Skim OCF vs net income trend.</p>`,
-      ur: `<p>Do annuals. OCF vs net income trend.</p>`,
+      ur: `<p>Kisi practice buy se pehle: last annual + prior annual kholo. OCF vs net income trend skim karo.</p>`,
     },
     commonMistake: {
       en: `<p>Buying on a tip without opening one filing.</p>`,
       ur: `<p>Tip pe buy — filing nahi.</p>`,
     },
     exitTicket: { en: 'You can recite profit vs cash one-liner.', ur: 'Profit vs cash ek line.' },
-    notebookPrompt: { en: 'Pick one listed name. Note OCF vs profit for 2 years.', ur: 'Ek name — 2y OCF vs profit.' },
+    notebookPrompt: { en: 'Pick one listed name. Note OCF vs profit for 2 years.', ur: 'Ek listed name chuno. 2 saal ke liye OCF vs profit note karo.' },
     flashcardSeeds: [
       { front: { en: 'Profit is an opinion; cash is', ur: 'Cash' }, back: { en: 'A fact.', ur: 'Fact.' } },
       { front: { en: 'Rising profit + falling OCF', ur: 'OCF' }, back: { en: 'Investigate — red flag pattern.', ur: 'Red flag.' } },
@@ -129,18 +131,19 @@ export const INVEST_DEEP_WEEKS = [
       en: `<p>Access matters: regulated brokers, legal funding paths (esp. cross-border). Informal channels create legal risk that can dwarf returns.</p>
 <p>Costs compound against you: brokerage, spreads, fund expense ratios, taxes. A “cheap” tip that ignores costs is not cheap.</p>
 <p>{{redflag:Unlicensed tips + “guaranteed IPO allotment” = scam theater.}}</p>`,
-      ur: `<p>Regulated broker + legal funding. Informal = legal risk. Fees/tax compound against.</p>
-<p>{{redflag:Guaranteed IPO / unlicensed tips = scam.}}</p>`,
+      ur: `<p>Access matter karta: regulated brokers, legal funding paths (khaas taur pe cross-border). Informal channels legal risk add karte jo returns se bada ho sakta hai.</p>
+<p>Costs aap ke khilaf compound: brokerage, spreads, fund expense ratios, taxes. “Cheap” tip jo costs ignore kare wo sach mein cheap nahi.</p>
+<p>{{redflag:Unlicensed tips + “guaranteed IPO allotment” = scam theater.}}</p>`,
     },
     workedExample: {
       en: `<p>Compare two funds: identical story, 1.5% vs 0.3% expense — long horizon gap is huge before skill talk.</p>`,
-      ur: `<p>1.5% vs 0.3% expense — horizon pe gap bada.</p>`,
+      ur: `<p>Do funds compare: same story, 1.5% vs 0.3% expense — lambi horizon pe gap skill se pehle bada hota hai.</p>`,
     },
     commonMistake: {
       en: `<p>Chasing last year’s top fund as destiny.</p>`,
       ur: `<p>Last year top fund = destiny.</p>`,
     },
-    exitTicket: { en: 'You can list three cost lines on your path.', ur: 'Teen cost lines.' },
+    exitTicket: { en: 'You can list three cost lines on your path.', ur: 'Apne path pe teen cost lines list kar sakte ho.' },
     notebookPrompt: { en: 'Write broker + fee line + legal funding note.', ur: 'Broker + fee + funding note.' },
     flashcardSeeds: [
       { front: { en: 'Informal FX funding for foreign brokers', ur: 'Informal' }, back: { en: 'Legal risk can dwarf returns.', ur: 'Legal risk.' } },
@@ -174,7 +177,8 @@ export const INVEST_DEEP_WEEKS = [
     teach: {
       en: `<p>Process: written thesis, filings check, position size from risk %, hold/exit rules before entry, journal, quarterly review. Tips are not a syllabus.</p>
 <p>MasteryCap certificates are self-issued study records — not licenses, not advice, not income rights.</p>`,
-      ur: `<p>Thesis → filings → risk% → rules → journal → review. Cert = study record.</p>`,
+      ur: `<p>Process: written thesis, filings check, position size risk % se, entry se pehle hold/exit rules, journal, quarterly review. Tips syllabus nahi hain.</p>
+<p>MasteryCap certificates self-issued study records hain — licenses, advice, income rights nahi.</p>`,
     },
     workedExample: {
       en: `<p>Practice card: “One name · two filings · 1% risk · no tip entry · journal line.”</p>`,
@@ -184,7 +188,7 @@ export const INVEST_DEEP_WEEKS = [
       en: `<p>Skipping review because “I’m long-term.”</p>`,
       ur: `<p>Review skip — “long-term hoon.”</p>`,
     },
-    exitTicket: { en: 'You can recite your investing practice loop.', ur: 'Invest loop yad.' },
+    exitTicket: { en: 'You can recite your investing practice loop.', ur: 'Apna investing practice loop yad kar ke bata sakte ho.' },
     notebookPrompt: { en: 'Six-bullet invest loop on Study desk.', ur: '6-bullet invest loop.' },
     flashcardSeeds: [
       { front: { en: 'Invest loop', ur: 'Loop' }, back: { en: 'Thesis → filings → size → rules → log → review.', ur: 'Thesis → filings → size → log → review.' } },

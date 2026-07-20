@@ -39,19 +39,20 @@ export const STOCKS_DEEP_WEEKS = [
       en: `<p>A <strong>share</strong> is a slice of ownership in a company. You buy and sell through a <strong>broker</strong> on an exchange — you do not trade “with the exchange” as a person. Price is the last agreed trade; the <strong>bid/ask</strong> spread is a real cost on every round trip.</p>
 <p>Unlike many crypto venues, equity sessions have open/close. Overnight news often shows up as a <strong>gap</strong> at the next open.</p>
 <p>{{redflag:Anyone selling “learn stocks → weekly salary” is selling fantasy.}}</p>`,
-      ur: `<p><strong>Share</strong> = company ownership ka hissa. Broker ke zariye exchange pe. Bid/ask = cost. Sessions open/close. Overnight → gap.</p>
-<p>{{redflag:“Stocks course = tankhwah” = fantasy.}}</p>`,
+      ur: `<p><strong>Share</strong> = company ownership ka hissa. <strong>Broker</strong> ke zariye exchange pe khareed/bech — tum exchange ke saath person ki tarah trade nahi karte. Price = last agreed trade; <strong>bid/ask</strong> spread har round trip pe real cost.</p>
+<p>Crypto venues se alag, equity sessions open/close hain. Overnight news aksar next open pe <strong>gap</strong> banati.</p>
+<p>{{redflag:“Stocks course = tankhwah” bechna fantasy bechna hai.}}</p>`,
     },
     workedExample: {
       en: `<p>You want exposure to Company X. You open a regulated brokerage, fund it legally, place a limit buy. Until fill, you own cash — not shares. After fill, you own shares minus fees.</p>`,
-      ur: `<p>Broker → legal fund → limit buy → fill ke baad shares (fees ke baad).</p>`,
+      ur: `<p>Company X exposure chahiye. Regulated brokerage kholo, legal fund karo, limit buy lagao. Fill tak cash hai — shares nahi. Fill ke baad shares (fees ke baad).</p>`,
     },
     commonMistake: {
       en: `<p>Treating a tip channel as ownership research.</p>`,
       ur: `<p>Tip channel = research samajhna.</p>`,
     },
     exitTicket: { en: 'You can say what you own after a fill vs before.', ur: 'Fill se pehle/baad ownership.' },
-    notebookPrompt: { en: 'Write: broker name (practice), market hours, one fee line you found.', ur: 'Broker + hours + ek fee line.' },
+    notebookPrompt: { en: 'Write: broker name (practice), market hours, one fee line you found.', ur: 'Broker naam (practice), market hours, ek fee line jo mili — likho.' },
     flashcardSeeds: [
       { front: { en: 'A share is', ur: 'Share' }, back: { en: 'Ownership slice of a company.', ur: 'Ownership slice.' } },
       { front: { en: 'Bid/ask spread', ur: 'Spread' }, back: { en: 'Hidden round-trip cost.', ur: 'Round-trip cost.' } },
@@ -84,18 +85,19 @@ export const STOCKS_DEEP_WEEKS = [
     teach: {
       en: `<p><strong>Market orders</strong> chase a fill, not a price — slippage can be ugly in fast tape. <strong>Limit orders</strong> control price but may not fill. Many professionals let the open settle before full size.</p>
 <p>Gaps are information, not magic signals. Huge volume that holds can mean demand; a fade can trap late buyers. Always check whether charts are <strong>adjusted</strong> for splits/dividends.</p>`,
-      ur: `<p>Market = fill chase. Limit = price control, fill miss ho sakti. Open settle. Gaps = info, magic nahi. Chart adjusted check.</p>`,
+      ur: `<p><strong>Market orders</strong> fill chase karte, price nahi — fast tape mein slippage ugly ho sakti. <strong>Limit orders</strong> price control karte magar fill miss ho sakti. Bohat professionals open settle hone dete full size se pehle.</p>
+<p>Gaps information hain, magic signals nahi. Volume jo hold kare demand ho sakti; fade late buyers trap kar sakta. Charts <strong>adjusted</strong> hain splits/dividends ke liye — check karo.</p>`,
     },
     workedExample: {
       en: `<p>Thin name, wide spread: market buy fills through several levels. Same intent with a limit near mid avoids paying the whole book.</p>`,
-      ur: `<p>Thin name + market = slip. Limit near mid = control.</p>`,
+      ur: `<p>Thin name, wide spread: market buy kai levels se fill. Same intent limit near mid se poora book pay karne se bachta.</p>`,
     },
     commonMistake: {
       en: `<p>Sizing full risk in the first minute of the open “so you don’t miss it.”</p>`,
-      ur: `<p>Open ke pehle minute pe full size.</p>`,
+      ur: `<p>Open ke pehle minute pe full risk size “miss na ho” ke liye — galat aadat.</p>`,
     },
-    exitTicket: { en: 'You can state when you prefer limit over market.', ur: 'Limit kab prefer.' },
-    notebookPrompt: { en: 'Write your personal open rule (e.g. wait 15–30 min / reduced size).', ur: 'Open rule likho.' },
+    exitTicket: { en: 'You can state when you prefer limit over market.', ur: 'Limit kab market se prefer karte ho bata sakte ho.' },
+    notebookPrompt: { en: 'Write your personal open rule (e.g. wait 15–30 min / reduced size).', ur: 'Apna open rule likho (maslan 15–30 min wait / chhota size).' },
     flashcardSeeds: [
       { front: { en: 'Market order guarantees', ur: 'Market' }, back: { en: 'A fill attempt — not a price.', ur: 'Fill — price nahi.' } },
       { front: { en: 'Limit order risk', ur: 'Limit' }, back: { en: 'May not fill.', ur: 'Fill miss.' } },
@@ -129,19 +131,20 @@ export const STOCKS_DEEP_WEEKS = [
       en: `<p>Earnings and other catalysts move stocks on <em>surprise vs expectations</em>. Strong growth can still sell off if the market priced more. Blind full-size through a binary event is gambling dressed as conviction.</p>
 <p>Options traders also face <strong>IV crush</strong> after events — direction can be right and option buyers still lose. This stub stays equity-literacy focused; options have their own track.</p>
 <p>{{redflag:Holding max size through unknowns is not bravery.}}</p>`,
-      ur: `<p>Catalyst = actual vs expected. Binary event pe full size = gambling. IV crush options pe — alag track.</p>
-<p>{{redflag:Max size through unknown = bravery nahi.}}</p>`,
+      ur: `<p>Earnings aur catalysts stocks <em>surprise vs expectations</em> pe move karte. Strong growth bhi sell off ho sakti agar market ne zyada price kiya ho. Binary event pe blind full-size = conviction ke libaas mein gambling.</p>
+<p>Options traders <strong>IV crush</strong> bhi face karte events ke baad — direction sahi ho aur option buyers phir bhi haar sakte. Ye stub equity-literacy pe; options ka alag track.</p>
+<p>{{redflag:Unknowns ke through max size = bravery nahi.}}</p>`,
     },
     workedExample: {
       en: `<p>Consensus EPS 1.00. Print 1.05 but guidance cut. Price can gap down — the “beat” was not enough vs the new path.</p>`,
-      ur: `<p>Beat + weak guidance → gap down mumkin.</p>`,
+      ur: `<p>Consensus EPS 1.00. Print 1.05 magar guidance cut. Price gap down kar sakti — “beat” naye path ke muqable kaafi nahi thi.</p>`,
     },
     commonMistake: {
       en: `<p>Buying the headline (“record revenue!”) without reading the expectation baseline.</p>`,
-      ur: `<p>Headline buy — baseline nahi.</p>`,
+      ur: `<p>Headline pe khareedna (“record revenue!”) bina expectation baseline padhe.</p>`,
     },
-    exitTicket: { en: 'You can explain actual vs expected in one sentence.', ur: 'Actual vs expected ek jumla.' },
-    notebookPrompt: { en: 'Pick one name you follow. Write next catalyst date + how you will size (or flat).', ur: 'Catalyst date + size/flat rule.' },
+    exitTicket: { en: 'You can explain actual vs expected in one sentence.', ur: 'Actual vs expected ek jumle mein samjha sakte ho.' },
+    notebookPrompt: { en: 'Pick one name you follow. Write next catalyst date + how you will size (or flat).', ur: 'Ek naam chuno jo follow karte ho. Next catalyst date + size/flat rule likho.' },
     flashcardSeeds: [
       { front: { en: 'Earnings move mainly on', ur: 'Earnings' }, back: { en: 'Actual vs expectations.', ur: 'Actual vs expected.' } },
       { front: { en: 'IV crush', ur: 'IV crush' }, back: { en: 'Implied vol drops after the event.', ur: 'Event baad IV drop.' } },
@@ -174,17 +177,18 @@ export const STOCKS_DEEP_WEEKS = [
     teach: {
       en: `<p>Put rails together: regulated broker, know session hours, prefer limits, size from risk %, skip blind binary events, log fills and fees, weekly review.</p>
 <p>Tips and “hot names” are not a syllabus. Process first; picking later — if ever.</p>`,
-      ur: `<p>Broker → hours → limits → risk% → skip blind events → log → review. Tips syllabus nahi.</p>`,
+      ur: `<p>Rails jod do: regulated broker, session hours pata, limits prefer, risk % se size, blind binary events skip, fills aur fees log, weekly review.</p>
+<p>Tips aur “hot names” syllabus nahi. Process pehle; picking baad mein — agar kabhi.</p>`,
     },
     workedExample: {
       en: `<p>Practice card: “Paper or micro size · limit only · no earnings hold · fee line in journal.”</p>`,
-      ur: `<p>Micro · limit · no earnings hold · fee log.</p>`,
+      ur: `<p>Practice card: “Paper ya micro size · sirf limit · no earnings hold · journal mein fee line.”</p>`,
     },
     commonMistake: {
       en: `<p>Skipping the journal because “it was obvious.”</p>`,
       ur: `<p>Journal skip — “obvious tha.”</p>`,
     },
-    exitTicket: { en: 'You can recite your equity practice loop.', ur: 'Equity loop yad.' },
+    exitTicket: { en: 'You can recite your equity practice loop.', ur: 'Apna equity practice loop yad kar sakte ho.' },
     notebookPrompt: { en: 'Six-bullet stocks loop on Study desk.', ur: '6-bullet stocks loop.' },
     flashcardSeeds: [
       { front: { en: 'Equity loop order', ur: 'Loop' }, back: { en: 'Broker → hours → size → (limit) → log → review.', ur: 'Broker → hours → size → log → review.' } },
@@ -219,8 +223,9 @@ export const STOCKS_DEEP_WEEKS = [
       en: `<p>Owning shares means sharing upside <em>and</em> corporate actions: new issuance can <strong>dilute</strong> you; one name can dominate your P/L if you concentrate. Risk % per idea caps how much one story can hurt.</p>
 <p>You do not need CFA depth here — you need the habit: what can go wrong for the shareholder, and how big is this ticket vs account?</p>
 <p>{{redflag:“Can’t lose on blue chips” is folklore, not risk.}}</p>`,
-      ur: `<p>Dilution + concentration + risk% per idea. Blue-chip = can’t lose — folklore.</p>
-<p>{{redflag:Blue chip = no risk — jhoot.}}</p>`,
+      ur: `<p>Shares own karna upside <em>aur</em> corporate actions share karta: nayi issuance <strong>dilute</strong> kar sakti; ek name P/L dominate kar sakta agar concentrate karo. Risk % per idea cap karta ek story kitna dard de sakti.</p>
+<p>Yahan CFA depth nahi chahiye — aadat chahiye: shareholder ke liye kya galat ho sakta, aur ye ticket account ke muqable kitni bari?</p>
+<p>{{redflag:“Blue chips pe can’t lose” folklore hai — risk nahi.}}</p>`,
     },
     workedExample: {
       en: `<p>Account 100. Risk 1% = 1. Stop implies size. Doubling size “because it feels safe” doubles ruin speed.</p>`,
@@ -230,8 +235,8 @@ export const STOCKS_DEEP_WEEKS = [
       en: `<p>Sizing from conviction narrative instead of stop distance.</p>`,
       ur: `<p>Conviction se size — stop math nahi.</p>`,
     },
-    exitTicket: { en: 'You can state max risk % per equity idea.', ur: 'Max risk% per idea.' },
-    notebookPrompt: { en: 'Write max risk % + max names in core book.', ur: 'Max risk% + max names.' },
+    exitTicket: { en: 'You can state max risk % per equity idea.', ur: 'Per equity idea max risk % bata sakte ho.' },
+    notebookPrompt: { en: 'Write max risk % + max names in core book.', ur: 'Max risk % + core book mein max names likho.' },
     flashcardSeeds: [
       { front: { en: 'Dilution', ur: 'Dilution' }, back: { en: 'More shares → your slice shrinks.', ur: 'Zyada shares → slice shrink.' } },
       { front: { en: 'Concentration risk', ur: 'Concentration' }, back: { en: 'One name dominates outcomes.', ur: 'Ek name dominate.' } },
@@ -259,14 +264,15 @@ export const STOCKS_DEEP_WEEKS = [
     title: { en: 'Equity Scams & Honesty', ur: 'Equity Scams aur Honesty' },
     objective: {
       en: 'Spot pump/dump, fake advisors, and income-promise marketing around stocks.',
-      ur: 'Pump/dump, fake advisor, income promise.',
+      ur: 'Pump/dump, fake advisor, aur income-promise marketing pehchano stocks ke around.',
     },
     teach: {
       en: `<p>Scams love equity theater: paid “mentors,” screenshot P/L, urgency to buy a thin name, recovery agents after a loss. Real brokerage support never needs your full password/OTP theater on chat apps.</p>
 <p>MasteryCap certificates are self-issued study records. Completing Stocks Literacy does not license you, guarantee returns, or make you an advisor.</p>
 <p>{{redflag:“Guaranteed weekly stock income” = fantasy product.}}</p>`,
-      ur: `<p>Pump, fake mentor, screenshot P/L, recovery scam. Certificate = study record — license/income nahi.</p>
-<p>{{redflag:Guaranteed weekly income = fantasy.}}</p>`,
+      ur: `<p>Scams equity theater pasand karte: paid “mentors,” screenshot P/L, thin name khareedne ki urgency, loss ke baad recovery agents. Real brokerage support chat apps pe full password/OTP theater nahi mangti.</p>
+<p>MasteryCap certificates self-issued study records hain. Stocks Literacy complete karna license, returns guarantee, ya advisor nahi banata.</p>
+<p>{{redflag:“Guaranteed weekly stock income” = fantasy product.}}</p>`,
     },
     workedExample: {
       en: `<p>DM: “Join VIP, 2% daily, deposit now.” Refuse. Check regulation. No deposit to unlock.</p>`,
@@ -277,7 +283,7 @@ export const STOCKS_DEEP_WEEKS = [
       ur: `<p>Loss ke baad recovery agent ko aur paisa.</p>`,
     },
     exitTicket: { en: 'You can name three equity scam tells.', ur: 'Teen scam tells.' },
-    notebookPrompt: { en: 'List venues/people you will never fund. Pin it.', ur: 'Never-fund list.' },
+    notebookPrompt: { en: 'List venues/people you will never fund. Pin it.', ur: 'Venues/log jo kabhi fund nahi karoge — list karo aur pin karo.' },
     flashcardSeeds: [
       { front: { en: 'Guaranteed stock income', ur: 'Guaranteed' }, back: { en: 'Fantasy marketing.', ur: 'Fantasy.' } },
       { front: { en: 'Recovery agent after loss', ur: 'Recovery' }, back: { en: 'Often a second scam.', ur: 'Second scam.' } },

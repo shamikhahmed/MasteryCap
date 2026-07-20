@@ -38,12 +38,12 @@ export const BOTS_DEEP_WEEKS = [
     teach: {
       en: `<p>A trading bot runs <strong>pre-written rules</strong> on a venue API or UI. It does not invent edge. Bad rules + leverage = faster ruin. Good automation removes click delay — it does not remove risk.</p>
 <p>{{redflag:“Guaranteed monthly bot profit — API key please” = theft/scam pattern.}}</p>`,
-      ur: `<p>Bot = likhi rules. Edge invent nahi. Bad rules = tez ruin.</p>
-<p>{{redflag:Guaranteed bot profit + API key = scam.}}</p>`,
+      ur: `<p>Trading bot <strong>likhi hui rules</strong> venue API ya UI pe chalata hai. Edge invent nahi karta. Buri rules + leverage = tez ruin. Achha automation click delay hata — risk nahi.</p>
+<p>{{redflag:“Guaranteed monthly bot profit — API key please” = theft/scam pattern.}}</p>`,
     },
     workedExample: {
       en: `<p>API key with withdraw permission given to “signal bot” → funds leave. Read-only keys still leak strategy; withdraw keys = nuclear.</p>`,
-      ur: `<p>Withdraw API key share = funds gone risk.</p>`,
+      ur: `<p>Withdraw permission wali API key “signal bot” ko → funds nikal sakte. Read-only keys strategy leak; withdraw keys = nuclear.</p>`,
     },
     commonMistake: {
       en: `<p>Buying a “profit bot” instead of writing risk rules you understand.</p>`,
@@ -82,18 +82,18 @@ export const BOTS_DEEP_WEEKS = [
     },
     teach: {
       en: `<p><strong>Grid</strong> loves ranges, dies in trends. <strong>DCA bots</strong> average into falling knives if unbounded. <strong>Copy trading</strong> imports someone else’s sizing, latency, and undisclosed conflicts — past screenshots ≠ your future.</p>`,
-      ur: `<p>Grid = range OK, trend kill. DCA unbounded = knife. Copy = unka size + conflict.</p>`,
+      ur: `<p><strong>Grid</strong> range pasand, trend mein marta. <strong>DCA bots</strong> unbounded falling knife mein average. <strong>Copy trading</strong> unka size, latency, hidden conflicts import — past screenshots ≠ tumhara future.</p>`,
     },
     workedExample: {
       en: `<p>Copy leader uses 20×; you copy “same signals” on smaller account → different ruin math.</p>`,
-      ur: `<p>Leader 20× copy → tumhari ruin math alag.</p>`,
+      ur: `<p>Copy leader 20× use karta; tum chhote account pe “same signals” → alag ruin math.</p>`,
     },
     commonMistake: {
       en: `<p>Assuming copy P/L screenshots are live, complete, and unlevered.</p>`,
-      ur: `<p>Screenshot P/L = complete truth.</p>`,
+      ur: `<p>Copy P/L screenshots live, complete, aur unlevered hain — ye assume karna.</p>`,
     },
-    exitTicket: { en: 'You can name one kill condition for grid and for copy.', ur: 'Grid + copy kill.' },
-    notebookPrompt: { en: 'Write max drawdown kill switch before any bot deposit.', ur: 'Max DD kill switch.' },
+    exitTicket: { en: 'You can name one kill condition for grid and for copy.', ur: 'Grid aur copy ke liye ek ek kill condition naam kar sakte ho.' },
+    notebookPrompt: { en: 'Write max drawdown kill switch before any bot deposit.', ur: 'Kisi bot deposit se pehle max drawdown kill switch likho.' },
     flashcardSeeds: [
       { front: { en: 'Grid fails in', ur: 'Grid' }, back: { en: 'Strong trends / one-way markets.', ur: 'Strong trends.' } },
       { front: { en: 'Unbounded DCA', ur: 'DCA' }, back: { en: 'Can average into ruin.', ur: 'Ruin average.' } },
@@ -126,19 +126,19 @@ export const BOTS_DEEP_WEEKS = [
     teach: {
       en: `<p><strong>Overfitting</strong> makes curves beautiful and live ugly. Paid gurus sell certainty; markets sell variance. Signal groups hide losers, delay fills, and push affiliates.</p>
 <p>{{redflag:Pay to unlock “VIP bot settings” after a loss = second trap.}}</p>`,
-      ur: `<p>Overfit curve ≠ live. Signal groups losers chhupate. Unlock VIP after loss = trap.</p>
-<p>{{redflag:VIP unlock after loss = second trap.}}</p>`,
+      ur: `<p><strong>Overfitting</strong> curves khubsurat, live ganda. Paid gurus certainty bechte; markets variance. Signal groups losers chhupate, fills delay, affiliates push.</p>
+<p>{{redflag:Pay to unlock “VIP bot settings” after a loss = second trap.}}</p>`,
     },
     workedExample: {
       en: `<p>Backtest 90% win rate, no fees/slippage, one market regime → live fails week one.</p>`,
-      ur: `<p>90% backtest bina fees → live fail.</p>`,
+      ur: `<p>Backtest 90% win rate, no fees/slippage, ek market regime → live week one fail.</p>`,
     },
     commonMistake: {
       en: `<p>Paying more after a loss to “upgrade the bot.”</p>`,
       ur: `<p>Loss ke baad bot upgrade fee.</p>`,
     },
     exitTicket: { en: 'You can name two backtest lies.', ur: 'Do backtest lies.' },
-    notebookPrompt: { en: 'Never-pay list: unlock fees, VIP bots, recovery agents.', ur: 'Never-pay list.' },
+    notebookPrompt: { en: 'Never-pay list: unlock fees, VIP bots, recovery agents.', ur: 'Never-pay list: unlock fees, VIP bots, recovery agents.' },
     flashcardSeeds: [
       { front: { en: 'Overfitting', ur: 'Overfit' }, back: { en: 'Curve fit past — fails live.', ur: 'Past fit — live fail.' } },
       { front: { en: 'Backtest without fees/slip', ur: 'Backtest' }, back: { en: 'Fantasy P/L.', ur: 'Fantasy.' } },
@@ -171,7 +171,8 @@ export const BOTS_DEEP_WEEKS = [
     teach: {
       en: `<p>Realistic stack: alerts, position size calculators, journal exports, maybe simple bounded DCA with hard caps. Live discretionary still needs a human kill switch.</p>
 <p>Elective complete ≠ endorsement. Certificate = study record. Do not buy profit bots.</p>`,
-      ur: `<p>Alerts + size calc + journal + bounded DCA. Kill switch human. Profit bot mat kharido.</p>`,
+      ur: `<p>Realistic stack: alerts, position size calculators, journal exports, shayad simple bounded DCA hard caps ke saath. Live discretionary ko bhi human kill switch chahiye.</p>
+<p>Elective complete ≠ endorsement. Certificate = study record. Profit bots mat kharido.</p>`,
     },
     workedExample: {
       en: `<p>Card: “Alert only · no API trade · max DD 2% paper first · no copy.”</p>`,
@@ -182,7 +183,7 @@ export const BOTS_DEEP_WEEKS = [
       ur: `<p>Din 1 pe life savings API autopilot.</p>`,
     },
     exitTicket: { en: 'You can recite a safe automation ladder.', ur: 'Safe automation ladder.' },
-    notebookPrompt: { en: 'Six-bullet bots defense loop on Study desk.', ur: '6-bullet bots loop.' },
+    notebookPrompt: { en: 'Six-bullet bots defense loop on Study desk.', ur: 'Study desk pe six-bullet bots defense loop likho.' },
     flashcardSeeds: [
       { front: { en: 'Automation ladder', ur: 'Ladder' }, back: { en: 'Alerts → paper → tiny bounded → never unlock fees.', ur: 'Alerts → paper → tiny → no unlock.' } },
       { front: { en: 'Profit bot purchase', ur: 'Profit bot' }, back: { en: 'Refuse — not literacy.', ur: 'Refuse.' } },
