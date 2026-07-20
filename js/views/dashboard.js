@@ -103,8 +103,8 @@ export function renderDashboard(App, c) {
   const nextLabel = (() => {
     if (!next) {
       return lang === 'en'
-        ? 'All beginner path weeks done — pick any track in Learn, or open Practice desk.'
-        : 'Beginner path complete — Learn mein koi track, ya Practice desk.';
+        ? 'Core path clear — open Campus for next course, or Practice for study desk.'
+        : 'Core path clear — Campus ya Practice desk.';
     }
     if (next.kind === 'placement') {
       return lang === 'en'

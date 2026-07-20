@@ -1,3 +1,11 @@
+## [47.5.0] — 2026-07-20
+
+### Paper University close-out
+- Investing Literacy + Tax Literacy: 4-week 6-part honesty bars
+- Software Craft / Money campus honesty feet; kill dead beginner-path panel
+- Sim i18n → Practice ledger; SW `masterycap-v4750`
+- **v47 Paper University marked complete** (non-goals unchanged)
+
 ## [47.4.0] — 2026-07-20
 
 ### Stocks/Forex depth to 6 weeks

@@ -10,11 +10,11 @@ import { FUTURES_WEEKS, FUTURES_PLACEMENT } from './futures.js';
 import { FOREX_DEEP_WEEKS, FOREX_DEEP_PLACEMENT } from './forex-deep.js';
 import { SPOT_WEEKS, SPOT_PLACEMENT } from './spot.js';
 import { BINARY_WEEKS, BINARY_PLACEMENT } from './binary.js';
-import { INVEST_WEEKS, INVEST_PLACEMENT } from './invest.js';
+import { INVEST_DEEP_WEEKS, INVEST_DEEP_PLACEMENT } from './invest-deep.js';
 import { BOTS_WEEKS, BOTS_PLACEMENT } from './bots.js';
 import { FOUNDATIONS_WEEKS, FOUNDATIONS_PLACEMENT } from './foundations.js';
 import { GREEKS_WEEKS, GREEKS_PLACEMENT } from './greeks.js';
-import { TAX_WEEKS, TAX_PLACEMENT } from './tax.js';
+import { TAX_DEEP_WEEKS, TAX_DEEP_PLACEMENT } from './tax-deep.js';
 import { MACRO_WEEKS, MACRO_PLACEMENT } from './macro.js';
 import {
   PF_BUDGET_WEEKS, PF_BUDGET_PLACEMENT, PF_DEBT_WEEKS, PF_DEBT_PLACEMENT,
@@ -55,19 +55,19 @@ export const TRACKS = [
   },
   {
     id: 'invest',
-    name: { en: 'Investing: PSX & Beyond', ur: 'Investing: PSX aur aagay' },
-    blurb: { en: 'PSX, US stocks, IPOs, funds', ur: 'PSX, US stocks, IPOs, funds' },
+    name: { en: 'Investing Literacy', ur: 'Investing Literacy' },
+    blurb: { en: 'Invest vs trade, statements, costs, process (4 weeks)', ur: 'Invest vs trade, statements, costs, process' },
     status: 'live',
-    weeks: INVEST_WEEKS,
-    placement: INVEST_PLACEMENT,
+    weeks: INVEST_DEEP_WEEKS,
+    placement: INVEST_DEEP_PLACEMENT,
   },
   {
     id: 'tax',
-    name: { en: 'Tax Literacy', ur: 'Tax samajh' },
-    blurb: { en: 'PK framing + records — not legal advice', ur: 'PK framing + records — legal advice nahi' },
+    name: { en: 'Tax Literacy', ur: 'Tax Literacy' },
+    blurb: { en: 'Framing, records, cross-border caution — not advice', ur: 'Framing, records, cross-border — advice nahi' },
     status: 'live',
-    weeks: TAX_WEEKS,
-    placement: TAX_PLACEMENT,
+    weeks: TAX_DEEP_WEEKS,
+    placement: TAX_DEEP_PLACEMENT,
   },
   {
     id: 'spot',

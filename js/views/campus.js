@@ -145,6 +145,9 @@ function renderSchool(App, el, schoolId, done, en) {
       <div class="kicker">${en ? 'Branch' : 'Branch'}</div>
       <h1>${school.name[App.lang] || school.name.en}</h1>
       <p class="inst-muted">${school.tagline[App.lang] || school.tagline.en}</p>
+      <p class="inst-foot-note">${en
+        ? 'Education only. Open = enrollable. Locked = prereqs. Announced = title only (not authored yet). Certificates are self-issued study records.'
+        : 'Sirf education. Open = enroll. Locked = prereq. Announced = title only. Certificate = study record.'}</p>
     </div>
     <div class="inst-list">${cards.join('')}</div>
   </div>`;
@@ -193,6 +196,9 @@ function renderCourseDetail(App, el, code, done, en) {
       <div class="kicker mono">${meta.code}</div>
       <h1>${meta.title[App.lang] || meta.title.en}</h1>
       <p class="inst-muted">${meta.hours}h · ${en ? 'Pass final ≥' : 'Final ≥'}${course.passScore}%${tries ? ` · ${en ? 'Attempts' : 'Attempts'} ${tries}` : ''}</p>
+      <p class="inst-foot-note">${en
+        ? 'Education only — not a job guarantee, license, or income path. Admit to unlock lessons.'
+        : 'Sirf education — job/license/income guarantee nahi. Admit se lessons.'}</p>
     </div>
     ${meta.outcomes ? `<div class="inst-card"><div class="kicker">${en ? 'You will be able to' : 'Aap kar sakenge'}</div>
       <ul class="inst-ul">${(meta.outcomes[App.lang] || meta.outcomes.en).map((o) => `<li>${o}</li>`).join('')}</ul></div>` : ''}

@@ -11,7 +11,7 @@ import { openGlossary } from '../glossary.js';
 import { linkGlossaryTerms, findTerm } from '../data/glossary.js';
 import { injectLessonExtras, renderMemoPanel, renderSkim, renderFormulaStrip } from '../lesson-extras.js';
 import { mergeWeekExtras, prefixMarkers } from '../week-extras.js';
-import { BEGINNER_PATH, graduationFor } from '../data/paths.js';
+import { graduationFor } from '../data/paths.js';
 import { appendBody } from '../data/thicken.js';
 import { store, KEYS as STORE_KEYS } from '../store.js';
 import { recordMistake } from '../mistakes.js';
@@ -20,7 +20,6 @@ import {
 } from '../exam.js';
 import { openSearch } from '../search.js';
 import { GLOSSARY } from '../data/glossary.js';
-import { openHowto } from '../howto.js';
 import { gradStatus, markGraduated, isGraduated } from '../graduation.js';
 import { skillsForWeek, markSkillMastered, challengeOffer, CHALLENGE, scoreChallenge, SKILLS } from '../skills.js';
 import { startTime, pauseTime, softSessionNudge } from '../time.js';
@@ -280,22 +279,6 @@ function drawHome() {
     App.haptic();
     draw();
   }));
-}
-
-function beginnerPathPanel(App, currentId) {
-  const lang = App.lang;
-  const steps = BEGINNER_PATH.map((p, i) => {
-    const on = p.id === currentId;
-    return `<button type="button" class="pill ${on ? 'acc' : ''}" data-path-track="${p.id}" style="margin:2px">${i + 1}. ${p.id}</button>`;
-  }).join(' ');
-  const cur = BEGINNER_PATH.find((p) => p.id === currentId);
-  const why = cur ? (cur.why[lang] || cur.why.en) : '';
-  return `<div class="panel pad" style="margin-bottom:14px">
-    <div class="slabel">${App.t('path_title')}</div>
-    <p style="font-size:12.5px;color:var(--t3);line-height:1.5;margin:8px 0 10px">${App.t('path_honest')}</p>
-    <div style="display:flex;flex-wrap:wrap;gap:4px">${steps}</div>
-    ${why ? `<p style="font-size:13px;color:var(--t2);line-height:1.5;margin:12px 0 0">${why}</p>` : ''}
-  </div>`;
 }
 
 function missLabel(App, code, evidence) {
