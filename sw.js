@@ -1,5 +1,5 @@
 /* MasteryCap service worker — offline-first shell cache */
-const CACHE = 'masterycap-v4500';
+const CACHE = 'masterycap-v4510';
 const ASSETS = [
   './',
   './index.html',
@@ -7,6 +7,7 @@ const ASSETS = [
   './js/app.js',
   './js/institute/progress.js',
   './js/institute/placement.js',
+  './js/institute/features.js',
   './js/data/institute/catalog.js',
   './js/data/institute/diagrams.js',
   './js/data/institute/courses.js',
@@ -18,16 +19,6 @@ const ASSETS = [
   './js/institute/http-lab.js',
   './js/institute/code-editor.js',
   './js/views/http-lab.js',
-  './js/data/institute/fe-202.js',
-  './js/data/institute/fe-203.js',
-  './js/data/institute/fe-204.js',
-  './js/data/institute/be-301.js',
-  './js/data/institute/be-302.js',
-  './js/data/institute/be-303.js',
-  './js/data/institute/be-304.js',
-  './js/data/institute/app-401.js',
-  './js/data/institute/app-402.js',
-  './js/data/institute/app-403.js',
   './js/data/institute/fin-101.js',
   './js/data/institute/fin-201.js',
   './js/data/institute/fin-301.js',

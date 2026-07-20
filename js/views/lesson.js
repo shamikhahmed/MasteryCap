@@ -8,6 +8,7 @@ import {
   markLessonComplete, saveLessonCheck, lessonDone,
 } from '../institute/progress.js';
 import { resolveTeach, registerLabel } from '../institute/register.js';
+import { isOn } from '../institute/features.js';
 import { renderCodeEditor, wireCodeEditor } from '../institute/code-editor.js';
 
 export function renderLesson(App, el) {
@@ -51,14 +52,14 @@ export function renderLesson(App, el) {
     body = renderCheck(App, lesson, lang, en);
   } else if (key === 'practice') {
     let extra = '';
-    if (lesson.practiceCode) {
+    if (isOn('typedCodeEditor') && lesson.practiceCode) {
       extra = renderCodeEditor({
         prompt: lesson.practiceCode.prompt,
         starter: lesson.practiceCode.starter,
         lang,
       });
     }
-    if (lesson.lab) {
+    if (isOn('httpLab') && lesson.lab) {
       extra += `<button class="btn secondary mt10" id="lsLab">${en ? 'Open HTTP Lab' : 'HTTP Lab kholo'}</button>`;
     }
     body = `<div class="kicker">${en ? 'Practice' : 'Practice'}</div>
@@ -133,10 +134,11 @@ export function renderLesson(App, el) {
   });
 
   if (key === 'check') wireCheck(App, lesson);
-  if (key === 'practice' && lesson.practiceCode) {
+  if (key === 'practice' && isOn('typedCodeEditor') && lesson.practiceCode) {
     wireCodeEditor(lesson.practiceCode.starter, lesson.practiceCode.tests || []);
   }
   document.getElementById('lsLab')?.addEventListener('click', () => {
+    if (!isOn('httpLab')) return;
     App.tab = 'http-lab';
     App.render();
     App.renderNav();

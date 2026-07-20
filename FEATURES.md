@@ -1,24 +1,24 @@
 # MasteryCap Features
 
-**Version:** 45.0.0 · Full Software Craft path + labs
+**Version:** 45.1.0 · MVP scope lock restored
 
 ## Strengths
 - Offline-first PWA; no accounts
-- Full Software Craft path In Session: WEB-101 → APP-403
-- Age-band teach bodies (authored on FE/BE/APP; adaptive wrap elsewhere)
-- HTTP Lab (simulated on-device server) + desktop typed code editor (≥900px)
+- Software Craft In Session: WEB-101 → FE-201 (FE-202→APP-403 Announced titles only)
+- Age-band tip layer (same teach body + short register note — not full alternate lessons)
+- School of Money In Session: FIN-101 → FIN-301 (literacy, not advice)
 - Honest certificates; Markets school wraps trading literacy
 
 ## Weaknesses
-- Code checks are light (Function constructor), not a real test runner
-- HTTP Lab is literacy simulation — not production backend practice
+- HTTP Lab + desktop typed code editor parked for **v2** (`js/institute/features.js`)
 - Roman Urdu depth varies by course
+- Announced FE/BE/APP courses are titles only until authored for In Session
 
 ## Limitations
 - Certificates not accredited
-- Backend program is literacy + simulation
+- Backend program (BE-*) not enrollable yet — Announced
 - Markets: education only
 
 ## Risks
-- Content maintenance across 14 courses × 2 languages
+- Content maintenance across In Session courses × 2 languages
 - localStorage quota — export from Records

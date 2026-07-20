@@ -1,11 +1,8 @@
-/* Age-band teach resolution — full bodies when authored, else adaptive wrap */
+/* Age-band = tip layer only (same teach body + short register note). Full teachRegister bodies parked for v2. */
 
 export function resolveTeach(lesson, register, lang) {
   const L = (obj) => (obj?.[lang] || obj?.en || '');
   const reg = register || 'young';
-  const custom = lesson.teachRegister?.[reg];
-  if (custom) return L(custom);
-
   const base = L(lesson.teach);
   if (!base) return '';
   if (reg === 'young') return base;

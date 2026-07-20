@@ -12,8 +12,10 @@ export function renderToday(App, el) {
   const p = App.profile || {};
   const name = p.name || 'Learner';
   const inst = getInstitute();
-  const code = inst.activeCourse || p.starterCourse || null;
-  const meta = code ? getCourse(code) : null;
+  const rawCode = inst.activeCourse || p.starterCourse || null;
+  const meta = rawCode ? getCourse(rawCode) : null;
+  // Announced / unloaded courses (FE-202→APP-403) fall back to Campus CTA
+  const code = (rawCode === 'MKT-LEGACY' || meta?.status === 'session') ? rawCode : null;
   const course = code && code !== 'MKT-LEGACY' ? loadCourse(code) : null;
   const nxt = course ? nextLesson(course) : null;
   const pct = course ? courseProgressPct(course) : 0;

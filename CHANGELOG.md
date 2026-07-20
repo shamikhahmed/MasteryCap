@@ -1,3 +1,12 @@
+## [45.1.0] — 2026-07-20
+
+### Scope lock (owner)
+- **FE-202→APP-403 → Announced** (titles only; bodies unloaded from `courses.js` MAP, files kept on disk for v2)
+- **Age-band = tip layer** — `resolveTeach` ignores `teachRegister` full bodies; short register notes only
+- **HTTP Lab + desktop typed editor = v2** — gated off via `js/institute/features.js` (`httpLab`, `typedCodeEditor`)
+- Records projects: WEB + FIN only; Practice no Lab row / playground
+- SW `masterycap-v4510`
+
 ## [45.0.0] — 2026-07-20
 
 ### Institute depth

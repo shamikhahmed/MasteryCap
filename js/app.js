@@ -21,6 +21,7 @@ import { renderPracticeTab } from './views/practice-tab.js';
 import { renderRecords } from './views/records.js';
 import { renderLesson, renderFinal } from './views/lesson.js';
 import { renderHttpLab } from './views/http-lab.js';
+import { isOn } from './institute/features.js';
 import {
   recommendPath, AGE_OPTS, LANG_OPTS, BUILD_OPTS, GOAL_OPTS, TIME_OPTS,
 } from './institute/placement.js';
@@ -211,7 +212,14 @@ export const App = {
       records: renderRecords,
       lesson: renderLesson,
       final: renderFinal,
-      'http-lab': renderHttpLab,
+      'http-lab': (App, el) => {
+        if (!isOn('httpLab')) {
+          App.tab = 'practice';
+          renderPracticeTab(App, el);
+          return;
+        }
+        renderHttpLab(App, el);
+      },
       dashboard: renderDashboard,
       learn: renderCourse,
       journal: renderJournal,
@@ -572,7 +580,8 @@ function maybeWhatsNew() {
       <div class="sheet-head"><div class="slabel">${App.t('whats_new')} · ${APP_VERSION}</div>
         <button class="sheet-x" data-close>${icon('x', { size: 18 })}</button></div>
       <div class="sheet-body" style="font-size:14px;color:var(--t2);line-height:1.55">
-        <p>v45.0.0 School of Money (FIN-101→301), HTTP Lab auto-grade, Parsons + asserts, cert print, gallery.
+        <p>v45.1.0 Scope lock: WEB-101→FE-201 + Money In Session; FE-202→APP-403 Announced; age-band tips; Lab/editor = v2.
+          Markets school wraps trading literacy. Offline · no accounts · honest certs.</p>
         <p style="color:var(--t3)">See CHANGELOG.md for full notes.</p>
       </div>
     </div>`;
