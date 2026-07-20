@@ -82,10 +82,10 @@ Keys added (additive): simTrades, simSessions, simStats, graduation.
 Done: v40 strict prereqs + dated plan + theme/text-size fixes · v41 report card + cert preview + TTS.
 Next (in order):
 1. ~~v42 Mistake museum~~ — ALREADY EXISTS (mistakes.js seeds SRS). Optional later: failed sim trades feed too.
-2. ~~v42.1 Guided session runner~~ — STUB shipped: Campus Continue → plan sheet + step bar (`js/session.js`).
-3. **v43 Worked chart examples** — one annotated chartgen scenario per key concept.
+2. ~~v42.1 Guided session runner~~ — Continuity shipped v48.3 (`js/session.js`).
+3. ~~v49 Worked chart examples~~ — annotated `{{chart:id}}` + Charts hub (v49.0).
 4. **v43 Scenario ladder per track** — funding squeeze (crypto), theta burn (options), margin call (futures) drills.
 5. **v43 Post-trade debrief** — one interrogation question after each sim trade.
 6. ~~v44 Share card~~ — DONE v42.
-7. **v44 Glossary popovers** — tap bold term → inline definition (215 terms ready).
+7. ~~v44 Glossary popovers~~ — DONE (lesson term tap).
 8. **v44 Competence statements** — Progress shows "can / can't yet" per track.

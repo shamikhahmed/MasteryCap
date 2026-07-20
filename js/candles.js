@@ -7,6 +7,7 @@ export function renderCandles(ohlc, {
   up = 'var(--up)', down = 'var(--down)',
   highlight = null, // { lo, hi } price band
   lines = null,     // [{ price, color, dash, label }] horizontal overlays (sim)
+  marks = null,     // [{ i, edge:'high'|'low'|'mid', label, color }] bar callouts
   volume = false,
 } = {}) {
   if (!ohlc?.length) return '';
@@ -41,6 +42,20 @@ export function renderCandles(ohlc, {
     const botB = y(Math.min(c.o, c.c));
     body += `<rect x="${cx - bw / 2}" y="${topB}" width="${bw}" height="${Math.max(1.5, botB - topB)}" fill="${col}" stroke="${col}"/>`;
   });
+
+  if (marks) for (const M of marks) {
+    if (!M || M.i == null || !ohlc[M.i]) continue;
+    const c = ohlc[M.i];
+    const cx = pad + slot * M.i + slot / 2;
+    const edge = M.edge || 'high';
+    const py = edge === 'low' ? y(c.l) : edge === 'mid' ? y((c.h + c.l) / 2) : y(c.h);
+    const col = M.color || 'var(--acc-2)';
+    body += `<circle cx="${cx}" cy="${py}" r="3.5" fill="${col}" stroke="var(--bg2,#12141a)" stroke-width="1"/>`;
+    if (M.label) {
+      const ty = edge === 'low' ? py + 12 : py - 6;
+      body += `<text x="${cx}" y="${ty}" text-anchor="middle" font-size="9" font-family="Geist Mono, monospace" fill="${col}">${M.label}</text>`;
+    }
+  }
 
   if (lines) for (const L of lines) {
     if (!L || !(L.price > 0)) continue;

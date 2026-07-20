@@ -258,14 +258,24 @@ export const FOUNDATIONS_WEEKS = [
   teach: {
     en: `<p>When ready — not before — use Practice / Practice Ledger (and Journal desk).</p>
 <p><strong>Workflow:</strong> (1) One-sentence setup. (2) Pre-trade checklist (stop, risk %, calm, plan). (3) Size from calculator. (4) Paper/demo order. (5) Log entry, stop, exit, emotion. (6) Debrief: process followed? — not “was I right.”</p>
+<p>Before you size, name the <strong>structure</strong> you think you see. Worked charts below are literacy labels — not live signals.</p>
+{{chart:hh-hl}}
+{{chart:range-sr}}
 <p>If checklist fails → no trade. That is the lesson.</p>
 <p>{{redflag:Skipping checklist “just once” starts revenge trades.}}</p>`,
-    ur: `<p>Checklist incomplete = no trade. Debrief = process, sirf P&L nahi.</p>
+    ur: `<p>Checklist incomplete = no trade. Debrief = process, sirf P&L nahi. Structure pehle nam lo — charts literacy hain, live signal nahi.</p>
+{{chart:hh-hl}}
+{{chart:range-sr}}
 <p>{{redflag:Checklist skip = revenge start.}}</p>`,
   },
   workedExample: {
-    en: `<p>Five paper trades this week. If revenge urge appears, log “urge — skipped” — that counts as discipline win.</p>`,
-    ur: `<p>5 paper trades. Urge aaye to skip + note.</p>`,
+    en: `<p>Five paper trades this week. If revenge urge appears, log “urge — skipped” — that counts as discipline win.</p>
+<p>Read these two context charts before your first paper entry this week:</p>
+{{chart:engulf-support}}
+{{chart:pin-reject}}`,
+    ur: `<p>5 paper trades. Urge aaye to skip + note. Pehle ye context charts padho:</p>
+{{chart:engulf-support}}
+{{chart:pin-reject}}`,
   },
   commonMistake: {
     en: `<p>Calling green P&L a pass when the checklist was skipped.</p>`,

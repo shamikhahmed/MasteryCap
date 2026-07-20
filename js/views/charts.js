@@ -1,5 +1,5 @@
 /* ============================================================
-   charts.js view — chart-replay drills (P5).
+   charts.js view — worked examples + chart-replay drills (v49).
    ============================================================ */
 
 import { icon } from '../icons.js';
@@ -7,18 +7,81 @@ import { store, KEYS } from '../store.js';
 import { renderCandles, priceAtY } from '../candles.js';
 import { generateChart, checkTap } from '../chartgen.js';
 import { awardDrillXp, recordDrillType } from '../drills.js';
+import { listWorkedCharts, renderWorkedChart } from '../worked-charts.js';
 
-let S = { scenario: null, feedback: null, pick: null };
+let S = { mode: 'hub', scenario: null, feedback: null, pick: null, exampleId: null };
 let APP = null, ROOT = null;
 const LETTERS = ['A', 'B', 'C', 'D'];
 
 export function renderCharts(App, c) {
   APP = App; ROOT = c;
-  if (!S.scenario) S.scenario = generateChart();
-  draw();
+  if (S.mode === 'example' && S.exampleId) return drawExample();
+  if (S.mode === 'drill') {
+    if (!S.scenario) S.scenario = generateChart();
+    return drawDrill();
+  }
+  drawHub();
 }
 
-function draw() {
+function drawHub() {
+  const App = APP, c = ROOT, lang = App.lang;
+  const examples = listWorkedCharts();
+  c.innerHTML = `<div class="screen">
+    <button class="backlink" id="chBack">${icon('back', { size: 16 })} ${App.t('back')}</button>
+    <div class="lt-head" style="padding-top:4px">
+      <div class="kicker">${App.t('chart_title')}</div>
+      <h1>${App.t('chart_h1')}</h1>
+      <p style="font-size:13.5px;color:var(--t3);line-height:1.45;margin:8px 0 0">${lang === 'en'
+        ? 'Study annotated structure first. Then drill. Labels are literacy — not live signals.'
+        : 'Pehle annotated structure. Phir drill. Labels literacy — live signal nahi.'}</p>
+    </div>
+    <div class="panel pad" style="margin-top:14px">
+      <div class="slabel">${lang === 'en' ? 'Worked examples' : 'Worked examples'}</div>
+      ${examples.map((ex) => `
+        <button type="button" class="check-row" data-ex="${ex.id}" style="width:100%;text-align:left;background:none;border:0;color:inherit;cursor:pointer;margin-top:8px">
+          <span class="check-box">${icon('progress', { size: 12 })}</span>
+          <span class="check-t"><strong>${ex.title[lang] || ex.title.en}</strong><br/>
+          <span style="color:var(--t3);font-size:12px">${(ex.teach[lang] || ex.teach.en).slice(0, 90)}…</span></span>
+        </button>`).join('')}
+    </div>
+    <button class="btn accent mt14" id="chDrill" style="width:100%">${icon('target', { size: 17 })} ${lang === 'en' ? 'Start chart drill' : 'Chart drill shuru'}</button>
+  </div>`;
+
+  document.getElementById('chBack').addEventListener('click', () => {
+    S.mode = 'hub'; S.scenario = null; S.feedback = null; S.pick = null; S.exampleId = null;
+    App.tab = App._chartReturn || 'dashboard'; App.render(); App.renderNav();
+  });
+  c.querySelectorAll('[data-ex]').forEach((b) => b.addEventListener('click', () => {
+    S.mode = 'example'; S.exampleId = b.dataset.ex; App.haptic(); drawExample();
+  }));
+  document.getElementById('chDrill')?.addEventListener('click', () => {
+    S.mode = 'drill'; S.scenario = generateChart(); S.feedback = null; S.pick = null;
+    App.haptic(); drawDrill();
+  });
+}
+
+function drawExample() {
+  const App = APP, c = ROOT, lang = App.lang;
+  const html = renderWorkedChart(S.exampleId, lang);
+  c.innerHTML = `<div class="screen">
+    <button class="backlink" id="exBack">${icon('back', { size: 16 })} ${lang === 'en' ? 'Examples' : 'Examples'}</button>
+    <div class="panel pad" style="margin-top:10px">${html}
+      <div class="note-box warn mt14">${lang === 'en'
+        ? 'Not a trade signal. Use Practice Ledger only after checklist.'
+        : 'Trade signal nahi. Checklist ke baad Practice Ledger.'}</div>
+      <button class="btn accent mt14" id="exDrill" style="width:100%">${lang === 'en' ? 'Drill this skill' : 'Is skill pe drill'}</button>
+    </div>
+  </div>`;
+  document.getElementById('exBack')?.addEventListener('click', () => {
+    S.mode = 'hub'; S.exampleId = null; App.haptic(); drawHub();
+  });
+  document.getElementById('exDrill')?.addEventListener('click', () => {
+    S.mode = 'drill'; S.scenario = generateChart(); S.feedback = null; S.pick = null;
+    App.haptic(); drawDrill();
+  });
+}
+
+function drawDrill() {
   const App = APP, c = ROOT, lang = App.lang;
   const sc = S.scenario;
 
@@ -58,22 +121,22 @@ function draw() {
   }
 
   c.innerHTML = `<div class="screen">
-    <button class="backlink" id="chBack">${icon('back', { size: 16 })} ${App.t('back')}</button>
+    <button class="backlink" id="chBack">${icon('back', { size: 16 })} ${lang === 'en' ? 'Chart hub' : 'Chart hub'}</button>
     <div class="lt-head" style="padding-top:4px">
       <div class="kicker">${App.t('chart_title')}</div>
-      <h1>${App.t('chart_h1')}</h1>
+      <h1>${lang === 'en' ? 'Drill' : 'Drill'}</h1>
     </div>
     <div class="panel pad">${body}</div>
   </div>`;
 
   document.getElementById('chBack').addEventListener('click', () => {
-    S.scenario = null; S.feedback = null; S.pick = null;
-    App.tab = App._chartReturn || 'dashboard'; App.render(); App.renderNav();
+    S.mode = 'hub'; S.scenario = null; S.feedback = null; S.pick = null;
+    App.haptic(); drawHub();
   });
 
   if (S.feedback) {
     document.getElementById('chNext')?.addEventListener('click', () => {
-      S.scenario = generateChart(); S.feedback = null; S.pick = null; App.haptic(); draw();
+      S.scenario = generateChart(); S.feedback = null; S.pick = null; App.haptic(); drawDrill();
     });
     return;
   }
@@ -82,13 +145,13 @@ function draw() {
     const svg = c.querySelector('.candle-chart');
     const onTap = (clientY) => {
       S.pick = priceAtY(svg, clientY, sc.ohlc, { h: 190 });
-      App.haptic(); draw();
+      App.haptic(); drawDrill();
     };
     svg?.addEventListener('click', (e) => onTap(e.clientY));
     document.getElementById('chSubmit')?.addEventListener('click', () => finishTap(App, sc));
   } else {
     c.querySelectorAll('[data-o]').forEach((b) => b.addEventListener('click', () => {
-      S.pick = Number(b.dataset.o); App.haptic(); draw();
+      S.pick = Number(b.dataset.o); App.haptic(); drawDrill();
     }));
     document.getElementById('chSubmit')?.addEventListener('click', () => finishMcq(App, sc));
   }
@@ -99,7 +162,7 @@ function finishMcq(App, sc) {
   recordDrillType(store, KEYS, 'chart_' + sc.mode, ok);
   const xp = awardDrillXp(store, KEYS, ok);
   S.feedback = { ok, xp };
-  App.bumpStreak(); App.haptic(ok ? 16 : 8); draw();
+  App.bumpStreak(); App.haptic(ok ? 16 : 8); drawDrill();
 }
 
 function finishTap(App, sc) {
@@ -107,5 +170,5 @@ function finishTap(App, sc) {
   recordDrillType(store, KEYS, 'chart_tap_resistance', ok);
   const xp = awardDrillXp(store, KEYS, ok);
   S.feedback = { ok, xp };
-  App.bumpStreak(); App.haptic(ok ? 16 : 8); draw();
+  App.bumpStreak(); App.haptic(ok ? 16 : 8); drawDrill();
 }

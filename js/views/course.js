@@ -7,6 +7,7 @@
 import { TRACKS, getTrack } from '../data/tracks.js';
 import { icon, TRACK_ICON } from '../icons.js';
 import { injectFigures } from '../figures.js';
+import { injectWorkedCharts } from '../worked-charts.js';
 import { openGlossary } from '../glossary.js';
 import { linkGlossaryTerms, findTerm } from '../data/glossary.js';
 import { injectLessonExtras, renderMemoPanel, renderSkim, renderFormulaStrip } from '../lesson-extras.js';
@@ -385,6 +386,7 @@ function buildLessonBody(track, w, lang) {
   let body = prefixMarkers(w.body[lang], track.id, w.id, lang);
   body = appendBody(body, track.id, w.id, lang);
   body = injectFigures(body, lang);
+  body = injectWorkedCharts(body, lang);
   body = injectLessonExtras(body, lang);
   body = linkGlossaryTerms(body);
   return body;

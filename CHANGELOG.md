@@ -1,3 +1,11 @@
+## [49.0.0] — 2026-07-20
+
+### Worked chart examples
+- `js/worked-charts.js`: hh-hl, range-sr, engulf-support, pin-reject (fixed seeds + labels)
+- Lesson marker `{{chart:id}}` injected in Foundations W5; Charts hub → examples then drill
+- Candle renderer supports bar marks; SW `masterycap-v4900`
+
+
 ## [48.3.0] — 2026-07-20
 
 ### Session Continuity
