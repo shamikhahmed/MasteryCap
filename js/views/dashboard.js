@@ -177,7 +177,7 @@ export function renderDashboard(App, c) {
           <button class="pill" id="reportDismiss">${lang === 'en' ? 'Done' : 'Theek'}</button>
         </div>
         <div class="stat-strip" style="margin-top:10px">
-          <div class="stat-cell"><div class="sc-l">XP</div><div class="sc-v">+${rep.xpGained}</div><div class="sc-s">${lang === 'en' ? 'this week' : 'is hafte'}</div></div>
+          <div class="stat-cell"><div class="sc-l">Study</div><div class="sc-v">+${rep.xpGained}</div><div class="sc-s">${lang === 'en' ? 'pts this week' : 'pts is hafte'}</div></div>
           <div class="stat-cell"><div class="sc-l">${lang === 'en' ? 'Weeks' : 'Weeks'}</div><div class="sc-v">${rep.weeksCompleted}</div><div class="sc-s">${lang === 'en' ? 'completed' : 'mukammal'}</div></div>
           <div class="stat-cell"><div class="sc-l">${lang === 'en' ? 'Reviews' : 'Reviews'}</div><div class="sc-v">${rep.reviewsDue}</div><div class="sc-s">${lang === 'en' ? 'due' : 'baqi'}</div></div>
           <div class="stat-cell"><div class="sc-l">${lang === 'en' ? 'Streak' : 'Streak'}</div><div class="sc-v">${rep.streak}</div><div class="sc-s">${lang === 'en' ? 'days' : 'din'}</div></div>

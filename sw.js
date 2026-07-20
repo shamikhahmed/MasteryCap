@@ -1,5 +1,5 @@
 /* MasteryCap service worker — offline-first shell cache */
-const CACHE = 'masterycap-v4710';
+const CACHE = 'masterycap-v4720';
 const ASSETS = [
   './',
   './index.html',
@@ -75,6 +75,8 @@ const ASSETS = [
   './js/howto.js',
   './js/data/foundations.js',
   './js/data/crypto-deep.js',
+  './js/data/stocks-deep.js',
+  './js/data/forex-deep.js',
   './js/data/greeks.js',
   './js/data/tax.js',
   './js/data/macro.js',

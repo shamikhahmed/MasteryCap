@@ -4,10 +4,10 @@
    ============================================================ */
 
 import { CRYPTO_WEEKS, CRYPTO_PLACEMENT } from './crypto-deep.js';
-import { STOCKS_WEEKS, STOCKS_PLACEMENT } from './stocks.js';
-import { OPTIONS_WEEKS, OPTIONS_PLACEMENT, EQUITY_WEEKS, EQUITY_PLACEMENT } from './options.js';
+import { STOCKS_DEEP_WEEKS, STOCKS_DEEP_PLACEMENT } from './stocks-deep.js';
+import { OPTIONS_WEEKS, OPTIONS_PLACEMENT } from './options.js';
 import { FUTURES_WEEKS, FUTURES_PLACEMENT } from './futures.js';
-import { FOREX_WEEKS, FOREX_PLACEMENT } from './forex.js';
+import { FOREX_DEEP_WEEKS, FOREX_DEEP_PLACEMENT } from './forex-deep.js';
 import { SPOT_WEEKS, SPOT_PLACEMENT } from './spot.js';
 import { BINARY_WEEKS, BINARY_PLACEMENT } from './binary.js';
 import { INVEST_WEEKS, INVEST_PLACEMENT } from './invest.js';
@@ -79,11 +79,11 @@ export const TRACKS = [
   },
   {
     id: 'stocks',
-    name: { en: 'Stocks', ur: 'Stocks (shares)' },
-    blurb: { en: 'Equities: sessions, earnings, structure', ur: 'Shares: sessions, earnings, structure' },
+    name: { en: 'Stocks Literacy', ur: 'Stocks Literacy' },
+    blurb: { en: 'Shares, sessions, earnings vs expectations', ur: 'Shares, sessions, earnings vs expectations' },
     status: 'live',
-    weeks: EQUITY_WEEKS.length ? EQUITY_WEEKS : STOCKS_WEEKS.filter((w) => w.id <= 3),
-    placement: EQUITY_PLACEMENT.length ? EQUITY_PLACEMENT : STOCKS_PLACEMENT,
+    weeks: STOCKS_DEEP_WEEKS,
+    placement: STOCKS_DEEP_PLACEMENT,
   },
   {
     id: 'options',
@@ -119,11 +119,11 @@ export const TRACKS = [
   },
   {
     id: 'forex',
-    name: { en: 'Forex', ur: 'Forex (FX)' },
-    blurb: { en: 'Pairs, pips, sessions', ur: 'Pairs, pips, sessions' },
+    name: { en: 'Forex Literacy', ur: 'Forex Literacy' },
+    blurb: { en: 'Pairs, sessions, calendar, broker risk', ur: 'Pairs, sessions, calendar, broker risk' },
     status: 'live',
-    weeks: FOREX_WEEKS,
-    placement: FOREX_PLACEMENT,
+    weeks: FOREX_DEEP_WEEKS,
+    placement: FOREX_DEEP_PLACEMENT,
   },
   {
     id: 'bots',

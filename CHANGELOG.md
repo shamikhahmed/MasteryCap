@@ -1,3 +1,10 @@
+## [47.2.0] — 2026-07-20
+
+### Markets core stubs + honesty
+- Stocks Literacy + Forex Literacy: 3-week 6-part stubs (seeds + quizzes)
+- Soften XP theater labels → Study pts; exam pass copy drops +XP flex
+- SW `masterycap-v4720`
+
 ## [47.1.0] — 2026-07-20
 
 ### Content depth (Phase B/C)

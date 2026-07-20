@@ -43,7 +43,7 @@ function draw() {
         <div class="r-msg mono">${App.t('drill_answer')}: ${fb.answer}${d.unit ? ' ' + d.unit : ''}</div>
       </div>
       <div class="note-box warn mt14">${fb.solution[lang] || fb.solution.en}</div>
-      ${fb.xp > 0 ? `<div class="pill acc mt14 mono">+${fb.xp} XP</div>` : (fb.ok ? `<div class="pill mt14">${App.t('drill_cap')}</div>` : '')}
+      ${fb.xp > 0 ? `<div class="pill acc mt14 mono">+${fb.xp} pts</div>` : (fb.ok ? `<div class="pill mt14">${App.t('drill_cap')}</div>` : '')}
       <button class="btn accent mt18" id="drillNext">${App.t('drill_next')}</button>`;
   } else {
     body = `
@@ -66,7 +66,7 @@ function draw() {
     <div class="lt-head" style="padding-top:4px">
       <div class="head-row">
         <div><div class="kicker">${App.t('drill_title')}</div><h1>${App.t('drill_h1')}</h1></div>
-        <span class="pill mono">${dayXp}/50 XP</span>
+        <span class="pill mono">${dayXp}/50 pts</span>
       </div>
     </div>
     <div class="hstack" style="gap:8px;margin-bottom:12px;flex-wrap:wrap">

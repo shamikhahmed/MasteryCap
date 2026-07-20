@@ -53,7 +53,7 @@ function draw() {
     c.innerHTML = `<div class="screen">
       <div class="panel pad">
         <div class="result">
-          <div class="r-score" style="color:var(--acc-2)">+${S.xp} XP</div>
+          <div class="r-score" style="color:var(--acc-2)">+${S.xp} pts</div>
           <div class="r-msg">${App.t('review_done')}</div>
         </div>
         <button class="btn accent mt18" id="rvDone">${App.t('next')}</button>

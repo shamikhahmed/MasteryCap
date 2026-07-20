@@ -35,7 +35,7 @@ function draw() {
         <div class="r-score ${fb.ok ? 'up' : 'down'}">${fb.ok ? App.t('drill_correct') : App.t('drill_wrong')}</div>
       </div>
       <div class="note-box warn mt14">${(sc.explain && (sc.explain[lang] || sc.explain.en)) || ''}</div>
-      ${fb.xp > 0 ? `<div class="pill acc mt14 mono">+${fb.xp} XP</div>` : ''}
+      ${fb.xp > 0 ? `<div class="pill acc mt14 mono">+${fb.xp} pts</div>` : ''}
       <button class="btn accent mt18" id="chNext">${App.t('drill_next')}</button>`;
   } else if (sc.mode === 'tap_resistance') {
     body = `
