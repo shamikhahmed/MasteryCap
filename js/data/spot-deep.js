@@ -52,11 +52,11 @@ export const SPOT_DEEP_WEEKS = [
     exitTicket: { en: 'You can name three things spot does not have.', ur: 'Teen cheezen spot mein nahi.' },
     notebookPrompt: { en: 'Write: my core book is spot / mix — and why.', ur: 'Likho: mera core book spot / mix hai — aur kyun.' },
     flashcardSeeds: [
-      { front: { en: 'Spot liquidation price', ur: 'Spot liq' }, back: { en: 'None — no borrowed margin.', ur: 'Nahi — no margin.' } },
+      { front: { en: 'Spot liquidation price', ur: 'Spot liquidation price' }, back: { en: 'None — no borrowed margin.', ur: 'Nahi — no margin.' } },
       { front: { en: 'Spot main cost', ur: 'Cost' }, back: { en: 'Capital tied up 1:1.', ur: 'Capital 1:1.' } },
-      { front: { en: 'Time pressure on spot', ur: 'Time' }, back: { en: 'Essentially none from expiry/funding.', ur: 'Expiry/funding nahi.' } },
-      { front: { en: 'Spot zeroes when', ur: 'Zero' }, back: { en: 'Asset itself → zero (or you sell).', ur: 'Asset zero / sell.' } },
-      { front: { en: 'Same chart ≠', ur: 'Chart' }, back: { en: 'Same product — check ownership.', ur: 'Ownership check.' } },
+      { front: { en: 'Time pressure on spot', ur: 'Spot pe time pressure' }, back: { en: 'Essentially none from expiry/funding.', ur: 'Expiry/funding se essentially koi pressure nahi.' } },
+      { front: { en: 'Spot zeroes when', ur: 'Zero' }, back: { en: 'Asset itself → zero (or you sell).', ur: 'Asset khud zero ho sakti (ya tum bech do).' } },
+      { front: { en: 'Same chart ≠', ur: 'Chart' }, back: { en: 'Same product — check ownership.', ur: 'Same product lag sakta — ownership check karo.' } },
     ],
     quiz: [
       { q: { en: 'Spot liquidates when:', ur: 'Spot kab liquidate hota hai:' },
@@ -97,10 +97,10 @@ export const SPOT_DEEP_WEEKS = [
     exitTicket: { en: 'You can list failure modes for spot vs perps.', ur: 'Spot vs perps failure modes.' },
     notebookPrompt: { en: 'Write your core vs tactical split rule.', ur: 'Core vs tactical split.' },
     flashcardSeeds: [
-      { front: { en: 'Perp can lose while direction right via', ur: 'Perp lose' }, back: { en: 'Funding + liquidation wicks.', ur: 'Funding + wick.' } },
+      { front: { en: 'Perp can lose while direction right via', ur: 'Perp direction sahi hone ke bawajood kaise haar sakta' }, back: { en: 'Funding + liquidation wicks.', ur: 'Funding + liquidation wicks se nuqsan ho sakta.' } },
       { front: { en: 'Pro allocation', ur: 'Pro' }, back: { en: 'Core spot, tactical derivatives.', ur: 'Core spot, tactical deriv.' } },
-      { front: { en: 'Margin adds', ur: 'Margin' }, back: { en: 'Interest + liquidation risk.', ur: 'Interest + liq.' } },
-      { front: { en: 'Efficiency step up means', ur: 'Efficiency' }, back: { en: 'More ways to lose without wrong direction.', ur: 'Zyada death paths.' } },
+      { front: { en: 'Margin adds', ur: 'Margin' }, back: { en: 'Interest + liquidation risk.', ur: 'Interest + liquidation risk dono lagte hain.' } },
+      { front: { en: 'Efficiency step up means', ur: 'Efficiency step up ka matlab kya hai' }, back: { en: 'More ways to lose without wrong direction.', ur: 'Galat direction ke bina haarnay ke zyada tareeqe.' } },
       { front: { en: '20× life savings', ur: '20×' }, back: { en: 'Amateur invert pattern.', ur: 'Amateur invert.' } },
     ],
     quiz: [
@@ -142,7 +142,7 @@ export const SPOT_DEEP_WEEKS = [
     exitTicket: { en: 'You can run the “what kills this?” test.', ur: '“Kya maarta?” test.' },
     notebookPrompt: { en: 'For next idea: instrument + kill list.', ur: 'Instrument + kill list.' },
     flashcardSeeds: [
-      { front: { en: 'Short perps vs spot hold', ur: 'Hedge' }, back: { en: 'Temporary insurance without selling.', ur: 'Insurance bina sell.' } },
+      { front: { en: 'Short perps vs spot hold', ur: 'Short perps vs spot hold' }, back: { en: 'Temporary insurance without selling.', ur: 'Insurance bina sell.' } },
       { front: { en: 'Kill test', ur: 'Kill' }, back: { en: 'If not only thesis — you pay those risks.', ur: 'Thesis ke ilawa = pay risks.' } },
       { front: { en: 'Spot when', ur: 'Spot kab' }, back: { en: 'Months+ horizon, survive vol.', ur: 'Months+, survive vol.' } },
       { front: { en: 'Margin usually', ur: 'Margin' }, back: { en: 'Loses to less spot or defined-risk.', ur: 'Kam spot / defined-risk behtar.' } },
@@ -213,10 +213,10 @@ export const SPOT_DEEP_WEEKS = [
 export const SPOT_DEEP_PLACEMENT = [
   { topic: 1, q: { en: 'Spot liq price:', ur: 'Liq:' }, opts: { en: ['None', 'Always −10%', 'Funding'], ur: ['None', '−10%', 'Funding'] }, correct: 0 },
   { topic: 1, q: { en: 'Spot cost:', ur: 'Cost:' }, opts: { en: ['Capital 1:1', 'Only funding', 'Only liq'], ur: ['1:1 capital', 'Funding', 'Liq'] }, correct: 0 },
-  { topic: 2, q: { en: 'Pro pattern:', ur: 'Pro:' }, opts: { en: ['Core spot, tactical deriv', 'All 20×', 'All margin'], ur: ['Core spot', '20×', 'Margin'] }, correct: 0 },
-  { topic: 2, q: { en: 'Perp right-direction loss:', ur: 'Perp:' }, opts: { en: ['Funding/wicks', 'Impossible', 'Only hacks'], ur: ['Funding/wicks', 'Impossible', 'Hacks'] }, correct: 0 },
-  { topic: 3, q: { en: 'Kill test:', ur: 'Kill:' }, opts: { en: ['List non-thesis death paths', 'Skip', 'Only logo'], ur: ['Death paths', 'Skip', 'Logo'] }, correct: 0 },
-  { topic: 3, q: { en: 'Short perps vs spot:', ur: 'Hedge:' }, opts: { en: ['Insurance without selling', 'Always double risk', 'Banned'], ur: ['Insurance', 'Double', 'Banned'] }, correct: 0 },
+  { topic: 2, q: { en: 'Pro pattern:', ur: 'Pro:' }, opts: { en: ['Core spot, tactical deriv', 'All 20×', 'All margin'], ur: ['Core spot rakho tactical derivatives sirf tactical ke liye', '20×', 'Margin'] }, correct: 0 },
+  { topic: 2, q: { en: 'Perp right-direction loss:', ur: 'Perp sahi direction pe bhi loss kyun ho sakta hai:' }, opts: { en: ['Funding/wicks', 'Impossible', 'Only hacks'], ur: ['Funding/wicks', 'Impossible', 'Hacks'] }, correct: 0 },
+  { topic: 3, q: { en: 'Kill test:', ur: 'Kill:' }, opts: { en: ['List non-thesis death paths', 'Skip', 'Only logo'], ur: ['Non-thesis death paths list karo pehle se soch kar', 'Skip', 'Logo'] }, correct: 0 },
+  { topic: 3, q: { en: 'Short perps vs spot:', ur: 'Short perps vs spot mein farq kya hai:' }, opts: { en: ['Insurance without selling', 'Always double risk', 'Banned'], ur: ['Bina bechna insurance jaisa hedge hota hai ye', 'Double', 'Banned'] }, correct: 0 },
   { topic: 4, q: { en: 'Core default:', ur: 'Core:' }, opts: { en: ['Spot', 'Max lev', 'Ignore'], ur: ['Spot', 'Max lev', 'Ignore'] }, correct: 0 },
   { topic: 4, q: { en: 'Certificate:', ur: 'Cert:' }, opts: { en: ['Study record', 'Lev license', 'Income'], ur: ['Study', 'Lev license', 'Income'] }, correct: 0 },
 ];

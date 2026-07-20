@@ -54,10 +54,10 @@ export const INVEST_DEEP_WEEKS = [
     exitTicket: { en: 'You can name which game a rupee is playing.', ur: 'Ek rupee kaun sa game khel raha hai — naam kar sakte ho.' },
     notebookPrompt: { en: 'Split paper capital: % investing vs % trading practice.', ur: 'Paper capital split: % investing vs % trading practice.' },
     flashcardSeeds: [
-      { front: { en: 'Investing questions answered by', ur: 'Invest Q' }, back: { en: 'Statements / business performance.', ur: 'Statements.' } },
-      { front: { en: 'Trading questions answered by', ur: 'Trade Q' }, back: { en: 'Price/structure over shorter horizons.', ur: 'Price short horizon.' } },
-      { front: { en: 'Failed trade → “investment”', ur: 'Relabel' }, back: { en: 'Refused stop in costume.', ur: 'Costume stop.' } },
-      { front: { en: 'Retail structural edge', ur: 'Edge' }, back: { en: 'Time — if behavior holds.', ur: 'Time — behavior.' } },
+      { front: { en: 'Investing questions answered by', ur: 'Investing ke sawal kis se jawab milte hain' }, back: { en: 'Statements / business performance.', ur: 'Statements / business performance se jawab milta hai.' } },
+      { front: { en: 'Trading questions answered by', ur: 'Trading ke sawal kis se jawab milte hain' }, back: { en: 'Price/structure over shorter horizons.', ur: 'Chhoti horizons pe price/structure se jawab milta hai.' } },
+      { front: { en: 'Failed trade → “investment”', ur: 'Failed trade ko “investment” kehna' }, back: { en: 'Refused stop in costume.', ur: 'Refused stop ko naye label mein chhupana.' } },
+      { front: { en: 'Retail structural edge', ur: 'Retail ka structural edge' }, back: { en: 'Time — if behavior holds.', ur: 'Time — behavior.' } },
       { front: { en: 'Course = income', ur: 'Course' }, back: { en: 'Fantasy marketing.', ur: 'Fantasy.' } },
     ],
     quiz: [
@@ -99,10 +99,10 @@ export const INVEST_DEEP_WEEKS = [
     exitTicket: { en: 'You can recite profit vs cash one-liner.', ur: 'Profit vs cash ek line.' },
     notebookPrompt: { en: 'Pick one listed name. Note OCF vs profit for 2 years.', ur: 'Ek listed name chuno. 2 saal ke liye OCF vs profit note karo.' },
     flashcardSeeds: [
-      { front: { en: 'Profit is an opinion; cash is', ur: 'Cash' }, back: { en: 'A fact.', ur: 'Fact.' } },
-      { front: { en: 'Rising profit + falling OCF', ur: 'OCF' }, back: { en: 'Investigate — red flag pattern.', ur: 'Red flag.' } },
+      { front: { en: 'Profit is an opinion; cash is', ur: 'Profit opinion hai; cash kya hai' }, back: { en: 'A fact.', ur: 'Fact.' } },
+      { front: { en: 'Rising profit + falling OCF', ur: 'Profit badh rahi + OCF gir rahi' }, back: { en: 'Investigate — red flag pattern.', ur: 'Investigate karo — ye red flag pattern hai.' } },
       { front: { en: 'Balance sheet asks', ur: 'BS' }, back: { en: 'Can it survive a bad year?', ur: 'Bad year survive?' } },
-      { front: { en: 'Where PSX filings live', ur: 'PSX' }, back: { en: 'PSX / IR pages — read before buy.', ur: 'PSX / IR.' } },
+      { front: { en: 'Where PSX filings live', ur: 'PSX filings kahan milti hain' }, back: { en: 'PSX / IR pages — read before buy.', ur: 'PSX / IR pages — khareedne se pehle parho.' } },
       { front: { en: 'Tip without filing', ur: 'Tip' }, back: { en: 'Not research.', ur: 'Research nahi.' } },
     ],
     quiz: [
@@ -146,11 +146,11 @@ export const INVEST_DEEP_WEEKS = [
     exitTicket: { en: 'You can list three cost lines on your path.', ur: 'Apne path pe teen cost lines list kar sakte ho.' },
     notebookPrompt: { en: 'Write broker + fee line + legal funding note.', ur: 'Broker + fee + funding note.' },
     flashcardSeeds: [
-      { front: { en: 'Informal FX funding for foreign brokers', ur: 'Informal' }, back: { en: 'Legal risk can dwarf returns.', ur: 'Legal risk.' } },
-      { front: { en: 'Expense ratio', ur: 'ER' }, back: { en: 'Silent drag on compounding.', ur: 'Compound drag.' } },
-      { front: { en: 'Last year’s top fund', ur: 'Top fund' }, back: { en: 'Not destiny — costs + mean reversion.', ur: 'Destiny nahi.' } },
-      { front: { en: 'Guaranteed IPO allotment pitch', ur: 'IPO pitch' }, back: { en: 'Scam theater.', ur: 'Scam.' } },
-      { front: { en: 'Regulated broker habit', ur: 'Broker' }, back: { en: 'Prefer licensed access.', ur: 'Licensed.' } },
+      { front: { en: 'Informal FX funding for foreign brokers', ur: 'Foreign brokers ke liye informal FX funding' }, back: { en: 'Legal risk can dwarf returns.', ur: 'Legal risk returns se kahin zyada bari ho sakti hai.' } },
+      { front: { en: 'Expense ratio', ur: 'ER' }, back: { en: 'Silent drag on compounding.', ur: 'Compounding pe chupka hua drag lagta hai.' } },
+      { front: { en: 'Last year’s top fund', ur: 'Top fund' }, back: { en: 'Not destiny — costs + mean reversion.', ur: 'Destiny nahi — costs + mean reversion matter karte.' } },
+      { front: { en: 'Guaranteed IPO allotment pitch', ur: 'Guaranteed IPO allotment wala pitch' }, back: { en: 'Scam theater.', ur: 'Scam.' } },
+      { front: { en: 'Regulated broker habit', ur: 'Regulated broker ki habit' }, back: { en: 'Prefer licensed access.', ur: 'Licensed access prefer karo.' } },
     ],
     quiz: [
       { q: { en: 'Informal funding channels mainly add:', ur: 'Informal funding channels mainly kya add karte hain:' },
@@ -194,8 +194,8 @@ export const INVEST_DEEP_WEEKS = [
       { front: { en: 'Invest loop', ur: 'Loop' }, back: { en: 'Thesis → filings → size → rules → log → review.', ur: 'Thesis → filings → size → log → review.' } },
       { front: { en: 'Tips as syllabus', ur: 'Tips' }, back: { en: 'Not sufficient.', ur: 'Kaafi nahi.' } },
       { front: { en: 'Certificate here', ur: 'Cert' }, back: { en: 'Study progress — not a license.', ur: 'Study — license nahi.' } },
-      { front: { en: 'Size from', ur: 'Size' }, back: { en: 'Risk % — not story heat.', ur: 'Risk%.' } },
-      { front: { en: 'Long-term skips review', ur: 'Skip review' }, back: { en: 'Breaks the learning loop.', ur: 'Loop toot.' } },
+      { front: { en: 'Size from', ur: 'Size' }, back: { en: 'Risk % — not story heat.', ur: 'Risk % matter karta — story heat nahi.' } },
+      { front: { en: 'Long-term skips review', ur: 'Long-term review skip karna' }, back: { en: 'Breaks the learning loop.', ur: 'Learning loop toot jata hai.' } },
     ],
     quiz: [
       { q: { en: 'Sober investing practice starts with:', ur: 'Sober investing practice kis se shuru hoti hai:' },
@@ -215,12 +215,12 @@ export const INVEST_DEEP_WEEKS = [
 ];
 
 export const INVEST_DEEP_PLACEMENT = [
-  { topic: 1, q: { en: 'Retail edge is mainly:', ur: 'Edge:' }, opts: { en: ['Time/patience', 'Speed', 'Secrets'], ur: ['Time', 'Speed', 'Secrets'] }, correct: 0 },
-  { topic: 1, q: { en: 'Failed trade → investment label:', ur: 'Relabel:' }, opts: { en: ['Costume stop', 'Always valid', 'Diversify'], ur: ['Costume stop', 'Valid', 'Diversify'] }, correct: 0 },
-  { topic: 2, q: { en: 'Cash vs profit:', ur: 'Cash:' }, opts: { en: ['Cash is fact; profit malleable', 'Opposite', 'Same always'], ur: ['Cash fact', 'Opposite', 'Same'] }, correct: 0 },
-  { topic: 2, q: { en: 'Rising profit + falling OCF:', ur: 'OCF:' }, opts: { en: ['Red flag', 'Perfect', 'Ignore'], ur: ['Red flag', 'Perfect', 'Ignore'] }, correct: 0 },
-  { topic: 3, q: { en: 'Informal funding adds:', ur: 'Informal:' }, opts: { en: ['Legal risk', 'Free alpha', 'Zero cost'], ur: ['Legal risk', 'Alpha', 'Zero'] }, correct: 0 },
+  { topic: 1, q: { en: 'Retail edge is mainly:', ur: 'Retail edge mainly kya hai:' }, opts: { en: ['Time/patience', 'Speed', 'Secrets'], ur: ['Time', 'Speed', 'Secrets'] }, correct: 0 },
+  { topic: 1, q: { en: 'Failed trade → investment label:', ur: 'Failed trade ko investment label dena kya hai:' }, opts: { en: ['Costume stop', 'Always valid', 'Diversify'], ur: ['Costume stop', 'Valid', 'Diversify'] }, correct: 0 },
+  { topic: 2, q: { en: 'Cash vs profit:', ur: 'Cash:' }, opts: { en: ['Cash is fact; profit malleable', 'Opposite', 'Same always'], ur: ['Cash fact hai profit manipulable ho sakti hai', 'Opposite', 'Same'] }, correct: 0 },
+  { topic: 2, q: { en: 'Rising profit + falling OCF:', ur: 'Barhti profit aur girti OCF kya batati hai:' }, opts: { en: ['Red flag', 'Perfect', 'Ignore'], ur: ['Red flag', 'Perfect', 'Ignore'] }, correct: 0 },
+  { topic: 3, q: { en: 'Informal funding adds:', ur: 'Informal funding kya add karti hai:' }, opts: { en: ['Legal risk', 'Free alpha', 'Zero cost'], ur: ['Legal risk', 'Alpha', 'Zero'] }, correct: 0 },
   { topic: 3, q: { en: 'Expense ratios:', ur: 'ER:' }, opts: { en: ['Drag compounding', 'Only help', 'Illegal'], ur: ['Drag', 'Help', 'Illegal'] }, correct: 0 },
-  { topic: 4, q: { en: 'Invest loop starts with:', ur: 'Loop:' }, opts: { en: ['Thesis + filings + size', 'Tips first', 'Max size'], ur: ['Thesis+filings', 'Tips', 'Max'] }, correct: 0 },
-  { topic: 4, q: { en: 'Certificate means:', ur: 'Cert:' }, opts: { en: ['Study progress', 'License', 'Income'], ur: ['Study', 'License', 'Income'] }, correct: 0 },
+  { topic: 4, q: { en: 'Invest loop starts with:', ur: 'Invest loop kis se shuru hoti hai:' }, opts: { en: ['Thesis + filings + size', 'Tips first', 'Max size'], ur: ['Thesis+filings', 'Tips', 'Max'] }, correct: 0 },
+  { topic: 4, q: { en: 'Certificate means:', ur: 'Certificate ka matlab kya hai:' }, opts: { en: ['Study progress', 'License', 'Income'], ur: ['Study', 'License', 'Income'] }, correct: 0 },
 ];

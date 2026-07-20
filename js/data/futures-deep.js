@@ -53,7 +53,7 @@ export const FUTURES_DEEP_WEEKS = [
     notebookPrompt: { en: 'Write: why futures need margin.', ur: 'Futures ko margin kyun.' },
     flashcardSeeds: [
       { front: { en: 'Futures are', ur: 'Futures' }, back: { en: 'Standardized future contracts.', ur: 'Standard future contracts.' } },
-      { front: { en: 'Daily mark-to-market', ur: 'MTM' }, back: { en: 'P/L settled continuously vs spot buy-hold feel.', ur: 'Rozana P/L.' } },
+      { front: { en: 'Daily mark-to-market', ur: 'MTM' }, back: { en: 'P/L settled continuously vs spot buy-hold feel.', ur: 'P/L rozana settle hoti vs spot buy-hold feel.' } },
       { front: { en: 'Margin enables', ur: 'Margin' }, back: { en: 'Leverage — and liquidation.', ur: 'Leverage + liq.' } },
       { front: { en: 'Futures ≠', ur: '≠' }, back: { en: 'Automatic spot ownership.', ur: 'Auto spot own nahi.' } },
       { front: { en: 'Most retail', ur: 'Retail' }, back: { en: 'Offset before delivery.', ur: 'Delivery se pehle offset.' } },
@@ -99,7 +99,7 @@ export const FUTURES_DEEP_WEEKS = [
     flashcardSeeds: [
       { front: { en: 'Notional', ur: 'Notional' }, back: { en: 'Full contract exposure — often >> margin.', ur: 'Full exposure >> margin.' } },
       { front: { en: 'Tick value', ur: 'Tick' }, back: { en: 'Money per minimum price increment.', ur: '$ per min increment.' } },
-      { front: { en: 'Size from', ur: 'Size' }, back: { en: 'Risk $ and stop ticks — not margin alone.', ur: 'Risk$ + ticks.' } },
+      { front: { en: 'Size from', ur: 'Size' }, back: { en: 'Risk $ and stop ticks — not margin alone.', ur: 'Risk $ aur stop ticks — sirf margin nahi.' } },
       { front: { en: 'Afford margin ≠', ur: 'Margin' }, back: { en: 'Safe leverage.', ur: 'Safe lev nahi.' } },
       { front: { en: 'Multiplier', ur: 'Mult' }, back: { en: 'Scales price move into P/L.', ur: 'Price → P/L scale.' } },
     ],
@@ -143,8 +143,8 @@ export const FUTURES_DEEP_WEEKS = [
     notebookPrompt: { en: 'Write roll rule (DTE / never hold expiry).', ur: 'Roll rule likho (DTE / expiry pe kabhi hold nahi).' },
     flashcardSeeds: [
       { front: { en: 'Initial margin', ur: 'Initial' }, back: { en: 'To open the position.', ur: 'Open ke liye.' } },
-      { front: { en: 'Maintenance margin', ur: 'Maint' }, back: { en: 'Minimum to keep — breach hurts.', ur: 'Keep minimum.' } },
-      { front: { en: 'Roll', ur: 'Roll' }, back: { en: 'Move exposure to next contract.', ur: 'Next contract.' } },
+      { front: { en: 'Maintenance margin', ur: 'Maint' }, back: { en: 'Minimum to keep — breach hurts.', ur: 'Rakhne ka minimum — breach dard deti hai.' } },
+      { front: { en: 'Roll', ur: 'Roll' }, back: { en: 'Move exposure to next contract.', ur: 'Exposure agle contract mein move karo.' } },
       { front: { en: 'Contango', ur: 'Contango' }, back: { en: 'Later contracts richer — curve shape.', ur: 'Later richer — shape.' } },
       { front: { en: 'Curve as tip', ur: 'Curve tip' }, back: { en: 'Not a guaranteed income signal.', ur: 'Income signal nahi.' } },
     ],
@@ -189,9 +189,9 @@ export const FUTURES_DEEP_WEEKS = [
     flashcardSeeds: [
       { front: { en: 'Futures loop', ur: 'Loop' }, back: { en: 'Specs → risk$ → ticks → cushion → roll → log.', ur: 'Specs → risk → ticks → roll → log.' } },
       { front: { en: 'Margin allows max', ur: 'Max' }, back: { en: 'Not a size rule.', ur: 'Size rule nahi.' } },
-      { front: { en: 'Signal ignoring notional', ur: 'Signal' }, back: { en: 'Cosplay.', ur: 'Cosplay.' } },
-      { front: { en: 'Certificate', ur: 'Cert' }, back: { en: 'Study progress — not prop license.', ur: 'Study — prop nahi.' } },
-      { front: { en: 'Cushion', ur: 'Cushion' }, back: { en: 'Extra margin beyond maintenance.', ur: 'Maint ke upar.' } },
+      { front: { en: 'Signal ignoring notional', ur: 'Signal notional ignore karna' }, back: { en: 'Cosplay.', ur: 'Cosplay.' } },
+      { front: { en: 'Certificate', ur: 'Cert' }, back: { en: 'Study progress — not prop license.', ur: 'Study progress hai — prop license nahi.' } },
+      { front: { en: 'Cushion', ur: 'Cushion' }, back: { en: 'Extra margin beyond maintenance.', ur: 'Maintenance se upar extra margin chahiye.' } },
     ],
     quiz: [
       { q: { en: 'Futures size should use:', ur: 'Futures size kya use karni chahiye:' },
@@ -213,9 +213,9 @@ export const FUTURES_DEEP_WEEKS = [
 export const FUTURES_DEEP_PLACEMENT = [
   { topic: 1, q: { en: 'Futures are:', ur: 'Futures:' }, opts: { en: ['Future contracts', 'Always spot bags', 'Gifts'], ur: ['Contracts', 'Spot bags', 'Gifts'] }, correct: 0 },
   { topic: 1, q: { en: 'Margin adds:', ur: 'Margin:' }, opts: { en: ['Lev + liq risk', 'Guaranteed yield', 'Zero risk'], ur: ['Lev+liq', 'Yield', 'Zero'] }, correct: 0 },
-  { topic: 2, q: { en: 'Notional vs margin:', ur: 'Notional:' }, opts: { en: ['Often >> margin', 'Always equal', 'Smaller always'], ur: ['>> margin', 'Equal', 'Smaller'] }, correct: 0 },
+  { topic: 2, q: { en: 'Notional vs margin:', ur: 'Notional vs margin mein farq kya hai:' }, opts: { en: ['Often >> margin', 'Always equal', 'Smaller always'], ur: ['>> margin', 'Equal', 'Smaller'] }, correct: 0 },
   { topic: 2, q: { en: 'Size from:', ur: 'Size:' }, opts: { en: ['Risk$ + ticks', 'Max margin', 'Tips'], ur: ['Risk$+ticks', 'Max margin', 'Tips'] }, correct: 0 },
-  { topic: 3, q: { en: 'Maintenance breach:', ur: 'Maint:' }, opts: { en: ['Call/liq path', 'Bonus', 'Free roll'], ur: ['Call/liq', 'Bonus', 'Free roll'] }, correct: 0 },
+  { topic: 3, q: { en: 'Maintenance breach:', ur: 'Maintenance breach kya hota hai:' }, opts: { en: ['Call/liq path', 'Bonus', 'Free roll'], ur: ['Call/liq', 'Bonus', 'Free roll'] }, correct: 0 },
   { topic: 3, q: { en: 'Contango is:', ur: 'Contango:' }, opts: { en: ['Curve shape', 'Guaranteed salary', 'Illegal'], ur: ['Curve', 'Salary', 'Illegal'] }, correct: 0 },
   { topic: 4, q: { en: 'Loop starts:', ur: 'Loop:' }, opts: { en: ['Specs + risk ticks', 'Max contracts', 'Signals first'], ur: ['Specs+risk', 'Max', 'Signals'] }, correct: 0 },
   { topic: 4, q: { en: 'Certificate:', ur: 'Cert:' }, opts: { en: ['Study record', 'Prop license', 'Income'], ur: ['Study', 'Prop', 'Income'] }, correct: 0 },

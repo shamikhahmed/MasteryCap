@@ -53,10 +53,10 @@ export const MACRO_DEEP_WEEKS = [
     notebookPrompt: { en: 'Write this month: risk-on or risk-off + why (2 lines).', ur: 'Is mahine likho: risk-on ya risk-off + kyun (2 lines).' },
     flashcardSeeds: [
       { front: { en: 'Macro answers', ur: 'Macro' }, back: { en: 'Weather / context — not next candle.', ur: 'Weather — candle nahi.' } },
-      { front: { en: 'Honest retail use', ur: 'Use' }, back: { en: 'Risk-on/off sizing and horizon.', ur: 'Sizing + horizon.' } },
-      { front: { en: 'CPI top/bottom threads', ur: 'CPI threads' }, back: { en: 'Entertainment, not edge.', ur: 'Entertainment.' } },
-      { front: { en: 'Macro replacing homework', ur: 'Replace' }, back: { en: 'Cosplay.', ur: 'Cosplay.' } },
-      { front: { en: 'Macro signals = salary', ur: 'Salary' }, back: { en: 'Walk away.', ur: 'Chalo.' } },
+      { front: { en: 'Honest retail use', ur: 'Use' }, back: { en: 'Risk-on/off sizing and horizon.', ur: 'Risk-on/off sizing aur horizon dono badalte hain.' } },
+      { front: { en: 'CPI top/bottom threads', ur: 'CPI top/bottom threads' }, back: { en: 'Entertainment, not edge.', ur: 'Entertainment.' } },
+      { front: { en: 'Macro replacing homework', ur: 'Macro se homework replace karna' }, back: { en: 'Cosplay.', ur: 'Cosplay.' } },
+      { front: { en: 'Macro signals = salary', ur: 'Macro signals = salary samajhna' }, back: { en: 'Walk away.', ur: 'Chalo.' } },
     ],
     quiz: [
       { q: { en: 'Macro literacy mainly helps you:', ur: 'Macro literacy mainly tumhein kya madad deti hai:' },
@@ -99,9 +99,9 @@ export const MACRO_DEEP_WEEKS = [
     flashcardSeeds: [
       { front: { en: 'Real return', ur: 'Real' }, back: { en: 'Nominal minus inflation.', ur: 'Nominal − inflation.' } },
       { front: { en: 'Emergency cash job', ur: 'Cash' }, back: { en: 'Survive shocks — not whole wealth plan.', ur: 'Survive — whole plan nahi.' } },
-      { front: { en: 'CPI + 20× leverage', ur: 'CPI lev' }, back: { en: 'Gambling in macro costume.', ur: 'Gambling.' } },
-      { front: { en: 'Digits vs purchasing power', ur: 'Digits' }, back: { en: 'Balance ≠ life richer if prices sprint.', ur: 'Balance ≠ richer.' } },
-      { front: { en: 'Surplus invests after', ur: 'Surplus' }, back: { en: 'Emergency buffer exists.', ur: 'Buffer pehle.' } },
+      { front: { en: 'CPI + 20× leverage', ur: 'CPI lev' }, back: { en: 'Gambling in macro costume.', ur: 'Macro costume mein gambling hai.' } },
+      { front: { en: 'Digits vs purchasing power', ur: 'Digits vs purchasing power' }, back: { en: 'Balance ≠ life richer if prices sprint.', ur: 'Balance ≠ zindagi ameer agar prices sprint karein.' } },
+      { front: { en: 'Surplus invests after', ur: 'Surplus invest tab hota hai jab' }, back: { en: 'Emergency buffer exists.', ur: 'Emergency buffer pehle maujood ho.' } },
     ],
     quiz: [
       { q: { en: 'Real return roughly equals:', ur: 'Real return roughly kya hota hai:' },
@@ -142,11 +142,11 @@ export const MACRO_DEEP_WEEKS = [
     exitTicket: { en: 'You can name one rate dial + one FX channel for PK learner.', ur: 'PK learner ke liye ek rate dial + ek FX channel naam kar sakte ho.' },
     notebookPrompt: { en: 'This quarter: rate bias + USD bias in one line each.', ur: 'Is quarter: rate bias + USD bias — har ek ek line mein.' },
     flashcardSeeds: [
-      { front: { en: 'Rising rates often pressure', ur: 'Rates up' }, back: { en: 'Long-duration risk assets.', ur: 'Long-duration risk.' } },
-      { front: { en: 'Rates as', ur: 'Rates' }, back: { en: 'Headwind/tailwind dial — not cheat code.', ur: 'Dial — cheat nahi.' } },
-      { front: { en: 'Weaker PKR often means', ur: 'PKR' }, back: { en: 'Higher import costs / inflation pressure.', ur: 'Import cost / inflation.' } },
-      { front: { en: 'Liquidity thinning', ur: 'Liquidity' }, back: { en: 'Risk assets struggle for oxygen.', ur: 'Oxygen kam.' } },
-      { front: { en: 'One meeting = one candle', ur: '1:1' }, back: { en: 'Rarely true.', ur: 'Shazz.' } },
+      { front: { en: 'Rising rates often pressure', ur: 'Rising rates aksar kis cheez ko dabate hain' }, back: { en: 'Long-duration risk assets.', ur: 'Long-duration risk.' } },
+      { front: { en: 'Rates as', ur: 'Rates' }, back: { en: 'Headwind/tailwind dial — not cheat code.', ur: 'Headwind/tailwind dial hai — cheat code nahi.' } },
+      { front: { en: 'Weaker PKR often means', ur: 'Weaker PKR aksar kya mean karta hai' }, back: { en: 'Higher import costs / inflation pressure.', ur: 'Import cost / inflation.' } },
+      { front: { en: 'Liquidity thinning', ur: 'Liquidity' }, back: { en: 'Risk assets struggle for oxygen.', ur: 'Risk assets ko oxygen ke liye struggle karna padta hai.' } },
+      { front: { en: 'One meeting = one candle', ur: 'Ek meeting = ek candle samajhna' }, back: { en: 'Rarely true.', ur: 'Shazz.' } },
     ],
     quiz: [
       { q: { en: 'Rising policy rates often pressure:', ur: 'Rising policy rates aksar kis pe pressure dalte hain:' },
@@ -211,12 +211,12 @@ export const MACRO_DEEP_WEEKS = [
 ];
 
 export const MACRO_DEEP_PLACEMENT = [
-  { topic: 1, q: { en: 'Macro mainly sets:', ur: 'Macro:' }, opts: { en: ['Context/risk appetite', 'Guaranteed entries', 'Salary'], ur: ['Context', 'Entries', 'Salary'] }, correct: 0 },
-  { topic: 1, q: { en: 'CPI exact top threads:', ur: 'CPI:' }, opts: { en: ['Entertainment', 'Edge', 'Law'], ur: ['Entertainment', 'Edge', 'Law'] }, correct: 0 },
+  { topic: 1, q: { en: 'Macro mainly sets:', ur: 'Macro mainly kya set karta hai:' }, opts: { en: ['Context/risk appetite', 'Guaranteed entries', 'Salary'], ur: ['Context aur risk appetite set karta hai macro', 'Entries', 'Salary'] }, correct: 0 },
+  { topic: 1, q: { en: 'CPI exact top threads:', ur: 'CPI exact top threads par kya karna chahiye:' }, opts: { en: ['Entertainment', 'Edge', 'Law'], ur: ['Entertainment', 'Edge', 'Law'] }, correct: 0 },
   { topic: 2, q: { en: 'Real return:', ur: 'Real:' }, opts: { en: ['Nominal − inflation', 'Only leverage', 'Ignore prices'], ur: ['Nominal − inflation', 'Leverage', 'Ignore'] }, correct: 0 },
-  { topic: 2, q: { en: 'Emergency cash:', ur: 'Cash:' }, opts: { en: ['Keep before surplus risk', 'Never', 'All-in assets'], ur: ['Keep first', 'Never', 'All-in'] }, correct: 0 },
+  { topic: 2, q: { en: 'Emergency cash:', ur: 'Cash:' }, opts: { en: ['Keep before surplus risk', 'Never', 'All-in assets'], ur: ['Pehle emergency keep karo phir surplus risk lo', 'Never', 'All-in'] }, correct: 0 },
   { topic: 3, q: { en: 'Rates are a:', ur: 'Rates:' }, opts: { en: ['Dial', 'Cheat code', 'Ignore'], ur: ['Dial', 'Cheat', 'Ignore'] }, correct: 0 },
-  { topic: 3, q: { en: '20× on one meeting:', ur: '20×:' }, opts: { en: ['Gambling', 'Required', 'Safe'], ur: ['Gambling', 'Required', 'Safe'] }, correct: 0 },
-  { topic: 4, q: { en: 'Macro loop:', ur: 'Loop:' }, opts: { en: ['Note → size → homework', 'Tip → all-in', 'Skip journal'], ur: ['Note→size→hw', 'Tip all-in', 'Skip'] }, correct: 0 },
+  { topic: 3, q: { en: '20× on one meeting:', ur: 'Ek meeting pe 20× leverage kya hai:' }, opts: { en: ['Gambling', 'Required', 'Safe'], ur: ['Gambling', 'Required', 'Safe'] }, correct: 0 },
+  { topic: 4, q: { en: 'Macro loop:', ur: 'Loop:' }, opts: { en: ['Note → size → homework', 'Tip → all-in', 'Skip journal'], ur: ['Note likho phir size phir homework — ye order hai', 'Tip all-in', 'Skip'] }, correct: 0 },
   { topic: 4, q: { en: 'Certificate:', ur: 'Cert:' }, opts: { en: ['Study record', 'Crystal license', 'Income'], ur: ['Study', 'Crystal', 'Income'] }, correct: 0 },
 ];

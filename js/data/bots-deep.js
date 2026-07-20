@@ -52,11 +52,11 @@ export const BOTS_DEEP_WEEKS = [
     exitTicket: { en: 'You can say what a bot cannot invent.', ur: 'Bot kya invent nahi.' },
     notebookPrompt: { en: 'Write: I will never share withdraw-capable keys.', ur: 'Withdraw keys kabhi share nahi.' },
     flashcardSeeds: [
-      { front: { en: 'A bot is', ur: 'Bot' }, back: { en: 'A rule executor — not a brain with edge.', ur: 'Rule executor.' } },
-      { front: { en: 'Withdraw API key share', ur: 'API' }, back: { en: 'Theft/scam risk — refuse.', ur: 'Theft risk — refuse.' } },
-      { front: { en: 'Guaranteed bot profit', ur: 'Guarantee' }, back: { en: 'Fantasy / scam pitch.', ur: 'Fantasy / scam.' } },
+      { front: { en: 'A bot is', ur: 'Bot' }, back: { en: 'A rule executor — not a brain with edge.', ur: 'Rule executor hai — edge wala dimagh nahi.' } },
+      { front: { en: 'Withdraw API key share', ur: 'Withdraw API key share karna' }, back: { en: 'Theft/scam risk — refuse.', ur: 'Theft risk — refuse.' } },
+      { front: { en: 'Guaranteed bot profit', ur: 'Guaranteed bot profit ka claim' }, back: { en: 'Fantasy / scam pitch.', ur: 'Fantasy / scam.' } },
       { front: { en: 'Automation removes', ur: 'Auto' }, back: { en: 'Click delay — not risk.', ur: 'Delay — risk nahi.' } },
-      { front: { en: 'Elective warning', ur: 'Elective' }, back: { en: 'Eyes open — not on credit path.', ur: 'Eyes open.' } },
+      { front: { en: 'Elective warning', ur: 'Elective' }, back: { en: 'Eyes open — not on credit path.', ur: 'Aankhein khuli rakho — credit path pe nahi.' } },
     ],
     quiz: [
       { q: { en: 'Trading bots mainly:', ur: 'Trading bots mainly kya karte hain:' },
@@ -95,7 +95,7 @@ export const BOTS_DEEP_WEEKS = [
     exitTicket: { en: 'You can name one kill condition for grid and for copy.', ur: 'Grid aur copy ke liye ek ek kill condition naam kar sakte ho.' },
     notebookPrompt: { en: 'Write max drawdown kill switch before any bot deposit.', ur: 'Kisi bot deposit se pehle max drawdown kill switch likho.' },
     flashcardSeeds: [
-      { front: { en: 'Grid fails in', ur: 'Grid' }, back: { en: 'Strong trends / one-way markets.', ur: 'Strong trends.' } },
+      { front: { en: 'Grid fails in', ur: 'Grid' }, back: { en: 'Strong trends / one-way markets.', ur: 'Strong trends / one-way markets mein achha chal sakta.' } },
       { front: { en: 'Unbounded DCA', ur: 'DCA' }, back: { en: 'Can average into ruin.', ur: 'Ruin average.' } },
       { front: { en: 'Copy trading imports', ur: 'Copy' }, back: { en: 'Their size, latency, conflicts.', ur: 'Size + latency + conflict.' } },
       { front: { en: 'Screenshot P/L', ur: 'Screenshot' }, back: { en: 'Not proof of your future.', ur: 'Future proof nahi.' } },
@@ -141,10 +141,10 @@ export const BOTS_DEEP_WEEKS = [
     notebookPrompt: { en: 'Never-pay list: unlock fees, VIP bots, recovery agents.', ur: 'Never-pay list: unlock fees, VIP bots, recovery agents.' },
     flashcardSeeds: [
       { front: { en: 'Overfitting', ur: 'Overfit' }, back: { en: 'Curve fit past — fails live.', ur: 'Past fit — live fail.' } },
-      { front: { en: 'Backtest without fees/slip', ur: 'Backtest' }, back: { en: 'Fantasy P/L.', ur: 'Fantasy.' } },
+      { front: { en: 'Backtest without fees/slip', ur: 'Backtest bina fees/slip ke' }, back: { en: 'Fantasy P/L.', ur: 'Fantasy.' } },
       { front: { en: 'Signal group', ur: 'Signals' }, back: { en: 'Selection bias + latency.', ur: 'Bias + latency.' } },
-      { front: { en: 'VIP unlock after loss', ur: 'VIP' }, back: { en: 'Second trap — refuse.', ur: 'Second trap.' } },
-      { front: { en: 'Guru certainty', ur: 'Guru' }, back: { en: 'Sales — not your risk system.', ur: 'Sales.' } },
+      { front: { en: 'VIP unlock after loss', ur: 'Loss ke baad VIP unlock' }, back: { en: 'Second trap — refuse.', ur: 'Second trap.' } },
+      { front: { en: 'Guru certainty', ur: 'Guru' }, back: { en: 'Sales — not your risk system.', ur: 'Sales hai — tumhara risk system nahi.' } },
     ],
     quiz: [
       { q: { en: 'Beautiful backtests often hide:', ur: 'Beautiful backtests aksar kya chhupate hain:' },
@@ -186,10 +186,10 @@ export const BOTS_DEEP_WEEKS = [
     notebookPrompt: { en: 'Six-bullet bots defense loop on Study desk.', ur: 'Study desk pe six-bullet bots defense loop likho.' },
     flashcardSeeds: [
       { front: { en: 'Automation ladder', ur: 'Ladder' }, back: { en: 'Alerts → paper → tiny bounded → never unlock fees.', ur: 'Alerts → paper → tiny → no unlock.' } },
-      { front: { en: 'Profit bot purchase', ur: 'Profit bot' }, back: { en: 'Refuse — not literacy.', ur: 'Refuse.' } },
+      { front: { en: 'Profit bot purchase', ur: 'Profit bot' }, back: { en: 'Refuse — not literacy.', ur: 'Refuse karo — literacy nahi hai ye.' } },
       { front: { en: 'Kill switch owner', ur: 'Kill' }, back: { en: 'You — not the vendor chat.', ur: 'Tum — vendor nahi.' } },
       { front: { en: 'Certificate', ur: 'Cert' }, back: { en: 'Study record — not endorsement.', ur: 'Study — endorsement nahi.' } },
-      { front: { en: 'Elective path', ur: 'Elective' }, back: { en: 'Warn-only — not credit path.', ur: 'Warn-only.' } },
+      { front: { en: 'Elective path', ur: 'Elective' }, back: { en: 'Warn-only — not credit path.', ur: 'Warn-only hai — credit path nahi.' } },
     ],
     quiz: [
       { q: { en: 'Safest first automation is usually:', ur: 'Sab se safe pehli automation aksar kya hoti hai:' },
@@ -210,11 +210,11 @@ export const BOTS_DEEP_WEEKS = [
 
 export const BOTS_DEEP_PLACEMENT = [
   { topic: 1, q: { en: 'Bots are:', ur: 'Bots:' }, opts: { en: ['Rule executors', 'Guaranteed alpha', 'Risk delete'], ur: ['Executors', 'Alpha', 'Delete risk'] }, correct: 0 },
-  { topic: 1, q: { en: 'Withdraw API share:', ur: 'API:' }, opts: { en: ['Dangerous', 'Required', 'Safe'], ur: ['Dangerous', 'Required', 'Safe'] }, correct: 0 },
+  { topic: 1, q: { en: 'Withdraw API share:', ur: 'Withdraw API share karna kya hai:' }, opts: { en: ['Dangerous', 'Required', 'Safe'], ur: ['Dangerous', 'Required', 'Safe'] }, correct: 0 },
   { topic: 2, q: { en: 'Grid fails in:', ur: 'Grid:' }, opts: { en: ['Strong trends', 'Perfect ranges only', 'Zero vol'], ur: ['Trends', 'Ranges', 'Zero vol'] }, correct: 0 },
-  { topic: 2, q: { en: 'Copy imports:', ur: 'Copy:' }, opts: { en: ['Size/latency/conflicts', 'Guaranteed fills', 'No risk'], ur: ['Size/latency', 'Fills', 'No risk'] }, correct: 0 },
-  { topic: 3, q: { en: 'Pretty backtests often:', ur: 'Backtest:' }, opts: { en: ['Overfit', 'Guarantee live', 'Ignore'], ur: ['Overfit', 'Live guarantee', 'Ignore'] }, correct: 0 },
-  { topic: 3, q: { en: 'VIP unlock after loss:', ur: 'VIP:' }, opts: { en: ['Second trap', 'Required', 'Official'], ur: ['Trap', 'Required', 'Official'] }, correct: 0 },
-  { topic: 4, q: { en: 'First automation:', ur: 'First:' }, opts: { en: ['Alerts/journal', 'Life API', 'Share keys'], ur: ['Alerts', 'Life API', 'Keys'] }, correct: 0 },
-  { topic: 4, q: { en: 'Certificate:', ur: 'Cert:' }, opts: { en: ['Study not endorsement', 'Vendor license', 'Income'], ur: ['Study', 'License', 'Income'] }, correct: 0 },
+  { topic: 2, q: { en: 'Copy imports:', ur: 'Copy:' }, opts: { en: ['Size/latency/conflicts', 'Guaranteed fills', 'No risk'], ur: ['Size, latency aur chhupi conflicts import hoti hain', 'Fills', 'No risk'] }, correct: 0 },
+  { topic: 3, q: { en: 'Pretty backtests often:', ur: 'Pretty backtests aksar kya karte hain:' }, opts: { en: ['Overfit', 'Guarantee live', 'Ignore'], ur: ['Overfit', 'Live guarantee', 'Ignore'] }, correct: 0 },
+  { topic: 3, q: { en: 'VIP unlock after loss:', ur: 'Loss ke baad VIP unlock kya hai:' }, opts: { en: ['Second trap', 'Required', 'Official'], ur: ['Trap', 'Required', 'Official'] }, correct: 0 },
+  { topic: 4, q: { en: 'First automation:', ur: 'Pehli automation kya honi chahiye:' }, opts: { en: ['Alerts/journal', 'Life API', 'Share keys'], ur: ['Alerts', 'Life API', 'Keys'] }, correct: 0 },
+  { topic: 4, q: { en: 'Certificate:', ur: 'Cert:' }, opts: { en: ['Study not endorsement', 'Vendor license', 'Income'], ur: ['Study progress hai endorsement nahi hai ye track', 'License', 'Income'] }, correct: 0 },
 ];

@@ -57,11 +57,11 @@ export const FOUNDATIONS_WEEKS = [
     ur: 'Paise risk se pehle ek rule likho jo follow karoge (misal: "stop ke bina entry nahi").',
   },
   flashcardSeeds: [
-    { front: { en: 'What is a market?', ur: 'Market kya?' }, back: { en: 'A place where buyers and sellers agree on a price for something scarce.', ur: 'Buyer/seller price pe agree.' } },
-    { front: { en: 'Why does every trade need a counterparty?', ur: 'Counterparty kyun?' }, back: { en: 'Someone must take the other side — disagreement about value creates the fill.', ur: 'Doosri side chahiye.' } },
-    { front: { en: 'Does finishing a course guarantee income?', ur: 'Course = income?' }, back: { en: 'No. Literacy improves process; markets pay no salary for knowledge.', ur: 'Nahi. Process ≠ tankhwah.' } },
-    { front: { en: 'What is MasteryCap?', ur: 'MasteryCap?' }, back: { en: 'An offline study campus — not a broker, tip service, or accredited license.', ur: 'Offline school — broker/license nahi.' } },
-    { front: { en: 'What moves price?', ur: 'Price kyun hilti?' }, back: { en: 'Uneven willingness to buy vs sell (orders, liquidity, positioning, fear).', ur: 'Buy vs sell imbalance.' } },
+    { front: { en: 'What is a market?', ur: 'Market kya?' }, back: { en: 'A place where buyers and sellers agree on a price for something scarce.', ur: 'Jahan buyer aur seller kisi scarce cheez ki price pe agree karte hain.' } },
+    { front: { en: 'Why does every trade need a counterparty?', ur: 'Har trade mein counterparty kyun zaroori hota hai?' }, back: { en: 'Someone must take the other side — disagreement about value creates the fill.', ur: 'Koi doosri side lena zaroori — value pe disagreement fill banati hai.' } },
+    { front: { en: 'Does finishing a course guarantee income?', ur: 'Kya course complete karne se income guarantee hoti hai?' }, back: { en: 'No. Literacy improves process; markets pay no salary for knowledge.', ur: 'Nahi. Literacy process behtar karti; markets knowledge ki tankhwah nahi deti.' } },
+    { front: { en: 'What is MasteryCap?', ur: 'MasteryCap?' }, back: { en: 'An offline study campus — not a broker, tip service, or accredited license.', ur: 'Offline study campus — broker, tip service, ya accredited license nahi.' } },
+    { front: { en: 'What moves price?', ur: 'Price kyun hilti?' }, back: { en: 'Uneven willingness to buy vs sell (orders, liquidity, positioning, fear).', ur: 'Buy vs sell ki uneven willingness (orders, liquidity, positioning, fear).' } },
   ],
   get body() {
     return { en: partsHtml(this, 'en'), ur: partsHtml(this, 'ur') };
@@ -117,11 +117,11 @@ export const FOUNDATIONS_WEEKS = [
     ur: 'Teen scam patterns apne alfaaz mein likho. Ek note karo jis pe almost bharosa aa gaya tha.',
   },
   flashcardSeeds: [
-    { front: { en: 'Someone asks for your seed phrase', ur: 'Seed mange' }, back: { en: 'Refuse. Seed = ownership. No support needs it.', ur: 'Refuse. Seed = ownership.' } },
-    { front: { en: '“Guaranteed 5% daily” tip seller', ur: 'Guaranteed daily' }, back: { en: 'Red flag — walk away.', ur: 'Red flag.' } },
-    { front: { en: 'Before funding a broker', ur: 'Fund se pehle' }, back: { en: 'Verify license on the official regulator site.', ur: 'Regulator site verify.' } },
+    { front: { en: 'Someone asks for your seed phrase', ur: 'Koi tumhari seed phrase maangta hai' }, back: { en: 'Refuse. Seed = ownership. No support needs it.', ur: 'Refuse karo. Seed = ownership. Kisi support ko ye nahi chahiye.' } },
+    { front: { en: '“Guaranteed 5% daily” tip seller', ur: '“Guaranteed 5% daily” wala tip seller' }, back: { en: 'Red flag — walk away.', ur: 'Red flag hai — wahan se door chalo.' } },
+    { front: { en: 'Before funding a broker', ur: 'Fund se pehle' }, back: { en: 'Verify license on the official regulator site.', ur: 'License official regulator site pe verify karo.' } },
     { front: { en: 'What do high-leverage win ads omit?', ur: 'Leverage ads chhupate' }, back: { en: 'Liquidation and loss frequency (selection bias).', ur: 'Liquidation / loss frequency.' } },
-    { front: { en: 'Remote desktop “I’ll trade for you”', ur: 'Remote desktop' }, back: { en: 'Account theft pattern — never allow.', ur: 'Theft — kabhi nahi.' } },
+    { front: { en: 'Remote desktop “I’ll trade for you”', ur: 'Remote desktop — “main tumhare liye trade karunga”' }, back: { en: 'Account theft pattern — never allow.', ur: 'Account theft ka pattern — kabhi allow mat karo.' } },
   ],
   get body() {
     return { en: partsHtml(this, 'en'), ur: partsHtml(this, 'ur') };
@@ -175,11 +175,11 @@ export const FOUNDATIONS_WEEKS = [
     ur: 'Apna funding cap likho aur exact withdrawal test jo size se pehle karoge.',
   },
   flashcardSeeds: [
-    { front: { en: 'PSX shares should sit in', ur: 'PSX shares' }, back: { en: 'Your CDC / investor account in your name.', ur: 'CDC apne naam.' } },
-    { front: { en: 'KYC exists mainly to', ur: 'KYC' }, back: { en: 'Identify you for regulated compliance — not to guarantee profit.', ur: 'Compliance — profit nahi.' } },
+    { front: { en: 'PSX shares should sit in', ur: 'PSX shares kahan honi chahiye' }, back: { en: 'Your CDC / investor account in your name.', ur: 'Tumhara CDC / investor account tumhare apne naam pe.' } },
+    { front: { en: 'KYC exists mainly to', ur: 'KYC' }, back: { en: 'Identify you for regulated compliance — not to guarantee profit.', ur: 'Regulated compliance ke liye pehchan — profit guarantee ke liye nahi.' } },
     { front: { en: 'Before large size on a new venue', ur: 'Badi size se pehle' }, back: { en: 'Test a small withdrawal successfully.', ur: 'Chhota withdrawal test.' } },
-    { front: { en: 'This lesson endorses', ur: 'Endorse' }, back: { en: 'A process checklist — not a specific affiliate broker.', ur: 'Checklist — affiliate nahi.' } },
-    { front: { en: 'Exchange IOU risk', ur: 'Exchange IOU' }, back: { en: 'Large balances on an exchange are counterparty risk — not the same as self-custody.', ur: 'Counterparty risk.' } },
+    { front: { en: 'This lesson endorses', ur: 'Endorse' }, back: { en: 'A process checklist — not a specific affiliate broker.', ur: 'Process checklist hai — kisi specific affiliate broker ka nahi.' } },
+    { front: { en: 'Exchange IOU risk', ur: 'Exchange IOU' }, back: { en: 'Large balances on an exchange are counterparty risk — not the same as self-custody.', ur: 'Exchange pe bari balance counterparty risk hai — self-custody jaisi nahi.' } },
   ],
   get body() {
     return { en: partsHtml(this, 'en'), ur: partsHtml(this, 'ur') };
@@ -234,10 +234,10 @@ export const FOUNDATIONS_WEEKS = [
   },
   flashcardSeeds: [
     { front: { en: 'Limit buy fills', ur: 'Limit buy' }, back: { en: 'At your limit or better — or not at all.', ur: 'Limit/better — ya nahi.' } },
-    { front: { en: 'Crossing the spread with a market order', ur: 'Spread cross' }, back: { en: 'You pay the ask to buy or hit the bid to sell.', ur: 'Buy ask / sell bid.' } },
+    { front: { en: 'Crossing the spread with a market order', ur: 'Market order se spread cross karna' }, back: { en: 'You pay the ask to buy or hit the bid to sell.', ur: 'Buy ke liye ask pay karte ho ya sell ke liye bid hit karte ho.' } },
     { front: { en: 'Early order habit', ur: 'Order habit' }, back: { en: 'Prefer limits; notice chase urges.', ur: 'Limits; chase dekho.' } },
-    { front: { en: 'Paper trading’s job', ur: 'Paper' }, back: { en: 'Practice process without risking rent money.', ur: 'Process bina rent risk.' } },
-    { front: { en: 'Bid vs ask', ur: 'Bid/ask' }, back: { en: 'Bid = buyers; ask = sellers; spread is between them.', ur: 'Bid buyers; ask sellers.' } },
+    { front: { en: 'Paper trading’s job', ur: 'Paper' }, back: { en: 'Practice process without risking rent money.', ur: 'Process practice karo bina rent wale paise risk kiye.' } },
+    { front: { en: 'Bid vs ask', ur: 'Bid/ask' }, back: { en: 'Bid = buyers; ask = sellers; spread is between them.', ur: 'Bid = buyers; ask = sellers; spread dono ke beech hota hai.' } },
   ],
   get body() {
     return { en: partsHtml(this, 'en'), ur: partsHtml(this, 'ur') };
@@ -304,10 +304,10 @@ export const FOUNDATIONS_WEEKS = [
   },
   flashcardSeeds: [
     { front: { en: 'Incomplete checklist means', ur: 'Incomplete checklist' }, back: { en: 'No trade.', ur: 'No trade.' } },
-    { front: { en: 'Good debrief focuses on', ur: 'Debrief' }, back: { en: 'Whether process was followed — not only dollar P&L.', ur: 'Process — sirf P&L nahi.' } },
-    { front: { en: 'Emotion tags help spot', ur: 'Emotion tags' }, back: { en: 'Revenge / FOMO clusters that destroy expectancy.', ur: 'Revenge/FOMO clusters.' } },
-    { front: { en: 'Practice desk lives in', ur: 'Desk' }, back: { en: 'Practice / Journal — not the school homeboard alone.', ur: 'Practice / Journal.' } },
-    { front: { en: 'Paper win then full live size', ur: 'Paper → live' }, back: { en: 'Common wipe story — size up slowly with rules.', ur: 'Common wipe — dheere size.' } },
+    { front: { en: 'Good debrief focuses on', ur: 'Achi debrief kis cheez pe focus karti hai' }, back: { en: 'Whether process was followed — not only dollar P&L.', ur: 'Process follow hua ya nahi — sirf dollar P&L nahi.' } },
+    { front: { en: 'Emotion tags help spot', ur: 'Emotion tags kya spot karne mein madad karte hain' }, back: { en: 'Revenge / FOMO clusters that destroy expectancy.', ur: 'Revenge / FOMO clusters jo expectancy tabah karte hain.' } },
+    { front: { en: 'Practice desk lives in', ur: 'Practice desk kahan rehta hai' }, back: { en: 'Practice / Journal — not the school homeboard alone.', ur: 'Practice / Journal mein — sirf school homeboard nahi.' } },
+    { front: { en: 'Paper win then full live size', ur: 'Paper jeet ke baad full live size' }, back: { en: 'Common wipe story — size up slowly with rules.', ur: 'Common wipe — dheere size.' } },
   ],
   get body() {
     return { en: partsHtml(this, 'en'), ur: partsHtml(this, 'ur') };
@@ -362,10 +362,10 @@ export const FOUNDATIONS_WEEKS = [
   },
   flashcardSeeds: [
     { front: { en: '$10,000 at 1% risk $', ur: '10k @ 1%' }, back: { en: '$100', ur: '$100' } },
-    { front: { en: 'Wider stop, fixed risk %', ur: 'Wide stop' }, back: { en: 'Smaller position size.', ur: 'Chhoti size.' } },
-    { front: { en: 'Risk $ formula starts with', ur: 'Formula' }, back: { en: 'Balance × risk %.', ur: 'Balance × risk %.' } },
-    { front: { en: 'Foundations unlock opens', ur: 'Unlock' }, back: { en: 'Crypto, Stocks, and Forex together (after weeks or exam).', ur: 'Crypto/Stocks/Forex.' } },
-    { front: { en: '“Zero-to-hero” here means', ur: 'Zero-to-hero' }, back: { en: 'Ready to practice with rules — not guaranteed rich.', ur: 'Rules se practice — rich guarantee nahi.' } },
+    { front: { en: 'Wider stop, fixed risk %', ur: 'Wider stop, fixed risk % ke sath' }, back: { en: 'Smaller position size.', ur: 'Position size chhoti honi chahiye.' } },
+    { front: { en: 'Risk $ formula starts with', ur: 'Risk $ formula kahan se shuru hota hai' }, back: { en: 'Balance × risk %.', ur: 'Balance × risk %.' } },
+    { front: { en: 'Foundations unlock opens', ur: 'Foundations unlock kya kholta hai' }, back: { en: 'Crypto, Stocks, and Forex together (after weeks or exam).', ur: 'Crypto, Stocks, aur Forex saath (weeks ya exam ke baad).' } },
+    { front: { en: '“Zero-to-hero” here means', ur: 'Yahan “zero-to-hero” ka matlab kya hai' }, back: { en: 'Ready to practice with rules — not guaranteed rich.', ur: 'Rules se practice — rich guarantee nahi.' } },
   ],
   formula: {
     en: 'risk $ = balance × risk% · size ≈ risk $ ÷ stop distance',
@@ -392,16 +392,16 @@ export const FOUNDATIONS_WEEKS = [
 ];
 
 export const FOUNDATIONS_PLACEMENT = [
-  { topic: 1, q: { en: 'Before risking money, a beginner should first have:', ur: 'Risk se pehle:' }, opts: { en: ['A written plan and paper-trade record', 'A hot tip', 'A loan for margin'], ur: ['Plan + paper record', 'Hot tip', 'Margin loan'] }, correct: 0 },
-  { topic: 1, q: { en: 'Course completion guarantees income:', ur: 'Course = income:' }, opts: { en: ['False', 'True', 'Only weekends'], ur: ['False', 'True', 'Weekend'] }, correct: 0 },
-  { topic: 2, q: { en: 'Sharing a seed with “support” is:', ur: 'Seed support:' }, opts: { en: ['Never acceptable', 'OK with a logo', 'Required by exchanges'], ur: ['Kabhi nahi', 'Logo OK', 'Required'] }, correct: 0 },
+  { topic: 1, q: { en: 'Before risking money, a beginner should first have:', ur: 'Paisa risk karne se pehle beginner ke paas pehle kya hona chahiye:' }, opts: { en: ['A written plan and paper-trade record', 'A hot tip', 'A loan for margin'], ur: ['Likha hua plan aur paper-trade record hona chahiye', 'Hot tip', 'Margin loan'] }, correct: 0 },
+  { topic: 1, q: { en: 'Course completion guarantees income:', ur: 'Course complete karne se income ki guarantee hoti hai:' }, opts: { en: ['False', 'True', 'Only weekends'], ur: ['False', 'True', 'Weekend'] }, correct: 0 },
+  { topic: 2, q: { en: 'Sharing a seed with “support” is:', ur: 'Seed “support” ke sath share karna kya hai:' }, opts: { en: ['Never acceptable', 'OK with a logo', 'Required by exchanges'], ur: ['Kabhi nahi', 'Logo OK', 'Exchanges ke liye required — seed share ke liye nahi'] }, correct: 0 },
   { topic: 2, q: { en: 'Guaranteed daily returns are:', ur: 'Guaranteed daily:' }, opts: { en: ['A scam red flag', 'Normal investing', 'Required by SECP'], ur: ['Red flag', 'Normal', 'SECP'] }, correct: 0 },
-  { topic: 3, q: { en: 'PSX shares should be in:', ur: 'PSX:' }, opts: { en: ['Your CDC / name custody', 'A tip channel wallet', 'Cash under mattress only'], ur: ['CDC', 'Tip wallet', 'Mattress'] }, correct: 0 },
-  { topic: 3, q: { en: 'Before large deposits, test:', ur: 'Test:' }, opts: { en: ['A small withdrawal', 'Max leverage', 'VPN only'], ur: ['Chhota withdrawal', 'Max lev', 'VPN'] }, correct: 0 },
-  { topic: 4, q: { en: 'Limit orders prioritize:', ur: 'Limits:' }, opts: { en: ['Price control over instant fill', 'Instant fill over price', 'Ignoring the book'], ur: ['Price > instant', 'Instant > price', 'Ignore book'] }, correct: 0 },
-  { topic: 4, q: { en: 'Bid/ask spread is:', ur: 'Spread:' }, opts: { en: ['A trading cost when you cross it', 'Always zero', 'Only for options'], ur: ['Cross pe cost', 'Zero', 'Sirf options'] }, correct: 0 },
-  { topic: 5, q: { en: 'Incomplete checklist means:', ur: 'Checklist:' }, opts: { en: ['No trade', 'Double size', 'Ask Telegram'], ur: ['No trade', 'Double', 'Telegram'] }, correct: 0 },
-  { topic: 5, q: { en: 'Debrief should focus on:', ur: 'Debrief:' }, opts: { en: ['Process followed', 'Only P&L', 'Broker blame'], ur: ['Process', 'P&L', 'Blame'] }, correct: 0 },
-  { topic: 6, q: { en: 'Risk $ formula starts with:', ur: 'Risk $:' }, opts: { en: ['Balance × risk %', 'Leverage × hope', 'Win rate × 100'], ur: ['Balance × risk %', 'Leverage', 'Win rate'] }, correct: 0 },
-  { topic: 6, q: { en: 'Foundations gate unlocks:', ur: 'Gate:' }, opts: { en: ['Crypto, Stocks, Forex', 'Binary income', 'Guaranteed bots'], ur: ['Crypto/Stocks/Forex', 'Binary', 'Bots'] }, correct: 0 },
+  { topic: 3, q: { en: 'PSX shares should be in:', ur: 'PSX shares kahan honi chahiye:' }, opts: { en: ['Your CDC / name custody', 'A tip channel wallet', 'Cash under mattress only'], ur: ['Tumhare naam pe CDC custody honi chahiye', 'Tip wallet', 'Sirf mattress ke neeche cash — galat custody frame'] }, correct: 0 },
+  { topic: 3, q: { en: 'Before large deposits, test:', ur: 'Bari deposit se pehle kya test karna chahiye:' }, opts: { en: ['A small withdrawal', 'Max leverage', 'VPN only'], ur: ['Chhota withdrawal', 'Max lev', 'VPN'] }, correct: 0 },
+  { topic: 4, q: { en: 'Limit orders prioritize:', ur: 'Limit orders kis ko priority dete hain:' }, opts: { en: ['Price control over instant fill', 'Instant fill over price', 'Ignoring the book'], ur: ['Instant fill se zyada price control priority deti hai', 'Instant > price', 'Ignore book'] }, correct: 0 },
+  { topic: 4, q: { en: 'Bid/ask spread is:', ur: 'Bid/ask spread kya hota hai:' }, opts: { en: ['A trading cost when you cross it', 'Always zero', 'Only for options'], ur: ['Jab tum spread cross karo to trading cost hoti hai', 'Zero', 'Sirf options'] }, correct: 0 },
+  { topic: 5, q: { en: 'Incomplete checklist means:', ur: 'Incomplete checklist ka matlab kya hai:' }, opts: { en: ['No trade', 'Double size', 'Ask Telegram'], ur: ['No trade', 'Double', 'Telegram'] }, correct: 0 },
+  { topic: 5, q: { en: 'Debrief should focus on:', ur: 'Debrief ko kis pe focus karna chahiye:' }, opts: { en: ['Process followed', 'Only P&L', 'Broker blame'], ur: ['Process', 'P&L', 'Blame'] }, correct: 0 },
+  { topic: 6, q: { en: 'Risk $ formula starts with:', ur: 'Risk $ formula kis se shuru hoti hai:' }, opts: { en: ['Balance × risk %', 'Leverage × hope', 'Win rate × 100'], ur: ['Balance × risk %', 'Leverage', 'Win rate'] }, correct: 0 },
+  { topic: 6, q: { en: 'Foundations gate unlocks:', ur: 'Foundations gate kya unlock karta hai:' }, opts: { en: ['Crypto, Stocks, Forex', 'Binary income', 'Guaranteed bots'], ur: ['Crypto/Stocks/Forex', 'Binary', 'Bots'] }, correct: 0 },
 ];

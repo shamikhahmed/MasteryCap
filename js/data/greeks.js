@@ -722,26 +722,12 @@ export const GREEKS_PLACEMENT = [
       "en": "If you are long a call, theta usually:",
       "ur": "Long call pe theta aksar:"
     },
-    "opts": {
-      "en": [
-        "Works against you each day",
-        "Pays you daily",
-        "Is always zero"
-      ],
-      "ur": [
-        "Har din khilaf",
-        "Roz pay",
-        "Hamesha zero"
-      ]
-    },
+    "opts": { "en": ["Works against you each day", "Pays you daily", "Is always zero"], "ur": ["Har din tumhare khilaf kaam karti hai theta", "Roz pay", "Hamesha zero"] },
     "correct": 0
   },
   {
     "topic": 3,
-    "q": {
-      "en": "Theta is generally largest for:",
-      "ur": "Theta aksar bari:"
-    },
+    "q": { "en": "Theta is generally largest for:", "ur": "Theta generally sab se zyada kis ke liye hoti hai:" },
     "opts": {
       "en": [
         "ATM options near expiry",
@@ -758,22 +744,8 @@ export const GREEKS_PLACEMENT = [
   },
   {
     "topic": 4,
-    "q": {
-      "en": "Long vega means you generally benefit when:",
-      "ur": "Long vega faida jab:"
-    },
-    "opts": {
-      "en": [
-        "Implied volatility rises",
-        "Implied volatility falls",
-        "Theta is maximized"
-      ],
-      "ur": [
-        "IV barhe",
-        "IV gire",
-        "Theta max"
-      ]
-    },
+    "q": { "en": "Long vega means you generally benefit when:", "ur": "Long vega ka matlab tumhein faida jab hota hai jab:" },
+    "opts": { "en": ["Implied volatility rises", "Implied volatility falls", "Theta is maximized"], "ur": ["Implied volatility (IV) barhti hai jab ye hota hai", "Implied volatility (IV) girti hai jab ye hota hai", "Theta max"] },
     "correct": 0
   },
   {
@@ -842,18 +814,7 @@ export const GREEKS_PLACEMENT = [
       "en": "Portfolio risk is better measured by:",
       "ur": "Portfolio risk behtar measure:"
     },
-    "opts": {
-      "en": [
-        "Net greeks and max loss scenarios",
-        "Only the last trade's P&L",
-        "Follower count"
-      ],
-      "ur": [
-        "Net greeks + max loss scenarios",
-        "Sirf last P&L",
-        "Followers"
-      ]
-    },
+    "opts": { "en": ["Net greeks and max loss scenarios", "Only the last trade's P&L", "Follower count"], "ur": ["Net greeks + max loss scenarios", "Sirf last trade ka P&L — poor debrief focus hai", "Followers"] },
     "correct": 0
   },
   {

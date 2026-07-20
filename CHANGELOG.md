@@ -1,3 +1,12 @@
+## [50.3.0] — 2026-07-20
+
+### Flashcard + placement UR
+- Deep-track `flashcardSeeds` front/back thin → 0 (`ur/en ≥ 0.55`, EN > 20)
+- All `*PLACEMENT*` exports: stems + opts thin → 0
+- Short quiz opts still stubby by design
+- SW `masterycap-v5030`
+
+
 ## [50.2.0] — 2026-07-20
 
 ### Quiz + Institute UR thicken

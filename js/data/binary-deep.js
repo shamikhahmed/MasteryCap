@@ -55,10 +55,10 @@ export const BINARY_DEEP_WEEKS = [
     notebookPrompt: { en: 'Write: I will not deposit into binary venues.', ur: 'Binary venues pe deposit nahi.' },
     flashcardSeeds: [
       { front: { en: 'Binary structure', ur: 'Binary' }, back: { en: 'Fixed win/lose short-timer bet.', ur: 'Fixed win/lose short bet.' } },
-      { front: { en: 'This elective is', ur: 'Elective' }, back: { en: 'Harm reduction — not endorsement.', ur: 'Harm reduction.' } },
+      { front: { en: 'This elective is', ur: 'Elective' }, back: { en: 'Harm reduction — not endorsement.', ur: 'Harm reduction hai — endorsement nahi.' } },
       { front: { en: '90% win signals', ur: '90%' }, back: { en: 'Scam bait.', ur: 'Scam bait.' } },
-      { front: { en: 'Many jurisdictions', ur: 'Law' }, back: { en: 'Ban/restrict retail binaries.', ur: 'Ban/restrict.' } },
-      { front: { en: 'Certificate here', ur: 'Cert' }, back: { en: 'Study — not a license to trade binaries.', ur: 'Study — license nahi.' } },
+      { front: { en: 'Many jurisdictions', ur: 'Law' }, back: { en: 'Ban/restrict retail binaries.', ur: 'Retail binaries ban/restrict karte hain.' } },
+      { front: { en: 'Certificate here', ur: 'Cert' }, back: { en: 'Study — not a license to trade binaries.', ur: 'Study hai — binaries trade ka license nahi.' } },
     ],
     quiz: [
       { q: { en: 'This elective’s goal is:', ur: 'Is elective ka goal kya hai:' },
@@ -97,7 +97,7 @@ export const BINARY_DEEP_WEEKS = [
     exitTicket: { en: 'You can explain negative EV in one sentence.', ur: 'Negative EV ek jumle mein samjha sakte ho.' },
     notebookPrompt: { en: 'Write: I will not martingale binary losses.', ur: 'Likho: binary losses pe martingale nahi karunga.' },
     flashcardSeeds: [
-      { front: { en: 'Unfair fixed payout', ur: 'Payout' }, back: { en: 'Negative EV over time.', ur: 'Negative EV.' } },
+      { front: { en: 'Unfair fixed payout', ur: 'Payout' }, back: { en: 'Negative EV over time.', ur: 'Waqt ke sath negative EV rehta hai.' } },
       { front: { en: 'Winning streak means', ur: 'Streak' }, back: { en: 'Variance — not rewritten odds.', ur: 'Variance — odds same.' } },
       { front: { en: 'Martingale on binary', ur: 'Martingale' }, back: { en: 'Ruin accelerator.', ur: 'Ruin tez.' } },
       { front: { en: 'House edge', ur: 'House' }, back: { en: 'Structural tilt against player.', ur: 'Player ke khilaf tilt.' } },
@@ -141,10 +141,10 @@ export const BINARY_DEEP_WEEKS = [
     exitTicket: { en: 'You can list four binary scam tells.', ur: 'Char scam tells.' },
     notebookPrompt: { en: 'Never-pay list for binary unlock/recovery.', ur: 'Binary unlock/recovery ke liye never-pay list likho.' },
     flashcardSeeds: [
-      { front: { en: 'Unlock withdrawal fee', ur: 'Unlock' }, back: { en: 'Trap — stop funding.', ur: 'Trap.' } },
-      { front: { en: 'Fake regulator logo', ur: 'Fake reg' }, back: { en: 'Verify on official sites — not screenshots.', ur: 'Official verify.' } },
+      { front: { en: 'Unlock withdrawal fee', ur: 'Unlock withdrawal fee maangna' }, back: { en: 'Trap — stop funding.', ur: 'Trap.' } },
+      { front: { en: 'Fake regulator logo', ur: 'Fake reg' }, back: { en: 'Verify on official sites — not screenshots.', ur: 'Official sites pe verify karo — screenshots pe nahi.' } },
       { front: { en: 'Recovery agent', ur: 'Recovery' }, back: { en: 'Often second scam.', ur: 'Second scam.' } },
-      { front: { en: 'Deposit ladder pressure', ur: 'Ladder' }, back: { en: 'Walk away.', ur: 'Walk away.' } },
+      { front: { en: 'Deposit ladder pressure', ur: 'Deposit ladder wala pressure' }, back: { en: 'Walk away.', ur: 'Walk away.' } },
       { front: { en: 'Blocked withdraw', ur: 'Blocked' }, back: { en: 'Do not send more.', ur: 'Aur mat bhejo.' } },
     ],
     quiz: [
@@ -186,7 +186,7 @@ export const BINARY_DEEP_WEEKS = [
     exitTicket: { en: 'You can recite the exit-first rule.', ur: 'Exit-first rule.' },
     notebookPrompt: { en: 'Six-bullet binary refuse loop on Study desk.', ur: 'Study desk pe six-bullet binary refuse loop likho.' },
     flashcardSeeds: [
-      { front: { en: 'Default action', ur: 'Default' }, back: { en: 'Do not deposit / do not trade binaries.', ur: 'Deposit/trade nahi.' } },
+      { front: { en: 'Default action', ur: 'Default' }, back: { en: 'Do not deposit / do not trade binaries.', ur: 'Deposit mat karo / binaries trade mat karo.' } },
       { front: { en: 'Revenge trade', ur: 'Revenge' }, back: { en: 'Forbidden — accelerates loss.', ur: 'Mana — tez loss.' } },
       { front: { en: 'Stuck funds playbook', ur: 'Stuck' }, back: { en: 'Stop funding + document + legit channels.', ur: 'Stop + document + legit.' } },
       { front: { en: 'Certificate', ur: 'Cert' }, back: { en: 'Harm-reduction study — not playbook.', ur: 'Harm study — playbook nahi.' } },
@@ -212,10 +212,10 @@ export const BINARY_DEEP_WEEKS = [
 export const BINARY_DEEP_PLACEMENT = [
   { topic: 1, q: { en: 'Elective goal:', ur: 'Goal:' }, opts: { en: ['Harm reduction', 'Profitable binaries', 'License'], ur: ['Harm reduction', 'Profit', 'License'] }, correct: 0 },
   { topic: 1, q: { en: '90% signals:', ur: '90%:' }, opts: { en: ['Scam bait', 'Research', 'Safe'], ur: ['Scam bait', 'Research', 'Safe'] }, correct: 0 },
-  { topic: 2, q: { en: 'Unfair payout EV:', ur: 'EV:' }, opts: { en: ['Negative', 'Always positive', 'Zero forever'], ur: ['Negative', 'Positive', 'Zero'] }, correct: 0 },
+  { topic: 2, q: { en: 'Unfair payout EV:', ur: 'Unfair payout ka EV kya hota hai:' }, opts: { en: ['Negative', 'Always positive', 'Zero forever'], ur: ['Negative', 'Positive', 'Zero'] }, correct: 0 },
   { topic: 2, q: { en: 'Martingale:', ur: 'Martingale:' }, opts: { en: ['Ruin accelerator', 'Guaranteed fix', 'Required'], ur: ['Ruin', 'Fix', 'Required'] }, correct: 0 },
-  { topic: 3, q: { en: 'Unlock withdraw fee:', ur: 'Unlock:' }, opts: { en: ['Scam', 'Normal', 'Required'], ur: ['Scam', 'Normal', 'Required'] }, correct: 0 },
-  { topic: 3, q: { en: 'Blocked withdraw:', ur: 'Blocked:' }, opts: { en: ['Stop funding', 'Send more', 'Share OTP'], ur: ['Stop', 'Send more', 'OTP'] }, correct: 0 },
+  { topic: 3, q: { en: 'Unlock withdraw fee:', ur: 'Withdraw unlock fee maangna kya hai:' }, opts: { en: ['Scam', 'Normal', 'Required'], ur: ['Scam', 'Normal', 'Required'] }, correct: 0 },
+  { topic: 3, q: { en: 'Blocked withdraw:', ur: 'Blocked withdrawal ka matlab kya hai:' }, opts: { en: ['Stop funding', 'Send more', 'Share OTP'], ur: ['Stop', 'Send more', 'OTP'] }, correct: 0 },
   { topic: 4, q: { en: 'Default action:', ur: 'Default:' }, opts: { en: ['Do not trade binaries', 'Daily binary', 'VIP max'], ur: ['Do not trade', 'Daily', 'VIP'] }, correct: 0 },
-  { topic: 4, q: { en: 'Certificate:', ur: 'Cert:' }, opts: { en: ['Harm study not endorsement', 'Binary license', 'Income'], ur: ['Harm study', 'License', 'Income'] }, correct: 0 },
+  { topic: 4, q: { en: 'Certificate:', ur: 'Cert:' }, opts: { en: ['Harm study not endorsement', 'Binary license', 'Income'], ur: ['Harm reduction study hai endorsement nahi hai ye', 'License', 'Income'] }, correct: 0 },
 ];

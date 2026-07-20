@@ -56,7 +56,7 @@ export const GREEKS_DEEP_WEEKS = [
       { front: { en: 'Call delta sign', ur: 'Call Δ' }, back: { en: 'Usually positive.', ur: 'Positive.' } },
       { front: { en: 'Put delta sign', ur: 'Put Δ' }, back: { en: 'Usually negative.', ur: 'Negative.' } },
       { front: { en: 'Delta ≠', ur: 'Delta ≠' }, back: { en: 'Guaranteed win probability.', ur: 'Win guarantee nahi.' } },
-      { front: { en: 'High |delta|', ur: '|Δ|' }, back: { en: 'More stock-like behavior.', ur: 'Stock-like.' } },
+      { front: { en: 'High |delta|', ur: '|Δ|' }, back: { en: 'More stock-like behavior.', ur: 'Zyada stock jaisa behavior dikhta hai.' } },
     ],
     quiz: [
       { q: { en: 'Delta mainly measures:', ur: 'Delta mainly kya measure karta hai:' },
@@ -99,9 +99,9 @@ export const GREEKS_DEEP_WEEKS = [
     flashcardSeeds: [
       { front: { en: 'Theta', ur: 'Theta' }, back: { en: 'Time decay per day (approx).', ur: 'Rozana time decay.' } },
       { front: { en: 'Long premium usually', ur: 'Long' }, back: { en: 'Pays theta.', ur: 'Theta pay.' } },
-      { front: { en: 'Short premium usually', ur: 'Short' }, back: { en: 'Collects theta + takes risk.', ur: 'Collect + risk.' } },
+      { front: { en: 'Short premium usually', ur: 'Short premium usually kya karta hai' }, back: { en: 'Collects theta + takes risk.', ur: 'Theta collect karta + risk leta hai.' } },
       { front: { en: 'Theta income pitch', ur: 'Income' }, back: { en: 'Hides tail days.', ur: 'Tail chhupa.' } },
-      { front: { en: 'DTE', ur: 'DTE' }, back: { en: 'Days to expiry — clock you bought.', ur: 'Expiry clock.' } },
+      { front: { en: 'DTE', ur: 'DTE' }, back: { en: 'Days to expiry — clock you bought.', ur: 'Expiry tak ke din — woh clock jo tumne khareedi.' } },
     ],
     quiz: [
       { q: { en: 'Long options typically:', ur: 'Long options typically kya karte hain:' },
@@ -143,9 +143,9 @@ export const GREEKS_DEEP_WEEKS = [
     notebookPrompt: { en: 'Event rule: flat / defined debit / no hold.', ur: 'Event rule likho: flat / defined debit / no hold.' },
     flashcardSeeds: [
       { front: { en: 'Vega', ur: 'Vega' }, back: { en: 'Sensitivity to IV.', ur: 'IV sensitivity.' } },
-      { front: { en: 'Gamma', ur: 'Gamma' }, back: { en: 'How fast delta changes.', ur: 'Delta speed.' } },
+      { front: { en: 'Gamma', ur: 'Gamma' }, back: { en: 'How fast delta changes.', ur: 'Delta kitni tezi se badalta hai.' } },
       { front: { en: 'IV crush', ur: 'Crush' }, back: { en: 'IV drop after event.', ur: 'Event baad IV drop.' } },
-      { front: { en: 'ATM near expiry gamma', ur: 'ATM γ' }, back: { en: 'Often highest — whippy deltas.', ur: 'High — whippy.' } },
+      { front: { en: 'ATM near expiry gamma', ur: 'Expiry ke qareeb ATM gamma' }, back: { en: 'Often highest — whippy deltas.', ur: 'Aksar sab se zyada — whippy deltas milte hain.' } },
       { front: { en: 'Event long premium', ur: 'Event' }, back: { en: 'Pays crush risk.', ur: 'Crush risk.' } },
     ],
     quiz: [
@@ -188,10 +188,10 @@ export const GREEKS_DEEP_WEEKS = [
     notebookPrompt: { en: 'Six-bullet Greeks loop on Study desk.', ur: '6-bullet Greeks loop.' },
     flashcardSeeds: [
       { front: { en: 'Greeks loop', ur: 'Loop' }, back: { en: 'Structure → read dials → event → max loss → log.', ur: 'Structure → dials → event → max → log.' } },
-      { front: { en: 'Greeks get-rich system', ur: 'Get-rich' }, back: { en: 'Fantasy marketing.', ur: 'Fantasy.' } },
+      { front: { en: 'Greeks get-rich system', ur: 'Greeks get-rich system' }, back: { en: 'Fantasy marketing.', ur: 'Fantasy.' } },
       { front: { en: 'Primary risk number', ur: 'Primary' }, back: { en: 'Max loss in money.', ur: 'Max loss $.' } },
       { front: { en: 'Certificate', ur: 'Cert' }, back: { en: 'Study progress — not income.', ur: 'Study — income nahi.' } },
-      { front: { en: 'Screenshot Greeks without size', ur: 'Screenshot' }, back: { en: 'Cosplay.', ur: 'Cosplay.' } },
+      { front: { en: 'Screenshot Greeks without size', ur: 'Size ke bina Greeks ka screenshot' }, back: { en: 'Cosplay.', ur: 'Cosplay.' } },
     ],
     quiz: [
       { q: { en: 'Greeks practice prioritizes:', ur: 'Greeks practice kis ko prioritize karti hai:' },
@@ -211,10 +211,10 @@ export const GREEKS_DEEP_WEEKS = [
 ];
 
 export const GREEKS_DEEP_PLACEMENT = [
-  { topic: 1, q: { en: 'Delta is:', ur: 'Delta:' }, opts: { en: ['Underlying sensitivity', 'Guaranteed odds', 'Funding'], ur: ['Sensitivity', 'Odds', 'Funding'] }, correct: 0 },
+  { topic: 1, q: { en: 'Delta is:', ur: 'Delta:' }, opts: { en: ['Underlying sensitivity', 'Guaranteed odds', 'Funding'], ur: ['Underlying price move ki sensitivity measure karti hai', 'Odds', 'Funding'] }, correct: 0 },
   { topic: 1, q: { en: 'Delta as win%:', ur: 'Win%:' }, opts: { en: ['Misuse', 'Exact law', 'Required'], ur: ['Misuse', 'Law', 'Required'] }, correct: 0 },
-  { topic: 2, q: { en: 'Long premium theta:', ur: 'Theta:' }, opts: { en: ['Usually pays', 'Never', 'Earns funding'], ur: ['Pays', 'Never', 'Funding'] }, correct: 0 },
-  { topic: 2, q: { en: 'Theta income sans max loss:', ur: 'Income:' }, opts: { en: ['Dangerous', 'Safe', 'Required'], ur: ['Dangerous', 'Safe', 'Required'] }, correct: 0 },
+  { topic: 2, q: { en: 'Long premium theta:', ur: 'Long premium pe theta kya karta hai:' }, opts: { en: ['Usually pays', 'Never', 'Earns funding'], ur: ['Pays', 'Never', 'Funding'] }, correct: 0 },
+  { topic: 2, q: { en: 'Theta income sans max loss:', ur: 'Theta income bina max loss ke kya hai:' }, opts: { en: ['Dangerous', 'Safe', 'Required'], ur: ['Dangerous', 'Safe', 'Required'] }, correct: 0 },
   { topic: 3, q: { en: 'Vega tracks:', ur: 'Vega:' }, opts: { en: ['IV', 'Dividends only', 'Swap'], ur: ['IV', 'Div', 'Swap'] }, correct: 0 },
   { topic: 3, q: { en: 'IV crush:', ur: 'Crush:' }, opts: { en: ['Hurts long premium', 'Only helps', 'Deletes spot'], ur: ['Hurts long', 'Helps', 'Deletes spot'] }, correct: 0 },
   { topic: 4, q: { en: 'Loop priority:', ur: 'Loop:' }, opts: { en: ['Max loss + structure', 'Get-rich system', 'Skip log'], ur: ['Max loss', 'Get-rich', 'Skip'] }, correct: 0 },

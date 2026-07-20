@@ -56,7 +56,7 @@ export const TAX_DEEP_WEEKS = [
     flashcardSeeds: [
       { front: { en: 'This track is', ur: 'Track' }, back: { en: 'Literacy framing — not legal advice.', ur: 'Literacy — advice nahi.' } },
       { front: { en: 'App will not', ur: 'App' }, back: { en: 'File, auto-pay, or legal-opinion.', ur: 'File / auto-pay / opinion nahi.' } },
-      { front: { en: 'Tax-free forever pitch', ur: 'Tax-free' }, back: { en: 'Scam theater.', ur: 'Scam.' } },
+      { front: { en: 'Tax-free forever pitch', ur: 'Tax-free forever wala pitch' }, back: { en: 'Scam theater.', ur: 'Scam.' } },
       { front: { en: 'Complex facts need', ur: 'Complex' }, back: { en: 'Qualified practitioner.', ur: 'Practitioner.' } },
       { front: { en: 'Discord tax tips', ur: 'Discord' }, back: { en: 'Not your filing authority.', ur: 'Authority nahi.' } },
     ],
@@ -99,10 +99,10 @@ export const TAX_DEEP_WEEKS = [
     exitTicket: { en: 'You can list five record types you will keep.', ur: 'Paanch record types jo aap rakhenge — list kar sakte ho.' },
     notebookPrompt: { en: 'Create folder plan for this year’s broker exports.', ur: 'Is saal ke broker exports ke liye folder plan banao.' },
     flashcardSeeds: [
-      { front: { en: 'Records reduce', ur: 'Records' }, back: { en: 'Practitioner cost + panic.', ur: 'Cost + panic.' } },
+      { front: { en: 'Records reduce', ur: 'Records' }, back: { en: 'Practitioner cost + panic.', ur: 'Practitioner cost aur panic dono badhte hain.' } },
       { front: { en: 'Minimum stack', ur: 'Stack' }, back: { en: 'Confirms, statements, funding proofs.', ur: 'Confirms + statements + funding.' } },
-      { front: { en: 'Crypto venues', ur: 'Crypto' }, back: { en: 'Export CSVs while you still can.', ur: 'CSV export.' } },
-      { front: { en: 'Year-end screenshot hunt', ur: 'Hunt' }, back: { en: 'Expensive reconstruction.', ur: 'Mehnga.' } },
+      { front: { en: 'Crypto venues', ur: 'Crypto' }, back: { en: 'Export CSVs while you still can.', ur: 'CSV export karo jab tak abhi kar sakte ho.' } },
+      { front: { en: 'Year-end screenshot hunt', ur: 'Year-end screenshot hunt' }, back: { en: 'Expensive reconstruction.', ur: 'Mehngi reconstruction padti hai.' } },
       { front: { en: 'Monthly habit', ur: 'Monthly' }, back: { en: 'Export + folder + journal tick.', ur: 'Export + folder + tick.' } },
     ],
     quiz: [
@@ -144,10 +144,10 @@ export const TAX_DEEP_WEEKS = [
     exitTicket: { en: 'You can name two cross-border questions for a pro.', ur: 'Pro ke liye do cross-border sawal naam kar sakte ho.' },
     notebookPrompt: { en: 'List venues you use + one question each for a practitioner.', ur: 'Apne venues list karo + har ek ke liye practitioner ko ek sawal.' },
     flashcardSeeds: [
-      { front: { en: 'Foreign broker / crypto', ur: 'Foreign' }, back: { en: 'Ask a practitioner — don’t DIY residency.', ur: 'Practitioner — DIY residency nahi.' } },
-      { front: { en: 'Informal funding', ur: 'Informal' }, back: { en: 'Legal risk can dwarf returns.', ur: 'Legal risk.' } },
+      { front: { en: 'Foreign broker / crypto', ur: 'Foreign broker / crypto' }, back: { en: 'Ask a practitioner — don’t DIY residency.', ur: 'Practitioner — DIY residency nahi.' } },
+      { front: { en: 'Informal funding', ur: 'Informal' }, back: { en: 'Legal risk can dwarf returns.', ur: 'Legal risk returns se kahin zyada bari ho sakti hai.' } },
       { front: { en: 'Digital = tax-free', ur: 'Digital' }, back: { en: 'False assumption.', ur: 'Jhoot assume.' } },
-      { front: { en: 'YouTube residency takes', ur: 'YouTube' }, back: { en: 'Not authoritative.', ur: 'Authority nahi.' } },
+      { front: { en: 'YouTube residency takes', ur: 'YouTube residency ke liye kya chahiye' }, back: { en: 'Not authoritative.', ur: 'Authority nahi.' } },
       { front: { en: 'Withholding abroad', ur: 'Withholding' }, back: { en: 'Possible — ask with facts.', ur: 'Mumkin — facts se poocho.' } },
     ],
     quiz: [
@@ -192,9 +192,9 @@ export const TAX_DEEP_WEEKS = [
     notebookPrompt: { en: 'Write hire triggers + never-pay list.', ur: 'Hire triggers + never-pay.' },
     flashcardSeeds: [
       { front: { en: 'Hire when', ur: 'Hire' }, back: { en: 'Complex facts / foreign / big unusual year.', ur: 'Complex / foreign / unusual.' } },
-      { front: { en: 'Tax-free guarantee', ur: 'Guarantee' }, back: { en: 'Refuse — scam pattern.', ur: 'Refuse.' } },
+      { front: { en: 'Tax-free guarantee', ur: 'Guarantee' }, back: { en: 'Refuse — scam pattern.', ur: 'Refuse karo — ye scam pattern hai.' } },
       { front: { en: 'Recovery agent', ur: 'Recovery' }, back: { en: 'Often second scam.', ur: 'Second scam.' } },
-      { front: { en: 'Graduation habit', ur: 'Grad' }, back: { en: 'Records + practitioner when complex.', ur: 'Records + pro.' } },
+      { front: { en: 'Graduation habit', ur: 'Grad' }, back: { en: 'Records + practitioner when complex.', ur: 'Records rakho + complex ho to practitioner lo.' } },
       { front: { en: 'Evasion fantasy', ur: 'Evasion' }, back: { en: 'Not a wealth path.', ur: 'Wealth path nahi.' } },
     ],
     quiz: [
@@ -216,11 +216,11 @@ export const TAX_DEEP_WEEKS = [
 
 export const TAX_DEEP_PLACEMENT = [
   { topic: 1, q: { en: 'App tax role:', ur: 'Role:' }, opts: { en: ['Education only', 'Accountant', 'Autopay'], ur: ['Education', 'Accountant', 'Autopay'] }, correct: 0 },
-  { topic: 1, q: { en: 'Tax-free forever pitch:', ur: 'Pitch:' }, opts: { en: ['Scam pattern', 'Official', 'Safe'], ur: ['Scam', 'Official', 'Safe'] }, correct: 0 },
+  { topic: 1, q: { en: 'Tax-free forever pitch:', ur: 'Tax-free forever pitch kya hai:' }, opts: { en: ['Scam pattern', 'Official', 'Safe'], ur: ['Scam', 'Official', 'Safe'] }, correct: 0 },
   { topic: 2, q: { en: 'Records timing:', ur: 'Timing:' }, opts: { en: ['Ongoing/monthly', 'Only filing week', 'Never'], ur: ['Monthly', 'Filing', 'Never'] }, correct: 0 },
   { topic: 2, q: { en: 'Crypto CSVs:', ur: 'CSV:' }, opts: { en: ['Export while you can', 'Ignore', 'Public post'], ur: ['Export', 'Ignore', 'Public'] }, correct: 0 },
-  { topic: 3, q: { en: 'Foreign/crypto means:', ur: 'Foreign:' }, opts: { en: ['Ask a practitioner', 'Ignore', 'Always untaxed'], ur: ['Practitioner', 'Ignore', 'Untaxed'] }, correct: 0 },
-  { topic: 3, q: { en: 'Informal funding:', ur: 'Informal:' }, opts: { en: ['Legal risk', 'Safest', 'No tax'], ur: ['Legal risk', 'Safest', 'No tax'] }, correct: 0 },
-  { topic: 4, q: { en: 'Hire when:', ur: 'Hire:' }, opts: { en: ['Complex/foreign/unusual year', 'Always never', 'Only if bored'], ur: ['Complex year', 'Never', 'Bored'] }, correct: 0 },
-  { topic: 4, q: { en: 'Recovery agent after loss:', ur: 'Recovery:' }, opts: { en: ['Often second scam', 'Official', 'Required'], ur: ['Second scam', 'Official', 'Required'] }, correct: 0 },
+  { topic: 3, q: { en: 'Foreign/crypto means:', ur: 'Foreign/crypto ka matlab kya hai:' }, opts: { en: ['Ask a practitioner', 'Ignore', 'Always untaxed'], ur: ['Practitioner', 'Ignore', 'Untaxed'] }, correct: 0 },
+  { topic: 3, q: { en: 'Informal funding:', ur: 'Informal funding kya hoti hai:' }, opts: { en: ['Legal risk', 'Safest', 'No tax'], ur: ['Legal risk', 'Safest', 'No tax'] }, correct: 0 },
+  { topic: 4, q: { en: 'Hire when:', ur: 'Hire:' }, opts: { en: ['Complex/foreign/unusual year', 'Always never', 'Only if bored'], ur: ['Complex foreign ya unusual tax year ho to pro chahiye', 'Never', 'Bored'] }, correct: 0 },
+  { topic: 4, q: { en: 'Recovery agent after loss:', ur: 'Loss ke baad recovery agent kya hota hai:' }, opts: { en: ['Often second scam', 'Official', 'Required'], ur: ['Second scam', 'Official', 'Required'] }, correct: 0 },
 ];

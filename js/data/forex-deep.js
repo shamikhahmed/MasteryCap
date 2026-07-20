@@ -55,10 +55,10 @@ export const FOREX_DEEP_WEEKS = [
     notebookPrompt: { en: 'Write your venue’s typical EUR/USD spread and lot size meaning.', ur: 'Apni venue ka typical EUR/USD spread aur lot size ka matlab likho.' },
     flashcardSeeds: [
       { front: { en: 'In EUR/USD, base is', ur: 'EUR/USD base' }, back: { en: 'EUR.', ur: 'EUR.' } },
-      { front: { en: 'A pip is', ur: 'Pip' }, back: { en: 'Usual small price increment on the pair.', ur: 'Chhoti increment.' } },
+      { front: { en: 'A pip is', ur: 'Pip' }, back: { en: 'Usual small price increment on the pair.', ur: 'Pair pe usual chhoti price increment hoti hai.' } },
       { front: { en: 'Long EUR/USD means', ur: 'Long EURUSD' }, back: { en: 'Long EUR, short USD.', ur: 'Long EUR, short USD.' } },
-      { front: { en: 'Spread is', ur: 'Spread' }, back: { en: 'A cost paid to trade.', ur: 'Cost.' } },
-      { front: { en: 'Max leverage marketing', ur: 'Max lev' }, back: { en: 'Not a competence signal.', ur: 'Competence nahi.' } },
+      { front: { en: 'Spread is', ur: 'Spread' }, back: { en: 'A cost paid to trade.', ur: 'Trade karne ke liye ada ki jane wali cost.' } },
+      { front: { en: 'Max leverage marketing', ur: 'Max leverage wali marketing' }, back: { en: 'Not a competence signal.', ur: 'Competence nahi.' } },
     ],
     quiz: [
       { q: { en: 'In USD/JPY the quote currency is:', ur: 'USD/JPY mein quote currency kya hai:' },
@@ -101,10 +101,10 @@ export const FOREX_DEEP_WEEKS = [
     exitTicket: { en: 'You can name one correlated pair combo that is really one theme.', ur: 'Ek correlated pair combo naam le sakte ho jo asal mein ek theme hai.' },
     notebookPrompt: { en: 'Write max theme risk % and your no-trade hours.', ur: 'Theme risk% + no-trade hours.' },
     flashcardSeeds: [
-      { front: { en: 'Position size comes from', ur: 'Size' }, back: { en: 'Risk $ ÷ stop distance.', ur: 'Risk$ ÷ stop.' } },
-      { front: { en: 'EURUSD + GBPUSD long together', ur: 'EU+GB' }, back: { en: 'Often one short-USD theme.', ur: 'Short-USD theme.' } },
+      { front: { en: 'Position size comes from', ur: 'Position size kahan se aati hai' }, back: { en: 'Risk $ ÷ stop distance.', ur: 'Risk$ ÷ stop.' } },
+      { front: { en: 'EURUSD + GBPUSD long together', ur: 'EURUSD + GBPUSD saath long karna' }, back: { en: 'Often one short-USD theme.', ur: 'Short-USD theme.' } },
       { front: { en: 'Weekend hold risk', ur: 'Weekend' }, back: { en: 'Gap through stop while closed.', ur: 'Gap through stop.' } },
-      { front: { en: 'Session choice matters because', ur: 'Session' }, back: { en: 'Liquidity and noise differ.', ur: 'Liquidity/noise.' } },
+      { front: { en: 'Session choice matters because', ur: 'Session choice kyun matter karti hai' }, back: { en: 'Liquidity and noise differ.', ur: 'Liquidity/noise.' } },
       { front: { en: '“Feels like one lot”', ur: 'Feel size' }, back: { en: 'Not a risk system.', ur: 'Risk system nahi.' } },
     ],
     quiz: [
@@ -151,10 +151,10 @@ export const FOREX_DEEP_WEEKS = [
     notebookPrompt: { en: 'Write broker regulation note + swap sign on your practice pair + calendar rule.', ur: 'Broker regulation note + practice pair pe swap sign + calendar rule likho.' },
     flashcardSeeds: [
       { front: { en: 'Red news spreads', ur: 'Red news' }, back: { en: 'Widen; stops slip.', ur: 'Wide + slip.' } },
-      { front: { en: 'Markets react to data via', ur: 'Data' }, back: { en: 'Actual vs forecast.', ur: 'Actual vs forecast.' } },
-      { front: { en: 'Swap is', ur: 'Swap' }, back: { en: 'Overnight interest on the position.', ur: 'Overnight interest.' } },
-      { front: { en: 'Withdrawal refusal', ur: 'Withdraw fail' }, back: { en: 'Treat as confirmed venue failure — leave.', ur: 'Leave.' } },
-      { front: { en: 'First spike into news', ur: 'First spike' }, back: { en: 'Usually poor-execution gambling.', ur: 'Poor execution gamble.' } },
+      { front: { en: 'Markets react to data via', ur: 'Markets data pe kaise react karte hain' }, back: { en: 'Actual vs forecast.', ur: 'Actual vs forecast.' } },
+      { front: { en: 'Swap is', ur: 'Swap' }, back: { en: 'Overnight interest on the position.', ur: 'Position pe overnight interest lagta hai.' } },
+      { front: { en: 'Withdrawal refusal', ur: 'Withdraw fail' }, back: { en: 'Treat as confirmed venue failure — leave.', ur: 'Confirmed venue failure samjho — chale jao.' } },
+      { front: { en: 'First spike into news', ur: 'News mein pehla spike' }, back: { en: 'Usually poor-execution gambling.', ur: 'Poor execution gamble.' } },
     ],
     quiz: [
       { q: { en: 'During major releases, spreads typically:', ur: 'Major releases ke dauran spreads aksar:' },
@@ -196,9 +196,9 @@ export const FOREX_DEEP_WEEKS = [
     notebookPrompt: { en: 'Six-bullet FX loop on Study desk.', ur: '6-bullet FX loop.' },
     flashcardSeeds: [
       { front: { en: 'FX loop order', ur: 'Loop' }, back: { en: 'Venue → calendar → size → log → review.', ur: 'Venue → calendar → size → log → review.' } },
-      { front: { en: 'Signal group', ur: 'Signals' }, back: { en: 'Not a substitute for process.', ur: 'Process nahi.' } },
-      { front: { en: 'Three USD-correlated tickets', ur: '3 tickets' }, back: { en: 'Often one theme — size as one.', ur: 'Ek theme.' } },
-      { front: { en: 'Failed withdrawal', ur: 'Withdraw fail' }, back: { en: 'Stop funding; leave venue.', ur: 'Stop + leave.' } },
+      { front: { en: 'Signal group', ur: 'Signals' }, back: { en: 'Not a substitute for process.', ur: 'Process ka substitute nahi hai.' } },
+      { front: { en: 'Three USD-correlated tickets', ur: 'Teen USD-correlated tickets' }, back: { en: 'Often one theme — size as one.', ur: 'Aksar ek hi theme — size ek jaisi rakho.' } },
+      { front: { en: 'Failed withdrawal', ur: 'Withdraw fail' }, back: { en: 'Stop funding; leave venue.', ur: 'Funding band karo; venue chhod do.' } },
       { front: { en: 'This week unlocks', ur: 'Week' }, back: { en: 'Habit rails — not pip tips.', ur: 'Habit — tips nahi.' } },
     ],
     quiz: [
@@ -244,8 +244,8 @@ export const FOREX_DEEP_WEEKS = [
     flashcardSeeds: [
       { front: { en: 'Carry failure mode', ur: 'Carry fail' }, back: { en: 'Slow grind up, violent unwind.', ur: 'Slow up, fast crash.' } },
       { front: { en: 'Swap is', ur: 'Swap' }, back: { en: 'Overnight interest — real P/L.', ur: 'Overnight — real P/L.' } },
-      { front: { en: 'Correlated USD tickets', ur: 'Corr USD' }, back: { en: 'Size as one theme.', ur: 'Ek theme.' } },
-      { front: { en: 'Riskless FX yield', ur: 'Riskless yield' }, back: { en: 'Marketing, not literacy.', ur: 'Marketing.' } },
+      { front: { en: 'Correlated USD tickets', ur: 'Correlated USD tickets' }, back: { en: 'Size as one theme.', ur: 'Ek theme.' } },
+      { front: { en: 'Riskless FX yield', ur: 'Riskless yield' }, back: { en: 'Marketing, not literacy.', ur: 'Marketing hai — literacy nahi.' } },
       { front: { en: 'Ticket count ≠', ur: 'Tickets' }, back: { en: 'Diversification if themes match.', ur: 'Diversify nahi agar theme same.' } },
     ],
     quiz: [
@@ -289,11 +289,11 @@ export const FOREX_DEEP_WEEKS = [
     exitTicket: { en: 'You can recite FX loop + one scam refuse rule.', ur: 'FX loop aur ek scam refuse rule yad kar sakte ho.' },
     notebookPrompt: { en: 'Write never-fund list + FX loop six bullets.', ur: 'Never-fund list + FX loop ke chhe bullets likho.' },
     flashcardSeeds: [
-      { front: { en: '1:1000 offshore pitch', ur: '1:1000' }, back: { en: 'Venue risk theater — not skill.', ur: 'Venue risk.' } },
-      { front: { en: 'Unlock withdrawal fee ask', ur: 'Unlock fee' }, back: { en: 'Trap — stop funding.', ur: 'Trap.' } },
+      { front: { en: '1:1000 offshore pitch', ur: '1:1000 offshore pitch' }, back: { en: 'Venue risk theater — not skill.', ur: 'Venue risk theater hai — skill nahi.' } },
+      { front: { en: 'Unlock withdrawal fee ask', ur: 'Unlock withdrawal fee maangna' }, back: { en: 'Trap — stop funding.', ur: 'Trap.' } },
       { front: { en: 'FX end loop', ur: 'Loop' }, back: { en: 'Venue → calendar → size → log → review.', ur: 'Venue → calendar → size → log → review.' } },
       { front: { en: 'Charts without rails', ur: 'Charts' }, back: { en: 'Decoration.', ur: 'Decoration.' } },
-      { front: { en: 'Certificate here means', ur: 'Cert' }, back: { en: 'Study progress — not a trading license.', ur: 'Study — license nahi.' } },
+      { front: { en: 'Certificate here means', ur: 'Yahan certificate ka matlab kya hai' }, back: { en: 'Study progress — not a trading license.', ur: 'Study progress hai — trading license nahi.' } },
     ],
     quiz: [
       { q: { en: 'Blocked withdrawal + “pay unlock fee” is:', ur: 'Blocked withdrawal + “pay unlock fee” kya hai:' },
@@ -313,16 +313,16 @@ export const FOREX_DEEP_WEEKS = [
 ];
 
 export const FOREX_DEEP_PLACEMENT = [
-  { topic: 1, q: { en: 'Base currency is:', ur: 'Base:' }, opts: { en: ['First in the pair', 'Always USD', 'The pip only'], ur: ['Pehli', 'Always USD', 'Pip'] }, correct: 0 },
+  { topic: 1, q: { en: 'Base currency is:', ur: 'Base currency kya hoti hai:' }, opts: { en: ['First in the pair', 'Always USD', 'The pip only'], ur: ['Pehli', 'Always USD', 'Pip'] }, correct: 0 },
   { topic: 1, q: { en: 'Spread is:', ur: 'Spread:' }, opts: { en: ['A cost', 'Free edge', 'Tax refund'], ur: ['Cost', 'Edge', 'Refund'] }, correct: 0 },
-  { topic: 2, q: { en: 'Size should use:', ur: 'Size:' }, opts: { en: ['Risk $ and stop', 'Max leverage', 'Tip lot'], ur: ['Risk+stop', 'Max lev', 'Tip'] }, correct: 0 },
-  { topic: 2, q: { en: 'Correlated USD shorts are:', ur: 'Corr:' }, opts: { en: ['Often one theme', 'Always hedges', 'Illegal'], ur: ['One theme', 'Hedges', 'Illegal'] }, correct: 0 },
-  { topic: 3, q: { en: 'Before red news:', ur: 'Red news:' }, opts: { en: ['Flatten or reduce', 'Max size', 'Disable stops forever'], ur: ['Reduce', 'Max size', 'No stops'] }, correct: 0 },
-  { topic: 3, q: { en: 'Blocked withdrawals mean:', ur: 'Withdraw:' }, opts: { en: ['Leave the venue', 'Send more unlock fees', 'Post seed in chat'], ur: ['Leave', 'Unlock fee', 'Seed chat'] }, correct: 0 },
-  { topic: 4, q: { en: 'FX practice loop starts with:', ur: 'Loop:' }, opts: { en: ['Venue, calendar, risk size', 'Max leverage', 'Signal first'], ur: ['Venue+calendar+size', 'Max lev', 'Signal'] }, correct: 0 },
-  { topic: 4, q: { en: 'Three correlated USD bets are:', ur: '3 bets:' }, opts: { en: ['Often one theme', 'Always diversification', 'Risk-free'], ur: ['One theme', 'Diversify', 'Risk-free'] }, correct: 0 },
-  { topic: 5, q: { en: 'Carry classic failure:', ur: 'Carry:' }, opts: { en: ['Slow grind then violent unwind', 'Never fails', 'Only fails on Sundays'], ur: ['Slow then crash', 'Never', 'Sunday only'] }, correct: 0 },
-  { topic: 5, q: { en: 'Correlated tickets budget as:', ur: 'Budget:' }, opts: { en: ['One theme', 'Per ticket free risk', 'Unlimited'], ur: ['One theme', 'Per ticket', 'Unlimited'] }, correct: 0 },
-  { topic: 6, q: { en: 'Unlock withdrawal fee ask:', ur: 'Unlock:' }, opts: { en: ['Trap — stop funding', 'Normal', 'Required'], ur: ['Trap', 'Normal', 'Required'] }, correct: 0 },
-  { topic: 6, q: { en: 'FX certificate here means:', ur: 'Cert:' }, opts: { en: ['Study progress — not a license', 'Broker license', 'Income right'], ur: ['Study', 'License', 'Income'] }, correct: 0 },
+  { topic: 2, q: { en: 'Size should use:', ur: 'Size ke liye kya use karna chahiye:' }, opts: { en: ['Risk $ and stop', 'Max leverage', 'Tip lot'], ur: ['Risk+stop', 'Max lev', 'Tip'] }, correct: 0 },
+  { topic: 2, q: { en: 'Correlated USD shorts are:', ur: 'Correlated USD shorts kya hote hain:' }, opts: { en: ['Often one theme', 'Always hedges', 'Illegal'], ur: ['One theme', 'Hedges', 'Illegal'] }, correct: 0 },
+  { topic: 3, q: { en: 'Before red news:', ur: 'Red news:' }, opts: { en: ['Flatten or reduce', 'Max size', 'Disable stops forever'], ur: ['Reduce', 'Max size', 'Stops hamesha ke liye band karna — galat hai'] }, correct: 0 },
+  { topic: 3, q: { en: 'Blocked withdrawals mean:', ur: 'Blocked withdrawals ka matlab kya hai:' }, opts: { en: ['Leave the venue', 'Send more unlock fees', 'Post seed in chat'], ur: ['Leave', 'Aur unlock fees bhejna — scam trap hai ye', 'Seed chat'] }, correct: 0 },
+  { topic: 4, q: { en: 'FX practice loop starts with:', ur: 'FX practice loop kis se shuru hoti hai:' }, opts: { en: ['Venue, calendar, risk size', 'Max leverage', 'Signal first'], ur: ['Venue+calendar+size', 'Max lev', 'Signal'] }, correct: 0 },
+  { topic: 4, q: { en: 'Three correlated USD bets are:', ur: 'Teen correlated USD bets kya hain:' }, opts: { en: ['Often one theme', 'Always diversification', 'Risk-free'], ur: ['One theme', 'Hamesha diversification — correlated bets mein nahi hota', 'Risk-free'] }, correct: 0 },
+  { topic: 5, q: { en: 'Carry classic failure:', ur: 'Carry classic failure kaisa dikhta hai:' }, opts: { en: ['Slow grind then violent unwind', 'Never fails', 'Only fails on Sundays'], ur: ['Slow grind phir violent unwind — carry fail pattern', 'Never', 'Sirf Sunday ko fail — ye galat assumption hai'] }, correct: 0 },
+  { topic: 5, q: { en: 'Correlated tickets budget as:', ur: 'Correlated tickets ko budget kaise karna chahiye:' }, opts: { en: ['One theme', 'Per ticket free risk', 'Unlimited'], ur: ['One theme', 'Per ticket', 'Unlimited'] }, correct: 0 },
+  { topic: 6, q: { en: 'Unlock withdrawal fee ask:', ur: 'Unlock withdrawal fee maangna kya hai:' }, opts: { en: ['Trap — stop funding', 'Normal', 'Required'], ur: ['Trap', 'Normal', 'Required'] }, correct: 0 },
+  { topic: 6, q: { en: 'FX certificate here means:', ur: 'Yahan FX certificate ka matlab kya hai:' }, opts: { en: ['Study progress — not a license', 'Broker license', 'Income right'], ur: ['Study progress hai license nahi hai ye track', 'License', 'Income'] }, correct: 0 },
 ];

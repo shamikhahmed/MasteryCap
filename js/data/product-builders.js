@@ -159,6 +159,6 @@ export const PB_LAUNCH_WEEKS = [
 ];
 
 export const PB_LAUNCH_PLACEMENT = [
-  { topic: 1, q: { en: 'Launch requires:', ur: 'Launch:' }, opts: { en: ['Version + SW sync', 'Hope only', 'No changelog'], ur: ['Version + SW sync', 'Sirf umeed', 'No changelog'] }, correct: 0 },
+  { topic: 1, q: { en: 'Launch requires:', ur: 'Launch ke liye kya chahiye:' }, opts: { en: ['Version + SW sync', 'Hope only', 'No changelog'], ur: ['Version + SW sync', 'Sirf umeed', 'No changelog'] }, correct: 0 },
   { topic: 2, q: { en: 'Marketing shows:', ur: 'Marketing:' }, opts: { en: ['Today + limits', 'Roadmap fantasy', 'Income promise'], ur: ['Aaj + limits', 'Fantasy', 'Income promise'] }, correct: 0 },
 ];

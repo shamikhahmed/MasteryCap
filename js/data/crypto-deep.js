@@ -55,10 +55,10 @@ export const CRYPTO_WEEKS = [
     notebookPrompt: { en: 'Write where your practice size will live (exchange vs wallet) and why.', ur: 'Practice size kahan rahegi (exchange vs wallet) aur kyun — likho.' },
     flashcardSeeds: [
       { front: { en: 'Exchange balance is usually', ur: 'Exchange balance' }, back: { en: 'An IOU — counterparty risk.', ur: 'IOU — counterparty risk.' } },
-      { front: { en: 'Seed phrase equals', ur: 'Seed' }, back: { en: 'Ownership of the wallet.', ur: 'Ownership.' } },
-      { front: { en: 'Support asks for seed', ur: 'Support seed' }, back: { en: 'Refuse — real support never needs it.', ur: 'Refuse.' } },
-      { front: { en: 'Before trusting a venue with size', ur: 'Size se pehle' }, back: { en: 'Test a small withdrawal.', ur: 'Chhota withdrawal.' } },
-      { front: { en: 'Hot wallet risk', ur: 'Hot wallet' }, back: { en: 'More convenience, more remote attack surface.', ur: 'Zyada attack surface.' } },
+      { front: { en: 'Seed phrase equals', ur: 'Seed' }, back: { en: 'Ownership of the wallet.', ur: 'Wallet ki ownership tumhari hoti hai.' } },
+      { front: { en: 'Support asks for seed', ur: 'Support seed' }, back: { en: 'Refuse — real support never needs it.', ur: 'Refuse karo — asli support ko kabhi ye nahi chahiye.' } },
+      { front: { en: 'Before trusting a venue with size', ur: 'Size se pehle venue pe bharosa karne se' }, back: { en: 'Test a small withdrawal.', ur: 'Chhota withdrawal.' } },
+      { front: { en: 'Hot wallet risk', ur: 'Hot wallet' }, back: { en: 'More convenience, more remote attack surface.', ur: 'Zyada convenience, zyada remote attack surface milta hai.' } },
     ],
     quiz: [
       { q: { en: 'An exchange balance is best thought of as:', ur: 'Exchange balance ko behtar taur pe kya samjhte hain:' },
@@ -99,11 +99,11 @@ export const CRYPTO_WEEKS = [
     exitTicket: { en: 'You can list three cost lines on your venue.', ur: 'Apni venue ki teen cost lines list kar sakte ho.' },
     notebookPrompt: { en: 'Open your venue fee schedule. Write maker, taker, withdrawal.', ur: 'Venue fee schedule kholo. Maker, taker, withdrawal likho.' },
     flashcardSeeds: [
-      { front: { en: 'Spread is a cost when you', ur: 'Spread' }, back: { en: 'Cross it with a marketable order.', ur: 'Cross karo.' } },
-      { front: { en: 'Slippage', ur: 'Slip' }, back: { en: 'Worse fill than expected, often in thin liquidity.', ur: 'Expected se worse fill.' } },
-      { front: { en: 'Round-trip fee example', ur: 'Round-trip' }, back: { en: 'Fee in + fee out (+ spread/slip).', ur: 'In + out + spread.' } },
-      { front: { en: 'Perps funding', ur: 'Funding' }, back: { en: 'Periodic payment between longs/shorts — can dominate short holds.', ur: 'Long/short payment.' } },
-      { front: { en: 'Tiny scalp risk', ur: 'Scalp' }, back: { en: 'Costs can exceed the intended edge.', ur: 'Cost > edge.' } },
+      { front: { en: 'Spread is a cost when you', ur: 'Spread cost tab hota hai jab tum' }, back: { en: 'Cross it with a marketable order.', ur: 'Marketable order se spread cross karte ho.' } },
+      { front: { en: 'Slippage', ur: 'Slip' }, back: { en: 'Worse fill than expected, often in thin liquidity.', ur: 'Expected se worse fill, aksar thin liquidity mein.' } },
+      { front: { en: 'Round-trip fee example', ur: 'Round-trip fee ka example' }, back: { en: 'Fee in + fee out (+ spread/slip).', ur: 'Fee andar + fee bahar (+ spread/slip bhi).' } },
+      { front: { en: 'Perps funding', ur: 'Funding' }, back: { en: 'Periodic payment between longs/shorts — can dominate short holds.', ur: 'Longs/shorts ke beech periodic payment — chhoti holds pe dominate kar sakti.' } },
+      { front: { en: 'Tiny scalp risk', ur: 'Scalp' }, back: { en: 'Costs can exceed the intended edge.', ur: 'Costs intended edge se zyada ho sakti hain.' } },
     ],
     quiz: [
       { q: { en: 'Crossing the spread means you typically:', ur: 'Spread cross karne ka matlab aksar tum:' },
@@ -148,10 +148,10 @@ export const CRYPTO_WEEKS = [
     exitTicket: { en: 'You can define liquidation in plain words.', ur: 'Liquidation seedhe simple words mein define karo.' },
     notebookPrompt: { en: 'Write: “I will not use leverage until ___.” Fill the blank with a process condition.', ur: 'Likho: “Leverage tab tak nahi jab tak ___.” Blank mein process condition.' },
     flashcardSeeds: [
-      { front: { en: 'Liquidation', ur: 'Liquidation' }, back: { en: 'Forced close when margin cannot cover the move against you.', ur: 'Margin khatam → forced close.' } },
-      { front: { en: 'Leverage should be', ur: 'Leverage' }, back: { en: 'An output of risk $ and stop — not a starting goal.', ur: 'Output — goal nahi.' } },
-      { front: { en: 'Spot ownership downside', ur: 'Spot' }, back: { en: 'Toward the value of the holding — not the same mechanic as margin liquidation.', ur: 'Holding value — margin liquidation alag.' } },
-      { front: { en: 'Skip Foundations for 50×', ur: '50× skip' }, back: { en: 'Common wipe path.', ur: 'Common wipe.' } },
+      { front: { en: 'Liquidation', ur: 'Liquidation' }, back: { en: 'Forced close when margin cannot cover the move against you.', ur: 'Jab margin move cover na kar sake to forced close hota hai.' } },
+      { front: { en: 'Leverage should be', ur: 'Leverage' }, back: { en: 'An output of risk $ and stop — not a starting goal.', ur: 'Risk $ aur stop ka output — shuruati goal nahi.' } },
+      { front: { en: 'Spot ownership downside', ur: 'Spot ownership ka downside' }, back: { en: 'Toward the value of the holding — not the same mechanic as margin liquidation.', ur: 'Holding ki value ki taraf — margin liquidation jaisa mechanic nahi.' } },
+      { front: { en: 'Skip Foundations for 50×', ur: 'Foundations skip karke 50× lena' }, back: { en: 'Common wipe path.', ur: 'Common wipe.' } },
       { front: { en: '“I’m sure” sizing', ur: 'Sure sizing' }, back: { en: 'Emotion — not a risk formula.', ur: 'Emotion ≠ formula.' } },
     ],
     quiz: [
@@ -193,11 +193,11 @@ export const CRYPTO_WEEKS = [
     exitTicket: { en: 'You have a personal “never do” list of five items.', ur: 'Apni personal “never do” list — paanch items — taiyar hai.' },
     notebookPrompt: { en: 'Write five never-do rules for crypto (seed, DM, approve, URL, recovery).', ur: 'Crypto ke paanch never-do rules likho (seed, DM, approve, URL, recovery).' },
     flashcardSeeds: [
-      { front: { en: 'Default stance on crypto DMs', ur: 'DMs' }, back: { en: 'Hostile until proven — especially “support.”', ur: 'Hostile — especially support.' } },
-      { front: { en: 'Blind wallet signature risk', ur: 'Blind sign' }, back: { en: 'May grant spend approvals that drain assets.', ur: 'Drain approvals.' } },
-      { front: { en: 'Recovery agent after a hack', ur: 'Recovery' }, back: { en: 'Usually a second scam — never send more funds/seeds.', ur: 'Second scam.' } },
-      { front: { en: 'Rug pull', ur: 'Rug' }, back: { en: 'Insiders drain liquidity / abandon the token.', ur: 'Liquidity drain.' } },
-      { front: { en: 'Phishing login', ur: 'Phish' }, back: { en: 'Clone site steals credentials or prompts malicious signatures.', ur: 'Clone site.' } },
+      { front: { en: 'Default stance on crypto DMs', ur: 'Crypto DMs pe default stance kya hai' }, back: { en: 'Hostile until proven — especially “support.”', ur: 'Hostile — especially support.' } },
+      { front: { en: 'Blind wallet signature risk', ur: 'Blind wallet signature ka risk' }, back: { en: 'May grant spend approvals that drain assets.', ur: 'Spend approvals de sakta jo assets drain kar deti hain.' } },
+      { front: { en: 'Recovery agent after a hack', ur: 'Hack ke baad recovery agent' }, back: { en: 'Usually a second scam — never send more funds/seeds.', ur: 'Aksar doosra scam — aur funds/seeds kabhi mat bhejo.' } },
+      { front: { en: 'Rug pull', ur: 'Rug' }, back: { en: 'Insiders drain liquidity / abandon the token.', ur: 'Insiders liquidity drain karte / token chhod dete hain.' } },
+      { front: { en: 'Phishing login', ur: 'Phish' }, back: { en: 'Clone site steals credentials or prompts malicious signatures.', ur: 'Clone site credentials churati ya malicious signatures mangti hai.' } },
     ],
     quiz: [
       { q: { en: 'A DM claiming “exchange support” asks for seed. You:', ur: 'DM “exchange support” keh kar seed maangta. Tum:' },
@@ -238,11 +238,11 @@ export const CRYPTO_WEEKS = [
     exitTicket: { en: 'You can recite your personal crypto practice loop.', ur: 'Apna personal crypto practice loop yaad se suna sakte ho.' },
     notebookPrompt: { en: 'Write your crypto practice loop in six bullets. Stick it on the Study desk.', ur: 'Crypto practice loop chhe bullets mein likho. Study desk pe chipkao.' },
     flashcardSeeds: [
-      { front: { en: 'Charts without custody/risk/logs', ur: 'Charts only' }, back: { en: 'Decoration — not a process.', ur: 'Decoration.' } },
+      { front: { en: 'Charts without custody/risk/logs', ur: 'Charts bina custody/risk/logs ke' }, back: { en: 'Decoration — not a process.', ur: 'Decoration hai — process nahi.' } },
       { front: { en: 'Practice loop order', ur: 'Loop' }, back: { en: 'Verify → custody → risk → (spot) → log → review.', ur: 'Verify → custody → risk → log → review.' } },
       { front: { en: 'When leverage enters', ur: 'Leverage kab' }, back: { en: 'After process is boring on spot — if ever.', ur: 'Spot boring ke baad — if ever.' } },
       { front: { en: 'Weekly review asks', ur: 'Review' }, back: { en: 'What process broke? What fee surprised you?', ur: 'Process break? Fee surprise?' } },
-      { front: { en: 'Excitement as a reason to trade', ur: 'Excitement' }, back: { en: 'Not a valid syllabus criterion.', ur: 'Syllabus nahi.' } },
+      { front: { en: 'Excitement as a reason to trade', ur: 'Excitement ko trade ka reason banana' }, back: { en: 'Not a valid syllabus criterion.', ur: 'Valid syllabus criterion nahi hai.' } },
     ],
     quiz: [
       { q: { en: 'Sober crypto practice starts with:', ur: 'Sober crypto practice kis se shuru hoti hai:' },
@@ -262,14 +262,14 @@ export const CRYPTO_WEEKS = [
 ];
 
 export const CRYPTO_PLACEMENT = [
-  { topic: 1, q: { en: 'Exchange balances are primarily:', ur: 'Exchange:' }, opts: { en: ['IOUs with counterparty risk', 'Guaranteed self-custody', 'Insured forever always'], ur: ['IOU', 'Self-custody', 'Insured'] }, correct: 0 },
-  { topic: 1, q: { en: 'Seed phrases should be:', ur: 'Seed:' }, opts: { en: ['Never shared', 'Sent to support freely', 'Posted for backup help'], ur: ['Kabhi share nahi', 'Support', 'Post'] }, correct: 0 },
-  { topic: 2, q: { en: 'Round-trip trading cost includes:', ur: 'Cost:' }, opts: { en: ['Fees plus spread/slippage effects', 'Only the chart pattern', 'Only Twitter fees'], ur: ['Fees + spread/slip', 'Chart', 'Twitter'] }, correct: 0 },
-  { topic: 2, q: { en: 'Funding rates mainly affect:', ur: 'Funding:' }, opts: { en: ['Perpetual futures holders', 'Spot HODLers only', 'Bank CDs'], ur: ['Perps', 'Spot only', 'CDs'] }, correct: 0 },
-  { topic: 3, q: { en: 'Liquidation is:', ur: 'Liquidation:' }, opts: { en: ['Forced close when margin fails', 'A bonus', 'Optional decoration'], ur: ['Forced close', 'Bonus', 'Decoration'] }, correct: 0 },
-  { topic: 3, q: { en: 'Leverage should be:', ur: 'Leverage:' }, opts: { en: ['Derived from risk math', 'Chosen for vibes', 'Always maximum'], ur: ['Risk math', 'Vibes', 'Max'] }, correct: 0 },
-  { topic: 4, q: { en: 'Fake support DMs asking for seeds are:', ur: 'Fake support:' }, opts: { en: ['Attacks — refuse', 'Normal KYC', 'Required'], ur: ['Attack — refuse', 'KYC', 'Required'] }, correct: 0 },
-  { topic: 4, q: { en: 'Blind airdrop signatures can:', ur: 'Airdrop sign:' }, opts: { en: ['Drain approvals', 'Mint free riskless yield', 'Replace 2FA'], ur: ['Drain', 'Free yield', 'Replace 2FA'] }, correct: 0 },
-  { topic: 5, q: { en: 'Practice loop starts with:', ur: 'Loop:' }, opts: { en: ['Verify venue and custody plan', 'Max leverage entry', 'Copy the first signal'], ur: ['Verify + custody', 'Max lev', 'Signal'] }, correct: 0 },
-  { topic: 5, q: { en: 'Charts without logs/risk/custody are:', ur: 'Charts only:' }, opts: { en: ['Decoration', 'Sufficient mastery', 'A license'], ur: ['Decoration', 'Mastery', 'License'] }, correct: 0 },
+  { topic: 1, q: { en: 'Exchange balances are primarily:', ur: 'Exchange balances mainly kya hoti hain:' }, opts: { en: ['IOUs with counterparty risk', 'Guaranteed self-custody', 'Insured forever always'], ur: ['Counterparty risk wale IOUs exchange par hote hain', 'Guaranteed self-custody — ye galat frame hai', 'Hamesha insured rehne ki guarantee — galat claim'] }, correct: 0 },
+  { topic: 1, q: { en: 'Seed phrases should be:', ur: 'Seed phrases ko kya karna chahiye:' }, opts: { en: ['Never shared', 'Sent to support freely', 'Posted for backup help'], ur: ['Kabhi share nahi', 'Support ko azaadi se bhejna — kabhi acceptable nahi', 'Backup help ke liye post karna — khatarnak hai'] }, correct: 0 },
+  { topic: 2, q: { en: 'Round-trip trading cost includes:', ur: 'Round-trip trading cost mein kya shamil hota hai:' }, opts: { en: ['Fees plus spread/slippage effects', 'Only the chart pattern', 'Only Twitter fees'], ur: ['Fees ke sath spread aur slippage effects shamil hain', 'Sirf chart pattern — trading costs ignore karna', 'Twitter'] }, correct: 0 },
+  { topic: 2, q: { en: 'Funding rates mainly affect:', ur: 'Funding rates mainly kis cheez ko affect karte hain:' }, opts: { en: ['Perpetual futures holders', 'Spot HODLers only', 'Bank CDs'], ur: ['Perpetual futures holders ko sab se zyada affect', 'Spot only', 'CDs'] }, correct: 0 },
+  { topic: 3, q: { en: 'Liquidation is:', ur: 'Liquidation:' }, opts: { en: ['Forced close when margin fails', 'A bonus', 'Optional decoration'], ur: ['Jab margin fail ho to forced close hota hai', 'Bonus', 'Decoration'] }, correct: 0 },
+  { topic: 3, q: { en: 'Leverage should be:', ur: 'Leverage ko kya se choose karna chahiye:' }, opts: { en: ['Derived from risk math', 'Chosen for vibes', 'Always maximum'], ur: ['Risk math se derive karna chahiye leverage ko', 'Vibes', 'Max'] }, correct: 0 },
+  { topic: 4, q: { en: 'Fake support DMs asking for seeds are:', ur: 'Fake support DMs jo seed maangte hain ye kya hain:' }, opts: { en: ['Attacks — refuse', 'Normal KYC', 'Required'], ur: ['Attack — refuse', 'KYC', 'Required'] }, correct: 0 },
+  { topic: 4, q: { en: 'Blind airdrop signatures can:', ur: 'Blind airdrop signatures kya kar sakte hain:' }, opts: { en: ['Drain approvals', 'Mint free riskless yield', 'Replace 2FA'], ur: ['Drain', 'Free riskless yield mint karna — ye trap hai', 'Replace 2FA'] }, correct: 0 },
+  { topic: 5, q: { en: 'Practice loop starts with:', ur: 'Practice loop kis se shuru hoti hai:' }, opts: { en: ['Verify venue and custody plan', 'Max leverage entry', 'Copy the first signal'], ur: ['Verify + custody', 'Max lev', 'Pehla signal copy karna — galat shuruat hai'] }, correct: 0 },
+  { topic: 5, q: { en: 'Charts without logs/risk/custody are:', ur: 'Charts bina logs/risk/custody ke kya hain:' }, opts: { en: ['Decoration', 'Sufficient mastery', 'A license'], ur: ['Decoration', 'Mastery', 'License'] }, correct: 0 },
 ];

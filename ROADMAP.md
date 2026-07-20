@@ -102,3 +102,5 @@ Next (in order):
 **v50.1 UR parity:** all deep-track week parts ≥55% UR length (Foundations + 12 deep modules).
 
 **v50.2:** quiz stems/explains + long opts + institute course UR thin → 0.
+
+**v50.3:** flashcardSeeds + all placement exports UR thin → 0.

@@ -56,9 +56,9 @@ export const STOCKS_DEEP_WEEKS = [
     flashcardSeeds: [
       { front: { en: 'A share is', ur: 'Share' }, back: { en: 'Ownership slice of a company.', ur: 'Ownership slice.' } },
       { front: { en: 'Bid/ask spread', ur: 'Spread' }, back: { en: 'Hidden round-trip cost.', ur: 'Round-trip cost.' } },
-      { front: { en: 'Overnight equity news often appears as', ur: 'Overnight' }, back: { en: 'A gap at the open.', ur: 'Open pe gap.' } },
-      { front: { en: 'You access exchanges via', ur: 'Access' }, back: { en: 'A broker (usually).', ur: 'Broker.' } },
-      { front: { en: 'Course completion means', ur: 'Course' }, back: { en: 'Study progress — not income.', ur: 'Study — income nahi.' } },
+      { front: { en: 'Overnight equity news often appears as', ur: 'Overnight equity news aksar kis tarah dikhti hai' }, back: { en: 'A gap at the open.', ur: 'Open pe gap.' } },
+      { front: { en: 'You access exchanges via', ur: 'Exchanges tak tum kaise pahunchte ho' }, back: { en: 'A broker (usually).', ur: 'Broker.' } },
+      { front: { en: 'Course completion means', ur: 'Course completion ka matlab kya hai' }, back: { en: 'Study progress — not income.', ur: 'Study — income nahi.' } },
     ],
     quiz: [
       { q: { en: 'After a stock fill you primarily own:', ur: 'Stock fill ke baad tum primarily kya own karte ho:' },
@@ -99,11 +99,11 @@ export const STOCKS_DEEP_WEEKS = [
     exitTicket: { en: 'You can state when you prefer limit over market.', ur: 'Limit kab market se prefer karte ho bata sakte ho.' },
     notebookPrompt: { en: 'Write your personal open rule (e.g. wait 15–30 min / reduced size).', ur: 'Apna open rule likho (maslan 15–30 min wait / chhota size).' },
     flashcardSeeds: [
-      { front: { en: 'Market order guarantees', ur: 'Market' }, back: { en: 'A fill attempt — not a price.', ur: 'Fill — price nahi.' } },
+      { front: { en: 'Market order guarantees', ur: 'Market order kya guarantee karta hai' }, back: { en: 'A fill attempt — not a price.', ur: 'Fill — price nahi.' } },
       { front: { en: 'Limit order risk', ur: 'Limit' }, back: { en: 'May not fill.', ur: 'Fill miss.' } },
-      { front: { en: 'Ex-dividend price typically', ur: 'Ex-div' }, back: { en: 'Drops ~dividend amount.', ur: '~Dividend drop.' } },
-      { front: { en: 'Open risk', ur: 'Open' }, back: { en: 'Wide spreads, erratic prints while overnight flow clears.', ur: 'Wide + erratic.' } },
-      { front: { en: 'Unadjusted chart danger', ur: 'Unadjusted' }, back: { en: 'Old levels look false after splits/divs.', ur: 'Levels galat.' } },
+      { front: { en: 'Ex-dividend price typically', ur: 'Ex-dividend price typically kya hoti hai' }, back: { en: 'Drops ~dividend amount.', ur: '~Dividend drop.' } },
+      { front: { en: 'Open risk', ur: 'Open' }, back: { en: 'Wide spreads, erratic prints while overnight flow clears.', ur: 'Wide spreads, erratic prints jab overnight flow clear ho raha ho.' } },
+      { front: { en: 'Unadjusted chart danger', ur: 'Unadjusted chart ka khatra' }, back: { en: 'Old levels look false after splits/divs.', ur: 'Splits/divs ke baad purane levels galat lagte hain.' } },
     ],
     quiz: [
       { q: { en: 'In a fast market, a market order:', ur: 'Fast market mein market order kya karta hai:' },
@@ -146,11 +146,11 @@ export const STOCKS_DEEP_WEEKS = [
     exitTicket: { en: 'You can explain actual vs expected in one sentence.', ur: 'Actual vs expected ek jumle mein samjha sakte ho.' },
     notebookPrompt: { en: 'Pick one name you follow. Write next catalyst date + how you will size (or flat).', ur: 'Ek naam chuno jo follow karte ho. Next catalyst date + size/flat rule likho.' },
     flashcardSeeds: [
-      { front: { en: 'Earnings move mainly on', ur: 'Earnings' }, back: { en: 'Actual vs expectations.', ur: 'Actual vs expected.' } },
+      { front: { en: 'Earnings move mainly on', ur: 'Earnings move mainly kis pe hota hai' }, back: { en: 'Actual vs expectations.', ur: 'Actual vs expected.' } },
       { front: { en: 'IV crush', ur: 'IV crush' }, back: { en: 'Implied vol drops after the event.', ur: 'Event baad IV drop.' } },
-      { front: { en: 'Binary event + full size', ur: 'Binary+size' }, back: { en: 'Gambling posture unless risk is defined.', ur: 'Gambling posture.' } },
-      { front: { en: '“Good news” alone', ur: 'Good news' }, back: { en: 'Insufficient — priced vs expected.', ur: 'Expected vs.' } },
-      { front: { en: 'This Stocks stub unlocks', ur: 'Stub' }, back: { en: 'Literacy rails — not stock-picking tips.', ur: 'Literacy — tips nahi.' } },
+      { front: { en: 'Binary event + full size', ur: 'Binary event + full size lagana' }, back: { en: 'Gambling posture unless risk is defined.', ur: 'Gambling posture hai jab tak risk define na ho.' } },
+      { front: { en: '“Good news” alone', ur: 'Good news' }, back: { en: 'Insufficient — priced vs expected.', ur: 'Insufficient hai — priced vs expected matter karta hai.' } },
+      { front: { en: 'This Stocks stub unlocks', ur: 'Ye Stocks stub kya unlock karta hai' }, back: { en: 'Literacy rails — not stock-picking tips.', ur: 'Literacy rails hain — stock-picking tips nahi.' } },
     ],
     quiz: [
       { q: { en: 'A company grows 30% and still crashes after earnings. Likely:', ur: 'Company 30% grow kare aur earnings ke baad crash ho. Likely:' },
@@ -192,10 +192,10 @@ export const STOCKS_DEEP_WEEKS = [
     notebookPrompt: { en: 'Six-bullet stocks loop on Study desk.', ur: '6-bullet stocks loop.' },
     flashcardSeeds: [
       { front: { en: 'Equity loop order', ur: 'Loop' }, back: { en: 'Broker → hours → size → (limit) → log → review.', ur: 'Broker → hours → size → log → review.' } },
-      { front: { en: 'Tip channel as research', ur: 'Tips' }, back: { en: 'Not a substitute for process.', ur: 'Process nahi.' } },
+      { front: { en: 'Tip channel as research', ur: 'Tip channel ko research samajhna' }, back: { en: 'Not a substitute for process.', ur: 'Process ka substitute nahi hai.' } },
       { front: { en: 'Blind earnings hold', ur: 'Earnings hold' }, back: { en: 'Gambling unless size is defined flat/micro.', ur: 'Gambling unless defined.' } },
       { front: { en: 'Weekly review asks', ur: 'Review' }, back: { en: 'What fee/slippage surprised you?', ur: 'Fee/slip surprise?' } },
-      { front: { en: 'This week unlocks', ur: 'Week' }, back: { en: 'A practice habit — not stock tips.', ur: 'Habit — tips nahi.' } },
+      { front: { en: 'This week unlocks', ur: 'Week' }, back: { en: 'A practice habit — not stock tips.', ur: 'Practice habit hai — stock tips nahi.' } },
     ],
     quiz: [
       { q: { en: 'Sober equity practice starts with:', ur: 'Sober equity practice kis se shuru hoti hai:' },
@@ -242,7 +242,7 @@ export const STOCKS_DEEP_WEEKS = [
       { front: { en: 'Concentration risk', ur: 'Concentration' }, back: { en: 'One name dominates outcomes.', ur: 'Ek name dominate.' } },
       { front: { en: 'Risk % sets', ur: 'Risk%' }, back: { en: 'How much one idea can hurt.', ur: 'Ek idea ka dard.' } },
       { front: { en: 'Size from', ur: 'Size' }, back: { en: 'Risk $ ÷ stop distance.', ur: 'Risk$ ÷ stop.' } },
-      { front: { en: 'Blue-chip = riskless', ur: 'Blue chip' }, back: { en: 'False — prices and businesses still fail.', ur: 'Jhoot.' } },
+      { front: { en: 'Blue-chip = riskless', ur: 'Blue chip' }, back: { en: 'False — prices and businesses still fail.', ur: 'Jhoot hai — prices aur businesses phir bhi fail ho sakte.' } },
     ],
     quiz: [
       { q: { en: 'Dilution mainly means:', ur: 'Dilution mainly kya matlab hai:' },
@@ -285,11 +285,11 @@ export const STOCKS_DEEP_WEEKS = [
     exitTicket: { en: 'You can name three equity scam tells.', ur: 'Teen scam tells.' },
     notebookPrompt: { en: 'List venues/people you will never fund. Pin it.', ur: 'Venues/log jo kabhi fund nahi karoge — list karo aur pin karo.' },
     flashcardSeeds: [
-      { front: { en: 'Guaranteed stock income', ur: 'Guaranteed' }, back: { en: 'Fantasy marketing.', ur: 'Fantasy.' } },
-      { front: { en: 'Recovery agent after loss', ur: 'Recovery' }, back: { en: 'Often a second scam.', ur: 'Second scam.' } },
-      { front: { en: 'MasteryCap certificate', ur: 'Cert' }, back: { en: 'Self-issued study record — not a license.', ur: 'Study record — license nahi.' } },
-      { front: { en: 'Chat OTP / full password asks', ur: 'OTP ask' }, back: { en: 'Refuse — attack pattern.', ur: 'Refuse.' } },
-      { front: { en: 'Thin-name urgency pump', ur: 'Pump' }, back: { en: 'Classic dump setup.', ur: 'Dump setup.' } },
+      { front: { en: 'Guaranteed stock income', ur: 'Guaranteed stock income ka claim' }, back: { en: 'Fantasy marketing.', ur: 'Fantasy.' } },
+      { front: { en: 'Recovery agent after loss', ur: 'Loss ke baad recovery agent' }, back: { en: 'Often a second scam.', ur: 'Second scam.' } },
+      { front: { en: 'MasteryCap certificate', ur: 'MasteryCap certificate kya hai' }, back: { en: 'Self-issued study record — not a license.', ur: 'Study record — license nahi.' } },
+      { front: { en: 'Chat OTP / full password asks', ur: 'Chat mein OTP / full password maangna' }, back: { en: 'Refuse — attack pattern.', ur: 'Refuse karo — ye attack pattern hai.' } },
+      { front: { en: 'Thin-name urgency pump', ur: 'Thin-name urgency pump' }, back: { en: 'Classic dump setup.', ur: 'Dump setup.' } },
     ],
     quiz: [
       { q: { en: '“2% daily guaranteed stocks” is:', ur: '“2% daily guaranteed stocks” kya hai:' },
@@ -309,16 +309,16 @@ export const STOCKS_DEEP_WEEKS = [
 ];
 
 export const STOCKS_DEEP_PLACEMENT = [
-  { topic: 1, q: { en: 'A share represents:', ur: 'Share:' }, opts: { en: ['Ownership slice', 'Guaranteed wage', 'Broker loan only'], ur: ['Ownership', 'Wage', 'Loan'] }, correct: 0 },
-  { topic: 1, q: { en: 'Bid/ask is mainly:', ur: 'Spread:' }, opts: { en: ['A cost', 'A gift', 'Illegal'], ur: ['Cost', 'Gift', 'Illegal'] }, correct: 0 },
-  { topic: 2, q: { en: 'Market orders prioritize:', ur: 'Market:' }, opts: { en: ['Fill over exact price', 'Exact price always', 'Free fills'], ur: ['Fill', 'Exact price', 'Free'] }, correct: 0 },
-  { topic: 2, q: { en: 'Open tape is often:', ur: 'Open:' }, opts: { en: ['Noisy while overnight flow clears', 'The calmest hour', 'Closed to retail'], ur: ['Noisy', 'Calmest', 'Closed'] }, correct: 0 },
-  { topic: 3, q: { en: 'Catalysts move on:', ur: 'Catalyst:' }, opts: { en: ['Actual vs expected', 'Headline adjectives', 'Logo color'], ur: ['Actual vs expected', 'Adjectives', 'Logo'] }, correct: 0 },
-  { topic: 3, q: { en: 'Full size through unknowns is:', ur: 'Full size:' }, opts: { en: ['Gambling posture', 'Professional requirement', 'Risk-free'], ur: ['Gambling', 'Required', 'Risk-free'] }, correct: 0 },
-  { topic: 4, q: { en: 'Equity practice loop starts with:', ur: 'Loop:' }, opts: { en: ['Broker, hours, risk size', 'Max leverage', 'Tip first'], ur: ['Broker+hours+size', 'Max lev', 'Tip'] }, correct: 0 },
-  { topic: 4, q: { en: 'Skipping the journal because it felt obvious:', ur: 'Skip journal:' }, opts: { en: ['Breaks the review loop', 'Is professional', 'Removes fees'], ur: ['Breaks review', 'Pro', 'Removes fees'] }, correct: 0 },
-  { topic: 5, q: { en: 'Position size should use:', ur: 'Size:' }, opts: { en: ['Risk $ and stop', 'Story heat', 'Tip lot'], ur: ['Risk+stop', 'Story', 'Tip'] }, correct: 0 },
+  { topic: 1, q: { en: 'A share represents:', ur: 'Share kya represent karta hai:' }, opts: { en: ['Ownership slice', 'Guaranteed wage', 'Broker loan only'], ur: ['Ownership', 'Wage', 'Loan'] }, correct: 0 },
+  { topic: 1, q: { en: 'Bid/ask is mainly:', ur: 'Bid/ask mainly kya hota hai:' }, opts: { en: ['A cost', 'A gift', 'Illegal'], ur: ['Cost', 'Gift', 'Illegal'] }, correct: 0 },
+  { topic: 2, q: { en: 'Market orders prioritize:', ur: 'Market orders kis ko priority dete hain:' }, opts: { en: ['Fill over exact price', 'Exact price always', 'Free fills'], ur: ['Exact price se zyada fill priority market order ko deti hai', 'Exact price', 'Free'] }, correct: 0 },
+  { topic: 2, q: { en: 'Open tape is often:', ur: 'Open tape aksar kaisi hoti hai:' }, opts: { en: ['Noisy while overnight flow clears', 'The calmest hour', 'Closed to retail'], ur: ['Overnight flow clear hone tak open tape noisy rehti hai', 'Calmest', 'Closed'] }, correct: 0 },
+  { topic: 3, q: { en: 'Catalysts move on:', ur: 'Catalysts kis cheez pe move karte hain:' }, opts: { en: ['Actual vs expected', 'Headline adjectives', 'Logo color'], ur: ['Actual vs expected', 'Adjectives', 'Logo'] }, correct: 0 },
+  { topic: 3, q: { en: 'Full size through unknowns is:', ur: 'Unknowns ke through full size kya hai:' }, opts: { en: ['Gambling posture', 'Professional requirement', 'Risk-free'], ur: ['Gambling', 'Professional requirement nahi — reckless full size hai', 'Risk-free'] }, correct: 0 },
+  { topic: 4, q: { en: 'Equity practice loop starts with:', ur: 'Equity practice loop kis se shuru hoti hai:' }, opts: { en: ['Broker, hours, risk size', 'Max leverage', 'Tip first'], ur: ['Broker+hours+size', 'Max lev', 'Tip'] }, correct: 0 },
+  { topic: 4, q: { en: 'Skipping the journal because it felt obvious:', ur: 'Journal skip karna kyunki obvious laga kya hai:' }, opts: { en: ['Breaks the review loop', 'Is professional', 'Removes fees'], ur: ['Breaks review', 'Pro', 'Removes fees'] }, correct: 0 },
+  { topic: 5, q: { en: 'Position size should use:', ur: 'Position size ke liye kya use karna chahiye:' }, opts: { en: ['Risk $ and stop', 'Story heat', 'Tip lot'], ur: ['Risk+stop', 'Story', 'Tip'] }, correct: 0 },
   { topic: 5, q: { en: 'Dilution can:', ur: 'Dilution:' }, opts: { en: ['Shrink ownership %', 'Delete all risk', 'Guarantee dividends'], ur: ['Shrink %', 'Delete risk', 'Guarantee div'] }, correct: 0 },
-  { topic: 6, q: { en: 'Guaranteed weekly stock income is:', ur: 'Guaranteed:' }, opts: { en: ['Fantasy marketing', 'SECP default', 'Risk-free'], ur: ['Fantasy', 'SECP', 'Risk-free'] }, correct: 0 },
-  { topic: 6, q: { en: 'Recovery DMs after a loss are often:', ur: 'Recovery:' }, opts: { en: ['Second scams', 'Official police', 'Required insurance'], ur: ['Second scam', 'Police', 'Insurance'] }, correct: 0 },
+  { topic: 6, q: { en: 'Guaranteed weekly stock income is:', ur: 'Guaranteed weekly stock income kya hai:' }, opts: { en: ['Fantasy marketing', 'SECP default', 'Risk-free'], ur: ['Fantasy', 'SECP', 'Risk-free'] }, correct: 0 },
+  { topic: 6, q: { en: 'Recovery DMs after a loss are often:', ur: 'Loss ke baad recovery DMs aksar kya hote hain:' }, opts: { en: ['Second scams', 'Official police', 'Required insurance'], ur: ['Second scam', 'Police', 'Insurance'] }, correct: 0 },
 ];

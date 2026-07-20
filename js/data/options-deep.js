@@ -102,8 +102,8 @@ export const OPTIONS_DEEP_WEEKS = [
       { front: { en: 'Intrinsic', ur: 'Intrinsic' }, back: { en: 'ITM amount.', ur: 'ITM amount.' } },
       { front: { en: 'Extrinsic', ur: 'Extrinsic' }, back: { en: 'Time + IV value.', ur: 'Time + IV.' } },
       { front: { en: 'At expiry extrinsic', ur: 'Expiry' }, back: { en: 'Goes to zero.', ur: 'Zero.' } },
-      { front: { en: 'IV crush', ur: 'IV crush' }, back: { en: 'IV drops after event — hurts long premium.', ur: 'Event baad IV drop.' } },
-      { front: { en: 'Direction right + IV crush', ur: 'Right+crush' }, back: { en: 'Can still lose on long options.', ur: 'Phir bhi haar.' } },
+      { front: { en: 'IV crush', ur: 'IV crush' }, back: { en: 'IV drops after event — hurts long premium.', ur: 'Event ke baad IV drop — long premium ko hurt karta.' } },
+      { front: { en: 'Direction right + IV crush', ur: 'Direction sahi + IV crush' }, back: { en: 'Can still lose on long options.', ur: 'Long options pe phir bhi nuqsan ho sakta hai.' } },
     ],
     quiz: [
       { q: { en: 'At expiry, extrinsic value:', ur: 'Expiry pe extrinsic value kya hoti hai:' },
@@ -145,10 +145,10 @@ export const OPTIONS_DEEP_WEEKS = [
     notebookPrompt: { en: 'Write: I will not sell naked until ___ (or never).', ur: 'Likho: naked sell tab tak nahi jab tak ___ (ya kabhi nahi).' },
     flashcardSeeds: [
       { front: { en: 'Defined risk example', ur: 'Defined' }, back: { en: 'Long option or debit spread.', ur: 'Long / debit spread.' } },
-      { front: { en: 'Naked short call risk', ur: 'Naked call' }, back: { en: 'Large/undefined to the upside.', ur: 'Upside undefined.' } },
-      { front: { en: 'Credit collected means', ur: 'Credit' }, back: { en: 'Obligation taken — not free yield.', ur: 'Obligation — free nahi.' } },
+      { front: { en: 'Naked short call risk', ur: 'Naked short call ka risk' }, back: { en: 'Large/undefined to the upside.', ur: 'Upside undefined.' } },
+      { front: { en: 'Credit collected means', ur: 'Credit collect karne ka matlab' }, back: { en: 'Obligation taken — not free yield.', ur: 'Obligation — free nahi.' } },
       { front: { en: 'Before click', ur: 'Click' }, back: { en: 'State max loss.', ur: 'Max loss.' } },
-      { front: { en: 'Theta as income story', ur: 'Theta' }, back: { en: 'Hides tail risk if naked.', ur: 'Tail risk chhupa.' } },
+      { front: { en: 'Theta as income story', ur: 'Theta ko income story samajhna' }, back: { en: 'Hides tail risk if naked.', ur: 'Tail risk chhupa.' } },
     ],
     quiz: [
       { q: { en: 'Long call risk is typically:', ur: 'Long call ka risk typically kya hota hai:' },
@@ -190,10 +190,10 @@ export const OPTIONS_DEEP_WEEKS = [
     notebookPrompt: { en: 'Six-bullet options loop on Study desk.', ur: '6-bullet options loop.' },
     flashcardSeeds: [
       { front: { en: 'Options loop', ur: 'Loop' }, back: { en: 'Thesis → structure → max loss → expiry → log.', ur: 'Thesis → structure → max → expiry → log.' } },
-      { front: { en: 'Learning default', ur: 'Default' }, back: { en: 'Defined-risk structures.', ur: 'Defined-risk.' } },
-      { front: { en: 'Blind earnings long premium', ur: 'Earnings' }, back: { en: 'IV crush risk.', ur: 'IV crush.' } },
-      { front: { en: 'Certificate', ur: 'Cert' }, back: { en: 'Study progress — not MM license.', ur: 'Study — MM nahi.' } },
-      { front: { en: 'Greeks track', ur: 'Greeks' }, back: { en: 'After basics — deeper sensitivity.', ur: 'Basics baad.' } },
+      { front: { en: 'Learning default', ur: 'Default' }, back: { en: 'Defined-risk structures.', ur: 'Defined-risk structures use karo.' } },
+      { front: { en: 'Blind earnings long premium', ur: 'Blind earnings long premium lena' }, back: { en: 'IV crush risk.', ur: 'IV crush.' } },
+      { front: { en: 'Certificate', ur: 'Cert' }, back: { en: 'Study progress — not MM license.', ur: 'Study progress hai — MM license nahi.' } },
+      { front: { en: 'Greeks track', ur: 'Greeks' }, back: { en: 'After basics — deeper sensitivity.', ur: 'Basics ke baad — deeper sensitivity seekho.' } },
     ],
     quiz: [
       { q: { en: 'Options practice starts with:', ur: 'Options practice kis se shuru hoti hai:' },
@@ -214,11 +214,11 @@ export const OPTIONS_DEEP_WEEKS = [
 
 export const OPTIONS_DEEP_PLACEMENT = [
   { topic: 1, q: { en: 'Call is:', ur: 'Call:' }, opts: { en: ['Right to buy', 'Must buy', 'Free stock'], ur: ['Buy right', 'Must buy', 'Free'] }, correct: 0 },
-  { topic: 1, q: { en: 'Long option max loss:', ur: 'Max:' }, opts: { en: ['Premium', 'Unlimited', 'Zero'], ur: ['Premium', 'Unlimited', 'Zero'] }, correct: 0 },
-  { topic: 2, q: { en: 'At expiry extrinsic:', ur: 'Expiry:' }, opts: { en: ['→ 0', 'Doubles', 'Ignores spot'], ur: ['→ 0', 'Double', 'Ignore'] }, correct: 0 },
+  { topic: 1, q: { en: 'Long option max loss:', ur: 'Long option ka max loss kya hota hai:' }, opts: { en: ['Premium', 'Unlimited', 'Zero'], ur: ['Premium', 'Unlimited', 'Zero'] }, correct: 0 },
+  { topic: 2, q: { en: 'At expiry extrinsic:', ur: 'Expiry pe extrinsic value kya hoti hai:' }, opts: { en: ['→ 0', 'Doubles', 'Ignores spot'], ur: ['→ 0', 'Double', 'Ignore'] }, correct: 0 },
   { topic: 2, q: { en: 'IV crush hurts:', ur: 'Crush:' }, opts: { en: ['Long premium', 'Cash only', 'Bonds'], ur: ['Long premium', 'Cash', 'Bonds'] }, correct: 0 },
-  { topic: 3, q: { en: 'Naked short call:', ur: 'Naked:' }, opts: { en: ['Large upside risk', 'Capped at credit', 'Riskless'], ur: ['Upside risk', 'Capped', 'Riskless'] }, correct: 0 },
-  { topic: 3, q: { en: 'Before click state:', ur: 'Click:' }, opts: { en: ['Max loss', 'Only vibes', 'Tip OK'], ur: ['Max loss', 'Vibes', 'Tip'] }, correct: 0 },
-  { topic: 4, q: { en: 'Loop starts:', ur: 'Loop:' }, opts: { en: ['Thesis + structure + max loss', 'Naked first', 'Skip expiry'], ur: ['Thesis+max', 'Naked', 'Skip'] }, correct: 0 },
+  { topic: 3, q: { en: 'Naked short call:', ur: 'Naked short call kya hota hai:' }, opts: { en: ['Large upside risk', 'Capped at credit', 'Riskless'], ur: ['Upside risk', 'Capped', 'Riskless'] }, correct: 0 },
+  { topic: 3, q: { en: 'Before click state:', ur: 'Click se pehle state kya honi chahiye:' }, opts: { en: ['Max loss', 'Only vibes', 'Tip OK'], ur: ['Max loss', 'Vibes', 'Tip'] }, correct: 0 },
+  { topic: 4, q: { en: 'Loop starts:', ur: 'Loop:' }, opts: { en: ['Thesis + structure + max loss', 'Naked first', 'Skip expiry'], ur: ['Thesis structure aur max loss pehle se clear hon', 'Naked', 'Skip'] }, correct: 0 },
   { topic: 4, q: { en: 'Certificate:', ur: 'Cert:' }, opts: { en: ['Study record', 'MM license', 'Income'], ur: ['Study', 'MM', 'Income'] }, correct: 0 },
 ];
