@@ -1,13 +1,14 @@
+## [46.0.1] — 2026-07-20
+
+### Boot
+- Removed Welcome Update / “Premium School” changelog sheet on start — silent version stamp only
+
 ## [46.0.0] — 2026-07-20
 
 ### Premium School
-- **Welcome Update** sheet on first open of v46 (what this update brought)
-- **Campus branches:** Software Craft · Markets · Money — Open / Locked / Announced badges; enroll sheet; toast locks (no `alert`)
-- **Student profile** strip on Today + Records; humanized age/goal/time labels; final **attempts** transcript
-- **Themes:** Light (default) / Sepia / Dark / Auto; quick toggle on Today
-- **Splash** matches bench+stamp composition; desktop max-width fixed; session home → Today
-- **Institute teach** paginated reader pages; settings gear icon
-- Scope lock kept: FE-202→APP-403 Announced; HTTP Lab + typed editor = v2 off
+- Campus branches: Software Craft · Markets · Money — Open / Locked / Announced; enroll; attempts
+- Student profile strip; Light / Sepia / Dark themes; splash + desktop fix; teach page reader
+- Scope lock kept: FE-202→APP-403 Announced; Lab/editor = v2 off
 - SW `masterycap-v4600`
 
 ## [45.1.0] — 2026-07-20

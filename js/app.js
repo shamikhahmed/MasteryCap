@@ -580,43 +580,9 @@ function maybeCorruptSheet() {
 }
 
 function maybeWhatsNew() {
+  // Silent version stamp — no Welcome Update / changelog sheet on boot
   const seen = store.get(KEYS.lastSeenVersion);
-  if (seen === APP_VERSION) return;
-  const el = document.createElement('div');
-  el.id = 'whatsnew-sheet';
-  el.className = 'sheet-root on';
-  const en = App.lang !== 'ur';
-  el.innerHTML = `<div class="sheet-backdrop" data-close></div>
-    <div class="sheet" role="dialog">
-      <div class="sheet-handle"></div>
-      <div class="sheet-head"><div class="slabel">${en ? 'Welcome Update' : 'Welcome Update'} · ${APP_VERSION}</div>
-        <button class="sheet-x" data-close>${icon('x', { size: 18 })}</button></div>
-      <div class="sheet-body" style="font-size:14px;color:var(--t2);line-height:1.55">
-        <p style="font-family:var(--serif);font-size:20px;color:var(--t0);margin:0 0 12px">${en ? 'MasteryCap 46 — Premium School' : 'MasteryCap 46 — Premium School'}</p>
-        <p>${en ? 'This update brought:' : 'Is update mein:'}</p>
-        <ul class="onb-ul" style="margin:8px 0 14px;padding-left:18px">
-          <li>${en ? 'Campus branches — Software Craft, Markets, Money' : 'Campus branches — Software Craft, Markets, Money'}</li>
-          <li>${en ? 'Enroll + final attempts on your transcript' : 'Enroll + final attempts transcript pe'}</li>
-          <li>${en ? 'Light / Sepia / Dark reading themes' : 'Light / Sepia / Dark themes'}</li>
-          <li>${en ? 'Student profile strip + calmer splash' : 'Student profile + calm splash'}</li>
-          <li>${en ? 'Desktop campus layout fix' : 'Desktop campus fix'}</li>
-        </ul>
-        <p style="color:var(--t3)">${en ? 'Offline. No accounts. Progress stays on this device.' : 'Offline. No accounts. Progress is device pe.'}</p>
-        <button class="btn accent mt14" id="welcomeEnter" style="width:100%">${en ? 'Enter campus' : 'Campus mein jao'}</button>
-      </div>
-    </div>`;
-  document.body.appendChild(el);
-  const dismiss = () => {
-    store.set(KEYS.lastSeenVersion, APP_VERSION);
-    el.remove();
-  };
-  el.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', dismiss));
-  document.getElementById('welcomeEnter')?.addEventListener('click', () => {
-    dismiss();
-    if (store.get(KEYS.onboarded) && App.profile?.campus) {
-      App.navigate('campus');
-    }
-  });
+  if (seen !== APP_VERSION) store.set(KEYS.lastSeenVersion, APP_VERSION);
 }
 
 function maybeTour() {

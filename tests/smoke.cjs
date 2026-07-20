@@ -39,16 +39,11 @@ function startServer() {
 }
 
 async function onboard(page) {
-  await page.waitForSelector('#onbNext, #tabbar, #welcomeEnter', { timeout: 15000 });
-  // v46 Welcome Update can cover onboarding — dismiss first
-  await page.locator('#welcomeEnter').click({ timeout: 3000 }).catch(() => {});
-  await page.locator('#whatsnew-sheet [data-close]').first().click({ timeout: 800 }).catch(() => {});
-  await page.waitForTimeout(200);
+  await page.waitForSelector('#onbNext, #tabbar', { timeout: 15000 });
   if (await page.locator('#tabbar:not(.hidden)').count()) {
     await dismissSheets(page);
     return;
   }
-  await page.waitForSelector('#onbNext', { timeout: 10000 });
   // welcome → notthis → name → age → lang → build → goal → time → plan
   await page.locator('#onbNext').click(); // welcome
   await page.locator('#onbNext').click(); // notthis
@@ -71,8 +66,6 @@ async function onboard(page) {
 }
 
 async function dismissSheets(page) {
-  await page.locator('#welcomeEnter').click({ timeout: 800 }).catch(() => {});
-  await page.locator('#whatsnew-sheet [data-close]').first().click({ timeout: 500 }).catch(() => {});
   await page.locator('#tourSkip').click({ timeout: 800 }).catch(() => {});
   await page.locator('#readingGuideSkip').click({ timeout: 800 }).catch(() => {});
   await page.locator('#readingGuideOk').click({ timeout: 500 }).catch(() => {});
@@ -83,7 +76,7 @@ async function dismissSheets(page) {
     await page.waitForTimeout(80);
   }
   for (let i = 0; i < 6; i++) {
-    const closed = await page.locator('.sheet-root.on [data-close], .sheet-root.on .sheet-x, #mbDismiss, #backupDismiss, #corruptKeep, #first-backup-sheet [data-close], #readingGuide button, #welcomeEnter')
+    const closed = await page.locator('.sheet-root.on [data-close], .sheet-root.on .sheet-x, #mbDismiss, #backupDismiss, #corruptKeep, #first-backup-sheet [data-close], #readingGuide button')
       .first().click({ timeout: 400 }).then(() => true).catch(() => false);
     if (!closed) break;
     await page.waitForTimeout(60);
