@@ -324,25 +324,7 @@ function renderOnboarding() {
 /* ============================================================
    Boot
    ============================================================ */
-function showUpdateToast(version) {
-  if (document.getElementById('sw-sheet') || document.getElementById('sw-toast')) return;
-  const el = document.createElement('div');
-  el.id = 'sw-sheet';
-  el.className = 'sheet-root on';
-  const label = App.t('sw_updated').replace('{v}', version || APP_VERSION);
-  el.innerHTML = `<div class="sheet-backdrop"></div>
-    <div class="sheet" role="dialog" aria-modal="true">
-      <div class="sheet-handle"></div>
-      <div class="sheet-head"><div class="slabel">${App.t('sw_update_title')}</div></div>
-      <div class="sheet-body">
-        <p style="font-size:14.5px;color:var(--t2);line-height:1.55;margin:0 0 16px">${label}</p>
-        <p style="font-size:13px;color:var(--t3);line-height:1.5;margin:0 0 18px">${App.t('sw_update_body')}</p>
-        <button class="btn accent" id="swReload" style="width:100%">${App.t('sw_reload')}</button>
-      </div>
-    </div>`;
-  document.body.appendChild(el);
-  document.getElementById('swReload').addEventListener('click', () => location.reload());
-}
+function showUpdateToast() {}
 
 function maybeFirstBackup() {
   if (store.get(KEYS.firstBackupDone) || !store.get(KEYS.onboarded)) return;
