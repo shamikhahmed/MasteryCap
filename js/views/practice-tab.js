@@ -4,6 +4,7 @@ import { icon } from '../icons.js';
 import {
   dueSrs, gradeSrs, srsCapForProfile, getInstitute,
 } from '../institute/progress.js';
+import { renderCodeEditor, wireCodeEditor, isDesktopEditor } from '../institute/code-editor.js';
 
 export function renderPracticeTab(App, el) {
   const en = App.lang === 'en';
@@ -16,26 +17,38 @@ export function renderPracticeTab(App, el) {
   }
 
   const total = (getInstitute().srs || []).length;
+  const playground = renderCodeEditor({
+    prompt: {
+      en: 'Playground — try a function. Checks look for greet returning a string.',
+      ur: 'Playground — function try karo. greet string return kare.',
+    },
+    starter: 'function greet(name) {\n  return "salam " + name;\n}\n',
+    lang: App.lang,
+  });
 
   el.innerHTML = `<div class="screen inst-screen">
     <div class="lt-head">
       <div class="kicker">${en ? 'Practice' : 'Practice'}</div>
-      <h1>${en ? 'Reviews & drills' : 'Reviews & drills'}</h1>
-      <p class="inst-muted">${en ? 'Spaced repetition across courses. Cap today: ' + cap + ' cards.' : 'Courses across SRS. Aaj cap: ' + cap}</p>
+      <h1>${en ? 'Reviews & labs' : 'Reviews & labs'}</h1>
+      <p class="inst-muted">${en ? 'Spaced repetition + HTTP Lab + code practice. Cap today: ' + cap : 'SRS + HTTP Lab + code. Cap: ' + cap}</p>
     </div>
     <div class="inst-card accent-rule">
       <div class="mono" style="font-size:28px">${due.length}</div>
       <p class="inst-muted">${en ? 'Due now' : 'Ab due'} · ${total} ${en ? 'in deck' : 'deck mein'}</p>
       <button class="btn accent" id="prStart" ${due.length ? '' : 'disabled'}>${en ? 'Start review' : 'Review shuru'}</button>
     </div>
-    <div class="slabel mt16">${en ? 'Also available' : 'Aur'}</div>
+    <div class="slabel mt16">${en ? 'Labs' : 'Labs'}</div>
     <div class="inst-list">
+      <button class="inst-row-item" id="prLab">
+        <span class="grow">${en ? 'HTTP Lab (simulated server)' : 'HTTP Lab (simulated)'}</span>
+        <span class="mono">→</span>
+      </button>
       <button class="inst-row-item" id="prDrills">
         <span class="grow">${en ? 'Market drills' : 'Market drills'}</span>
         <span class="mono">→</span>
       </button>
       <button class="inst-row-item" id="prStudy">
-        <span class="grow">${en ? 'Study desk (flash / notes)' : 'Study desk'}</span>
+        <span class="grow">${en ? 'Study desk' : 'Study desk'}</span>
         <span class="mono">→</span>
       </button>
       <button class="inst-row-item" id="prSim">
@@ -43,15 +56,26 @@ export function renderPracticeTab(App, el) {
         <span class="mono">→</span>
       </button>
     </div>
+    <div class="mt16">${playground}</div>
+    <p class="inst-foot-note">${isDesktopEditor()
+      ? (en ? 'Desktop editor active (≥900px).' : 'Desktop editor active.')
+      : (en ? 'Widen browser for typed editor; phone uses Notes.' : 'Typed editor ke liye wide screen; phone pe Notes.')}</p>
   </div>`;
 
   document.getElementById('prStart')?.addEventListener('click', () => {
     App._srsSession = { queue: due.map((c) => c.id), i: 0, show: false };
     App.render();
   });
+  document.getElementById('prLab')?.addEventListener('click', () => {
+    App.tab = 'http-lab'; App.haptic(6); App.render(); App.renderNav();
+  });
   document.getElementById('prDrills')?.addEventListener('click', () => App.openDrills());
   document.getElementById('prStudy')?.addEventListener('click', () => App.openStudy());
   document.getElementById('prSim')?.addEventListener('click', () => App.openSim());
+  wireCodeEditor(
+    'function greet(name) {\n  return "salam " + name;\n}\n',
+    [{ name: 'greet returns string', run: 'typeof greet("a") === "string"' }],
+  );
 }
 
 function renderSrsCard(App, el, session, en) {

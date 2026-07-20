@@ -1,3 +1,12 @@
+## [44.0.0] — 2026-07-20
+
+### Software Craft complete path + labs
+- **All Software Craft courses In Session:** FE-202→FE-204, BE-301→BE-304, APP-401→APP-403 (bilingual lessons + finals + projects where listed)
+- **Age-band teach bodies:** `teachRegister` for teen/career/adult on new courses; adaptive wrap for older lessons via `js/institute/register.js`
+- **HTTP Lab:** on-device simulated server (Practice → HTTP Lab); honesty banner; BE-301 project hooks
+- **Desktop typed code editor:** ≥900px textarea runner with light checks; phone keeps Notes path
+- SW `masterycap-v4400`
+
 ## [43.0.0] — 2026-07-20
 
 ### Institute campus MVP

@@ -106,8 +106,8 @@ async function goTab(page, id) {
       const page = await context.newPage();
       page.on('pageerror', (e) => errors.push(`${width}:${e.message}`));
 
-      await page.goto(base + '/', { waitUntil: 'networkidle' });
-      await page.waitForTimeout(800);
+      await page.goto(base + '/', { waitUntil: 'domcontentloaded' });
+      await page.waitForTimeout(2200);
       await onboard(page);
 
       await page.evaluate(() => {

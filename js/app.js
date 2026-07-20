@@ -20,6 +20,7 @@ import { renderCampus } from './views/campus.js';
 import { renderPracticeTab } from './views/practice-tab.js';
 import { renderRecords } from './views/records.js';
 import { renderLesson, renderFinal } from './views/lesson.js';
+import { renderHttpLab } from './views/http-lab.js';
 import {
   recommendPath, AGE_OPTS, LANG_OPTS, BUILD_OPTS, GOAL_OPTS, TIME_OPTS,
 } from './institute/placement.js';
@@ -210,6 +211,7 @@ export const App = {
       records: renderRecords,
       lesson: renderLesson,
       final: renderFinal,
+      'http-lab': renderHttpLab,
       dashboard: renderDashboard,
       learn: renderCourse,
       journal: renderJournal,
@@ -227,7 +229,7 @@ export const App = {
   renderNav() {
     const nav = document.getElementById('tabbar');
     if (!nav) return;
-    const hide = this.tab === 'lesson' || this.tab === 'final' || this.tab === 'sim';
+    const hide = this.tab === 'lesson' || this.tab === 'final' || this.tab === 'sim' || this.tab === 'http-lab';
     if (hide) { nav.classList.add('hidden'); return; }
     nav.classList.remove('hidden');
     const due = dueReviewCount() + mistakeCountDue();
@@ -570,7 +572,7 @@ function maybeWhatsNew() {
       <div class="sheet-head"><div class="slabel">${App.t('whats_new')} · ${APP_VERSION}</div>
         <button class="sheet-x" data-close>${icon('x', { size: 18 })}</button></div>
       <div class="sheet-body" style="font-size:14px;color:var(--t2);line-height:1.55">
-        <p>v43.0.0 Institute campus: Today · Campus · Practice · Records. Software Craft WEB-101→FE-201 In Session. Honest certificates. Markets as a school.</p>
+        <p>v44.0.0 Software Craft complete path: FE-202→APP-403, age-band teaches, HTTP Lab, desktop code editor.
         <p style="color:var(--t3)">See CHANGELOG.md for full notes.</p>
       </div>
     </div>`;

@@ -7,6 +7,8 @@ import { getCourse } from '../data/institute/catalog.js';
 import {
   markLessonComplete, saveLessonCheck, lessonDone,
 } from '../institute/progress.js';
+import { resolveTeach, registerLabel } from '../institute/register.js';
+import { renderCodeEditor, wireCodeEditor } from '../institute/code-editor.js';
 
 export function renderLesson(App, el) {
   const { courseCode, lessonId } = App._lesson || {};
@@ -37,17 +39,10 @@ export function renderLesson(App, el) {
       <h2 class="inst-h2">${L(lesson.warmUp)}</h2>
       <p class="inst-muted">${en ? 'Think for 20 seconds before continuing.' : '20 sec socho, phir aage.'}</p>`;
   } else if (key === 'teach') {
-    const reg = App.profile?.register;
-    const tip = reg === 'teen'
-      ? (en ? 'Teen pace: short chunks, more examples.' : 'Teen pace: chhote chunks.')
-      : reg === 'adult'
-        ? (en ? 'Adult pace: glossary-first; same final bar.' : 'Adult pace: pehle glossary; same final.')
-        : reg === 'career'
-          ? (en ? 'Career bridge: connect to work you already know.' : 'Career bridge: pehle se kaam se jodo.')
-          : '';
-    body = `<div class="kicker">${en ? 'Teach' : 'Teach'}</div>
-      ${tip ? `<p class="inst-muted">${tip}</p>` : ''}
-      <div class="inst-prose">${L(lesson.teach)}</div>`;
+    const reg = App.profile?.register || 'young';
+    const html = resolveTeach(lesson, reg, lang);
+    body = `<div class="kicker">${en ? 'Teach' : 'Teach'} · ${registerLabel(reg, lang)}</div>
+      <div class="inst-prose">${html}</div>`;
   } else if (key === 'visual') {
     const svg = lesson.visual ? diagram(lesson.visual) : '';
     body = `<div class="kicker">${en ? 'Visual' : 'Visual'}</div>
@@ -55,9 +50,21 @@ export function renderLesson(App, el) {
   } else if (key === 'check') {
     body = renderCheck(App, lesson, lang, en);
   } else if (key === 'practice') {
+    let extra = '';
+    if (lesson.practiceCode) {
+      extra = renderCodeEditor({
+        prompt: lesson.practiceCode.prompt,
+        starter: lesson.practiceCode.starter,
+        lang,
+      });
+    }
+    if (lesson.lab) {
+      extra += `<button class="btn secondary mt10" id="lsLab">${en ? 'Open HTTP Lab' : 'HTTP Lab kholo'}</button>`;
+    }
     body = `<div class="kicker">${en ? 'Practice' : 'Practice'}</div>
       <h2 class="inst-h2">${L(lesson.practice)}</h2>
-      <p class="inst-muted">${en ? 'Do this offline (Notes / editor). Then continue.' : 'Offline karo (Notes/editor). Phir aage.'}</p>`;
+      <p class="inst-muted">${en ? 'Do the work, then continue.' : 'Kaam karo, phir aage.'}</p>
+      ${extra}`;
   } else {
     body = `<div class="kicker">${en ? 'Exit ticket' : 'Exit ticket'}</div>
       <h2 class="inst-h2">${L(lesson.exitTicket)}</h2>
@@ -126,6 +133,14 @@ export function renderLesson(App, el) {
   });
 
   if (key === 'check') wireCheck(App, lesson);
+  if (key === 'practice' && lesson.practiceCode) {
+    wireCodeEditor(lesson.practiceCode.starter, lesson.practiceCode.tests || []);
+  }
+  document.getElementById('lsLab')?.addEventListener('click', () => {
+    App.tab = 'http-lab';
+    App.render();
+    App.renderNav();
+  });
 }
 
 function renderCheck(App, lesson, lang, en) {

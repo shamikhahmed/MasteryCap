@@ -81,7 +81,7 @@ export function renderRecords(App, el) {
 
 function renderProjects(App, inst, en) {
   const blocks = [];
-  for (const code of ['WEB-102', 'WEB-103']) {
+  for (const code of ['WEB-102', 'WEB-103', 'FE-202', 'FE-203', 'FE-204', 'BE-301', 'BE-302', 'BE-304', 'APP-402']) {
     const course = loadCourse(code);
     if (!course?.project) continue;
     const done = inst.projects[code] || {};
