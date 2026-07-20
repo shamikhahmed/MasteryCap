@@ -28,8 +28,8 @@ export function renderCampus(App, el) {
       <div class="kicker">${en ? 'MasteryCap' : 'MasteryCap'}</div>
       <h1>${en ? 'Campus branches' : 'Campus branches'}</h1>
       <p class="inst-muted">${en
-        ? 'One school · three branches. Open courses you can start. Locked need prereqs. Announced are titles only.'
-        : 'Ek school · teen branches. Open = shuru. Locked = pehle prereq. Announced = titles only.'}</p>
+        ? 'One school · three branches. Open courses you can start. Locked need prereqs.'
+        : 'Ek school · teen branches. Open = shuru. Locked = pehle prereq.'}</p>
     </div>
     <div class="inst-list branch-grid">
       ${CATALOG.schools.map((s) => `
@@ -146,8 +146,8 @@ function renderSchool(App, el, schoolId, done, en) {
       <h1>${school.name[App.lang] || school.name.en}</h1>
       <p class="inst-muted">${school.tagline[App.lang] || school.tagline.en}</p>
       <p class="inst-foot-note">${en
-        ? 'Education only. Open = enrollable. Locked = prereqs. Announced = title only (not authored yet). Certificates are self-issued study records.'
-        : 'Sirf education. Open = enroll. Locked = prereq. Announced = title only. Certificate = study record.'}</p>
+        ? 'Education only. Open = enrollable. Locked = prereqs. Certificates are self-issued study records.'
+        : 'Sirf education. Open = enroll. Locked = prereq. Certificate = study record.'}</p>
     </div>
     <div class="inst-list">${cards.join('')}</div>
   </div>`;

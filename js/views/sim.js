@@ -13,6 +13,7 @@ import { teacherLine } from '../teacher.js';
 import { startTime, pauseTime } from '../time.js';
 import { markToday } from '../today.js';
 import { pickTradeProbe } from '../sim/debrief-q.js';
+import { recordMistake } from '../mistakes.js';
 
 let S = {
   view: 'picker', session: null, scenario: null,
@@ -460,12 +461,24 @@ function finishEndSession() {
 
   // persist: simTrades + simStats (additive keys)
   const all = store.get(KEYS.simTrades, []);
-  st.trades.forEach((t) => all.unshift({
-    ...t,
-    date: new Date().toISOString(),
-    track: S.scenario.track,
-    scenarioId: t.scenarioId || S.scenario.id,
-  }));
+  st.trades.forEach((t) => {
+    all.unshift({
+      ...t,
+      date: new Date().toISOString(),
+      track: S.scenario.track,
+      scenarioId: t.scenarioId || S.scenario.id,
+    });
+    if (t.process && !t.process.pass) {
+      const fails = (t.process.fails && t.process.fails.length) ? t.process.fails : ['process'];
+      fails.forEach((f) => {
+        recordMistake(`sim:${t.scenarioId || S.scenario.id}:${f}`, {
+          kind: 'sim',
+          track: S.scenario.track,
+          reason: t.reason,
+        });
+      });
+    }
+  });
   store.set(KEYS.simTrades, all);
 
   const stats = store.get(KEYS.simStats, {});

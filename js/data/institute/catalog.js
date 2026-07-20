@@ -228,7 +228,7 @@ export const CATALOG = {
         "ur": "DOM aur Events"
       },
       "hours": 10,
-      "status": "announced",
+      "status": "session",
       "prereqs": [
         "FE-201"
       ],
@@ -242,7 +242,7 @@ export const CATALOG = {
         "ur": "UI Craft: Bina Framework"
       },
       "hours": 12,
-      "status": "announced",
+      "status": "session",
       "prereqs": [
         "FE-202"
       ],
@@ -256,7 +256,7 @@ export const CATALOG = {
         "ur": "State, Storage, Offline"
       },
       "hours": 10,
-      "status": "announced",
+      "status": "session",
       "prereqs": [
         "FE-203"
       ],
@@ -270,7 +270,7 @@ export const CATALOG = {
         "ur": "APIs aur HTTP"
       },
       "hours": 10,
-      "status": "announced",
+      "status": "session",
       "prereqs": [
         "FE-201"
       ],
@@ -284,7 +284,7 @@ export const CATALOG = {
         "ur": "Data Modeling"
       },
       "hours": 12,
-      "status": "announced",
+      "status": "session",
       "prereqs": [
         "BE-301"
       ],
@@ -298,7 +298,7 @@ export const CATALOG = {
         "ur": "Auth aur Security"
       },
       "hours": 10,
-      "status": "announced",
+      "status": "session",
       "prereqs": [
         "BE-302"
       ],
@@ -312,7 +312,7 @@ export const CATALOG = {
         "ur": "Deployment Literacy"
       },
       "hours": 6,
-      "status": "announced",
+      "status": "session",
       "prereqs": [
         "BE-301"
       ],
@@ -326,7 +326,7 @@ export const CATALOG = {
         "ur": "PWA Anatomy"
       },
       "hours": 8,
-      "status": "announced",
+      "status": "session",
       "prereqs": [
         "FE-204",
         "BE-301"
@@ -341,7 +341,7 @@ export const CATALOG = {
         "ur": "Pehli App Ship"
       },
       "hours": 20,
-      "status": "announced",
+      "status": "session",
       "prereqs": [
         "APP-401"
       ],
@@ -355,7 +355,7 @@ export const CATALOG = {
         "ur": "Shipping Mindset"
       },
       "hours": 6,
-      "status": "announced",
+      "status": "session",
       "prereqs": [
         "APP-402"
       ],

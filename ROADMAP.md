@@ -90,4 +90,11 @@ Next (in order):
 7. ~~v44 Glossary popovers~~ — DONE (lesson term tap).
 8. ~~v49.2 Competence statements~~ — Progress can / can't-yet (v49.2).
 
-**University build queue: COMPLETE** (Lab v2 / FE authorship / UR parity still locked out).
+**University build queue: COMPLETE** at v49.2.
+
+**Unlock wave v50.0** (owner “do all”):
+- ~~HTTP Lab + typed editor flags ON~~
+- ~~FE-202→APP-403 catalog session + courses.js wired~~
+- ~~Sim fail → Mistake museum feed~~
+- ~~Crypto deep UR thicken~~ (other tracks still EN-heavy — next pass)
+- Tag `v49.2.0` / `v50.0.0`

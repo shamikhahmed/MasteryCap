@@ -1,8 +1,8 @@
-/* Institute feature flags — v2 labs parked off for MVP scope lock */
+/* Institute feature flags — v50 unlock: HTTP Lab + typed editor on */
 
 export const FEATURES = {
-  httpLab: false, // v2 — simulated HTTP Lab
-  typedCodeEditor: false, // v2 — desktop ≥900px typed editor + Parsons playground
+  httpLab: true, // simulated HTTP Lab
+  typedCodeEditor: true, // desktop ≥900px typed editor + Parsons playground
 };
 
 export function isOn(key) {

@@ -1,3 +1,16 @@
+## [50.0.0] — 2026-07-20
+
+### Unlock wave — do-all
+- Software Craft FE-202→APP-403: catalog `session` + `courses.js` wired (bodies already on disk)
+- HTTP Lab + typed code editor flags **ON**
+- Failed sim process → Mistake museum / review bank
+- Crypto deep UR parity thicken (teach/example/mistake + exit/notebook/objective)
+- Other tracks still EN-heavy — next pass
+- Campus copy: Announced cleared for Craft spine
+- SW `masterycap-v5000`
+- Tags: `v49.2.0`, `v50.0.0`
+
+
 ## [49.2.0] — 2026-07-20
 
 ### Post-trade debrief + competence

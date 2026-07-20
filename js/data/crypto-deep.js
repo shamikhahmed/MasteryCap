@@ -33,25 +33,26 @@ export const CRYPTO_WEEKS = [
     title: { en: 'Custody & Wallets', ur: 'Custody aur Wallets' },
     objective: {
       en: 'Distinguish self-custody vs exchange custody and protect seed phrases.',
-      ur: 'Self-custody vs exchange; seed protect.',
+      ur: 'Self-custody vs exchange custody farq; seed phrases protect karo.',
     },
     teach: {
       en: `<p><strong>Custody</strong> means who can move the asset. On an exchange, you hold an IOU — the venue can freeze, hack, or fail. <strong>Self-custody</strong> (wallet you control) means you hold keys — lose the seed and funds are gone; share the seed and funds are stolen.</p>
 <p>Hot wallets (phone/browser) are convenient and more exposed. Hardware wallets reduce remote theft risk if used correctly. Never type a seed into a website that “validates” it.</p>
 <p>{{redflag:Anyone asking for your seed is attacking you.}}</p>`,
-      ur: `<p>Exchange = IOU. Self-custody = keys tumhare. Seed share = theft. Seed loss = funds gone.</p>
+      ur: `<p><strong>Custody</strong> = asset kaun move kar sakta. Exchange pe tumhare paas IOU hai — venue freeze, hack, ya fail kar sakti. <strong>Self-custody</strong> (wallet tum control) = keys tumhare — seed khoo to funds gaye; seed share to chori.</p>
+<p>Hot wallets (phone/browser) aasaan magar zyada exposed. Hardware wallets remote theft kam karte — sahi use pe. Seed kisi “validate” website pe kabhi mat type karo.</p>
 <p>{{redflag:Seed mange = attack.}}</p>`,
     },
     workedExample: {
       en: `<p>You buy BTC on an exchange. Until you withdraw to an address you control, the exchange is the custodian. A successful small withdrawal test proves you can exit.</p>`,
-      ur: `<p>Exchange pe buy → withdraw test → self-custody prove.</p>`,
+      ur: `<p>Exchange pe BTC kharido. Jab tak apne control wale address pe withdraw na karo, custodian exchange hai. Chhota successful withdrawal = exit prove.</p>`,
     },
     commonMistake: {
       en: `<p>Keeping life savings on an exchange because “withdrawals are annoying.”</p>`,
-      ur: `<p>Life savings exchange pe chhorna.</p>`,
+      ur: `<p>Life savings exchange pe rakhna kyunke “withdraw mushkil” — annoyance ≠ safety.</p>`,
     },
-    exitTicket: { en: 'You can explain IOU vs keys in one sentence.', ur: 'IOU vs keys ek jumla.' },
-    notebookPrompt: { en: 'Write where your practice size will live (exchange vs wallet) and why.', ur: 'Practice size kahan + kyun.' },
+    exitTicket: { en: 'You can explain IOU vs keys in one sentence.', ur: 'Ek jumla mein IOU vs keys farq batao.' },
+    notebookPrompt: { en: 'Write where your practice size will live (exchange vs wallet) and why.', ur: 'Practice size kahan rahegi (exchange vs wallet) aur kyun — likho.' },
     flashcardSeeds: [
       { front: { en: 'Exchange balance is usually', ur: 'Exchange balance' }, back: { en: 'An IOU — counterparty risk.', ur: 'IOU — counterparty risk.' } },
       { front: { en: 'Seed phrase equals', ur: 'Seed' }, back: { en: 'Ownership of the wallet.', ur: 'Ownership.' } },
@@ -79,23 +80,24 @@ export const CRYPTO_WEEKS = [
     title: { en: 'Fees, Spreads & Slippage', ur: 'Fees, Spreads, Slippage' },
     objective: {
       en: 'Account for fees, spread, and slippage before calling a trade “small.”',
-      ur: 'Fees + spread + slip pehle hisaab.',
+      ur: 'Trade ko “chhota” kehne se pehle fees, spread, aur slippage hisaab karo.',
     },
     teach: {
       en: `<p>Every venue charges something: maker/taker fees, withdrawal fees, funding on perps. The <strong>spread</strong> is also a cost when you cross it. <strong>Slippage</strong> is getting a worse fill than expected in thin books.</p>
 <p>A “tiny” scalp can be fee-negative. Compare round-trip cost to your edge hypothesis before size.</p>`,
-      ur: `<p>Fees + spread + slip = real cost. Tiny scalp aksar fee-negative.</p>`,
+      ur: `<p>Har venue charge leti: maker/taker fees, withdrawal fees, perps pe funding. <strong>Spread</strong> bhi cost jab cross karo. <strong>Slippage</strong> = thin book mein expected se worse fill.</p>
+<p>“Chhota” scalp fee-negative ho sakta. Size se pehle round-trip cost vs edge compare karo.</p>`,
     },
     workedExample: {
       en: `<p>0.1% fee each way = 0.2% round trip before spread. If your target is 0.3%, most of the move is costs — not edge.</p>`,
-      ur: `<p>0.1%×2 = 0.2% cost. 0.3% target = thin edge.</p>`,
+      ur: `<p>Har taraf 0.1% fee = spread se pehle 0.2% round-trip. Agar target 0.3% hai, zyada move cost hai — edge nahi.</p>`,
     },
     commonMistake: {
       en: `<p>Ignoring funding rates on perps overnight — they can dominate short-horizon P&L.</p>`,
-      ur: `<p>Perps funding ignore karna.</p>`,
+      ur: `<p>Raat bhar perps funding ignore — short-horizon P&L pe dominate kar sakti.</p>`,
     },
-    exitTicket: { en: 'You can list three cost lines on your venue.', ur: 'Teen cost lines.' },
-    notebookPrompt: { en: 'Open your venue fee schedule. Write maker, taker, withdrawal.', ur: 'Fee schedule likho.' },
+    exitTicket: { en: 'You can list three cost lines on your venue.', ur: 'Apni venue ki teen cost lines list kar sakte ho.' },
+    notebookPrompt: { en: 'Open your venue fee schedule. Write maker, taker, withdrawal.', ur: 'Venue fee schedule kholo. Maker, taker, withdrawal likho.' },
     flashcardSeeds: [
       { front: { en: 'Spread is a cost when you', ur: 'Spread' }, back: { en: 'Cross it with a marketable order.', ur: 'Cross karo.' } },
       { front: { en: 'Slippage', ur: 'Slip' }, back: { en: 'Worse fill than expected, often in thin liquidity.', ur: 'Expected se worse fill.' } },
@@ -123,26 +125,28 @@ export const CRYPTO_WEEKS = [
     title: { en: 'Spot vs Leverage', ur: 'Spot vs Leverage' },
     objective: {
       en: 'Explain why leverage can liquidate and when spot ownership is the calmer path.',
-      ur: 'Leverage liquidation; spot calmer path.',
+      ur: 'Leverage liquidate kyun karti aur spot ownership kab calmer path hai — batao.',
     },
     teach: {
       en: `<p><strong>Spot</strong>: you own the asset (or an IOU for it). Downside is toward zero of that holding — not a forced liquidation from a lender in the same way.</p>
 <p><strong>Leverage / perps / margin</strong>: borrowed exposure. A move against you can <strong>liquidate</strong> the position — you lose the margin. Leverage is an output of risk $ and stop distance, not a goal.</p>
 <p>Beginners who skip Foundations for high leverage usually learn liquidation the expensive way.</p>
 <p>{{redflag:“10× because I’m sure” — surety is not a risk system.}}</p>`,
-      ur: `<p>Spot = ownership path. Leverage = borrow → liquidation mumkin. Leverage goal nahi — risk$ / stop se output.</p>
-<p>{{redflag:Surety pe 10× = nahi.}}</p>`,
+      ur: `<p><strong>Spot</strong>: asset (ya uska IOU) own. Downside holding ke zero ki taraf — lender wala forced liquidation isi tarah nahi.</p>
+<p><strong>Leverage / perps / margin</strong>: borrowed exposure. Khilaf move <strong>liquidate</strong> kar sakti — margin kho jati. Leverage risk $ aur stop distance ka output hai, goal nahi.</p>
+<p>Jo beginners Foundations skip karke high leverage lete, aksar liquidation mehengi tareeke se seekhte.</p>
+<p>{{redflag:“Sure hun is liye 10×” — surety risk system nahi.}}</p>`,
     },
     workedExample: {
       en: `<p>Same $100 risk: wide stop → small leveraged size; tight stop → larger size. Choosing “20×” first skips the risk math.</p>`,
-      ur: `<p>Pehle risk$ + stop — baad mein size. Pehle 20× mat choose.</p>`,
+      ur: `<p>Wahi $100 risk: wide stop → chhota leveraged size; tight stop → bara size. Pehle “20×” choose karna risk math skip hai.</p>`,
     },
     commonMistake: {
       en: `<p>Confusing paper wins on high leverage with skill that survives fees and stress live.</p>`,
-      ur: `<p>High lev paper wins ≠ live skill.</p>`,
+      ur: `<p>High leverage pe paper wins ko live skill samajhna — fees aur stress alag hote.</p>`,
     },
-    exitTicket: { en: 'You can define liquidation in plain words.', ur: 'Liquidation plain words.' },
-    notebookPrompt: { en: 'Write: “I will not use leverage until ___.” Fill the blank with a process condition.', ur: 'Leverage tab jab ___.' },
+    exitTicket: { en: 'You can define liquidation in plain words.', ur: 'Liquidation seedhe simple words mein define karo.' },
+    notebookPrompt: { en: 'Write: “I will not use leverage until ___.” Fill the blank with a process condition.', ur: 'Likho: “Leverage tab tak nahi jab tak ___.” Blank mein process condition.' },
     flashcardSeeds: [
       { front: { en: 'Liquidation', ur: 'Liquidation' }, back: { en: 'Forced close when margin cannot cover the move against you.', ur: 'Margin khatam → forced close.' } },
       { front: { en: 'Leverage should be', ur: 'Leverage' }, back: { en: 'An output of risk $ and stop — not a starting goal.', ur: 'Output — goal nahi.' } },
@@ -175,18 +179,19 @@ export const CRYPTO_WEEKS = [
     teach: {
       en: `<p>Crypto adds scam surface: fake apps, phishing sites, “support” in DMs, approval-draining airdrops, rug-pull tokens, and recovery scams after you already lost.</p>
 <p>Rules: verify URLs, never rush, never approve unknown spenders, never share seeds, treat DMs as hostile until proven.</p>`,
-      ur: `<p>Phishing, fake support, airdrop approvals, rugs, recovery scams. DM = hostile default.</p>`,
+      ur: `<p>Crypto mein scam surface bari: fake apps, phishing sites, DM “support,” approval-drain airdrops, rug-pull tokens, aur loss ke baad recovery scams.</p>
+<p>Rules: URL verify, jaldi mat karo, unknown spender approve mat karo, seed share mat karo, DM ko proved hone tak hostile samjho.</p>`,
     },
     workedExample: {
       en: `<p>Airdrop site asks you to “verify wallet” and prompts a blind signature. That signature may grant token spend. Close the tab; verify contracts only from trusted docs.</p>`,
-      ur: `<p>Blind signature / infinite approve = drain risk.</p>`,
+      ur: `<p>Airdrop site “wallet verify” ke liye blind signature mangti. Woh signature token spend de sakti. Tab band; contracts sirf trusted docs se verify.</p>`,
     },
     commonMistake: {
       en: `<p>Clicking the first Google/ad result for “exchange login” — phishing clone.</p>`,
-      ur: `<p>Ad link pe login = phishing.</p>`,
+      ur: `<p>“Exchange login” pe pehla Google/ad result click — phishing clone.</p>`,
     },
-    exitTicket: { en: 'You have a personal “never do” list of five items.', ur: '5 never-do.' },
-    notebookPrompt: { en: 'Write five never-do rules for crypto (seed, DM, approve, URL, recovery).', ur: '5 never-do likho.' },
+    exitTicket: { en: 'You have a personal “never do” list of five items.', ur: 'Apni personal “never do” list — paanch items — taiyar hai.' },
+    notebookPrompt: { en: 'Write five never-do rules for crypto (seed, DM, approve, URL, recovery).', ur: 'Crypto ke paanch never-do rules likho (seed, DM, approve, URL, recovery).' },
     flashcardSeeds: [
       { front: { en: 'Default stance on crypto DMs', ur: 'DMs' }, back: { en: 'Hostile until proven — especially “support.”', ur: 'Hostile — especially support.' } },
       { front: { en: 'Blind wallet signature risk', ur: 'Blind sign' }, back: { en: 'May grant spend approvals that drain assets.', ur: 'Drain approvals.' } },
@@ -214,23 +219,24 @@ export const CRYPTO_WEEKS = [
     title: { en: 'End-to-End Process', ur: 'End-to-End Process' },
     objective: {
       en: 'Run a sober crypto practice loop: venue → custody plan → size → log → review.',
-      ur: 'Venue → custody → size → log → review.',
+      ur: 'Sober crypto practice loop chalao: venue → custody plan → size → log → review.',
     },
     teach: {
       en: `<p>Put it together: pick a venue you verified, define custody (what stays on exchange vs wallet), set risk %, prefer spot until process is boring, log every practice action, review weekly.</p>
 <p>Chart toys come later. Without custody + risk + logs, charts are decoration.</p>`,
-      ur: `<p>Verify venue → custody plan → risk% → spot pehle → log → weekly review. Charts baad.</p>`,
+      ur: `<p>Milao: verified venue choose karo, custody define karo (exchange vs wallet kya rehta), risk % set, process boring hone tak spot prefer, har practice action log, haftawar review.</p>
+<p>Chart toys baad mein. Bina custody + risk + logs, charts decoration hain.</p>`,
     },
     workedExample: {
       en: `<p>Practice card: “Buy $20 spot on verified venue → withdraw $5 test → log fees → no leverage.”</p>`,
-      ur: `<p>$20 spot → $5 withdraw test → fees log → no lev.</p>`,
+      ur: `<p>Practice card: “Verified venue pe $20 spot → $5 withdraw test → fees log → no leverage.”</p>`,
     },
     commonMistake: {
       en: `<p>Jumping to perps because spot “isn’t exciting.” Excitement is not a syllabus.</p>`,
-      ur: `<p>Bored → perps. Excitement syllabus nahi.</p>`,
+      ur: `<p>Spot “boring” laga to perps pe kudna. Excitement syllabus nahi.</p>`,
     },
-    exitTicket: { en: 'You can recite your personal crypto practice loop.', ur: 'Apna loop yad.' },
-    notebookPrompt: { en: 'Write your crypto practice loop in six bullets. Stick it on the Study desk.', ur: '6 bullets loop.' },
+    exitTicket: { en: 'You can recite your personal crypto practice loop.', ur: 'Apna personal crypto practice loop yaad se suna sakte ho.' },
+    notebookPrompt: { en: 'Write your crypto practice loop in six bullets. Stick it on the Study desk.', ur: 'Crypto practice loop chhe bullets mein likho. Study desk pe chipkao.' },
     flashcardSeeds: [
       { front: { en: 'Charts without custody/risk/logs', ur: 'Charts only' }, back: { en: 'Decoration — not a process.', ur: 'Decoration.' } },
       { front: { en: 'Practice loop order', ur: 'Loop' }, back: { en: 'Verify → custody → risk → (spot) → log → review.', ur: 'Verify → custody → risk → log → review.' } },
