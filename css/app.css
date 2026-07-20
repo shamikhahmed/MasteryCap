@@ -1,23 +1,19 @@
 /* ============================================================
    MasteryCap — trade-school workbench / competency stamp
-   Light + dark (via theme.js). Serif display + Geist UI.
+   Light + dark (via theme.js). Oswald display + Noto Sans body.
    ============================================================ */
 
-/* ---------- Fonts (self-hosted, offline) ---------- */
-@font-face { font-family:'Geist'; font-weight:400; font-display:swap; src:url('../fonts/geist-400.woff2') format('woff2'); }
-@font-face { font-family:'Geist'; font-weight:500; font-display:swap; src:url('../fonts/geist-500.woff2') format('woff2'); }
-@font-face { font-family:'Geist'; font-weight:600; font-display:swap; src:url('../fonts/geist-600.woff2') format('woff2'); }
-@font-face { font-family:'Geist'; font-weight:700; font-display:swap; src:url('../fonts/geist-700.woff2') format('woff2'); }
+/* ---------- Fonts (mono self-hosted; display/body via Google) ---------- */
 @font-face { font-family:'Geist Mono'; font-weight:500; font-display:swap; src:url('../fonts/geistmono-500.woff2') format('woff2'); }
 @font-face { font-family:'Geist Mono'; font-weight:600; font-display:swap; src:url('../fonts/geistmono-600.woff2') format('woff2'); }
 
 :root {
-  /* --- surfaces (ink night) --- */
-  --bg: #0B0C0E;
-  --bg-1: #101215;
-  --surface: #14171B;
-  --surface-2: #1A1E24;
-  --surface-3: #222830;
+  /* --- surfaces (graphite + oak undertone) --- */
+  --bg: #141310;
+  --bg-1: #1A1814;
+  --surface: #211E19;
+  --surface-2: #2A2620;
+  --surface-3: #332E27;
 
   /* --- borders --- */
   --line: rgba(255,255,255,0.07);
@@ -31,11 +27,16 @@
   --t3: #7A828C;
   --t4: #757C86;
 
-  /* --- accent: seal/stamp orange (softer) --- */
+  /* --- accent: safety yellow stamp --- */
   --acc: #F4C430;
   --acc-2: #FFDD33;
   --acc-dim: rgba(244,196,48,0.16);
   --acc-line: rgba(244,196,48,0.32);
+
+  /* --- secondary: bench green --- */
+  --sec: #2F9B6E;
+  --sec-dim: rgba(47,155,110,0.14);
+  --sec-line: rgba(47,155,110,0.28);
 
   /* --- market semantics --- */
   --up: #2F9B6E;
@@ -58,8 +59,8 @@
   --st: env(safe-area-inset-top, 0px);
   --sb: env(safe-area-inset-bottom, 0px);
 
-  --sans: 'Geist', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --serif: 'Libre Baskerville', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --sans: 'Noto Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --serif: 'Oswald', 'Noto Sans', sans-serif;
   --mono: 'Geist Mono', ui-monospace, 'SF Mono', monospace;
   --fs: 1;
   --tabbar-bg: color-mix(in srgb, var(--bg) 88%, transparent);
@@ -187,7 +188,7 @@ a { color: inherit; text-decoration: none; }
 @keyframes tab-ind { from { width: 0; opacity: 0; } to { width: 14px; opacity: 1; } }
 
 /* ============================================================
-   Splash — exam booklet / school stamp
+   Splash — workbench assemble + competency stamp punch
    ============================================================ */
 #splash {
   position: fixed; inset: 0; z-index: 200; background: var(--bg);
@@ -196,57 +197,99 @@ a { color: inherit; text-decoration: none; }
 }
 #splash.hide { opacity: 0; pointer-events: none; }
 .splash-inner { display: flex; flex-direction: column; align-items: center; gap: 18px; }
-.splash-booklet/* workbench card */ {
-  width: min(58vw, 168px);
-  aspect-ratio: 3 / 4;
+.splash-bench {
+  width: min(62vw, 176px);
+  height: min(36vw, 102px);
   position: relative;
-  border-radius: 3px 10px 10px 3px;
+  opacity: 0;
+  animation: rise 0.5s var(--out) 0.05s forwards;
+}
+.bench-leg {
+  position: absolute;
+  bottom: 0;
+  width: 14%;
+  height: 42%;
+  border-radius: 2px 2px 4px 4px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface-3) 70%, #5C4A32), #3D3226);
+  border: 1px solid color-mix(in srgb, var(--line-2) 80%, #6B5638);
+  opacity: 0;
+  transform: translateY(18px);
+}
+.bench-leg-l {
+  left: 14%;
+  animation: legIn 0.42s var(--out) 0.12s forwards;
+}
+.bench-leg-r {
+  right: 14%;
+  animation: legIn 0.42s var(--out) 0.2s forwards;
+}
+.bench-top {
+  position: absolute;
+  left: 4%; right: 4%; top: 18%;
+  height: 28%;
+  border-radius: 4px;
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--surface) 88%, var(--acc)), var(--surface-2));
-  border: 1px solid var(--line-2);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.35);
-  overflow: hidden;
-  animation: rise 0.7s var(--out) both;
+    linear-gradient(180deg, color-mix(in srgb, #C4A574 18%, var(--surface-2)), var(--surface-2)),
+    repeating-linear-gradient(90deg, transparent, transparent 7px, color-mix(in srgb, var(--line) 60%, transparent) 7px, color-mix(in srgb, var(--line) 60%, transparent) 8px);
+  border: 1px solid color-mix(in srgb, var(--line-2) 70%, #6B5638);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.38);
+  opacity: 0;
+  transform: translateY(-14px) scaleX(0.88);
+  animation: topIn 0.48s var(--spring) 0.38s forwards;
 }
-.splash-booklet/* workbench card */::before {
-  content: '';
+.bench-peg {
   position: absolute;
-  inset: 12% 10% 16% 16%;
-  border: 1.5px solid color-mix(in srgb, var(--acc) 40%, transparent);
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--t3) 18%, transparent) 1px, transparent 1px);
-  background-size: 100% 11px;
-}
-.splash-booklet/* workbench card */::after {
-  content: '';
-  position: absolute;
-  left: 0; top: 8%; bottom: 8%; width: 6px;
-  background: linear-gradient(180deg, var(--acc), color-mix(in srgb, var(--acc) 40%, var(--bg)));
+  left: 50%; top: 8%;
+  width: 10px; height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: var(--sec);
+  border: 2px solid color-mix(in srgb, var(--sec) 55%, var(--bg));
+  box-shadow: 0 0 0 3px var(--sec-dim);
+  opacity: 0;
+  transform: scale(0.4);
+  animation: pegIn 0.32s var(--spring) 0.62s forwards;
 }
 .splash-stamp {
   position: absolute;
-  right: 12%;
-  bottom: 16%;
-  width: 46px; height: 46px;
+  right: 10%;
+  top: 2%;
+  width: 50px; height: 50px;
   border-radius: 50%;
-  border: 2px dashed color-mix(in srgb, var(--acc) 70%, transparent);
+  border: 2.5px solid color-mix(in srgb, var(--acc) 85%, transparent);
   display: grid; place-items: center;
   font-family: var(--serif);
-  font-size: 9px;
+  font-size: 8.5px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--acc);
-  transform: rotate(-12deg);
-  animation: stampIn 0.5s var(--spring) 0.55s both;
+  background: color-mix(in srgb, var(--acc-dim) 55%, transparent);
+  transform: rotate(-14deg) translateY(-28px) scale(1.15);
+  opacity: 0;
+  animation: stampPunch 0.38s var(--spring) 0.78s forwards;
 }
-@keyframes stampIn {
-  from { opacity: 0; transform: rotate(-12deg) scale(0.6); }
-  to { opacity: 1; transform: rotate(-12deg) scale(1); }
+@keyframes legIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes topIn {
+  from { opacity: 0; transform: translateY(-14px) scaleX(0.88); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pegIn {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes stampPunch {
+  0% { opacity: 0; transform: rotate(-14deg) translateY(-28px) scale(1.15); }
+  55% { opacity: 1; transform: rotate(-14deg) translateY(2px) scale(0.92); }
+  100% { opacity: 1; transform: rotate(-14deg) translateY(0) scale(1); }
 }
 .splash-mark { width: 58px; height: 58px; display: none; }
 .splash-word {
   font-family: var(--serif);
-  font-size: 28px; font-weight: 700; letter-spacing: -0.02em;
+  font-size: 30px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase;
   opacity: 0; animation: rise 0.6s var(--out) 0.35s forwards;
 }
 .splash-word span { color: var(--acc); }

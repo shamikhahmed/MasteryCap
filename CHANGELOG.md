@@ -1,3 +1,11 @@
+## [42.2.2] — 2026-07-20
+
+### Identity — trade-school workbench / competency stamp
+- Splash: workbench assemble + READY stamp punch (not exam booklet)
+- Tokens: safety yellow `#F4C430`, oak/graphite surfaces, green secondary
+- Fonts: Oswald display + Noto Sans body (Urdu-capable)
+- SW `masterycap-v4222`
+
 ## [42.2.1] — 2026-07-20
 
 ### Polish

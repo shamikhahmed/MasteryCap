@@ -1,6 +1,6 @@
 {
   "name": "masterycap",
-  "version": "42.2.1",
+  "version": "42.2.2",
   "private": true,
   "description": "MasteryCap offline trading-education PWA",
   "scripts": {

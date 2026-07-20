@@ -1,14 +1,14 @@
 /* ============================================================
-   theme.js — Light / Dark / Auto only (exam booklet).
+   theme.js — Light / Dark / Auto only (trade-school workbench).
    ============================================================ */
 
 import { store, KEYS } from './store.js';
 
 const PRESETS = {
   dark: {
-    bg: '#0B0C0E', bg1: '#101215', surface: '#14171B', surface2: '#1A1E24', surface3: '#222830',
-    t0: '#F4F5F6', t1: '#C4C8CD', t2: '#878D95', t3: '#7A828C', t4: '#757C86',
-    line: 'rgba(255,255,255,0.07)', line2: 'rgba(255,255,255,0.11)',
+    bg: '#141310', bg1: '#1A1814', surface: '#211E19', surface2: '#2A2620', surface3: '#332E27',
+    t0: '#F4F0E6', t1: '#C8C0B4', t2: '#8A8278', t3: '#7A7268', t4: '#6E665C',
+    line: 'rgba(255,248,235,0.08)', line2: 'rgba(255,248,235,0.12)',
   },
   light: {
     bg: '#F4F0E6', bg1: '#FFFBF3', surface: '#FFFBF3', surface2: '#EDE6D8', surface3: '#E4DCCB',
@@ -59,7 +59,7 @@ export function applyTheme() {
   root.style.setProperty('--line', p.line);
   root.style.setProperty('--line-2', p.line2);
   const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute('content', mode === 'light' ? '#F4F0E6' : '#0B0C0E');
+  if (meta) meta.setAttribute('content', mode === 'light' ? '#F4F0E6' : '#141310');
   if (document.body) {
     document.body.style.background = p.bg;
     document.body.style.color = p.t0;
