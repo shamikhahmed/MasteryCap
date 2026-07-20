@@ -1,3 +1,10 @@
+## [48.1.0] — 2026-07-20
+
+### Options / Greeks / Futures literacy bars
+- Options, Greeks, Futures: 4-week 6-part defined-risk / contract literacy
+- SW `masterycap-v4810`
+
+
 ## [48.0.0] — 2026-07-20
 
 ### Markets more-tracks depth (v48 start)

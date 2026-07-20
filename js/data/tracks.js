@@ -5,15 +5,15 @@
 
 import { CRYPTO_WEEKS, CRYPTO_PLACEMENT } from './crypto-deep.js';
 import { STOCKS_DEEP_WEEKS, STOCKS_DEEP_PLACEMENT } from './stocks-deep.js';
-import { OPTIONS_WEEKS, OPTIONS_PLACEMENT } from './options.js';
-import { FUTURES_WEEKS, FUTURES_PLACEMENT } from './futures.js';
+import { OPTIONS_DEEP_WEEKS, OPTIONS_DEEP_PLACEMENT } from './options-deep.js';
+import { FUTURES_DEEP_WEEKS, FUTURES_DEEP_PLACEMENT } from './futures-deep.js';
 import { FOREX_DEEP_WEEKS, FOREX_DEEP_PLACEMENT } from './forex-deep.js';
 import { SPOT_DEEP_WEEKS, SPOT_DEEP_PLACEMENT } from './spot-deep.js';
 import { BINARY_WEEKS, BINARY_PLACEMENT } from './binary.js';
 import { INVEST_DEEP_WEEKS, INVEST_DEEP_PLACEMENT } from './invest-deep.js';
 import { BOTS_WEEKS, BOTS_PLACEMENT } from './bots.js';
 import { FOUNDATIONS_WEEKS, FOUNDATIONS_PLACEMENT } from './foundations.js';
-import { GREEKS_WEEKS, GREEKS_PLACEMENT } from './greeks.js';
+import { GREEKS_DEEP_WEEKS, GREEKS_DEEP_PLACEMENT } from './greeks-deep.js';
 import { TAX_DEEP_WEEKS, TAX_DEEP_PLACEMENT } from './tax-deep.js';
 import { MACRO_DEEP_WEEKS, MACRO_DEEP_PLACEMENT } from './macro-deep.js';
 import {
@@ -87,19 +87,19 @@ export const TRACKS = [
   },
   {
     id: 'options',
-    name: { en: 'Options', ur: 'Options' },
-    blurb: { en: 'Calls, puts, premium, basic strategies', ur: 'Calls, puts, premium, bunyadi strategies' },
+    name: { en: 'Options Literacy', ur: 'Options Literacy' },
+    blurb: { en: 'Calls/puts, decay, defined risk (4 weeks)', ur: 'Calls/puts, decay, defined risk' },
     status: 'live',
-    weeks: OPTIONS_WEEKS,
-    placement: OPTIONS_PLACEMENT,
+    weeks: OPTIONS_DEEP_WEEKS,
+    placement: OPTIONS_DEEP_PLACEMENT,
   },
   {
     id: 'greeks',
-    name: { en: 'Options Greeks Deep', ur: 'Options Greeks (gehra)' },
-    blurb: { en: 'Delta gamma theta vega — defined risk', ur: 'Delta gamma theta vega — defined risk' },
+    name: { en: 'Greeks Literacy', ur: 'Greeks Literacy' },
+    blurb: { en: 'Delta theta vega gamma — dials not salary', ur: 'Delta theta vega gamma — dials' },
     status: 'live',
-    weeks: GREEKS_WEEKS,
-    placement: GREEKS_PLACEMENT,
+    weeks: GREEKS_DEEP_WEEKS,
+    placement: GREEKS_DEEP_PLACEMENT,
   },
   {
     id: 'crypto',
@@ -111,11 +111,11 @@ export const TRACKS = [
   },
   {
     id: 'futures',
-    name: { en: 'Futures', ur: 'Futures' },
-    blurb: { en: 'Contracts, margin, leverage', ur: 'Contracts, margin, leverage — samajh' },
+    name: { en: 'Futures Literacy', ur: 'Futures Literacy' },
+    blurb: { en: 'Contracts, ticks, margin, roll (4 weeks)', ur: 'Contracts, ticks, margin, roll' },
     status: 'live',
-    weeks: FUTURES_WEEKS,
-    placement: FUTURES_PLACEMENT,
+    weeks: FUTURES_DEEP_WEEKS,
+    placement: FUTURES_DEEP_PLACEMENT,
   },
   {
     id: 'forex',
