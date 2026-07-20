@@ -4,6 +4,7 @@
    ============================================================ */
 
 import { TRACKS, getTrack } from '../data/tracks.js';
+import { COURSE_FAMILIES } from '../data/families.js';
 import { BEGINNER_PATH } from '../data/paths.js';
 import { icon, TRACK_ICON } from '../icons.js';
 import { openSettings } from '../settings.js';
@@ -260,6 +261,45 @@ export function renderDashboard(App, c) {
     </div>
 
     <div class="panel" style="margin-bottom:14px">
+      <div class="panel-h"><span class="ph-t">${App.t('campus_families')}</span></div>
+      <div class="pad" style="padding-top:4px">
+        ${COURSE_FAMILIES.map((fam) => {
+          const live = fam.status === 'live';
+          const tracks = live
+            ? fam.trackIds.map((id) => getTrack(id)).filter(Boolean)
+            : [];
+          const wdone = tracks.reduce((s, t) => {
+            const prog = App.getCourse(t.id);
+            return s + t.weeks.filter((w) => ['completed', 'mastered'].includes(prog.weekStatus[w.id])).length;
+          }, 0);
+          const wtot = tracks.reduce((s, t) => s + t.weeks.length, 0);
+          const pct = wtot ? Math.round((wdone / wtot) * 100) : 0;
+          const level = fam.level === 'advanced'
+            ? (lang === 'en' ? 'Advanced' : 'Advanced')
+            : (lang === 'en' ? 'Basic → Advanced' : 'Basic → Advanced');
+          return `<div class="fam-block" style="margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border,rgba(255,255,255,.06))">
+            <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;margin-bottom:4px">
+              <strong style="font-size:14px">${fam.name[lang]}</strong>
+              <span class="mono" style="font-size:11px;color:var(--t3)">${live ? pct + '%' : (lang === 'en' ? 'Soon' : 'Jaldi')}</span>
+            </div>
+            <div style="font-size:12px;color:var(--t3);margin-bottom:6px">${fam.blurb[lang]} · ${level}</div>
+            ${live ? tracks.slice(0, 6).map((t) => {
+              const prog = App.getCourse(t.id);
+              const td = t.weeks.filter((w) => ['completed', 'mastered'].includes(prog.weekStatus[w.id])).length;
+              return `<button type="button" class="check-row" data-path="${t.id}" style="width:100%;text-align:left;background:none;border:0;color:inherit;cursor:pointer">
+                <span class="check-box" style="opacity:0.85">${icon(TRACK_ICON[t.id] || 'learn', { size: 14 })}</span>
+                <span class="check-t"><strong>${t.name[lang]}</strong><br/><span style="color:var(--t3);font-size:12px">${td}/${t.weeks.length}</span>${ladderChips(App, t.id)}</span>
+              </button>`;
+            }).join('') + (tracks.length > 6
+              ? `<button type="button" class="btn ghost" id="goLearnMore" style="width:100%;margin-top:6px;font-size:12px">${lang === 'en' ? `All ${tracks.length} tracks →` : `Sab ${tracks.length} tracks →`}</button>`
+              : '')
+              : `<div class="note-box" style="font-size:12px;color:var(--t3);margin:0">${App.t('campus_family_scaffold')}</div>`}
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <div class="panel" style="margin-bottom:14px">
       <div class="panel-h"><span class="ph-t">${App.t('campus_map')}</span></div>
       <div class="pad" style="padding-top:4px">
         ${TRACKS.filter((t) => t.status === 'live').map((t) => {
@@ -331,6 +371,7 @@ export function renderDashboard(App, c) {
     else App.openDrills();
   });
   document.getElementById('goLearn')?.addEventListener('click', () => App.navigate('learn'));
+  document.getElementById('goLearnMore')?.addEventListener('click', () => App.navigate('learn'));
   document.getElementById('goDrills')?.addEventListener('click', () => App.openDrills());
   document.getElementById('goCharts')?.addEventListener('click', () => App.openCharts());
   document.getElementById('goSim')?.addEventListener('click', () => {

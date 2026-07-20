@@ -1,4 +1,10 @@
-## [42.2.3] — 2026-07-20
+## [42.3.0] — 2026-07-20
+
+### Campus families shell
+- Five course families on Home: Trading Literacy live (all tracks); Personal Finance / Career / Product Builders / Focus & Wellness scaffold
+- `js/data/families.js` registry; SW `masterycap-v4230`
+
+## [42.2.4] — 2026-07-20
 
 ### Campus workbench MOBILE≠DESKTOP
 - Mobile: stacked campus continue / today / map
