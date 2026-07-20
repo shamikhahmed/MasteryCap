@@ -13,9 +13,9 @@ import { openWeekFlash } from './views/study.js';
 import { markToday } from './today.js';
 
 const STEP_LABEL = {
-  lesson: { en: 'Lesson', ur: 'Lesson' },
-  'lesson-continue': { en: 'Lesson (continue)', ur: 'Lesson (jari)' },
-  cards: { en: 'Flashcards', ur: 'Flashcards' },
+  lesson: { en: 'Lesson', ur: 'Sabak' },
+  'lesson-continue': { en: 'Lesson (continue)', ur: 'Sabak (jari)' },
+  cards: { en: 'Flashcards', ur: 'Cards' },
   quiz: { en: 'Quiz', ur: 'Quiz' },
   sim: { en: 'Sim practice', ur: 'Sim practice' },
 };
@@ -206,7 +206,7 @@ export function renderSessionBar(App) {
   bar.innerHTML = `
     <div style="flex:1;min-width:0">
       <div class="slabel" style="margin:0">${App.t('session_title')} · ${n}/${m}</div>
-      <div style="font-size:13px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${stepLabel(cur.kind, lang)}${cur.count ? ` ×${cur.count}` : ''}${cur.optional ? ` (${lang === 'en' ? 'optional' : 'optional'})` : ''}</div>
+      <div style="font-size:13px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${stepLabel(cur.kind, lang)}${cur.count ? ` ×${cur.count}` : ''}${cur.optional ? ` (${lang === 'en' ? 'optional' : 'ikhtiyari'})` : ''}</div>
     </div>
     ${skipBtn}
     <button class="btn accent" id="sessionNext" style="flex-shrink:0;padding:8px 12px">${App.t('session_next')}</button>`;
@@ -231,7 +231,7 @@ export function openSessionRunner(App) {
     const track = s.trackId ? getTrack(s.trackId) : null;
     const sub = track && s.weekId
       ? `${track.name[lang]} · ${App.t('week')} ${s.weekId}`
-      : (s.count ? `×${s.count}` : (s.optional ? (lang === 'en' ? 'optional' : 'optional') : ''));
+      : (s.count ? `×${s.count}` : (s.optional ? (lang === 'en' ? 'optional' : 'ikhtiyari') : ''));
     return `<div class="check-row" style="opacity:${done ? 0.45 : 1};border-color:${active ? 'var(--acc)' : 'transparent'}">
       <span class="check-box" style="${done ? 'background:var(--acc);border-color:var(--acc);color:#000' : ''}">${done ? icon('check', { size: 12 }) : (i + 1)}</span>
       <span class="check-t"><strong>${stepLabel(s.kind, lang)}</strong>${sub ? `<br/><span style="color:var(--t3);font-size:12px">${sub}</span>` : ''}</span>
@@ -256,7 +256,7 @@ export function openSessionRunner(App) {
             : (run.step > 0 ? App.t('session_resume') : App.t('session_start'))
         }</button>
         ${run.step > 0 && !run.done ? `<button class="btn ghost mt10" id="sessionReset" style="width:100%">${lang === 'en' ? 'Restart plan' : 'Plan dubara'}</button>` : ''}
-        ${run.done ? `<button class="btn ghost mt10" id="sessionReset" style="width:100%">${lang === 'en' ? 'Clear & rebuild' : 'Clear & rebuild'}</button>` : ''}
+        ${run.done ? `<button class="btn ghost mt10" id="sessionReset" style="width:100%">${lang === 'en' ? 'Clear & rebuild' : 'Clear aur dobara'}</button>` : ''}
       </div>
     </div>`;
   document.body.appendChild(el);

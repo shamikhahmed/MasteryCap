@@ -1,3 +1,13 @@
+## [51.6.0] — 2026-07-21
+
+### Practice / Today / session UR chrome
+- Practice hub + SRS grades (Dubara/Mushkil/Theek/Asaan)
+- Today Continue=Jari, Study due, Final imtihaan
+- Session bar STEP_LABEL + optional/ikhtiyari + Clear aur dobara
+- SW `masterycap-v5160`
+
+
+
 ## [51.5.0] — 2026-07-21
 
 ### Campus UR + dead dashboard removed

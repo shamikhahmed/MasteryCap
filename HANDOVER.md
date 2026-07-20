@@ -7,7 +7,7 @@
 Offline personal institute PWA. Flagship **School of Software Craft** (WEB-101→FE-201 In Session). **School of Markets** wraps existing bilingual trading literacy. Honest self-issued certificates. No accounts, no fake AI, no income promises.
 
 ## Facts
-**Version:** v51.5.0 (sw: masterycap-v5150)
+**Version:** v51.6.0 (sw: masterycap-v5160)
 **Live:** https://shamikhahmed.github.io/MasteryCap/
 **Repo:** https://github.com/shamikhahmed/MasteryCap
 **Stack:** Vanilla JS PWA. Fraunces + IBM Plex (Google) with Geist Mono self-hosted. localStorage (`masterycap:`).

@@ -45,10 +45,10 @@ export function renderToday(App, el) {
   let continueBlock = '';
   if (code === 'MKT-LEGACY' || p.primaryBranch === 'markets' || p.starterSchool === 'markets') {
     continueBlock = `<section class="hb-section" data-testid="campus-dashboard">
-      <div class="hb-label">${en ? 'Continue' : 'Continue'}</div>
+      <div class="hb-label">${en ? 'Continue' : 'Jari'}</div>
       <div class="inst-card accent-rule hb-continue">
         <div class="kicker">${en ? 'Markets · Foundations' : 'Markets · Foundations'}</div>
-        <h2 class="inst-h2">${en ? 'Market literacy path' : 'Market literacy path'}</h2>
+        <h2 class="inst-h2">${en ? 'Market literacy path' : 'Market literacy ka path'}</h2>
         <p class="inst-muted">${gateOpen
           ? (en ? 'Foundations gate open — Crypto, Stocks, and Forex unlocked.' : 'Foundations gate open — specialties unlocked.')
           : (en ? `${fDone}/${fTotal} weeks · complete Foundations or pass the exam to unlock specialties.` : `${fDone}/${fTotal} weeks · specialties lock.`)}</p>
@@ -62,7 +62,7 @@ export function renderToday(App, el) {
     </section>`;
   } else if (nxt && course) {
     continueBlock = `<section class="hb-section">
-      <div class="hb-label">${en ? 'Continue' : 'Continue'}</div>
+      <div class="hb-label">${en ? 'Continue' : 'Jari'}</div>
       <div class="inst-card accent-rule hb-continue">
         <div class="kicker">${meta?.code || ''} · ${pct}%</div>
         <h2 class="inst-h2">${nxt.title[App.lang] || nxt.title.en}</h2>
@@ -72,17 +72,17 @@ export function renderToday(App, el) {
     </section>`;
   } else if (course && !nxt) {
     continueBlock = `<section class="hb-section">
-      <div class="hb-label">${en ? 'Continue' : 'Continue'}</div>
+      <div class="hb-label">${en ? 'Continue' : 'Jari'}</div>
       <div class="inst-card accent-rule">
         <div class="kicker">${meta?.code || ''}</div>
         <h2 class="inst-h2">${en ? 'Lessons complete' : 'Lessons mukammal'}</h2>
         <p class="inst-muted">${en ? 'Take the final assessment when ready.' : 'Final assessment lo jab ready ho.'}</p>
-        <button class="btn accent mt14" id="tdFinal">${en ? 'Final assessment' : 'Final assessment'}</button>
+        <button class="btn accent mt14" id="tdFinal">${en ? 'Final assessment' : 'Final imtihaan'}</button>
       </div>
     </section>`;
   } else {
     continueBlock = `<section class="hb-section">
-      <div class="hb-label">${en ? 'Continue' : 'Continue'}</div>
+      <div class="hb-label">${en ? 'Continue' : 'Jari'}</div>
       <div class="inst-card accent-rule">
         <div class="kicker">${en ? 'Campus' : 'Campus'}</div>
         <h2 class="inst-h2">${en ? 'Pick a branch' : 'Branch chuno'}</h2>
@@ -151,7 +151,7 @@ export function renderToday(App, el) {
       ${idStrip}
     </section>
     <section class="hb-section">
-      <div class="hb-label">${en ? 'Study due' : 'Study due'}</div>
+      <div class="hb-label">${en ? 'Study due' : 'Ab due'}</div>
       <div class="inst-row">
         <button class="inst-stat" id="tdReview">
           <span class="mono">${due + quizDue + missDue}</span>
@@ -159,7 +159,7 @@ export function renderToday(App, el) {
         </button>
         <button class="inst-stat" id="tdStudy">
           <span class="mono">${flashDue}</span>
-          <span>${en ? 'Flashcards' : 'Flashcards'}</span>
+          <span>${en ? 'Flashcards' : 'Cards'}</span>
         </button>
       </div>
     </section>
