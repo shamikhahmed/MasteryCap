@@ -203,7 +203,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Parse turns JSON into:",
-            "ur": "Parse:"
+            "ur": "Parse JSON ko kya banata:"
           },
           "opts": {
             "en": [
@@ -316,7 +316,7 @@ export const COURSE = {
         {
           "q": {
             "en": "500 usually means:",
-            "ur": "500:"
+            "ur": "500 usually kya mean karta:"
           },
           "opts": {
             "en": [
@@ -389,7 +389,7 @@ export const COURSE = {
       },
       "exitTicket": {
         "en": "How will UI treat 5xx differently from 4xx?",
-        "ur": "5xx vs 4xx UI?"
+        "ur": "UI 5xx ko 4xx se kaise alag treat karegi?"
       },
       "cards": [
         {
@@ -475,7 +475,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Filters often use:",
-            "ur": "Filters:"
+            "ur": "Filters aksar kya use karte:"
           },
           "opts": {
             "en": [
@@ -498,7 +498,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Methods express:",
-            "ur": "Methods:"
+            "ur": "Methods kya express karte:"
           },
           "opts": {
             "en": [
@@ -650,7 +650,7 @@ export const COURSE = {
           "correct": 0,
           "explain": {
             "en": "Next steps beyond app.",
-            "ur": "App ke baad."
+            "ur": "App ke baad aglay steps."
           }
         }
       ],

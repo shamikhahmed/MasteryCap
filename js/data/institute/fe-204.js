@@ -44,7 +44,7 @@ export const COURSE = {
         {
           "q": {
             "en": "State should live primarily in:",
-            "ur": "State:"
+            "ur": "State primarily kahan rehni chahiye:"
           },
           "opts": {
             "en": [
@@ -202,7 +202,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Always wrap parse in:",
-            "ur": "Parse:"
+            "ur": "Parse hamesha wrap karo:"
           },
           "opts": {
             "en": [
@@ -327,7 +327,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Service workers can:",
-            "ur": "SW:"
+            "ur": "Service workers kya kar sakte:"
           },
           "opts": {
             "en": [
@@ -350,7 +350,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Stale caches happen when:",
-            "ur": "Stale:"
+            "ur": "Stale caches kab hote:"
           },
           "opts": {
             "en": [
@@ -485,7 +485,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Empty state should:",
-            "ur": "Empty:"
+            "ur": "Empty state kya karna chahiye:"
           },
           "opts": {
             "en": [

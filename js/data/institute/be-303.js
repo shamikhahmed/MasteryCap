@@ -44,7 +44,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Password storage should use:",
-            "ur": "Passwords:"
+            "ur": "Password storage mein kya use karna:"
           },
           "opts": {
             "en": [
@@ -90,7 +90,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Hashing is best for:",
-            "ur": "Hashing:"
+            "ur": "Hashing best kis liye:"
           },
           "opts": {
             "en": [
@@ -150,7 +150,7 @@ export const COURSE = {
       },
       "objective": {
         "en": "Explain session cookies vs bearer tokens at literacy level.",
-        "ur": "Sessions vs tokens literacy."
+        "ur": "Session cookies vs bearer tokens literacy level pe samjhao."
       },
       "warmUp": {
         "en": "How does a site remember you after login?",
@@ -179,7 +179,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Session ids often live in:",
-            "ur": "Session ids:"
+            "ur": "Session ids aksar kahan rehte:"
           },
           "opts": {
             "en": [
@@ -202,7 +202,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Tokens are often:",
-            "ur": "Tokens:"
+            "ur": "Tokens aksar kaise hote:"
           },
           "opts": {
             "en": [
@@ -219,7 +219,7 @@ export const COURSE = {
           "correct": 0,
           "explain": {
             "en": "Authorization header common.",
-            "ur": "Auth header."
+            "ur": "Authorization header common hai."
           }
         },
         {
@@ -331,7 +331,7 @@ export const COURSE = {
           "correct": 0,
           "explain": {
             "en": "Output encoding matters.",
-            "ur": "Encoding."
+            "ur": "Output encoding matter karti."
           }
         },
         {
@@ -354,13 +354,13 @@ export const COURSE = {
           "correct": 0,
           "explain": {
             "en": "Validate/parameterize.",
-            "ur": "Validate."
+            "ur": "Validate/parameterize karo."
           }
         },
         {
           "q": {
             "en": "Broken access control means:",
-            "ur": "Access control:"
+            "ur": "Broken access control ka matlab:"
           },
           "opts": {
             "en": [
@@ -377,7 +377,7 @@ export const COURSE = {
           "correct": 0,
           "explain": {
             "en": "Authorize every action.",
-            "ur": "Authorize."
+            "ur": "Har action authorize karo."
           }
         }
       ],
@@ -449,7 +449,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Security by obscurity is:",
-            "ur": "Obscurity:"
+            "ur": "Security by obscurity kya hai:"
           },
           "opts": {
             "en": [
@@ -472,7 +472,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Client-only checks are:",
-            "ur": "Client-only:"
+            "ur": "Client-only checks kya hain:"
           },
           "opts": {
             "en": [
@@ -489,13 +489,13 @@ export const COURSE = {
           "correct": 0,
           "explain": {
             "en": "Enforce server-side when you have one.",
-            "ur": "Server enforce."
+            "ur": "Server-side enforce jab server ho."
           }
         },
         {
           "q": {
             "en": "Tokens in JS storage + XSS:",
-            "ur": "Tokens+XSS:"
+            "ur": "Tokens JS storage + XSS:"
           },
           "opts": {
             "en": [

@@ -44,7 +44,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Scope must include:",
-            "ur": "Scope:"
+            "ur": "Scope mein kya include hona chahiye:"
           },
           "opts": {
             "en": [
@@ -67,7 +67,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Success metric should be:",
-            "ur": "Metric:"
+            "ur": "Success metric kya hona chahiye:"
           },
           "opts": {
             "en": [
@@ -179,7 +179,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Skeleton prioritizes:",
-            "ur": "Skeleton:"
+            "ur": "Skeleton kya prioritize karta:"
           },
           "opts": {
             "en": [
@@ -337,7 +337,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Persistence proves:",
-            "ur": "Persist:"
+            "ur": "Persistence kya prove karti:"
           },
           "opts": {
             "en": [
@@ -495,7 +495,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Release notes tell:",
-            "ur": "Notes:"
+            "ur": "Release notes kya batate:"
           },
           "opts": {
             "en": [

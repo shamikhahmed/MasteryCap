@@ -161,14 +161,14 @@ export const COURSE = {
       },
       "teach": {
         "en": "<p>Minimal document: <code>&lt;!DOCTYPE html&gt;</code>, <code>html</code>, <code>head</code> (title, meta charset), <code>body</code>. Charset prevents mojibake. Title shows in the tab.</p><p>Lang attribute helps browsers and screen readers.</p>",
-        "ur": "<p>Minimal: doctype, html, head (title, charset), body. Charset mojibake rokta. Title tab pe.</p><p>lang attribute help karta.</p>"
+        "ur": "<p>Minimal document: doctype, html, head (title, meta charset), body. Charset mojibake rokta. Title browser tab pe dikhta.</p><p>lang attribute browsers aur screen readers ko help karta.</p>"
       },
       "visual": null,
       "check": [
         {
           "q": {
             "en": "DOCTYPE tells the browser:",
-            "ur": "DOCTYPE:"
+            "ur": "DOCTYPE browser ko kya batata:"
           },
           "opts": {
             "en": [
@@ -191,7 +191,7 @@ export const COURSE = {
         {
           "q": {
             "en": "charset meta prevents:",
-            "ur": "charset:"
+            "ur": "charset meta kya prevent karta:"
           },
           "opts": {
             "en": [
@@ -214,7 +214,7 @@ export const COURSE = {
         {
           "q": {
             "en": "title appears in:",
-            "ur": "title:"
+            "ur": "title kahan appear hota:"
           },
           "opts": {
             "en": [
@@ -439,7 +439,7 @@ export const COURSE = {
       },
       "teach": {
         "en": "<p><code>a href</code> creates navigation. Prefer descriptive link text over “click here.” Images need <code>alt</code> for accessibility and when images fail. Decorative images can use empty alt.</p>",
-        "ur": "<p>a href navigation. “Click here” se behtar descriptive text. Images ko alt. Decorative = empty alt.</p>"
+        "ur": "<p>a href se navigation banta. “Click here” se behtar descriptive link text. Images ko alt chahiye a11y aur fail pe. Decorative images empty alt use kar sakti.</p>"
       },
       "visual": null,
       "check": [
@@ -578,7 +578,7 @@ export const COURSE = {
       },
       "teach": {
         "en": "<p>Forms collect input: text, email, checkbox, submit. Labels must associate with inputs (for/id). Without labels, forms fail accessibility and tap targets suffer on mobile.</p>",
-        "ur": "<p>Forms input leti. Labels for/id se associate. Bina labels a11y fail + mobile pe mushkil.</p>"
+        "ur": "<p>Forms input leti: text, email, checkbox, submit. Labels for/id se inputs associate. Bina labels a11y fail + mobile tap targets mushkil.</p>"
       },
       "visual": null,
       "check": [
@@ -724,7 +724,7 @@ export const COURSE = {
         {
           "q": {
             "en": "A prospectus should include:",
-            "ur": "Prospectus:"
+            "ur": "Prospectus mein kya hona chahiye:"
           },
           "opts": {
             "en": [
@@ -747,7 +747,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Self-attestation means:",
-            "ur": "Self-attest:"
+            "ur": "Self-attestation ka matlab kya:"
           },
           "opts": {
             "en": [
@@ -770,7 +770,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Prefer semantic tags over:",
-            "ur": "Semantic >"
+            "ur": "Semantic tags prefer karo over:"
           },
           "opts": {
             "en": [

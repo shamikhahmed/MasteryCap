@@ -67,7 +67,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Icons should include:",
-            "ur": "Icons:"
+            "ur": "Icons mein kya hona chahiye:"
           },
           "opts": {
             "en": [
@@ -225,7 +225,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Airplane test proves:",
-            "ur": "Airplane:"
+            "ur": "Airplane test kya prove karta:"
           },
           "opts": {
             "en": [
@@ -314,7 +314,7 @@ export const COURSE = {
         {
           "q": {
             "en": "MasteryCap avoids:",
-            "ur": "Avoid:"
+            "ur": "MasteryCap kya avoid karta:"
           },
           "opts": {
             "en": [
@@ -337,7 +337,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Progress is stored:",
-            "ur": "Progress:"
+            "ur": "Progress kahan store hoti:"
           },
           "opts": {
             "en": [
@@ -360,7 +360,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Honesty copy should be:",
-            "ur": "Honesty:"
+            "ur": "Honesty copy kaisi honi chahiye:"
           },
           "opts": {
             "en": [

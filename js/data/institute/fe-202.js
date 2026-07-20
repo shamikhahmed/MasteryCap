@@ -67,7 +67,7 @@ export const COURSE = {
         {
           "q": {
             "en": "JS usually updates the page by:",
-            "ur": "JS page update:"
+            "ur": "JS page usually kaise update karta:"
           },
           "opts": {
             "en": [
@@ -150,7 +150,7 @@ export const COURSE = {
       },
       "objective": {
         "en": "Select nodes with querySelector / querySelectorAll.",
-        "ur": "querySelector se nodes."
+        "ur": "querySelector / querySelectorAll se nodes select karo."
       },
       "warmUp": {
         "en": "How would you find the first button on a page?",
@@ -344,7 +344,7 @@ export const COURSE = {
           "correct": 0,
           "explain": {
             "en": "Subscribe to signals.",
-            "ur": "Signals."
+            "ur": "Signals ko subscribe karo."
           }
         },
         {
@@ -367,13 +367,13 @@ export const COURSE = {
           "correct": 0,
           "explain": {
             "en": "Forms/links often need it.",
-            "ur": "Forms/links."
+            "ur": "Forms/links ko aksar chahiye."
           }
         },
         {
           "q": {
             "en": "event.target is usually:",
-            "ur": "event.target:"
+            "ur": "event.target usually kya hota:"
           },
           "opts": {
             "en": [
@@ -390,7 +390,7 @@ export const COURSE = {
           "correct": 0,
           "explain": {
             "en": "Useful in delegation.",
-            "ur": "Delegation."
+            "ur": "Delegation mein useful."
           }
         }
       ],
@@ -498,7 +498,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Async scheduling helps:",
-            "ur": "Async:"
+            "ur": "Async scheduling kya help karti:"
           },
           "opts": {
             "en": [
@@ -521,7 +521,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Literacy goal is to:",
-            "ur": "Goal:"
+            "ur": "Literacy goal kya hai:"
           },
           "opts": {
             "en": [
@@ -633,7 +633,7 @@ export const COURSE = {
         {
           "q": {
             "en": "On submit you often:",
-            "ur": "Submit pe:"
+            "ur": "Submit pe aksar kya karte:"
           },
           "opts": {
             "en": [
@@ -768,7 +768,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Capstone should stay:",
-            "ur": "Capstone:"
+            "ur": "Capstone kaisa rehna chahiye:"
           },
           "opts": {
             "en": [

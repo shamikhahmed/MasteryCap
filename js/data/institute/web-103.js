@@ -52,7 +52,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Separation of concerns means:",
-            "ur": "Separation:"
+            "ur": "Separation of concerns ka matlab:"
           },
           "opts": {
             "en": [
@@ -214,7 +214,7 @@ export const COURSE = {
         {
           "q": {
             "en": "box-sizing: border-box makes width include:",
-            "ur": "border-box width:"
+            "ur": "border-box width mein kya include hota:"
           },
           "opts": {
             "en": [
@@ -241,7 +241,7 @@ export const COURSE = {
       },
       "exitTicket": {
         "en": "Changed: layout is boxes all the way down.",
-        "ur": "Badla: layout = boxes."
+        "ur": "Badla: layout end tak boxes hi boxes."
       },
       "cards": [
         {
@@ -300,7 +300,7 @@ export const COURSE = {
       },
       "teach": {
         "en": "<p>Flexbox: container with display:flex; main axis vs cross axis; justify-content and align-items. Great for toolbars and simple responsive rows.</p>",
-        "ur": "<p>Flex: display:flex; main vs cross; justify/align. Toolbars + simple rows.</p>"
+        "ur": "<p>Flexbox: display:flex container; main axis vs cross axis; justify-content aur align-items. Toolbars aur simple responsive rows ke liye great.</p>"
       },
       "visual": null,
       "check": [
@@ -370,7 +370,7 @@ export const COURSE = {
           "correct": 0,
           "explain": {
             "en": "Cross-axis alignment.",
-            "ur": "Cross-axis."
+            "ur": "Cross-axis alignment matter karti."
           }
         }
       ],
@@ -380,7 +380,7 @@ export const COURSE = {
       },
       "exitTicket": {
         "en": "Changed: flex = one-dimensional layout power.",
-        "ur": "Badla: flex = 1D power."
+        "ur": "Badla: flex = one-dimensional layout power."
       },
       "cards": [
         {

@@ -100,3 +100,5 @@ Next (in order):
 - Tag `v49.2.0` / `v50.0.0`
 
 **v50.1 UR parity:** all deep-track week parts ≥55% UR length (Foundations + 12 deep modules).
+
+**v50.2:** quiz stems/explains + long opts + institute course UR thin → 0.

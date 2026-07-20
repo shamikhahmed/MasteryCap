@@ -44,7 +44,7 @@ export const COURSE = {
         {
           "q": {
             "en": "A component bundles:",
-            "ur": "Component:"
+            "ur": "Component kya bundle karta:"
           },
           "opts": {
             "en": [
@@ -179,7 +179,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Only one tab panel should be:",
-            "ur": "Tab panel:"
+            "ur": "Sirf ek tab panel kya hona chahiye:"
           },
           "opts": {
             "en": [
@@ -202,7 +202,7 @@ export const COURSE = {
         {
           "q": {
             "en": "aria-selected communicates:",
-            "ur": "aria-selected:"
+            "ur": "aria-selected kya communicate karta:"
           },
           "opts": {
             "en": [
@@ -327,7 +327,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Escape should usually:",
-            "ur": "Escape:"
+            "ur": "Escape usually kya karna chahiye:"
           },
           "opts": {
             "en": [
@@ -373,7 +373,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Backdrop click often:",
-            "ur": "Backdrop:"
+            "ur": "Backdrop click aksar kya karta:"
           },
           "opts": {
             "en": [
@@ -462,7 +462,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Lists should be driven by:",
-            "ur": "Lists:"
+            "ur": "Lists kis se driven honi chahiye:"
           },
           "opts": {
             "en": [
@@ -732,7 +732,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Good critique is:",
-            "ur": "Critique:"
+            "ur": "Achhi critique kaisi hoti:"
           },
           "opts": {
             "en": [
@@ -755,7 +755,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Tap targets relate to:",
-            "ur": "Tap targets:"
+            "ur": "Tap targets kis se relate:"
           },
           "opts": {
             "en": [
@@ -778,7 +778,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Honesty in UI means:",
-            "ur": "Honesty:"
+            "ur": "UI mein honesty ka matlab:"
           },
           "opts": {
             "en": [

@@ -168,7 +168,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Data on the internet travels as:",
-            "ur": "Internet pe data:"
+            "ur": "Internet pe data kis tarah travel karta:"
           },
           "opts": {
             "en": [
@@ -347,7 +347,7 @@ export const COURSE = {
           "correct": 0,
           "explain": {
             "en": "Structure before style and behavior.",
-            "ur": "Pehle structure."
+            "ur": "Style/behavior se pehle structure."
           }
         },
         {
@@ -446,7 +446,7 @@ export const COURSE = {
         {
           "q": {
             "en": "An if/else is a:",
-            "ur": "if/else:"
+            "ur": "if/else kya hai:"
           },
           "opts": {
             "en": [
@@ -519,7 +519,7 @@ export const COURSE = {
       },
       "exitTicket": {
         "en": "What changed: code is structured thinking, not mystery symbols.",
-        "ur": "Badla: code structured soch hai."
+        "ur": "Badla: code structured soch hai, mystery symbols nahi."
       },
       "cards": [
         {
@@ -631,7 +631,7 @@ export const COURSE = {
         {
           "q": {
             "en": "localStorage typically holds:",
-            "ur": "localStorage:"
+            "ur": "localStorage usually kya hold karta:"
           },
           "opts": {
             "en": [
@@ -724,7 +724,7 @@ export const COURSE = {
         {
           "q": {
             "en": "DevTools help you:",
-            "ur": "DevTools:"
+            "ur": "DevTools kya help karte:"
           },
           "opts": {
             "en": [
@@ -747,7 +747,7 @@ export const COURSE = {
         {
           "q": {
             "en": "The Console shows:",
-            "ur": "Console:"
+            "ur": "Console kya dikhata:"
           },
           "opts": {
             "en": [

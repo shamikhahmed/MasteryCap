@@ -44,7 +44,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Entities are usually:",
-            "ur": "Entities:"
+            "ur": "Entities usually kya hote:"
           },
           "opts": {
             "en": [
@@ -179,7 +179,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Primary keys must be:",
-            "ur": "PK:"
+            "ur": "Primary keys must kya hon:"
           },
           "opts": {
             "en": [
@@ -337,7 +337,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Normalization aims to:",
-            "ur": "Normalize:"
+            "ur": "Normalization ka aim kya:"
           },
           "opts": {
             "en": [
@@ -584,7 +584,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Good models state:",
-            "ur": "Models:"
+            "ur": "Achhe models kya state karte:"
           },
           "opts": {
             "en": [

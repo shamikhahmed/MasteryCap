@@ -1,3 +1,12 @@
+## [50.2.0] — 2026-07-20
+
+### Quiz + Institute UR thicken
+- Deep-track quiz stems + explains → `ur/en ≥ 0.55`
+- Long quiz opts (EN > 30) thickened; short opts stay stubby by design
+- Institute Craft courses (web/fe/be/app) lesson + quiz UR thin → 0
+- SW `masterycap-v5020`
+
+
 ## [50.1.0] — 2026-07-20
 
 ### UR parity wave — all deep tracks

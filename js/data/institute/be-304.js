@@ -44,7 +44,7 @@ export const COURSE = {
         {
           "q": {
             "en": "GitHub Pages is great for:",
-            "ur": "GH Pages:"
+            "ur": "GitHub Pages great kis liye:"
           },
           "opts": {
             "en": [
@@ -67,7 +67,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Server apps needed when:",
-            "ur": "Servers jab:"
+            "ur": "Server apps jab chahiye:"
           },
           "opts": {
             "en": [
@@ -337,7 +337,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Phone-width check catches:",
-            "ur": "Phone check:"
+            "ur": "Phone-width check kya pakarta:"
           },
           "opts": {
             "en": [
@@ -360,7 +360,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Honesty limits belong:",
-            "ur": "Honesty:"
+            "ur": "Honesty limits kahan belong karte:"
           },
           "opts": {
             "en": [

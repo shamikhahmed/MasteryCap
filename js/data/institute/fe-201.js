@@ -75,7 +75,7 @@ export const COURSE = {
         {
           "q": {
             "en": "undefined often means:",
-            "ur": "undefined:"
+            "ur": "undefined aksar kya mean karta:"
           },
           "opts": {
             "en": [
@@ -153,7 +153,7 @@ export const COURSE = {
       },
       "objective": {
         "en": "Compute with operators and understand truthiness.",
-        "ur": "Operators + truthiness."
+        "ur": "Operators se compute karo aur truthiness samjho."
       },
       "warmUp": {
         "en": "What breaks if this concept is wrong?",
@@ -168,7 +168,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Prefer equality with:",
-            "ur": "Equality:"
+            "ur": "Equality ke liye prefer karo:"
           },
           "opts": {
             "en": [
@@ -251,7 +251,7 @@ export const COURSE = {
           },
           "back": {
             "en": "Compute with operators and understand truthiness.",
-            "ur": "Operators + truthiness."
+            "ur": "Operators se compute karo aur truthiness samjho."
           }
         },
         {
@@ -446,7 +446,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Infinite loops happen when:",
-            "ur": "Infinite loop:"
+            "ur": "Infinite loops kab hote:"
           },
           "opts": {
             "en": [
@@ -469,7 +469,7 @@ export const COURSE = {
         {
           "q": {
             "en": "for...of iterates:",
-            "ur": "for...of:"
+            "ur": "for...of kya iterate karta:"
           },
           "opts": {
             "en": [
@@ -486,7 +486,7 @@ export const COURSE = {
           "correct": 0,
           "explain": {
             "en": "Values not indices (by default story).",
-            "ur": "Values."
+            "ur": "Values, indices nahi (default story)."
           }
         },
         {
@@ -585,7 +585,7 @@ export const COURSE = {
         {
           "q": {
             "en": "A return statement:",
-            "ur": "return:"
+            "ur": "return statement kya karta:"
           },
           "opts": {
             "en": [
@@ -631,7 +631,7 @@ export const COURSE = {
         {
           "q": {
             "en": "One job per function aids:",
-            "ur": "Ek kaam:"
+            "ur": "Ek kaam per function help karta:"
           },
           "opts": {
             "en": [
@@ -886,7 +886,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Bracket access helps when:",
-            "ur": "Bracket:"
+            "ur": "Bracket access kab help karta:"
           },
           "opts": {
             "en": [
@@ -909,7 +909,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Objects are good for:",
-            "ur": "Objects:"
+            "ur": "Objects achhe kis liye:"
           },
           "opts": {
             "en": [
@@ -926,7 +926,7 @@ export const COURSE = {
           "correct": 0,
           "explain": {
             "en": "Records of properties.",
-            "ur": "Properties."
+            "ur": "Properties ke records."
           }
         }
       ],

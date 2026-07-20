@@ -61,7 +61,7 @@ export const COURSE = {
           "correct": 0,
           "explain": {
             "en": "Capture without scope creep.",
-            "ur": "Capture."
+            "ur": "Capture bina scope creep ke."
           }
         },
         {
@@ -179,7 +179,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Notes should avoid:",
-            "ur": "Avoid:"
+            "ur": "Notes mein kya avoid karna:"
           },
           "opts": {
             "en": [
@@ -202,7 +202,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Breaking changes need:",
-            "ur": "Breaking:"
+            "ur": "Breaking changes ko kya chahiye:"
           },
           "opts": {
             "en": [
@@ -337,7 +337,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Kill criteria say:",
-            "ur": "Kill:"
+            "ur": "Kill criteria kya kehte:"
           },
           "opts": {
             "en": [
@@ -360,7 +360,7 @@ export const COURSE = {
         {
           "q": {
             "en": "Time box prevents:",
-            "ur": "Time box:"
+            "ur": "Time box kya prevent karta:"
           },
           "opts": {
             "en": [
