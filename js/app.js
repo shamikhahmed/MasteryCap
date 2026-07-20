@@ -292,8 +292,8 @@ export const App = {
         else if (e.key === 'End') next = order.length - 1;
         if (next < 0) return;
         e.preventDefault();
-        const target = nav.querySelector(`[data-tab="${order[next]}"]`);
-        if (target) { target.focus(); this.navigate(order[next]); }
+        this.navigate(order[next]);
+        document.querySelector(`#tabbar [data-tab="${order[next]}"]`)?.focus({ preventScroll: true });
       });
     });
     const panel = document.getElementById('app-root');

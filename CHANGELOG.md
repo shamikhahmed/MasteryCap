@@ -1,3 +1,14 @@
+## [51.1.0] — 2026-07-21
+
+### Nav return polish
+- Tab Arrow/Home/End: focus after `renderNav` rebuild (roving tabindex sticks)
+- Charts/Drills/Study back fallbacks: `practice` not orphan `dashboard`
+- HTTP Lab: `_labReturn` → Lesson keeps `_lesson`; Practice path unchanged
+- Session done CTA label = Today (matches navigate)
+- SW `masterycap-v5110`
+
+
+
 ## [51.0.0] — 2026-07-20
 
 ### Tab a11y

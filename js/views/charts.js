@@ -49,7 +49,7 @@ function drawHub() {
 
   document.getElementById('chBack').addEventListener('click', () => {
     S.mode = 'hub'; S.scenario = null; S.feedback = null; S.pick = null; S.exampleId = null;
-    App.tab = App._chartReturn || 'dashboard'; App.render(); App.renderNav();
+    App.tab = App._chartReturn || 'practice'; App.render(); App.renderNav();
   });
   c.querySelectorAll('[data-ex]').forEach((b) => b.addEventListener('click', () => {
     S.mode = 'example'; S.exampleId = b.dataset.ex; App.haptic(); drawExample();

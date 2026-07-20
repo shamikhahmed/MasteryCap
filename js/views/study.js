@@ -69,7 +69,7 @@ function drawHub() {
   </div>`;
 
   document.getElementById('studyBack')?.addEventListener('click', () => {
-    App.tab = App._studyReturn || 'dashboard';
+    App.tab = App._studyReturn || 'practice';
     App.render(); App.renderNav();
   });
   document.getElementById('goFlashMix')?.addEventListener('click', () => startDeck(buildMixDeck(lang)));
@@ -236,7 +236,7 @@ export function openStudyNotes(App, seed = {}) {
   APP = App;
   S.mode = 'notes';
   if (seed.text) S.noteDraft = seed.text;
-  App._studyReturn = App.tab === 'study' ? 'dashboard' : App.tab;
+  App._studyReturn = App.tab === 'study' ? 'practice' : App.tab;
   App.tab = 'study';
   App.render();
   App.renderNav();

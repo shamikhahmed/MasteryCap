@@ -38,7 +38,9 @@ export function renderHttpLab(App, el) {
   const grades = gradeLabExercises(history);
 
   el.innerHTML = `<div class="screen inst-screen">
-    <button class="text-back" id="labBack">${icon('back', { size: 16 })} ${en ? 'Practice' : 'Practice'}</button>
+    <button class="text-back" id="labBack">${icon('back', { size: 16 })} ${App._labReturn === 'lesson'
+      ? (en ? 'Lesson' : 'Lesson')
+      : (en ? 'Practice' : 'Practice')}</button>
     <div class="lt-head">
       <div class="kicker mono">BE-301 · HTTP Lab</div>
       <h1>HTTP Lab</h1>
@@ -75,7 +77,17 @@ export function renderHttpLab(App, el) {
     <button class="btn secondary mt10" id="labSync">${en ? 'Sync PASS → BE-301 checklist' : 'PASS → BE-301 checklist'}</button>
   </div>`;
 
-  document.getElementById('labBack')?.addEventListener('click', () => App.navigate('practice'));
+  document.getElementById('labBack')?.addEventListener('click', () => {
+    const back = App._labReturn || 'practice';
+    App._labReturn = null;
+    if (back === 'lesson' && App._lesson) {
+      App.tab = 'lesson';
+      App.render();
+      App.renderNav();
+      return;
+    }
+    App.navigate('practice');
+  });
   document.querySelectorAll('[data-pre]').forEach((b) => b.addEventListener('click', () => {
     const p = LAB_PRESETS[+b.dataset.pre];
     S.method = p.method; S.path = p.path; S.body = p.body; S.headerText = p.headers || '';

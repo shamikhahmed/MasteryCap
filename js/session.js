@@ -176,7 +176,7 @@ function showDoneSheet(App, run) {
         <p style="font-size:15px;line-height:1.5;color:var(--t2)">${lang === 'en'
           ? `You worked through a ${run.mins}-min plan. Come back tomorrow — or open Campus for more.`
           : `${run.mins}-min plan mukammal. Kal wapas ao — ya Campus kholo.`}</p>
-        <button class="btn accent mt14" id="sessionHome" style="width:100%">${App.t('nav_dashboard')}</button>
+        <button class="btn accent mt14" id="sessionHome" style="width:100%">${lang === 'en' ? 'Today' : 'Aaj'}</button>
       </div>
     </div>`;
   document.body.appendChild(el);
