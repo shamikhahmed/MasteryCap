@@ -84,9 +84,11 @@ export function renderHttpLab(App, el) {
       App.tab = 'lesson';
       App.render();
       App.renderNav();
+      App.restoreFocus();
       return;
     }
     App.navigate('practice');
+    App.restoreFocus();
   });
   document.querySelectorAll('[data-pre]').forEach((b) => b.addEventListener('click', () => {
     const p = LAB_PRESETS[+b.dataset.pre];

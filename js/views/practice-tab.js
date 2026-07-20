@@ -97,6 +97,7 @@ export function renderPracticeTab(App, el) {
   });
   document.getElementById('prLab')?.addEventListener('click', () => {
     App._labReturn = 'practice';
+    App._focusSel = '#prLab';
     App.tab = 'http-lab'; App.haptic(6); App.render(); App.renderNav();
   });
   document.getElementById('prReview')?.addEventListener('click', () => App.openReview());

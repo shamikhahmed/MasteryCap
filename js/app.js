@@ -166,6 +166,7 @@ export const App = {
   },
 
   openDrills() {
+    this._focusSel = this.tab === 'practice' ? '#prDrills' : null;
     this._drillReturn = this.tab === 'drills' ? 'today' : this.tab;
     this.tab = 'drills'; this.haptic(6);
     window.scrollTo({ top: 0 });
@@ -173,7 +174,9 @@ export const App = {
   },
 
   openHasil(fromTab) {
-    this._progressReturn = fromTab || (this.tab === 'progress' ? 'practice' : this.tab);
+    const from = fromTab || (this.tab === 'progress' ? 'practice' : this.tab);
+    this._progressReturn = from;
+    this._focusSel = from === 'records' ? '#recHasil' : '#prHasil';
     this.tab = 'progress';
     this.haptic(6);
     window.scrollTo({ top: 0 });
@@ -182,7 +185,9 @@ export const App = {
   },
 
   openJournal(fromTab) {
-    this._journalReturn = fromTab || (this.tab === 'journal' ? 'records' : this.tab);
+    const from = fromTab || (this.tab === 'journal' ? 'records' : this.tab);
+    this._journalReturn = from;
+    this._focusSel = from === 'records' ? '#recJournal' : null;
     this.tab = 'journal';
     this.haptic(6);
     window.scrollTo({ top: 0 });
@@ -191,6 +196,7 @@ export const App = {
   },
 
   openReview() {
+    this._focusSel = this.tab === 'practice' ? '#prReview' : null;
     this._reviewReturn = this.tab === 'review' ? 'practice' : this.tab;
     this.tab = 'review'; this.haptic(6);
     window.scrollTo({ top: 0 });
@@ -198,6 +204,7 @@ export const App = {
   },
 
   openCharts() {
+    this._focusSel = this.tab === 'practice' ? '#prCharts' : null;
     this._chartReturn = this.tab === 'charts' ? 'today' : this.tab;
     this.tab = 'charts'; this.haptic(6);
     window.scrollTo({ top: 0 });
@@ -209,6 +216,7 @@ export const App = {
       this.openDrills();
       return;
     }
+    this._focusSel = this.tab === 'practice' ? '#prSim' : null;
     this._simReturn = this.tab === 'sim' ? 'practice' : this.tab;
     this.tab = 'sim'; this.haptic(6);
     window.scrollTo({ top: 0 });
@@ -216,6 +224,7 @@ export const App = {
   },
 
   openStudy() {
+    this._focusSel = this.tab === 'practice' ? '#prStudy' : null;
     this._studyReturn = this.tab === 'study' ? 'practice' : this.tab;
     this.tab = 'study'; this.haptic(6);
     window.scrollTo({ top: 0 });
@@ -226,9 +235,24 @@ export const App = {
     stopSimPlayback();
     this.tab = this._simReturn || 'practice';
     this.render(); this.renderNav();
+    this.restoreFocus();
   },
 
   bumpStreak() { markHabitDay(); return touchStreakWithFreeze(); },
+
+  /** After subview back: focus opener control, else panel h1. */
+  restoreFocus() {
+    const sel = this._focusSel;
+    this._focusSel = null;
+    requestAnimationFrame(() => {
+      let el = sel ? document.querySelector(sel) : null;
+      if (!el) {
+        el = document.querySelector('#app-root h1');
+        if (el && !el.hasAttribute('tabindex')) el.tabIndex = -1;
+      }
+      el?.focus?.({ preventScroll: true });
+    });
+  },
 
   render() {
     const c = root(); if (!c) return;

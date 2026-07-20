@@ -43,7 +43,7 @@ function draw() {
         <p style="font-size:14px;color:var(--t3);line-height:1.55">${App.t('review_empty')}</p>
         <button class="btn secondary mt18" id="rvBack2">${App.t('back')}</button>
       </div></div>`;
-    const go = () => { S.items = null; App.tab = App._reviewReturn || 'practice'; App.render(); App.renderNav(); };
+    const go = () => { S.items = null; App.tab = App._reviewReturn || 'practice'; App.render(); App.renderNav(); App.restoreFocus(); };
     document.getElementById('rvBack').addEventListener('click', go);
     document.getElementById('rvBack2').addEventListener('click', go);
     return;
@@ -59,7 +59,7 @@ function draw() {
         <button class="btn accent mt18" id="rvDone">${App.t('next')}</button>
       </div></div>`;
     document.getElementById('rvDone').addEventListener('click', () => {
-      S.items = null; App.tab = App._reviewReturn || 'practice'; App.render(); App.renderNav();
+      S.items = null; App.tab = App._reviewReturn || 'practice'; App.render(); App.renderNav(); App.restoreFocus();
     });
     return;
   }
@@ -97,7 +97,7 @@ function draw() {
   </div>`;
 
   document.getElementById('rvBack').addEventListener('click', () => {
-    S.items = null; App.tab = App._reviewReturn || 'practice'; App.render(); App.renderNav();
+    S.items = null; App.tab = App._reviewReturn || 'practice'; App.render(); App.renderNav(); App.restoreFocus();
   });
   c.querySelectorAll('[data-o]').forEach((b) => b.addEventListener('click', () => {
     if (answered) return;

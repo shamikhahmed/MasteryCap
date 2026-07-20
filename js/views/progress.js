@@ -100,6 +100,7 @@ export function renderProgress(App, c) {
     document.getElementById('hasilBack')?.addEventListener('click', () => {
       App.tab = App._progressReturn || 'practice';
       App.render(); App.renderNav();
+      App.restoreFocus();
     });
     return;
   }
@@ -151,6 +152,7 @@ export function renderProgress(App, c) {
   document.getElementById('hasilBack')?.addEventListener('click', () => {
     App.tab = App._progressReturn || 'practice';
     App.render(); App.renderNav();
+    App.restoreFocus();
   });
 }
 

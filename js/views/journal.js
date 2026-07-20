@@ -200,6 +200,7 @@ export function renderJournal(App, c) {
     App.tab = back === 'dashboard' ? 'today' : back;
     App.render();
     App.renderNav();
+    App.restoreFocus();
   });
 
   const balInput = document.getElementById('jBalance');

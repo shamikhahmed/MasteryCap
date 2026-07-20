@@ -71,6 +71,7 @@ function drawHub() {
   document.getElementById('studyBack')?.addEventListener('click', () => {
     App.tab = App._studyReturn || 'practice';
     App.render(); App.renderNav();
+    App.restoreFocus();
   });
   document.getElementById('goFlashMix')?.addEventListener('click', () => startDeck(buildMixDeck(lang)));
   document.getElementById('goFlashGloss')?.addEventListener('click', () => startDeck(buildGlossaryDeck(null, lang)));

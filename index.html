@@ -18,8 +18,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
   <link rel="preload" href="fonts/geistmono-500.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="css/app.css?v=5120" />
-  <link rel="stylesheet" href="css/institute.css?v=5120" />
+  <link rel="stylesheet" href="css/app.css?v=5130" />
+  <link rel="stylesheet" href="css/institute.css?v=5130" />
 </head>
 <body>
   <!-- film grain texture overlay -->
@@ -48,14 +48,14 @@
   <!-- Bottom nav -->
   <nav class="tabbar hidden" id="tabbar"></nav>
 
-  <script type="module" src="js/app.js?v=5120"></script>
+  <script type="module" src="js/app.js?v=5130"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', async () => {
         try {
           const regs = await navigator.serviceWorker.getRegistrations();
           // Always re-register so CACHE bump in sw.js takes effect
-          await navigator.serviceWorker.register('sw.js?v=5120');
+          await navigator.serviceWorker.register('sw.js?v=5130');
         } catch (e) {}
       });
     }

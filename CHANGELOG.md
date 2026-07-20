@@ -1,3 +1,11 @@
+## [51.3.0] — 2026-07-21
+
+### Subview focus restore
+- `App.restoreFocus()`: back from Charts/Drills/Review/Study/Hasil/Journal/Lab/Sim → opener (`#pr*` / `#rec*` / `#lsLab`) or panel `h1`
+- SW `masterycap-v5130`
+
+
+
 ## [51.2.0] — 2026-07-21
 
 ### Tab i18n + Journal return

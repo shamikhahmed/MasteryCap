@@ -106,7 +106,7 @@ function draw() {
 
   document.getElementById('drillBack').addEventListener('click', () => {
     S.drill = null; S.feedback = null; S.challenge = false;
-    App.tab = App._drillReturn || 'practice'; App.render(); App.renderNav();
+    App.tab = App._drillReturn || 'practice'; App.render(); App.renderNav(); App.restoreFocus();
   });
   document.getElementById('togTimed')?.addEventListener('click', () => {
     S.timed = !S.timed; S.feedback = null; App.haptic(); draw();

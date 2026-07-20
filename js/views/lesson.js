@@ -163,6 +163,7 @@ export function renderLesson(App, el) {
   document.getElementById('lsLab')?.addEventListener('click', () => {
     if (!isOn('httpLab')) return;
     App._labReturn = 'lesson';
+    App._focusSel = '#lsLab';
     App.tab = 'http-lab';
     App.render();
     App.renderNav();
