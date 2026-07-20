@@ -104,3 +104,5 @@ Next (in order):
 **v50.2:** quiz stems/explains + long opts + institute course UR thin → 0.
 
 **v50.3:** flashcardSeeds + all placement exports UR thin → 0.
+
+**v50.4:** Today session CTA + Practice Charts/Review/Hasil + sim→review MCQs.

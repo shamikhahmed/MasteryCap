@@ -1,4 +1,4 @@
-/* Today — school homeboard: Continue · Standing · mini ID · Study due */
+/* Today — school homeboard: Continue · Session · Standing · mini ID · Study due */
 
 import { icon } from '../icons.js';
 import { openSettings } from '../settings.js';
@@ -12,6 +12,10 @@ import { renderStudentIdCard } from './student-id-view.js';
 import { dueFlashCount } from '../study.js';
 import { foundationsGateOpen } from '../gates.js';
 import { getTrack } from '../data/tracks.js';
+import { openSessionRunner, sessionStatus } from '../session.js';
+import { store, KEYS } from '../store.js';
+import { mistakeCountDue } from '../mistakes.js';
+import { dueReviewCount } from '../retention.js';
 
 export function renderToday(App, el) {
   const p = App.profile || {};
@@ -112,6 +116,25 @@ export function renderToday(App, el) {
     </div>
   </section>`;
 
+  const sessionMins = store.get(KEYS.settings, {}).sessionMins || 15;
+  const sess = sessionStatus();
+  const sessCta = sess.active
+    ? `${App.t('session_resume')} · ${sess.step}/${sess.total}`
+    : sess.doneToday
+      ? (en ? `Session done · ${sessionMins} min` : `Session mukammal · ${sessionMins} min`)
+      : `${App.t('session_start')} · ${sessionMins} min`;
+  const missDue = mistakeCountDue();
+  const quizDue = dueReviewCount();
+  const sessionBlock = `<section class="hb-section">
+      <div class="hb-label">${en ? 'Guided session' : 'Guided session'}</div>
+      <div class="inst-card accent-rule">
+        <p class="inst-muted">${en
+          ? 'Markets daily plan — lesson, flashcards, quiz, sim when unlocked.'
+          : 'Markets daily plan — lesson, cards, quiz, sim.'}</p>
+        <button class="btn accent mt10" id="tdSession" style="width:100%">${icon('learn', { size: 17 })} ${sessCta}</button>
+      </div>
+    </section>`;
+
   el.innerHTML = `<div class="screen inst-screen homeboard" data-testid="campus-dashboard">
     <div class="lt-head head-row">
       <div>
@@ -121,6 +144,7 @@ export function renderToday(App, el) {
       <button class="icon-btn" id="tdSettings" aria-label="Settings">${icon('settings', { size: 18 })}</button>
     </div>
     ${continueBlock}
+    ${sessionBlock}
     ${standing}
     <section class="hb-section">
       <div class="hb-label">${en ? 'Student ID' : 'Student ID'}</div>
@@ -130,8 +154,8 @@ export function renderToday(App, el) {
       <div class="hb-label">${en ? 'Study due' : 'Study due'}</div>
       <div class="inst-row">
         <button class="inst-stat" id="tdReview">
-          <span class="mono">${due}</span>
-          <span>${en ? 'SRS reviews' : 'SRS reviews'}</span>
+          <span class="mono">${due + quizDue + missDue}</span>
+          <span>${en ? 'Reviews' : 'Reviews'}</span>
         </button>
         <button class="inst-stat" id="tdStudy">
           <span class="mono">${flashDue}</span>
@@ -146,7 +170,11 @@ export function renderToday(App, el) {
 
   document.getElementById('tdSettings')?.addEventListener('click', () => openSettings(App));
   document.getElementById('tdCampus')?.addEventListener('click', () => App.navigate('campus'));
-  document.getElementById('tdReview')?.addEventListener('click', () => App.navigate('practice'));
+  document.getElementById('tdSession')?.addEventListener('click', () => openSessionRunner(App));
+  document.getElementById('tdReview')?.addEventListener('click', () => {
+    if (quizDue + missDue > 0) App.openReview();
+    else App.navigate('practice');
+  });
   document.getElementById('tdStudy')?.addEventListener('click', () => App.openStudy());
   document.getElementById('tdViewId')?.addEventListener('click', () => {
     App._recordsPane = 'profile';

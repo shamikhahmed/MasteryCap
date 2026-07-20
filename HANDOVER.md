@@ -7,7 +7,7 @@
 Offline personal institute PWA. Flagship **School of Software Craft** (WEB-101→FE-201 In Session). **School of Markets** wraps existing bilingual trading literacy. Honest self-issued certificates. No accounts, no fake AI, no income promises.
 
 ## Facts
-**Version:** v50.3.0 (sw: masterycap-v5030)
+**Version:** v50.4.0 (sw: masterycap-v5040)
 **Live:** https://shamikhahmed.github.io/MasteryCap/
 **Repo:** https://github.com/shamikhahmed/MasteryCap
 **Stack:** Vanilla JS PWA. Fraunces + IBM Plex (Google) with Geist Mono self-hosted. localStorage (`masterycap:`).
@@ -32,7 +32,8 @@ node tests/final-acceptance.cjs
 ## Gotchas
 - Design: paper institute default; accent from theme. No Inter, no purple gradients, no emoji chrome.
 - Certificates must keep locked disclaimer (`CERT_DISCLAIMER`).
-- Announced courses stay non-enrollable — FE-202→APP-403 titles only.
+- Announced courses stay non-enrollable — titles without `session` status only. FE-202→APP-403 are **session** (v50).
+- Today hosts guided Session Continuity; Practice hosts Charts / Daily review / Hasil (v50.4).
 - No Welcome Update sheet (47.0.0) — version stamped silent via `lastSeenVersion`.
 
 ## Where decisions live

@@ -6,6 +6,8 @@ import {
 } from '../institute/progress.js';
 import { isOn } from '../institute/features.js';
 import { renderCodeEditor, wireCodeEditor, isDesktopEditor } from '../institute/code-editor.js';
+import { mistakeCountDue } from '../mistakes.js';
+import { dueReviewCount, reviewAvailable } from '../retention.js';
 
 export function renderPracticeTab(App, el) {
   const en = App.lang === 'en';
@@ -20,6 +22,9 @@ export function renderPracticeTab(App, el) {
   const total = (getInstitute().srs || []).length;
   const labOn = isOn('httpLab');
   const editorOn = isOn('typedCodeEditor');
+  const quizDue = dueReviewCount();
+  const missDue = mistakeCountDue();
+  const reviewN = quizDue + missDue;
   const playground = editorOn
     ? renderCodeEditor({
       prompt: {
@@ -53,6 +58,21 @@ export function renderPracticeTab(App, el) {
       <button class="btn accent" id="prStudy" style="width:100%">${en ? 'Open study desk' : 'Study desk'}</button>
       <button class="btn secondary mt10" id="prStart" style="width:100%" ${due.length ? '' : 'disabled'}>${en ? 'Start SRS review' : 'SRS review'}</button>
     </div>
+    <div class="slabel mt16">${en ? 'Markets loop' : 'Markets loop'}</div>
+    <div class="inst-list">
+      <button class="inst-row-item" id="prReview" ${reviewAvailable() || reviewN ? '' : 'disabled'}>
+        <span class="grow">${en ? 'Daily review' : 'Daily review'}${reviewN ? ` · ${reviewN}` : ''}${missDue ? (en ? ' (incl. sim fails)' : ' (sim fails)') : ''}</span>
+        <span class="mono">→</span>
+      </button>
+      <button class="inst-row-item" id="prCharts">
+        <span class="grow">${en ? 'Charts hub' : 'Charts hub'}</span>
+        <span class="mono">→</span>
+      </button>
+      <button class="inst-row-item" id="prHasil">
+        <span class="grow">${en ? 'Hasil — can / can\'t-yet' : 'Hasil — can / can\'t-yet'}</span>
+        <span class="mono">→</span>
+      </button>
+    </div>
     <div class="slabel mt16">${en ? 'Practice ledger & drills' : 'Practice ledger & drills'}</div>
     <div class="inst-list">
       ${labRow}
@@ -69,7 +89,6 @@ export function renderPracticeTab(App, el) {
     ${editorOn ? `<p class="inst-foot-note">${isDesktopEditor()
       ? (en ? 'Desktop editor active (≥900px).' : 'Desktop editor active.')
       : (en ? 'Widen for typed editor; phone uses Parsons tap-order.' : 'Typed editor ke liye wide; phone pe Parsons.')}</p>` : ''}
-    ${!labOn && !editorOn ? `<p class="inst-foot-note">${en ? 'HTTP Lab + typed code editor planned for v2.' : 'HTTP Lab + typed editor v2 mein.'}</p>` : ''}
   </div>`;
 
   document.getElementById('prStart')?.addEventListener('click', () => {
@@ -78,6 +97,11 @@ export function renderPracticeTab(App, el) {
   });
   document.getElementById('prLab')?.addEventListener('click', () => {
     App.tab = 'http-lab'; App.haptic(6); App.render(); App.renderNav();
+  });
+  document.getElementById('prReview')?.addEventListener('click', () => App.openReview());
+  document.getElementById('prCharts')?.addEventListener('click', () => App.openCharts());
+  document.getElementById('prHasil')?.addEventListener('click', () => {
+    App.tab = 'progress'; App.haptic(6); App.render(); App.renderNav();
   });
   document.getElementById('prDrills')?.addEventListener('click', () => App.openDrills());
   document.getElementById('prStudy')?.addEventListener('click', () => App.openStudy());

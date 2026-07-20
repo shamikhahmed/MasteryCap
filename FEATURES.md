@@ -1,24 +1,26 @@
 # MasteryCap Features
 
-**Version:** 46.0.1 · Premium School
+**Version:** 50.4.0 · Premium School
 
 ## Strengths
 - Offline-first PWA; no accounts
 - Campus = 3 branches (Software Craft, Markets, Money) with Open / Locked / Announced courses
-- Local enroll + final attempts on transcript
-- Light / Sepia / Dark themes (paper default)
-- Software Craft In Session: WEB-101 → FE-201; FE-202→APP-403 Announced titles
-- Age-band tip layer; honest certificates; Markets education-only
+- Software Craft In Session: WEB-101 → APP-403 (catalog session + courses wired)
+- HTTP Lab (simulated) + typed code editor (desktop ≥900px) / Parsons on phone
+- Markets: Foundations gate → Crypto/Stocks/Forex; paper sim + process graduation
+- Guided daily session Continuity on Today; Charts hub / Daily review / Hasil on Practice
+- Sim process fails feed Mistake museum → Daily review MCQs
+- Light / Sepia / Dark themes; bilingual EN / Roman Urdu depth bars
+- Age-band tip layer; honest self-issued certificates; Markets education-only
 
 ## Weaknesses
-- HTTP Lab + desktop typed editor parked for **v2**
 - Markets lesson UI still separate from institute reader (merge later)
-- Roman Urdu depth varies
+- Short quiz option stubs stay telegraphic by design
+- Some BE-301 lab exercises (auth/put) not yet on project checklist sync
 
 ## Limitations
 - Certificates not accredited
 - No cloud sync / accounts
-- Announced FE/BE/APP not enrollable yet
 
 ## Risks
 - Content maintenance × 2 languages

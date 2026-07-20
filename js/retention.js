@@ -4,6 +4,7 @@
 
 import { store, KEYS } from './store.js';
 import { TRACKS, getTrack } from './data/tracks.js';
+import { pickDueSimMistakes, clearMistake } from './mistakes.js';
 
 function dayKey(d = new Date()) {
   const x = new Date(d);
@@ -85,15 +86,18 @@ function shuffle(arr) {
   return a;
 }
 
-/** Pick up to 3 review questions for today. */
+/** Pick up to 3 review questions for today (sim process fails first, then week quizzes). */
 export function pickDailyReview(n = 3) {
   const today = dayKey();
+  const sims = pickDueSimMistakes(Math.min(2, n));
+  const need = Math.max(0, n - sims.length);
   const pool = poolQuestions();
-  if (!pool.length) return [];
   const review = getReview();
   const due = dueItems(pool, review, today);
   const src = due.length ? due : pool;
-  return shuffle(src).slice(0, Math.min(n, src.length));
+  const quiz = shuffle(src).slice(0, need);
+  const merged = [...sims, ...quiz];
+  return merged.slice(0, Math.min(n, merged.length));
 }
 
 export function answerReview(qKey, correct) {
@@ -104,6 +108,7 @@ export function answerReview(qKey, correct) {
     const box = Math.min(3, (cur.box || 1) + 1);
     const delay = box === 1 ? 1 : box === 2 ? 3 : 7;
     review[qKey] = { box, due: addDays(today, delay) };
+    if (String(qKey).startsWith('sim:')) clearMistake(qKey);
   } else {
     review[qKey] = { box: 1, due: addDays(today, 1) };
   }
@@ -122,7 +127,7 @@ export function completeReviewXp() {
 }
 
 export function reviewAvailable() {
-  return poolQuestions().length > 0;
+  return poolQuestions().length > 0 || pickDueSimMistakes(1).length > 0;
 }
 
 /** Habit calendar: mark today as active day. */

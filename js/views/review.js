@@ -43,7 +43,7 @@ function draw() {
         <p style="font-size:14px;color:var(--t3);line-height:1.55">${App.t('review_empty')}</p>
         <button class="btn secondary mt18" id="rvBack2">${App.t('back')}</button>
       </div></div>`;
-    const go = () => { S.items = null; App.tab = App._reviewReturn || 'dashboard'; App.render(); App.renderNav(); };
+    const go = () => { S.items = null; App.tab = App._reviewReturn || 'practice'; App.render(); App.renderNav(); };
     document.getElementById('rvBack').addEventListener('click', go);
     document.getElementById('rvBack2').addEventListener('click', go);
     return;
@@ -59,7 +59,7 @@ function draw() {
         <button class="btn accent mt18" id="rvDone">${App.t('next')}</button>
       </div></div>`;
     document.getElementById('rvDone').addEventListener('click', () => {
-      S.items = null; App.tab = App._reviewReturn || 'dashboard'; App.render(); App.renderNav();
+      S.items = null; App.tab = App._reviewReturn || 'practice'; App.render(); App.renderNav();
     });
     return;
   }
@@ -80,20 +80,24 @@ function draw() {
     opts += `<button class="${cls}" ${answered ? 'disabled' : ''} data-o="${oi}"><span class="opt-key">${KEYS[di]}</span><span>${q.opts[lang][oi]}</span></button>`;
   });
 
+  const explain = answered
+    ? (q.explain?.[lang] || q.explain?.en || '')
+    : '';
+
   c.innerHTML = `<div class="screen">
     <button class="backlink" id="rvBack">${icon('back', { size: 16 })} ${App.t('back')}</button>
-    <div class="lesson-kicker">${App.t('review_title').toUpperCase()} · <span class="mono">${S.idx + 1}/${S.items.length}</span></div>
+    <div class="lesson-kicker">${App.t('review_title').toUpperCase()} · <span class="mono">${S.idx + 1}/${S.items.length}</span>${item.kind === 'sim' ? ' · SIM' : ''}</div>
     <div class="q-block ${answered ? 'answered' : ''}">
       <div class="q-num mono">Q${String(S.idx + 1).padStart(2, '0')}</div>
       <div class="q-text">${q.q[lang]}</div>
       ${opts}
-      ${answered ? `<div class="explain">${q.explain[lang]}</div>` : ''}
+      ${explain ? `<div class="explain">${explain}</div>` : ''}
     </div>
     ${answered ? `<button class="btn accent mt18" id="rvNext">${S.idx + 1 >= S.items.length ? App.t('review_finish') : App.t('next')}</button>` : ''}
   </div>`;
 
   document.getElementById('rvBack').addEventListener('click', () => {
-    S.items = null; App.tab = App._reviewReturn || 'dashboard'; App.render(); App.renderNav();
+    S.items = null; App.tab = App._reviewReturn || 'practice'; App.render(); App.renderNav();
   });
   c.querySelectorAll('[data-o]').forEach((b) => b.addEventListener('click', () => {
     if (answered) return;

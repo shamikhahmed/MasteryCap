@@ -1,3 +1,14 @@
+## [50.4.0] — 2026-07-20
+
+### Nav reconnect — Today / Practice orphans
+- Today: Guided Session Continuity CTA (Start/Resume)
+- Practice: Daily review · Charts hub · Hasil (can/can't-yet)
+- Sim process fails → Daily review MCQs (`pickDueSimMistakes`)
+- FEATURES.md / HANDOVER synced (Lab ON, Craft session)
+- SW `masterycap-v5040`
+
+
+
 ## [50.3.0] — 2026-07-20
 
 ### Flashcard + placement UR
