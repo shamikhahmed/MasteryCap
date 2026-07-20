@@ -1058,6 +1058,12 @@ html[data-mode="sepia"] .inst-reader {
   font-family: var(--mono); font-size: 13px; cursor: pointer;
 }
 .parsons-line.on { border-color: var(--acc); background: color-mix(in srgb, var(--acc) 12%, var(--surface)); }
+.parsons-line.used,
+.parsons-line:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
 .parsons-line code { font-family: inherit; white-space: pre-wrap; }
 
 /* Certificate print */

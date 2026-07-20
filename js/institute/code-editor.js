@@ -41,12 +41,14 @@ export function renderCodeEditor({ prompt, starter, lang = 'en', parsons = null 
     </div>`;
   }
 
-  // Phone: Parsons drag-order (tap to build order)
+  // Phone: Parsons tap-order (pool → built; each pool line once)
   const shuffled = shuffle(lines.map((t, i) => ({ t, i })));
   return `<div class="code-lab parsons-lab">
     <div class="kicker">${en ? 'Parsons (phone)' : 'Parsons (phone)'}</div>
     <p class="inst-muted">${prompt?.[lang] || prompt?.en || ''}</p>
-    <p class="inst-muted">${en ? 'Tap lines in the correct order. Tap pool again to remove.' : 'Sahi order mein lines tap. Dubara tap = hatao.'}</p>
+    <p class="inst-muted">${en
+      ? 'Tap pool to add a line. Tap your order to remove. Each pool line once.'
+      : 'Pool tap = add. Order tap = hatao. Har pool line ek dafa.'}</p>
     <div class="slabel">${en ? 'Your order' : 'Tumhara order'}</div>
     <div class="parsons-built" id="parsonsBuilt"></div>
     <div class="slabel mt10">${en ? 'Pool' : 'Pool'}</div>
@@ -132,34 +134,63 @@ export function wireCodeEditor(starter, tests = [], correctParsons = null) {
   const area = document.getElementById('codeEditor');
   if (!out) return;
 
-  const built = [];
+  const built = []; // { text, pi }
   const pool = document.getElementById('parsonsPool');
   const builtEl = document.getElementById('parsonsBuilt');
+  const poolItems = pool
+    ? [...pool.querySelectorAll('[data-pi]')].map((el) => ({
+      el,
+      text: el.dataset.text || '',
+      pi: el.dataset.pi,
+      used: false,
+    }))
+    : [];
+
+  function syncPoolUI() {
+    poolItems.forEach((item) => {
+      item.el.disabled = item.used;
+      item.el.classList.toggle('used', item.used);
+      item.el.setAttribute('aria-disabled', item.used ? 'true' : 'false');
+    });
+  }
 
   function paintBuilt() {
     if (!builtEl) return;
     builtEl.innerHTML = built.length
-      ? built.map((t, i) => `<button type="button" class="parsons-line on" data-bi="${i}"><code>${esc(t)}</code></button>`).join('')
+      ? built.map((row, i) => `<button type="button" class="parsons-line on" data-bi="${i}"><code>${esc(row.text)}</code></button>`).join('')
       : '<span class="inst-muted">—</span>';
     builtEl.querySelectorAll('[data-bi]').forEach((b) => b.addEventListener('click', () => {
-      built.splice(+b.dataset.bi, 1);
+      const removed = built.splice(+b.dataset.bi, 1)[0];
+      const item = poolItems.find((p) => p.pi === removed.pi);
+      if (item) item.used = false;
+      syncPoolUI();
       paintBuilt();
     }));
   }
 
   if (pool) {
-    pool.querySelectorAll('[data-pi]').forEach((b) => b.addEventListener('click', () => {
-      built.push(b.dataset.text);
-      paintBuilt();
-    }));
+    poolItems.forEach((item) => {
+      item.el.addEventListener('click', () => {
+        if (item.used) return;
+        item.used = true;
+        built.push({ text: item.text, pi: item.pi });
+        syncPoolUI();
+        paintBuilt();
+      });
+    });
+    syncPoolUI();
     paintBuilt();
   }
 
   document.getElementById('codeReset')?.addEventListener('click', () => {
     if (pool) {
       built.length = 0;
+      poolItems.forEach((item) => { item.used = false; });
+      const kids = [...pool.children];
+      shuffle(kids).forEach((k) => pool.appendChild(k));
+      syncPoolUI();
       paintBuilt();
-      out.textContent = 'Order cleared. Tap pool lines again.';
+      out.textContent = 'Shuffled. Pool lines free again.';
       return;
     }
     if (area) {
@@ -171,9 +202,9 @@ export function wireCodeEditor(starter, tests = [], correctParsons = null) {
   document.getElementById('codeRun')?.addEventListener('click', () => {
     let src = area ? area.value : '';
     if (pool) {
-      src = built.join('\n');
+      src = built.map((r) => r.text).join('\n');
       const expect = correctParsons || parsonsLines(starter);
-      const orderOk = built.length === expect.length && built.every((l, i) => l === expect[i]);
+      const orderOk = built.length === expect.length && built.every((row, i) => row.text === expect[i]);
       if (!orderOk) {
         out.textContent = `Order FAIL.\nExpected ${expect.length} lines in starter order.`;
         return;

@@ -531,6 +531,29 @@ export const COURSE = {
     }
   ],
   "passScore": 85,
-  "project": null
+  "project": {
+    "id": "pwa-literacy-attest",
+    "title": {
+      "en": "PWA literacy attestations",
+      "ur": "PWA literacy attest"
+    },
+    "items": [
+      {
+        "id": "sw",
+        "en": "Explain CACHE bump in one sentence",
+        "ur": "CACHE bump ek jumla"
+      },
+      {
+        "id": "offline",
+        "en": "Name what works offline in this app shell",
+        "ur": "Offline kya chalta"
+      },
+      {
+        "id": "install",
+        "en": "Describe Add to Home Screen vs App Store",
+        "ur": "A2HS vs App Store"
+      }
+    ]
+  }
 };
 export default COURSE;

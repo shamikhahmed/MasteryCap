@@ -1,3 +1,13 @@
+## [50.8.0] — 2026-07-20
+
+### Parsons fix + cert honesty projects
+- Parsons: one-use pool lines, correct copy, shuffle reset, used CSS
+- Project checklists: WEB-101, FE-201, BE-303, APP-401, APP-403 (no empty-project cert bypass)
+- Records cert empty-state copy tightened
+- SW `masterycap-v5080`
+
+
+
 ## [50.7.0] — 2026-07-20
 
 ### Gallery regen + FE practiceCode real asserts

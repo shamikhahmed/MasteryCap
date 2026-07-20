@@ -666,6 +666,29 @@ export const COURSE = {
     }
   ],
   "passScore": 85,
-  "project": null
+  "project": {
+    "id": "security-literacy-attest",
+    "title": {
+      "en": "Security literacy attestations",
+      "ur": "Security literacy attest"
+    },
+    "items": [
+      {
+        "id": "hash",
+        "en": "Explain why passwords are hashed not stored plain",
+        "ur": "Password hash kyun"
+      },
+      {
+        "id": "xss",
+        "en": "Name one XSS defense (encoding / CSP)",
+        "ur": "Ek XSS defense"
+      },
+      {
+        "id": "authz",
+        "en": "Authorize every action — one sentence",
+        "ur": "Authorize every action — ek jumla"
+      }
+    ]
+  }
 };
 export default COURSE;

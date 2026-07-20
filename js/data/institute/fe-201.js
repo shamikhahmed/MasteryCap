@@ -1260,6 +1260,29 @@ export const COURSE = {
     }
   ],
   "passScore": 85,
-  "project": null
+  "project": {
+    "id": "js-literacy-attest",
+    "title": {
+      "en": "JS literacy attestations",
+      "ur": "JS literacy attest"
+    },
+    "items": [
+      {
+        "id": "types",
+        "en": "List 3 JS primitive types you used",
+        "ur": "3 JS primitive types"
+      },
+      {
+        "id": "fn",
+        "en": "Write a function with a return value",
+        "ur": "Return wali function"
+      },
+      {
+        "id": "loop",
+        "en": "Write a for or for...of that visits an array",
+        "ur": "Array pe for / for...of"
+      }
+    ]
+  }
 };
 export default COURSE;

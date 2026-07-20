@@ -113,7 +113,7 @@ export function renderRecords(App, el) {
           <div class="cert-actions cert-no-print">
             <button class="btn secondary" data-print-cert="${esc(c.courseId || c.hash)}">${en ? 'Print / Save PDF' : 'Print / PDF'}</button>
           </div>
-        </div>`).join('') : `<p class="inst-muted">${en ? 'Pass a course final (≥85%) and finish any project checklist to unlock a self-issued certificate.' : 'Final ≥85% + project checklist → certificate.'}</p>`}`;
+        </div>`).join('') : `<p class="inst-muted">${en ? 'Pass a course final (≥85%). If the course has a project checklist, finish it too — then a self-issued certificate unlocks.' : 'Final ≥85%. Project checklist ho to woh bhi — phir certificate.'}</p>`}`;
   }
 
   el.innerHTML = `<div class="screen inst-screen">

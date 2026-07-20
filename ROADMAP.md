@@ -112,3 +112,5 @@ Next (in order):
 **v50.6:** Records dynamic project checklists + Hasil bridge; gallery HTTP Lab shot.
 
 **v50.7:** Gallery HTTP Lab PNGs + FE practiceCode behavioral asserts.
+
+**v50.8:** Parsons one-use pool + 5 course project checklists for cert honesty.

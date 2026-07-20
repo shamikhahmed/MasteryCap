@@ -959,6 +959,29 @@ export const COURSE = {
     }
   ],
   "passScore": 85,
-  "project": null
+  "project": {
+    "id": "web-basics-attest",
+    "title": {
+      "en": "Web literacy attestations",
+      "ur": "Web literacy attest"
+    },
+    "items": [
+      {
+        "id": "bits",
+        "en": "Explain bits → instructions in one sentence",
+        "ur": "Bits → instructions ek jumla"
+      },
+      {
+        "id": "client",
+        "en": "Name client vs server roles",
+        "ur": "Client vs server roles"
+      },
+      {
+        "id": "html",
+        "en": "Sketch a minimal HTML document from memory",
+        "ur": "Minimal HTML yaad se"
+      }
+    ]
+  }
 };
 export default COURSE;

@@ -531,6 +531,29 @@ export const COURSE = {
     }
   ],
   "passScore": 85,
-  "project": null
+  "project": {
+    "id": "ship-literacy-attest",
+    "title": {
+      "en": "Ship literacy attestations",
+      "ur": "Ship literacy attest"
+    },
+    "items": [
+      {
+        "id": "version",
+        "en": "List VERSION / APP_VERSION / SW CACHE sync rule",
+        "ur": "VERSION sync rule"
+      },
+      {
+        "id": "honest",
+        "en": "Write one honesty limit you will keep in copy",
+        "ur": "Ek honesty limit"
+      },
+      {
+        "id": "smoke",
+        "en": "Run a phone-width smoke of your launch checklist",
+        "ur": "Phone-width smoke"
+      }
+    ]
+  }
 };
 export default COURSE;
