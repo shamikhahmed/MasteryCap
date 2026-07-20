@@ -572,7 +572,7 @@ function maybeWhatsNew() {
       <div class="sheet-head"><div class="slabel">${App.t('whats_new')} · ${APP_VERSION}</div>
         <button class="sheet-x" data-close>${icon('x', { size: 18 })}</button></div>
       <div class="sheet-body" style="font-size:14px;color:var(--t2);line-height:1.55">
-        <p>v44.0.0 Software Craft complete path: FE-202→APP-403, age-band teaches, HTTP Lab, desktop code editor.
+        <p>v45.0.0 School of Money (FIN-101→301), HTTP Lab auto-grade, Parsons + asserts, cert print, gallery.
         <p style="color:var(--t3)">See CHANGELOG.md for full notes.</p>
       </div>
     </div>`;

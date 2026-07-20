@@ -125,7 +125,25 @@ export const COURSE = {
             "ur": "Kya style"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>CSS paints and lays out HTML. Separation keeps meaning stable while look changes. Selectors target elements; properties assign values.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>CSS HTML ko paint/layout. Meaning stable; look change. Selectors + properties.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>CSS paints and lays out HTML. Separation keeps meaning stable while look changes. Selectors target elements; properties assign values.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>CSS HTML ko paint/layout. Meaning stable; look change. Selectors + properties.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>CSS paints and lays out HTML. Separation keeps meaning stable while look changes. Selectors target elements; properties assign values.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>CSS HTML ko paint/layout. Meaning stable; look change. Selectors + properties.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>CSS paints and lays out HTML. Separation keeps meaning stable while look changes. Selectors target elements; properties assign values.</p>",
+          "ur": "<p>CSS HTML ko paint/layout. Meaning stable; look change. Selectors + properties.</p>"
+        }
+      }
     },
     {
       "id": "w103-2",
@@ -246,7 +264,25 @@ export const COURSE = {
             "ur": "Width mein pad+border"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>Every element is a box: content → padding → border → margin. Width/height usually refer to content unless box-sizing changes. Margin collapses between vertical siblings.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>Har element box: content→padding→border→margin. box-sizing rules. Vertical margin collapse.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>Every element is a box: content → padding → border → margin. Width/height usually refer to content unless box-sizing changes. Margin collapses between vertical siblings.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>Har element box: content→padding→border→margin. box-sizing rules. Vertical margin collapse.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>Every element is a box: content → padding → border → margin. Width/height usually refer to content unless box-sizing changes. Margin collapses between vertical siblings.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>Har element box: content→padding→border→margin. box-sizing rules. Vertical margin collapse.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>Every element is a box: content → padding → border → margin. Width/height usually refer to content unless box-sizing changes. Margin collapses between vertical siblings.</p>",
+          "ur": "<p>Har element box: content→padding→border→margin. box-sizing rules. Vertical margin collapse.</p>"
+        }
+      }
     },
     {
       "id": "w103-3",
@@ -367,7 +403,25 @@ export const COURSE = {
             "ur": "Primary vs perpendicular"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>Flexbox: container with display:flex; main axis vs cross axis; justify-content and align-items. Great for toolbars and simple responsive rows.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>Flex: display:flex; main vs cross; justify/align. Toolbars + simple rows.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>Flexbox: container with display:flex; main axis vs cross axis; justify-content and align-items. Great for toolbars and simple responsive rows.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>Flex: display:flex; main vs cross; justify/align. Toolbars + simple rows.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>Flexbox: container with display:flex; main axis vs cross axis; justify-content and align-items. Great for toolbars and simple responsive rows.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>Flex: display:flex; main vs cross; justify/align. Toolbars + simple rows.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>Flexbox: container with display:flex; main axis vs cross axis; justify-content and align-items. Great for toolbars and simple responsive rows.</p>",
+          "ur": "<p>Flex: display:flex; main vs cross; justify/align. Toolbars + simple rows.</p>"
+        }
+      }
     },
     {
       "id": "w103-4",
@@ -488,7 +542,25 @@ export const COURSE = {
             "ur": "Free space fraction"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>CSS Grid defines rows and columns. Good for page frames and card matrices. grid-template-columns with fr units shares space.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>Grid rows/columns. Page frames + card matrices. fr units space share.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>CSS Grid defines rows and columns. Good for page frames and card matrices. grid-template-columns with fr units shares space.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>Grid rows/columns. Page frames + card matrices. fr units space share.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>CSS Grid defines rows and columns. Good for page frames and card matrices. grid-template-columns with fr units shares space.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>Grid rows/columns. Page frames + card matrices. fr units space share.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>CSS Grid defines rows and columns. Good for page frames and card matrices. grid-template-columns with fr units shares space.</p>",
+          "ur": "<p>Grid rows/columns. Page frames + card matrices. fr units space share.</p>"
+        }
+      }
     },
     {
       "id": "w103-5",
@@ -609,7 +681,25 @@ export const COURSE = {
             "ur": "Spacing rhythm"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>Pick a small type scale (e.g. 14/16/20/28). Use a spacing rhythm (8px grid). Line-length ~45–75 characters for reading. Avoid Inter-as-default sameness — intentional pairs matter.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>Type scale chhota set. 8px spacing rhythm. Line length ~45–75. Random Inter sameness avoid — intentional fonts.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>Pick a small type scale (e.g. 14/16/20/28). Use a spacing rhythm (8px grid). Line-length ~45–75 characters for reading. Avoid Inter-as-default sameness — intentional pairs matter.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>Type scale chhota set. 8px spacing rhythm. Line length ~45–75. Random Inter sameness avoid — intentional fonts.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>Pick a small type scale (e.g. 14/16/20/28). Use a spacing rhythm (8px grid). Line-length ~45–75 characters for reading. Avoid Inter-as-default sameness — intentional pairs matter.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>Type scale chhota set. 8px spacing rhythm. Line length ~45–75. Random Inter sameness avoid — intentional fonts.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>Pick a small type scale (e.g. 14/16/20/28). Use a spacing rhythm (8px grid). Line-length ~45–75 characters for reading. Avoid Inter-as-default sameness — intentional pairs matter.</p>",
+          "ur": "<p>Type scale chhota set. 8px spacing rhythm. Line length ~45–75. Random Inter sameness avoid — intentional fonts.</p>"
+        }
+      }
     },
     {
       "id": "w103-6",
@@ -730,7 +820,25 @@ export const COURSE = {
             "ur": "~375px"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>Mobile-first: base styles for small screens; min-width media queries enhance. Test 375px width. Avoid horizontal scroll. Touch targets ≥44px.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>Mobile-first; min-width enhance. 375px test. Horizontal scroll mat. Touch ≥44px.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>Mobile-first: base styles for small screens; min-width media queries enhance. Test 375px width. Avoid horizontal scroll. Touch targets ≥44px.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>Mobile-first; min-width enhance. 375px test. Horizontal scroll mat. Touch ≥44px.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>Mobile-first: base styles for small screens; min-width media queries enhance. Test 375px width. Avoid horizontal scroll. Touch targets ≥44px.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>Mobile-first; min-width enhance. 375px test. Horizontal scroll mat. Touch ≥44px.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>Mobile-first: base styles for small screens; min-width media queries enhance. Test 375px width. Avoid horizontal scroll. Touch targets ≥44px.</p>",
+          "ur": "<p>Mobile-first; min-width enhance. 375px test. Horizontal scroll mat. Touch ≥44px.</p>"
+        }
+      }
     }
   ],
   "finalQuiz": [

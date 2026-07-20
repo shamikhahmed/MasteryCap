@@ -125,7 +125,25 @@ export const COURSE = {
             "ur": "Errors parho; edges test"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>JS values: numbers, strings, booleans, null, undefined, objects, arrays. let allows reassign; const binds a name (object contents may still mutate). Prefer const by default.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>JS values: number, string, boolean, null, undefined, object, array. let reassign; const name bind. Default const.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>JS values: numbers, strings, booleans, null, undefined, objects, arrays. let allows reassign; const binds a name (object contents may still mutate). Prefer const by default.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>JS values: number, string, boolean, null, undefined, object, array. let reassign; const name bind. Default const.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>JS values: numbers, strings, booleans, null, undefined, objects, arrays. let allows reassign; const binds a name (object contents may still mutate). Prefer const by default.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>JS values: number, string, boolean, null, undefined, object, array. let reassign; const name bind. Default const.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>JS values: numbers, strings, booleans, null, undefined, objects, arrays. let allows reassign; const binds a name (object contents may still mutate). Prefer const by default.</p>",
+          "ur": "<p>JS values: number, string, boolean, null, undefined, object, array. let reassign; const name bind. Default const.</p>"
+        }
+      }
     },
     {
       "id": "fe201-2",
@@ -246,7 +264,25 @@ export const COURSE = {
             "ur": "Errors parho; edges test"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>Arithmetic, comparison, logical operators. === strict equality. Truthy/falsy rules matter in if conditions. Expressions produce values; statements do work.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>Arithmetic, comparison, logical. === strict. Truthy/falsy if mein. Expression value; statement kaam.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>Arithmetic, comparison, logical operators. === strict equality. Truthy/falsy rules matter in if conditions. Expressions produce values; statements do work.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>Arithmetic, comparison, logical. === strict. Truthy/falsy if mein. Expression value; statement kaam.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>Arithmetic, comparison, logical operators. === strict equality. Truthy/falsy rules matter in if conditions. Expressions produce values; statements do work.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>Arithmetic, comparison, logical. === strict. Truthy/falsy if mein. Expression value; statement kaam.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>Arithmetic, comparison, logical operators. === strict equality. Truthy/falsy rules matter in if conditions. Expressions produce values; statements do work.</p>",
+          "ur": "<p>Arithmetic, comparison, logical. === strict. Truthy/falsy if mein. Expression value; statement kaam.</p>"
+        }
+      }
     },
     {
       "id": "fe201-3",
@@ -367,7 +403,25 @@ export const COURSE = {
             "ur": "Errors parho; edges test"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>Branches choose paths. Keep conditions readable. Avoid deep nesting — early return helps. Switch fits discrete cases.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>Branches path choose. Conditions readable. Deep nesting avoid — early return. Switch discrete cases.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>Branches choose paths. Keep conditions readable. Avoid deep nesting — early return helps. Switch fits discrete cases.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>Branches path choose. Conditions readable. Deep nesting avoid — early return. Switch discrete cases.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>Branches choose paths. Keep conditions readable. Avoid deep nesting — early return helps. Switch fits discrete cases.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>Branches path choose. Conditions readable. Deep nesting avoid — early return. Switch discrete cases.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>Branches choose paths. Keep conditions readable. Avoid deep nesting — early return helps. Switch fits discrete cases.</p>",
+          "ur": "<p>Branches path choose. Conditions readable. Deep nesting avoid — early return. Switch discrete cases.</p>"
+        }
+      }
     },
     {
       "id": "fe201-4",
@@ -488,7 +542,25 @@ export const COURSE = {
             "ur": "Errors parho; edges test"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>for, while, for...of. Always ensure an exit. Off-by-one errors are common. Prefer clear loop variables.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>for, while, for...of. Exit pakka. Off-by-one common. Clear variables.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>for, while, for...of. Always ensure an exit. Off-by-one errors are common. Prefer clear loop variables.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>for, while, for...of. Exit pakka. Off-by-one common. Clear variables.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>for, while, for...of. Always ensure an exit. Off-by-one errors are common. Prefer clear loop variables.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>for, while, for...of. Exit pakka. Off-by-one common. Clear variables.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>for, while, for...of. Always ensure an exit. Off-by-one errors are common. Prefer clear loop variables.</p>",
+          "ur": "<p>for, while, for...of. Exit pakka. Off-by-one common. Clear variables.</p>"
+        }
+      }
     },
     {
       "id": "fe201-5",
@@ -609,7 +681,25 @@ export const COURSE = {
             "ur": "Errors parho; edges test"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>Functions package behavior. Parameters in; return out. Pure functions easier to test. Avoid huge functions — one job each.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>Functions behavior pack. Params in; return out. Pure = test easy. Ek kaam per function.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>Functions package behavior. Parameters in; return out. Pure functions easier to test. Avoid huge functions — one job each.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>Functions behavior pack. Params in; return out. Pure = test easy. Ek kaam per function.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>Functions package behavior. Parameters in; return out. Pure functions easier to test. Avoid huge functions — one job each.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>Functions behavior pack. Params in; return out. Pure = test easy. Ek kaam per function.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>Functions package behavior. Parameters in; return out. Pure functions easier to test. Avoid huge functions — one job each.</p>",
+          "ur": "<p>Functions behavior pack. Params in; return out. Pure = test easy. Ek kaam per function.</p>"
+        }
+      }
     },
     {
       "id": "fe201-6",
@@ -730,7 +820,25 @@ export const COURSE = {
             "ur": "Errors parho; edges test"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>Arrays are ordered lists. Index from 0. map/filter/reduce mindset even if you write loops first. Mutating vs copying matters.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>Arrays ordered. Index 0. map/filter soch — pehle loops OK. Mutate vs copy.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>Arrays are ordered lists. Index from 0. map/filter/reduce mindset even if you write loops first. Mutating vs copying matters.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>Arrays ordered. Index 0. map/filter soch — pehle loops OK. Mutate vs copy.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>Arrays are ordered lists. Index from 0. map/filter/reduce mindset even if you write loops first. Mutating vs copying matters.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>Arrays ordered. Index 0. map/filter soch — pehle loops OK. Mutate vs copy.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>Arrays are ordered lists. Index from 0. map/filter/reduce mindset even if you write loops first. Mutating vs copying matters.</p>",
+          "ur": "<p>Arrays ordered. Index 0. map/filter soch — pehle loops OK. Mutate vs copy.</p>"
+        }
+      }
     },
     {
       "id": "fe201-7",
@@ -851,7 +959,25 @@ export const COURSE = {
             "ur": "Errors parho; edges test"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>Objects map keys to values. Dot vs bracket access. Nested objects model apps (user.progress.score). JSON is object notation for data exchange.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>Objects key→value. Dot vs bracket. Nested = app model. JSON = data exchange.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>Objects map keys to values. Dot vs bracket access. Nested objects model apps (user.progress.score). JSON is object notation for data exchange.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>Objects key→value. Dot vs bracket. Nested = app model. JSON = data exchange.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>Objects map keys to values. Dot vs bracket access. Nested objects model apps (user.progress.score). JSON is object notation for data exchange.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>Objects key→value. Dot vs bracket. Nested = app model. JSON = data exchange.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>Objects map keys to values. Dot vs bracket access. Nested objects model apps (user.progress.score). JSON is object notation for data exchange.</p>",
+          "ur": "<p>Objects key→value. Dot vs bracket. Nested = app model. JSON = data exchange.</p>"
+        }
+      }
     },
     {
       "id": "fe201-8",
@@ -972,7 +1098,25 @@ export const COURSE = {
             "ur": "Errors parho; edges test"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>Errors are information. Read the message, file, line. Console.log strategically. Reproduce minimally. DevTools debugger breakpoints help.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>Errors information. Message, file, line. Strategic log. Minimal reproduce. Breakpoints.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>Errors are information. Read the message, file, line. Console.log strategically. Reproduce minimally. DevTools debugger breakpoints help.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>Errors information. Message, file, line. Strategic log. Minimal reproduce. Breakpoints.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>Errors are information. Read the message, file, line. Console.log strategically. Reproduce minimally. DevTools debugger breakpoints help.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>Errors information. Message, file, line. Strategic log. Minimal reproduce. Breakpoints.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>Errors are information. Read the message, file, line. Console.log strategically. Reproduce minimally. DevTools debugger breakpoints help.</p>",
+          "ur": "<p>Errors information. Message, file, line. Strategic log. Minimal reproduce. Breakpoints.</p>"
+        }
+      }
     }
   ],
   "finalQuiz": [

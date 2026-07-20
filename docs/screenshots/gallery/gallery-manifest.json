@@ -1,54 +1,78 @@
 {
   "app": "MasteryCap",
-  "version": "42.2.3",
-  "generated": "2026-07-20T10:35:42.249Z",
+  "version": "45.0.0",
+  "generated": "2026-07-20T13:29:25.892Z",
   "shots": [
     {
-      "file": "desktop-01-dashboard.png",
-      "label": "Dashboard",
-      "route": "[data-tab=\"dashboard\"]",
+      "file": "desktop-01-today.png",
+      "label": "Today",
+      "route": "[data-tab=today]",
       "viewport": "desktop"
     },
     {
-      "file": "desktop-02-learn.png",
-      "label": "Learn",
-      "route": "[data-tab=\"learn\"]",
+      "file": "desktop-02-campus.png",
+      "label": "Campus schools",
+      "route": "[data-tab=campus]",
       "viewport": "desktop"
     },
     {
-      "file": "desktop-03-journal.png",
-      "label": "Journal",
-      "route": "[data-tab=\"journal\"]",
+      "file": "desktop-03-money.png",
+      "label": "School of Money",
+      "route": "[data-school=money]",
       "viewport": "desktop"
     },
     {
-      "file": "desktop-04-progress.png",
-      "label": "Progress",
-      "route": "[data-tab=\"progress\"]",
+      "file": "desktop-04-practice.png",
+      "label": "Practice",
+      "route": "[data-tab=practice]",
       "viewport": "desktop"
     },
     {
-      "file": "mobile-01-dashboard.png",
-      "label": "Dashboard",
-      "route": "[data-tab=\"dashboard\"]",
+      "file": "desktop-05-httplab.png",
+      "label": "HTTP Lab",
+      "route": "http-lab",
+      "viewport": "desktop"
+    },
+    {
+      "file": "desktop-06-records.png",
+      "label": "Records",
+      "route": "[data-tab=records]",
+      "viewport": "desktop"
+    },
+    {
+      "file": "mobile-01-today.png",
+      "label": "Today",
+      "route": "[data-tab=today]",
       "viewport": "mobile"
     },
     {
-      "file": "mobile-02-learn.png",
-      "label": "Learn",
-      "route": "[data-tab=\"learn\"]",
+      "file": "mobile-02-campus.png",
+      "label": "Campus schools",
+      "route": "[data-tab=campus]",
       "viewport": "mobile"
     },
     {
-      "file": "mobile-03-journal.png",
-      "label": "Journal",
-      "route": "[data-tab=\"journal\"]",
+      "file": "mobile-03-money.png",
+      "label": "School of Money",
+      "route": "[data-school=money]",
       "viewport": "mobile"
     },
     {
-      "file": "mobile-04-progress.png",
-      "label": "Progress",
-      "route": "[data-tab=\"progress\"]",
+      "file": "mobile-04-practice.png",
+      "label": "Practice",
+      "route": "[data-tab=practice]",
+      "viewport": "mobile"
+    },
+    {
+      "file": "mobile-05-httplab.png",
+      "label": "HTTP Lab",
+      "route": "http-lab",
+      "viewport": "mobile"
+    },
+    {
+      "file": "mobile-06-records.png",
+      "label": "Records",
+      "route": "[data-tab=records]",
       "viewport": "mobile"
     }
   ]

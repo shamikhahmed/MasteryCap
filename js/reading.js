@@ -64,8 +64,8 @@ export function renderReading(App, container, opts) {
         <button type="button" class="reading-nav__btn" id="readNext" aria-label="${page >= pages.length - 1 ? (en ? 'Take quiz' : 'Quiz lo') : (en ? 'Next page' : 'Agla page')}">${page >= pages.length - 1 ? icon('check', { size: 20 }) : icon('back', { size: 20, cls: 'flip-x' })}</button>
       </nav>
       ${page >= pages.length - 1
-        ? `<button type="button" class="btn accent reading-quiz-cta" id="readQuiz">${App.t('takeQuiz')}</button>`
-        : `<button type="button" class="btn ghost reading-quiz-cta" id="readQuizGhost">${en ? 'Skip to quiz' : 'Quiz pe jao'}</button>`}
+        ? `<button type="button" class="btn accent reading-quiz-cta" id="startQuiz">${App.t('takeQuiz')}</button>`
+        : `<button type="button" class="btn ghost reading-quiz-cta" id="startQuiz">${en ? 'Skip to quiz' : 'Quiz pe jao'}</button>`}
       ${!store.get(KEYS.readingGuideSeen) ? guideHtml(lang) : ''}
     </div>`;
 
@@ -82,8 +82,7 @@ export function renderReading(App, container, opts) {
       if (page >= pages.length - 1) opts.onQuiz();
       else go(1);
     });
-    document.getElementById('readQuiz')?.addEventListener('click', () => { App.haptic(); opts.onQuiz(); });
-    document.getElementById('readQuizGhost')?.addEventListener('click', () => { App.haptic(); opts.onQuiz(); });
+    document.getElementById('startQuiz')?.addEventListener('click', () => { App.haptic(); opts.onQuiz(); });
 
     const dismissGuide = () => {
       store.set(KEYS.readingGuideSeen, true);

@@ -134,11 +134,18 @@ async function goTab(page, id) {
 }
 
 async function passQuiz(page, trackId) {
-  await page.locator('#startQuiz').click();
+  const quizBtn = page.locator('#startQuiz');
+  await quizBtn.waitFor({ timeout: 8000 });
+  await quizBtn.click();
   await page.waitForSelector('#submitQuiz');
   const corrects = await page.evaluate(async (id) => {
     const { getTrack } = await import(new URL('./js/data/tracks.js', location.href).href);
-    return getTrack(id).weeks[0].quiz.map((q) => q.correct);
+    const kick = document.querySelector('.lesson-kicker')?.textContent || '';
+    const m = kick.match(/(\d+)/);
+    const weekId = m ? Number(m[1]) : 1;
+    const track = getTrack(id);
+    const w = track.weeks.find((x) => x.id === weekId) || track.weeks[0];
+    return w.quiz.map((q) => q.correct);
   }, trackId);
   for (let i = 0; i < corrects.length; i++) {
     await page.locator(`#qq${i} button[data-o="${corrects[i]}"]`).click();
@@ -239,10 +246,12 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
     log('OK warm tabs');
 
     await page.evaluate(() => {
+      const done = (n) => Object.fromEntries(Array.from({ length: n }, (_, i) => [i + 1, 'completed']));
       localStorage.setItem('masterycap:course', JSON.stringify({
-          foundations: { placementDone: true, weekStatus: { 1: 'completed', 2: 'completed', 3: 'completed', 4: 'completed', 5: 'current' }, xp: 200 },
-          crypto: { placementDone: true, weekStatus: { 1: 'current' }, xp: 0 },
-        }));
+        foundations: { placementDone: true, weekStatus: { ...done(6) }, xp: 300, examPassed: new Date().toISOString() },
+        spot: { placementDone: true, weekStatus: { ...done(4) }, xp: 120 },
+        crypto: { placementDone: true, weekStatus: { 1: 'current' }, xp: 0 },
+      }));
     });
     await goHome(page);
 
@@ -260,33 +269,34 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
     await page.waitForTimeout(150);
     await page.locator('[data-track="foundations"]').click();
     await page.waitForTimeout(300);
-    const weekBtn = page.locator('[data-week="5"], [data-week="1"], [data-week]').first();
-    if (await weekBtn.count()) {
-      await weekBtn.click({ timeout: 10000 }).catch(() => {});
+    const weekBtn = page.locator('[data-week="1"], [data-week="5"], [data-week]').first();
+    if (!(await weekBtn.count())) fail('Foundations week row missing');
+    await weekBtn.click({ timeout: 10000 });
+    await page.waitForSelector('.reading-title, .lesson-body, #startQuiz', { timeout: 8000 });
+    /* Reading mode exposes #startQuiz (skip/take). Study mode also uses #startQuiz. */
+    if (await page.locator('#readStudy').count()) {
+      await page.locator('#readStudy').click().catch(() => {});
+      await page.waitForSelector('#startQuiz', { timeout: 5000 }).catch(() => {});
     }
-    const hasLesson = await page.locator('.lesson-body, #startQuiz').count();
-    if (hasLesson && await page.locator('#startQuiz').count()) {
-      await passQuiz(page, 'foundations');
-      log('OK Foundations quiz');
-    } else {
-      log('SKIP Foundations quiz UI (institute shell — markets path optional)');
-    }
+    if (!(await page.locator('#startQuiz').count())) fail('Foundations quiz CTA missing');
+    await passQuiz(page, 'foundations');
+    log('OK Foundations quiz');
 
     /* Crypto quiz */
     await openLearn(page);
     await page.waitForTimeout(150);
-    await page.locator('[data-track="crypto"]').click().catch(() => {});
+    await page.locator('[data-track="crypto"]').click();
     await page.waitForTimeout(250);
-    if (await page.locator('[data-week]').count()) {
-      await page.locator('[data-week]').first().click();
-      await page.waitForSelector('.lesson-body, #startQuiz', { timeout: 5000 }).catch(() => {});
+    if (!(await page.locator('[data-week]').count())) fail('Crypto week row missing');
+    await page.locator('[data-week]').first().click();
+    await page.waitForSelector('.reading-title, .lesson-body, #startQuiz', { timeout: 8000 });
+    if (await page.locator('#readStudy').count()) {
+      await page.locator('#readStudy').click().catch(() => {});
+      await page.waitForSelector('#startQuiz', { timeout: 5000 }).catch(() => {});
     }
-    if (await page.locator('#startQuiz').count()) {
-      await passQuiz(page, 'crypto');
-      log('OK crypto quiz');
-    } else {
-      log('SKIP crypto quiz UI');
-    }
+    if (!(await page.locator('#startQuiz').count())) fail('Crypto quiz CTA missing');
+    await passQuiz(page, 'crypto');
+    log('OK crypto quiz');
 
     /* Process-pass sim */
     await enterSim(page, 'c1_uptrend_pullback', { risk: '1' });

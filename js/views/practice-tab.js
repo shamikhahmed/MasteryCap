@@ -59,7 +59,7 @@ export function renderPracticeTab(App, el) {
     <div class="mt16">${playground}</div>
     <p class="inst-foot-note">${isDesktopEditor()
       ? (en ? 'Desktop editor active (≥900px).' : 'Desktop editor active.')
-      : (en ? 'Widen browser for typed editor; phone uses Notes.' : 'Typed editor ke liye wide screen; phone pe Notes.')}</p>
+      : (en ? 'Widen for typed editor; phone uses Parsons tap-order.' : 'Typed editor ke liye wide; phone pe Parsons.')}</p>
   </div>`;
 
   document.getElementById('prStart')?.addEventListener('click', () => {

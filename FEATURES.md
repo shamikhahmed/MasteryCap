@@ -1,6 +1,6 @@
 # MasteryCap Features
 
-**Version:** 44.0.0 · Full Software Craft path + labs
+**Version:** 45.0.0 · Full Software Craft path + labs
 
 ## Strengths
 - Offline-first PWA; no accounts

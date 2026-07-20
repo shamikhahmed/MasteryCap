@@ -49,13 +49,16 @@ export function renderRecords(App, el) {
 
     <div class="slabel mt16">${en ? 'Certificates' : 'Certificates'}</div>
     ${certs.length ? certs.map((c) => `
-      <div class="inst-cert">
+      <div class="inst-cert" data-cert="${esc(c.courseId || c.hash)}">
         <div class="kicker">${en ? 'Certificate of Completion' : 'Certificate of Completion'}</div>
         <div class="cert-name">${esc(c.name)}</div>
         <div class="cert-course">${esc((c.title && (c.title[App.lang] || c.title.en)) || c.courseId)}</div>
         <p class="inst-muted mono">${c.score}% · ${c.hours}h · ${c.date}</p>
         <p class="cert-disc">${CERT_DISCLAIMER}</p>
         <p class="mono" style="font-size:10px;word-break:break-all">hash ${c.hash}</p>
+        <div class="cert-actions cert-no-print">
+          <button class="btn secondary" data-print-cert="${esc(c.courseId || c.hash)}">${en ? 'Print / Save PDF' : 'Print / PDF'}</button>
+        </div>
       </div>`).join('') : `<p class="inst-muted">${en ? 'Certificates unlock after final ≥85% and project checklist (if any).' : 'Final ≥85% + project checklist ke baad.'}</p>`}
 
     <div class="mt16">
@@ -69,6 +72,16 @@ export function renderRecords(App, el) {
   document.getElementById('recJournal')?.addEventListener('click', () => App.navigate('journal'));
   document.getElementById('recProgress')?.addEventListener('click', () => App.navigate('progress'));
   document.getElementById('recExport')?.addEventListener('click', () => exportBackup(App));
+  el.querySelectorAll('[data-print-cert]').forEach((b) => {
+    b.addEventListener('click', () => {
+      const id = b.getAttribute('data-print-cert');
+      el.querySelectorAll('.inst-cert').forEach((card) => {
+        card.classList.toggle('cert-print-hide', card.getAttribute('data-cert') !== id);
+      });
+      window.print();
+      el.querySelectorAll('.inst-cert').forEach((card) => card.classList.remove('cert-print-hide'));
+    });
+  });
   el.querySelectorAll('[data-proj]').forEach((b) => {
     b.addEventListener('click', () => {
       const [code, id] = b.dataset.proj.split('::');
@@ -81,7 +94,7 @@ export function renderRecords(App, el) {
 
 function renderProjects(App, inst, en) {
   const blocks = [];
-  for (const code of ['WEB-102', 'WEB-103', 'FE-202', 'FE-203', 'FE-204', 'BE-301', 'BE-302', 'BE-304', 'APP-402']) {
+  for (const code of ['WEB-102', 'WEB-103', 'FE-202', 'FE-203', 'FE-204', 'BE-301', 'BE-302', 'BE-304', 'APP-402', 'FIN-101', 'FIN-201', 'FIN-301']) {
     const course = loadCourse(code);
     if (!course?.project) continue;
     const done = inst.projects[code] || {};

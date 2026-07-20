@@ -19,10 +19,10 @@ export function recommendPath(data) {
     weeks = 8;
   } else if (goal === 'money') {
     school = 'money';
-    course = null;
-    pathName = { en: 'School of Money (announced)', ur: 'School of Money (announced)' };
-    firstLesson = { en: 'Browse Campus — Money opens later', ur: 'Campus dekho — Money baad mein' };
-    weeks = 0;
+    course = 'FIN-101';
+    pathName = { en: 'Personal Money Systems', ur: 'Personal Money Systems' };
+    firstLesson = { en: 'Money Map', ur: 'Money Map' };
+    weeks = 3;
   } else {
     // software path
     if (exp === 'shipped') {

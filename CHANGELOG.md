@@ -1,3 +1,15 @@
+## [45.0.0] — 2026-07-20
+
+### Institute depth
+- Full `teachRegister` on WEB-101→FE-201 (teen / career / adult)
+- HTTP Lab: more routes, request headers, auto-grade exercises, BE-301 sync
+- Code practice: assert harness + Parsons tap-order on phone
+- School of Money **In Session**: FIN-101, FIN-201, FIN-301 (literacy, not advice)
+- Records: Print / Save PDF for certificates (`@media print`)
+- Screen gallery: 12 institute shots (`npm run gallery`)
+- Markets FA: reading `#startQuiz` hardened — no soft-skip Foundations/crypto quiz
+- SW `masterycap-v4500`
+
 ## [44.0.0] — 2026-07-20
 
 ### Software Craft complete path + labs

@@ -1,4 +1,4 @@
-/* WEB-101 — In Session course */
+/* WEB-101 — In Session */
 export const COURSE = {
   "code": "WEB-101",
   "title": {
@@ -125,7 +125,25 @@ export const COURSE = {
             "ur": "Intent aur code ka farq"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>A computer is a machine that follows instructions exactly. It does not “understand” meaning — it transforms bits according to rules. Programs are lists of those rules. Bugs are almost always mismatches between what you intended and what you wrote.Hardware executes; software decides. Your browser is software. Your phone’s chip is hardware. MasteryCap itself is software running in a browser engine.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>Computer machine hai jo instructions bilkul follow karta. Meaning “samajh” nahi — bits ko rules se badalta. Programs rules ki list. Bug = aap ne jo socha vs jo likha.Hardware execute; software decide. Browser software. Chip hardware. MasteryCap browser mein software hai.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>A computer is a machine that follows instructions exactly. It does not “understand” meaning — it transforms bits according to rules. Programs are lists of those rules. Bugs are almost always mismatches between what you intended and what you wrote.</p><p>Hardware executes; software decides. Your browser is software. Your phone’s chip is hardware. MasteryCap itself is software running in a browser engine.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>Computer machine hai jo instructions bilkul follow karta. Meaning “samajh” nahi — bits ko rules se badalta. Programs rules ki list. Bug = aap ne jo socha vs jo likha.</p><p>Hardware execute; software decide. Browser software. Chip hardware. MasteryCap browser mein software hai.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>A computer is a machine that follows instructions exactly. It does not “understand” meaning — it transforms bits according to rules. Programs are lists of those rules. Bugs are almost always mismatches between what you intended and what you wrote.</p><p>Hardware executes; software decides. Your browser is software. Your phone’s chip is hardware. MasteryCap itself is software running in a browser engine.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>Computer machine hai jo instructions bilkul follow karta. Meaning “samajh” nahi — bits ko rules se badalta. Programs rules ki list. Bug = aap ne jo socha vs jo likha.</p><p>Hardware execute; software decide. Browser software. Chip hardware. MasteryCap browser mein software hai.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>A computer is a machine that follows instructions exactly. It does not “understand” meaning — it transforms bits according to rules. Programs are lists of those rules. Bugs are almost always mismatches between what you intended and what you wrote.</p><p>Hardware executes; software decides. Your browser is software. Your phone’s chip is hardware. MasteryCap itself is software running in a browser engine.</p>",
+          "ur": "<p>Computer machine hai jo instructions bilkul follow karta. Meaning “samajh” nahi — bits ko rules se badalta. Programs rules ki list. Bug = aap ne jo socha vs jo likha.</p><p>Hardware execute; software decide. Browser software. Chip hardware. MasteryCap browser mein software hai.</p>"
+        }
+      }
     },
     {
       "id": "w101-2",
@@ -246,7 +264,25 @@ export const COURSE = {
             "ur": "Unreliable links pe reliability"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>The internet moves data in packets. Each packet has an address (IP). Routers forward packets hop by hop. Links fail; packets can arrive out of order or never. Protocols (TCP) add reliability on top of an unreliable network.You do not need to memorize every protocol — you need the mental model: request leaves device → travels → server answers → response returns.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>Internet data packets mein bhejti. Har packet ka address (IP). Routers hop-by-hop forward. Links fail; packets late/lost ho sakte. TCP reliability add karti.Har protocol yaad nahi — model: request → travel → server answer → response.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>The internet moves data in packets. Each packet has an address (IP). Routers forward packets hop by hop. Links fail; packets can arrive out of order or never. Protocols (TCP) add reliability on top of an unreliable network.</p><p>You do not need to memorize every protocol — you need the mental model: request leaves device → travels → server answers → response returns.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>Internet data packets mein bhejti. Har packet ka address (IP). Routers hop-by-hop forward. Links fail; packets late/lost ho sakte. TCP reliability add karti.</p><p>Har protocol yaad nahi — model: request → travel → server answer → response.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>The internet moves data in packets. Each packet has an address (IP). Routers forward packets hop by hop. Links fail; packets can arrive out of order or never. Protocols (TCP) add reliability on top of an unreliable network.</p><p>You do not need to memorize every protocol — you need the mental model: request leaves device → travels → server answers → response returns.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>Internet data packets mein bhejti. Har packet ka address (IP). Routers hop-by-hop forward. Links fail; packets late/lost ho sakte. TCP reliability add karti.</p><p>Har protocol yaad nahi — model: request → travel → server answer → response.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>The internet moves data in packets. Each packet has an address (IP). Routers forward packets hop by hop. Links fail; packets can arrive out of order or never. Protocols (TCP) add reliability on top of an unreliable network.</p><p>You do not need to memorize every protocol — you need the mental model: request leaves device → travels → server answers → response returns.</p>",
+          "ur": "<p>Internet data packets mein bhejti. Har packet ka address (IP). Routers hop-by-hop forward. Links fail; packets late/lost ho sakte. TCP reliability add karti.</p><p>Har protocol yaad nahi — model: request → travel → server answer → response.</p>"
+        }
+      }
     },
     {
       "id": "w101-3",
@@ -367,7 +403,25 @@ export const COURSE = {
             "ur": "Browser"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>You type a URL. DNS turns the name into an IP. The browser sends an HTTP request. A server returns HTML (and later CSS/JS). The browser parses HTML into a DOM and paints pixels.Client = your browser. Server = remote machine answering. Static sites return files; dynamic sites compute responses.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>URL type. DNS naam ko IP banata. Browser HTTP request bhejta. Server HTML (phir CSS/JS) deta. Browser DOM banata aur paint.Client = browser. Server = jawab dene wala. Static = files; dynamic = compute.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>You type a URL. DNS turns the name into an IP. The browser sends an HTTP request. A server returns HTML (and later CSS/JS). The browser parses HTML into a DOM and paints pixels.</p><p>Client = your browser. Server = remote machine answering. Static sites return files; dynamic sites compute responses.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>URL type. DNS naam ko IP banata. Browser HTTP request bhejta. Server HTML (phir CSS/JS) deta. Browser DOM banata aur paint.</p><p>Client = browser. Server = jawab dene wala. Static = files; dynamic = compute.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>You type a URL. DNS turns the name into an IP. The browser sends an HTTP request. A server returns HTML (and later CSS/JS). The browser parses HTML into a DOM and paints pixels.</p><p>Client = your browser. Server = remote machine answering. Static sites return files; dynamic sites compute responses.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>URL type. DNS naam ko IP banata. Browser HTTP request bhejta. Server HTML (phir CSS/JS) deta. Browser DOM banata aur paint.</p><p>Client = browser. Server = jawab dene wala. Static = files; dynamic = compute.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>You type a URL. DNS turns the name into an IP. The browser sends an HTTP request. A server returns HTML (and later CSS/JS). The browser parses HTML into a DOM and paints pixels.</p><p>Client = your browser. Server = remote machine answering. Static sites return files; dynamic sites compute responses.</p>",
+          "ur": "<p>URL type. DNS naam ko IP banata. Browser HTTP request bhejta. Server HTML (phir CSS/JS) deta. Browser DOM banata aur paint.</p><p>Client = browser. Server = jawab dene wala. Static = files; dynamic = compute.</p>"
+        }
+      }
     },
     {
       "id": "w101-4",
@@ -488,7 +542,25 @@ export const COURSE = {
             "ur": "Syntax se pehle intent"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>All programs combine: sequence (do A then B), branches (if condition, else), and loops (repeat until done). Before syntax, practice these with plain language algorithms.Example: “If the door is closed, open it. Then walk forward until you reach the wall.” That is already programming.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>Har program: sequence, branch (if/else), loop. Syntax se pehle plain language algorithm.Example: “Door band ho to kholo. Phir wall tak aage chalo.” Yehi programming hai.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>All programs combine: sequence (do A then B), branches (if condition, else), and loops (repeat until done). Before syntax, practice these with plain language algorithms.</p><p>Example: “If the door is closed, open it. Then walk forward until you reach the wall.” That is already programming.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>Har program: sequence, branch (if/else), loop. Syntax se pehle plain language algorithm.</p><p>Example: “Door band ho to kholo. Phir wall tak aage chalo.” Yehi programming hai.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>All programs combine: sequence (do A then B), branches (if condition, else), and loops (repeat until done). Before syntax, practice these with plain language algorithms.</p><p>Example: “If the door is closed, open it. Then walk forward until you reach the wall.” That is already programming.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>Har program: sequence, branch (if/else), loop. Syntax se pehle plain language algorithm.</p><p>Example: “Door band ho to kholo. Phir wall tak aage chalo.” Yehi programming hai.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>All programs combine: sequence (do A then B), branches (if condition, else), and loops (repeat until done). Before syntax, practice these with plain language algorithms.</p><p>Example: “If the door is closed, open it. Then walk forward until you reach the wall.” That is already programming.</p>",
+          "ur": "<p>Har program: sequence, branch (if/else), loop. Syntax se pehle plain language algorithm.</p><p>Example: “Door band ho to kholo. Phir wall tak aage chalo.” Yehi programming hai.</p>"
+        }
+      }
     },
     {
       "id": "w101-5",
@@ -609,7 +681,25 @@ export const COURSE = {
             "ur": "Consistent read/write"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>Data is raw symbols. Information is data in context. Structure (tables, objects, schemas) makes data usable. Bad structure creates bugs later — especially in apps that save user progress.MasteryCap stores structured JSON in localStorage: profiles, progress, certificates. That is data design in the small.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>Data = raw. Information = context ke sath. Structure (tables/objects) usable banati. Kharab structure baad mein bugs — khas kar progress save apps.MasteryCap localStorage mein JSON: profile, progress, certs. Chhota data design.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>Data is raw symbols. Information is data in context. Structure (tables, objects, schemas) makes data usable. Bad structure creates bugs later — especially in apps that save user progress.</p><p>MasteryCap stores structured JSON in localStorage: profiles, progress, certificates. That is data design in the small.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>Data = raw. Information = context ke sath. Structure (tables/objects) usable banati. Kharab structure baad mein bugs — khas kar progress save apps.</p><p>MasteryCap localStorage mein JSON: profile, progress, certs. Chhota data design.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>Data is raw symbols. Information is data in context. Structure (tables, objects, schemas) makes data usable. Bad structure creates bugs later — especially in apps that save user progress.</p><p>MasteryCap stores structured JSON in localStorage: profiles, progress, certificates. That is data design in the small.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>Data = raw. Information = context ke sath. Structure (tables/objects) usable banati. Kharab structure baad mein bugs — khas kar progress save apps.</p><p>MasteryCap localStorage mein JSON: profile, progress, certs. Chhota data design.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>Data is raw symbols. Information is data in context. Structure (tables, objects, schemas) makes data usable. Bad structure creates bugs later — especially in apps that save user progress.</p><p>MasteryCap stores structured JSON in localStorage: profiles, progress, certificates. That is data design in the small.</p>",
+          "ur": "<p>Data = raw. Information = context ke sath. Structure (tables/objects) usable banati. Kharab structure baad mein bugs — khas kar progress save apps.</p><p>MasteryCap localStorage mein JSON: profile, progress, certs. Chhota data design.</p>"
+        }
+      }
     },
     {
       "id": "w101-6",
@@ -730,7 +820,25 @@ export const COURSE = {
             "ur": "Theory se reality"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>Browser DevTools let you inspect HTML, CSS, network requests, and console errors. This is not cheating — it is literacy. Learn: Elements panel, Console, Network.Practice on MasteryCap itself: inspect the Campus screen. Read a class name. Watch the Console for errors when something breaks.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>DevTools: HTML/CSS inspect, network, console errors. Ye cheating nahi — literacy. Elements, Console, Network seekho.MasteryCap pe practice: Campus inspect karo. Class name parho. Break pe Console dekho.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>Browser DevTools let you inspect HTML, CSS, network requests, and console errors. This is not cheating — it is literacy. Learn: Elements panel, Console, Network.</p><p>Practice on MasteryCap itself: inspect the Campus screen. Read a class name. Watch the Console for errors when something breaks.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>DevTools: HTML/CSS inspect, network, console errors. Ye cheating nahi — literacy. Elements, Console, Network seekho.</p><p>MasteryCap pe practice: Campus inspect karo. Class name parho. Break pe Console dekho.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>Browser DevTools let you inspect HTML, CSS, network requests, and console errors. This is not cheating — it is literacy. Learn: Elements panel, Console, Network.</p><p>Practice on MasteryCap itself: inspect the Campus screen. Read a class name. Watch the Console for errors when something breaks.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>DevTools: HTML/CSS inspect, network, console errors. Ye cheating nahi — literacy. Elements, Console, Network seekho.</p><p>MasteryCap pe practice: Campus inspect karo. Class name parho. Break pe Console dekho.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>Browser DevTools let you inspect HTML, CSS, network requests, and console errors. This is not cheating — it is literacy. Learn: Elements panel, Console, Network.</p><p>Practice on MasteryCap itself: inspect the Campus screen. Read a class name. Watch the Console for errors when something breaks.</p>",
+          "ur": "<p>DevTools: HTML/CSS inspect, network, console errors. Ye cheating nahi — literacy. Elements, Console, Network seekho.</p><p>MasteryCap pe practice: Campus inspect karo. Class name parho. Break pe Console dekho.</p>"
+        }
+      }
     }
   ],
   "finalQuiz": [

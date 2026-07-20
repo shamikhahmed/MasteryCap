@@ -1,6 +1,6 @@
 /**
- * Screen gallery capture — 4 tabs x mobile/desktop into docs/screenshots/gallery/.
- * Reuses smoke.cjs server + onboard pattern. Run: npm run gallery
+ * Institute gallery — 12 shots (6 mobile + 6 desktop) into docs/screenshots/gallery/.
+ * Run: npm run gallery
  */
 const { chromium } = require('playwright');
 const http = require('http');
@@ -9,7 +9,6 @@ const path = require('path');
 
 const root = path.join(__dirname, '..');
 const outDir = path.join(root, 'docs', 'screenshots', 'gallery');
-const TABS = ['dashboard', 'learn', 'journal', 'progress'];
 const VIEWPORTS = { mobile: { width: 393, height: 852 }, desktop: { width: 1280, height: 800 } };
 
 function contentType(p) {
@@ -39,6 +38,10 @@ function startServer() {
 }
 
 async function dismissSheets(page) {
+  await page.evaluate(() => {
+    try { localStorage.setItem('masterycap:readingGuideSeen', 'true'); } catch (e) { /* ignore */ }
+    try { localStorage.setItem('masterycap:tourDone', 'true'); } catch (e) { /* ignore */ }
+  }).catch(() => {});
   await page.locator('#tourSkip').click({ timeout: 800 }).catch(() => {});
   for (let i = 0; i < 6; i++) {
     const closed = await page.locator('.sheet-root.on [data-close], .sheet-root.on .sheet-x, #mbDismiss, #backupDismiss, #corruptKeep, #first-backup-sheet [data-close]')
@@ -52,15 +55,32 @@ async function onboard(page) {
   await page.waitForSelector('#onbNext, #tabbar', { timeout: 15000 });
   if (await page.locator('#tabbar:not(.hidden)').count()) { await dismissSheets(page); return; }
   await page.locator('#onbNext').click();
+  await page.locator('#onbNext').click();
   await page.locator('#onbName').fill('Gallery');
   await page.locator('#onbNext').click();
-  await page.locator('[data-exp="new"]').click();
+  await page.locator('[data-field="ageBand"][data-val="18-24"]').click();
   await page.locator('#onbNext').click();
-  await page.locator('[data-mkt="foundations"]').click();
+  await page.locator('[data-field="language"][data-val="en"]').click();
+  await page.locator('#onbNext').click();
+  await page.locator('[data-field="buildExp"][data-val="never"]').click();
+  await page.locator('#onbNext').click();
+  await page.locator('[data-field="goal"][data-val="apps"]').click();
+  await page.locator('#onbNext').click();
+  await page.locator('[data-field="timeBand"][data-val="2-5"]').click();
+  await page.locator('#onbNext').click();
   await page.locator('#onbNext').click();
   await page.waitForSelector('#tabbar:not(.hidden)');
   await dismissSheets(page);
   await page.locator('#first-backup-sheet [data-close]').first().click({ timeout: 800 }).catch(() => {});
+}
+
+async function shot(page, shots, vpName, idx, label, route, fileSlug) {
+  await dismissSheets(page);
+  await page.waitForTimeout(400);
+  const file = `${vpName}-${String(idx).padStart(2, '0')}-${fileSlug}.png`;
+  await page.screenshot({ path: path.join(outDir, file) });
+  shots.push({ file, label, route, viewport: vpName });
+  console.log('shot', file);
 }
 
 (async () => {
@@ -72,18 +92,33 @@ async function onboard(page) {
   for (const [vpName, vp] of Object.entries(VIEWPORTS)) {
     const ctx = await browser.newContext({ viewport: vp, deviceScaleFactor: 2 });
     const page = await ctx.newPage();
-    await page.goto(base);
+    await page.goto(base, { waitUntil: 'domcontentloaded' });
     await onboard(page);
 
-    for (const [i, tab] of TABS.entries()) {
-      await page.locator(`[data-tab="${tab}"]`).first().click();
-      await page.waitForTimeout(600);
-      await dismissSheets(page);
-      const file = `${vpName}-${String(i + 1).padStart(2, '0')}-${tab}.png`;
-      await page.screenshot({ path: path.join(outDir, file) });
-      shots.push({ file, label: tab[0].toUpperCase() + tab.slice(1), route: `[data-tab="${tab}"]`, viewport: vpName });
-      console.log('shot', file);
-    }
+    let n = 1;
+    await page.locator('#tabbar button[data-tab="today"]').click();
+    await shot(page, shots, vpName, n++, 'Today', '[data-tab=today]', 'today');
+
+    await page.locator('#tabbar button[data-tab="campus"]').click();
+    await shot(page, shots, vpName, n++, 'Campus schools', '[data-tab=campus]', 'campus');
+
+    await page.locator('[data-school="money"]').click();
+    await page.waitForTimeout(200);
+    await shot(page, shots, vpName, n++, 'School of Money', '[data-school=money]', 'money');
+
+    await page.locator('#tabbar button[data-tab="practice"]').click();
+    await page.waitForTimeout(200);
+    await shot(page, shots, vpName, n++, 'Practice', '[data-tab=practice]', 'practice');
+
+    await page.locator('#prLab').click();
+    await page.waitForTimeout(300);
+    await shot(page, shots, vpName, n++, 'HTTP Lab', 'http-lab', 'httplab');
+
+    await page.locator('#labBack').click().catch(() => {});
+    await page.locator('#tabbar button[data-tab="records"]').click();
+    await page.waitForTimeout(200);
+    await shot(page, shots, vpName, n++, 'Records', '[data-tab=records]', 'records');
+
     await ctx.close();
   }
 
@@ -94,4 +129,8 @@ async function onboard(page) {
   await browser.close();
   server.close();
   console.log(`done: ${shots.length} shots`);
+  if (shots.length !== 12) {
+    console.warn(`expected 12 shots, got ${shots.length}`);
+    process.exitCode = 1;
+  }
 })().catch((e) => { console.error(e); process.exit(1); });

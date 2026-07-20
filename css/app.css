@@ -1006,3 +1006,37 @@ html[data-contrast="high"] {
   font-size: 13px; color: var(--acc); border-left: 2px solid var(--acc);
   padding-left: 10px; margin: 0 0 12px; line-height: 1.45;
 }
+
+/* Parsons (phone) */
+.parsons-lab .parsons-built,
+.parsons-lab .parsons-pool {
+  display: flex; flex-direction: column; gap: 6px;
+  min-height: 44px; padding: 8px;
+  border: 1px dashed var(--line-2); border-radius: var(--r1);
+  background: var(--surface-2);
+}
+.parsons-line {
+  text-align: left; width: 100%;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r1); padding: 10px 12px; color: var(--t0);
+  font-family: var(--mono); font-size: 13px; cursor: pointer;
+}
+.parsons-line.on { border-color: var(--acc); background: color-mix(in srgb, var(--acc) 12%, var(--surface)); }
+.parsons-line code { font-family: inherit; white-space: pre-wrap; }
+
+/* Certificate print */
+.cert-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+@media print {
+  body * { visibility: hidden !important; }
+  .inst-cert, .inst-cert * { visibility: visible !important; }
+  .inst-cert {
+    position: absolute; left: 0; top: 0; width: 100%;
+    border: 3px solid #111; padding: 32px 28px; margin: 0;
+    background: #fff !important; color: #111 !important;
+    box-shadow: none; page-break-inside: avoid;
+  }
+  .inst-cert .kicker { letter-spacing: 0.18em; text-transform: uppercase; }
+  .cert-name { font-size: 32px; }
+  .cert-actions, .cert-no-print, #tabbar, .sheet-root { display: none !important; }
+  .inst-cert.cert-print-hide { display: none !important; }
+}

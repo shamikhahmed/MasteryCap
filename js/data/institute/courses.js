@@ -13,6 +13,9 @@ import BE304 from './be-304.js';
 import APP401 from './app-401.js';
 import APP402 from './app-402.js';
 import APP403 from './app-403.js';
+import FIN101 from './fin-101.js';
+import FIN201 from './fin-201.js';
+import FIN301 from './fin-301.js';
 
 const MAP = {
   'WEB-101': WEB101,
@@ -29,6 +32,9 @@ const MAP = {
   'APP-401': APP401,
   'APP-402': APP402,
   'APP-403': APP403,
+  'FIN-101': FIN101,
+  'FIN-201': FIN201,
+  'FIN-301': FIN301,
 };
 
 export function loadCourse(code) {

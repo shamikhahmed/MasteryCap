@@ -125,7 +125,25 @@ export const COURSE = {
             "ur": "Bina meaning div soup"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>HTML describes meaning and structure: headings, paragraphs, lists, links, forms. Browsers and assistive tech rely on that meaning. Divs everywhere with no semantics make pages hard to navigate.Tags nest like boxes in boxes. Invalid nesting confuses the DOM.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>HTML meaning/structure: headings, paragraphs, lists, links, forms. Assistive tech isi pe depend. Sirf divs = mushkil navigation.Tags nest. Galat nesting DOM confuse.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>HTML describes meaning and structure: headings, paragraphs, lists, links, forms. Browsers and assistive tech rely on that meaning. Divs everywhere with no semantics make pages hard to navigate.</p><p>Tags nest like boxes in boxes. Invalid nesting confuses the DOM.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>HTML meaning/structure: headings, paragraphs, lists, links, forms. Assistive tech isi pe depend. Sirf divs = mushkil navigation.</p><p>Tags nest. Galat nesting DOM confuse.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>HTML describes meaning and structure: headings, paragraphs, lists, links, forms. Browsers and assistive tech rely on that meaning. Divs everywhere with no semantics make pages hard to navigate.</p><p>Tags nest like boxes in boxes. Invalid nesting confuses the DOM.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>HTML meaning/structure: headings, paragraphs, lists, links, forms. Assistive tech isi pe depend. Sirf divs = mushkil navigation.</p><p>Tags nest. Galat nesting DOM confuse.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>HTML describes meaning and structure: headings, paragraphs, lists, links, forms. Browsers and assistive tech rely on that meaning. Divs everywhere with no semantics make pages hard to navigate.</p><p>Tags nest like boxes in boxes. Invalid nesting confuses the DOM.</p>",
+          "ur": "<p>HTML meaning/structure: headings, paragraphs, lists, links, forms. Assistive tech isi pe depend. Sirf divs = mushkil navigation.</p><p>Tags nest. Galat nesting DOM confuse.</p>"
+        }
+      }
     },
     {
       "id": "w102-2",
@@ -246,7 +264,25 @@ export const COURSE = {
             "ur": "Sahi text decode"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>Minimal document: <code>&lt;!DOCTYPE html&gt;</code>, <code>html</code>, <code>head</code> (title, meta charset), <code>body</code>. Charset prevents mojibake. Title shows in the tab.Lang attribute helps browsers and screen readers.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>Minimal: doctype, html, head (title, charset), body. Charset mojibake rokta. Title tab pe.lang attribute help karta.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>Minimal document: <code>&lt;!DOCTYPE html&gt;</code>, <code>html</code>, <code>head</code> (title, meta charset), <code>body</code>. Charset prevents mojibake. Title shows in the tab.</p><p>Lang attribute helps browsers and screen readers.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>Minimal: doctype, html, head (title, charset), body. Charset mojibake rokta. Title tab pe.</p><p>lang attribute help karta.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>Minimal document: <code>&lt;!DOCTYPE html&gt;</code>, <code>html</code>, <code>head</code> (title, meta charset), <code>body</code>. Charset prevents mojibake. Title shows in the tab.</p><p>Lang attribute helps browsers and screen readers.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>Minimal: doctype, html, head (title, charset), body. Charset mojibake rokta. Title tab pe.</p><p>lang attribute help karta.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>Minimal document: <code>&lt;!DOCTYPE html&gt;</code>, <code>html</code>, <code>head</code> (title, meta charset), <code>body</code>. Charset prevents mojibake. Title shows in the tab.</p><p>Lang attribute helps browsers and screen readers.</p>",
+          "ur": "<p>Minimal: doctype, html, head (title, charset), body. Charset mojibake rokta. Title tab pe.</p><p>lang attribute help karta.</p>"
+        }
+      }
     },
     {
       "id": "w102-3",
@@ -367,7 +403,25 @@ export const COURSE = {
             "ur": "CSS vs heading"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>One h1 per page (usually). Heading levels form an outline — do not skip for looks (use CSS). Lists: ul for unordered, ol for ordered. Paragraphs for prose.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>Aksar ek h1. Headings outline — looks ke liye skip mat (CSS use). ul/ol. Prose ke liye p.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>One h1 per page (usually). Heading levels form an outline — do not skip for looks (use CSS). Lists: ul for unordered, ol for ordered. Paragraphs for prose.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>Aksar ek h1. Headings outline — looks ke liye skip mat (CSS use). ul/ol. Prose ke liye p.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>One h1 per page (usually). Heading levels form an outline — do not skip for looks (use CSS). Lists: ul for unordered, ol for ordered. Paragraphs for prose.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>Aksar ek h1. Headings outline — looks ke liye skip mat (CSS use). ul/ol. Prose ke liye p.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>One h1 per page (usually). Heading levels form an outline — do not skip for looks (use CSS). Lists: ul for unordered, ol for ordered. Paragraphs for prose.</p>",
+          "ur": "<p>Aksar ek h1. Headings outline — looks ke liye skip mat (CSS use). ul/ol. Prose ke liye p.</p>"
+        }
+      }
     },
     {
       "id": "w102-4",
@@ -488,7 +542,25 @@ export const COURSE = {
             "ur": "Image alternative"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p><code>a href</code> creates navigation. Prefer descriptive link text over “click here.” Images need <code>alt</code> for accessibility and when images fail. Decorative images can use empty alt.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>a href navigation. “Click here” se behtar descriptive text. Images ko alt. Decorative = empty alt.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p><code>a href</code> creates navigation. Prefer descriptive link text over “click here.” Images need <code>alt</code> for accessibility and when images fail. Decorative images can use empty alt.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>a href navigation. “Click here” se behtar descriptive text. Images ko alt. Decorative = empty alt.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p><code>a href</code> creates navigation. Prefer descriptive link text over “click here.” Images need <code>alt</code> for accessibility and when images fail. Decorative images can use empty alt.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>a href navigation. “Click here” se behtar descriptive text. Images ko alt. Decorative = empty alt.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p><code>a href</code> creates navigation. Prefer descriptive link text over “click here.” Images need <code>alt</code> for accessibility and when images fail. Decorative images can use empty alt.</p>",
+          "ur": "<p>a href navigation. “Click here” se behtar descriptive text. Images ko alt. Decorative = empty alt.</p>"
+        }
+      }
     },
     {
       "id": "w102-5",
@@ -609,7 +681,25 @@ export const COURSE = {
             "ur": "UX + hints"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>Forms collect input: text, email, checkbox, submit. Labels must associate with inputs (for/id). Without labels, forms fail accessibility and tap targets suffer on mobile.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>Forms input leti. Labels for/id se associate. Bina labels a11y fail + mobile pe mushkil.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>Forms collect input: text, email, checkbox, submit. Labels must associate with inputs (for/id). Without labels, forms fail accessibility and tap targets suffer on mobile.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>Forms input leti. Labels for/id se associate. Bina labels a11y fail + mobile pe mushkil.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>Forms collect input: text, email, checkbox, submit. Labels must associate with inputs (for/id). Without labels, forms fail accessibility and tap targets suffer on mobile.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>Forms input leti. Labels for/id se associate. Bina labels a11y fail + mobile pe mushkil.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>Forms collect input: text, email, checkbox, submit. Labels must associate with inputs (for/id). Without labels, forms fail accessibility and tap targets suffer on mobile.</p>",
+          "ur": "<p>Forms input leti. Labels for/id se associate. Bina labels a11y fail + mobile pe mushkil.</p>"
+        }
+      }
     },
     {
       "id": "w102-6",
@@ -730,7 +820,25 @@ export const COURSE = {
             "ur": "Checklist attested"
           }
         }
-      ]
+      ],
+      "teachRegister": {
+        "teen": {
+          "en": "<p><strong>Teen:</strong> Short version — think concrete examples (phone, school, cricket).</p><p>Capstone for WEB-102: a single HTML prospectus — your name, about, skills list, one link, one image with alt. Validate structure: one h1, semantic sections, no div-for-everything.Self-attest the checklist honestly. Certificates later depend on honesty.</p><p>Remember: same final quiz as everyone. Scaffolding only changes.</p>",
+          "ur": "<p><strong>Teen:</strong> Short version — concrete examples (phone, school, cricket).</p><p>WEB-102 capstone: HTML prospectus — naam, about, skills, link, image+alt. ek h1, semantic, div-soup nahi.Checklist imandari se. Certs honesty pe.</p><p>Final quiz sab ka same. Sirf scaffolding alag.</p>"
+        },
+        "career": {
+          "en": "<p><strong>Career bridge:</strong> Map this to work you already know (forms, handoffs, checklists, clients).</p><p>Capstone for WEB-102: a single HTML prospectus — your name, about, skills list, one link, one image with alt. Validate structure: one h1, semantic sections, no div-for-everything.</p><p>Self-attest the checklist honestly. Certificates later depend on honesty.</p><p>Ask: where would this show up in a job ticket or PR description?</p>",
+          "ur": "<p><strong>Career bridge:</strong> Pehle se kaam se jodo (forms, handoffs, checklists, clients).</p><p>WEB-102 capstone: HTML prospectus — naam, about, skills, link, image+alt. ek h1, semantic, div-soup nahi.</p><p>Checklist imandari se. Certs honesty pe.</p><p>Soch: job ticket ya PR mein ye kahan aata?</p>"
+        },
+        "adult": {
+          "en": "<p><strong>Glossary-first:</strong> Read slow. New terms appear in context below — no assumed slang.</p><p>Capstone for WEB-102: a single HTML prospectus — your name, about, skills list, one link, one image with alt. Validate structure: one h1, semantic sections, no div-for-everything.</p><p>Self-attest the checklist honestly. Certificates later depend on honesty.</p><p>Same mastery bar; extra definitions only.</p>",
+          "ur": "<p><strong>Glossary-first:</strong> Ahista parho. Naye terms neeche context mein — assumed slang nahi.</p><p>WEB-102 capstone: HTML prospectus — naam, about, skills, link, image+alt. ek h1, semantic, div-soup nahi.</p><p>Checklist imandari se. Certs honesty pe.</p><p>Same mastery bar; sirf extra definitions.</p>"
+        },
+        "young": {
+          "en": "<p>Capstone for WEB-102: a single HTML prospectus — your name, about, skills list, one link, one image with alt. Validate structure: one h1, semantic sections, no div-for-everything.</p><p>Self-attest the checklist honestly. Certificates later depend on honesty.</p>",
+          "ur": "<p>WEB-102 capstone: HTML prospectus — naam, about, skills, link, image+alt. ek h1, semantic, div-soup nahi.</p><p>Checklist imandari se. Certs honesty pe.</p>"
+        }
+      }
     }
   ],
   "finalQuiz": [

@@ -97,11 +97,25 @@ export const CATALOG = {
         "ur": "School of Money"
       },
       "tagline": {
-        "en": "Budgeting and long-term thinking",
-        "ur": "Budget aur long-term soch"
+        "en": "Budgeting and long-term thinking — literacy, not advice",
+        "ur": "Budget aur long-term soch — literacy, advice nahi"
       },
-      "status": "announced",
-      "programs": []
+      "status": "live",
+      "honesty": true,
+      "programs": [
+        {
+          "id": "personal-money",
+          "name": {
+            "en": "Personal Money Systems",
+            "ur": "Personal Money Systems"
+          },
+          "courses": [
+            "FIN-101",
+            "FIN-201",
+            "FIN-301"
+          ]
+        }
+      ]
     }
   ],
   "courses": {
@@ -360,6 +374,82 @@ export const CATALOG = {
       "program": "market-literacy",
       "school": "markets",
       "legacy": true
+    },
+    "FIN-101": {
+      "code": "FIN-101",
+      "title": {
+        "en": "Budgeting Systems",
+        "ur": "Budgeting Systems"
+      },
+      "hours": 8,
+      "status": "session",
+      "prereqs": [],
+      "program": "personal-money",
+      "school": "money",
+      "outcomes": {
+        "en": [
+          "Map income, needs, wants, savings",
+          "Sketch a zero-based month",
+          "Run a weekly review ritual"
+        ],
+        "ur": [
+          "Income, needs, wants, savings map",
+          "Zero-based month sketch",
+          "Weekly review ritual"
+        ]
+      }
+    },
+    "FIN-201": {
+      "code": "FIN-201",
+      "title": {
+        "en": "Saving & Debt in Context",
+        "ur": "Saving & Debt"
+      },
+      "hours": 10,
+      "status": "session",
+      "prereqs": [
+        "FIN-101"
+      ],
+      "program": "personal-money",
+      "school": "money",
+      "outcomes": {
+        "en": [
+          "Size a small emergency buffer",
+          "Distinguish high-cost vs tool debt",
+          "Adapt plans to local context"
+        ],
+        "ur": [
+          "Chhota emergency buffer",
+          "High-cost vs tool debt",
+          "Local context adapt"
+        ]
+      }
+    },
+    "FIN-301": {
+      "code": "FIN-301",
+      "title": {
+        "en": "Long-Term Thinking",
+        "ur": "Long-Term Thinking"
+      },
+      "hours": 8,
+      "status": "session",
+      "prereqs": [
+        "FIN-201"
+      ],
+      "program": "personal-money",
+      "school": "money",
+      "outcomes": {
+        "en": [
+          "Match goals to time horizons",
+          "Name risk types without hype",
+          "Write values → tradeoffs → action"
+        ],
+        "ur": [
+          "Goals → horizons",
+          "Risk types bina hype",
+          "Values → tradeoffs → action"
+        ]
+      }
     }
   }
 };
