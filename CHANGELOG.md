@@ -1,3 +1,10 @@
+## [47.4.0] — 2026-07-20
+
+### Stocks/Forex depth to 6 weeks
+- Stocks W5–6: dilution/risk % + equity scams honesty
+- Forex W5–6: carry/theme risk + FX scams closing process
+- SW `masterycap-v4740`
+
 ## [47.3.0] — 2026-07-20
 
 ### Committee + ladder polish

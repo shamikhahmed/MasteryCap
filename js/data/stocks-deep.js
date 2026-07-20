@@ -208,6 +208,98 @@ export const STOCKS_DEEP_WEEKS = [
         correct: 0, explain: { en: 'Process competence.', ur: 'Process.' } },
     ],
   }),
+  week({
+    id: 5,
+    title: { en: 'Statements, Dilution & Risk %', ur: 'Statements, Dilution, Risk %' },
+    objective: {
+      en: 'Read ownership risk: dilution, concentration, and risk % before size fantasies.',
+      ur: 'Dilution, concentration, risk% — size pehle.',
+    },
+    teach: {
+      en: `<p>Owning shares means sharing upside <em>and</em> corporate actions: new issuance can <strong>dilute</strong> you; one name can dominate your P/L if you concentrate. Risk % per idea caps how much one story can hurt.</p>
+<p>You do not need CFA depth here — you need the habit: what can go wrong for the shareholder, and how big is this ticket vs account?</p>
+<p>{{redflag:“Can’t lose on blue chips” is folklore, not risk.}}</p>`,
+      ur: `<p>Dilution + concentration + risk% per idea. Blue-chip = can’t lose — folklore.</p>
+<p>{{redflag:Blue chip = no risk — jhoot.}}</p>`,
+    },
+    workedExample: {
+      en: `<p>Account 100. Risk 1% = 1. Stop implies size. Doubling size “because it feels safe” doubles ruin speed.</p>`,
+      ur: `<p>1% risk → size from stop. “Safe feel” double = ruin double.</p>`,
+    },
+    commonMistake: {
+      en: `<p>Sizing from conviction narrative instead of stop distance.</p>`,
+      ur: `<p>Conviction se size — stop math nahi.</p>`,
+    },
+    exitTicket: { en: 'You can state max risk % per equity idea.', ur: 'Max risk% per idea.' },
+    notebookPrompt: { en: 'Write max risk % + max names in core book.', ur: 'Max risk% + max names.' },
+    flashcardSeeds: [
+      { front: { en: 'Dilution', ur: 'Dilution' }, back: { en: 'More shares → your slice shrinks.', ur: 'Zyada shares → slice shrink.' } },
+      { front: { en: 'Concentration risk', ur: 'Concentration' }, back: { en: 'One name dominates outcomes.', ur: 'Ek name dominate.' } },
+      { front: { en: 'Risk % sets', ur: 'Risk%' }, back: { en: 'How much one idea can hurt.', ur: 'Ek idea ka dard.' } },
+      { front: { en: 'Size from', ur: 'Size' }, back: { en: 'Risk $ ÷ stop distance.', ur: 'Risk$ ÷ stop.' } },
+      { front: { en: 'Blue-chip = riskless', ur: 'Blue chip' }, back: { en: 'False — prices and businesses still fail.', ur: 'Jhoot.' } },
+    ],
+    quiz: [
+      { q: { en: 'Dilution mainly means:', ur: 'Dilution:' },
+        opts: { en: ['Your ownership % can shrink when new shares issue', 'Price always rises', 'Broker fees vanish'], ur: ['Ownership shrink', 'Price up always', 'Fees vanish'] },
+        correct: 0, explain: { en: 'More shares outstanding.', ur: 'Zyada shares.' } },
+      { q: { en: 'Position size should come from:', ur: 'Size:' },
+        opts: { en: ['Risk money and stop distance', 'How exciting the story is', 'Tip channel lot size'], ur: ['Risk + stop', 'Story', 'Tip lot'] },
+        correct: 0, explain: { en: 'Math over vibes.', ur: 'Math > vibes.' } },
+      { q: { en: 'Concentrated book risk:', ur: 'Concentration:' },
+        opts: { en: ['One name can dominate P/L', 'Always safer', 'Illegal'], ur: ['One name dominate', 'Safer', 'Illegal'] },
+        correct: 0, explain: { en: 'Diversify or size smaller.', ur: 'Diversify / chhota size.' } },
+      { q: { en: '“Can’t lose on famous names” is:', ur: 'Famous names:' },
+        opts: { en: ['Folklore — risk remains', 'A market law', 'SECP guarantee'], ur: ['Folklore', 'Law', 'SECP'] },
+        correct: 0, explain: { en: 'No riskless equity.', ur: 'Riskless nahi.' } },
+    ],
+  }),
+  week({
+    id: 6,
+    title: { en: 'Equity Scams & Honesty', ur: 'Equity Scams aur Honesty' },
+    objective: {
+      en: 'Spot pump/dump, fake advisors, and income-promise marketing around stocks.',
+      ur: 'Pump/dump, fake advisor, income promise.',
+    },
+    teach: {
+      en: `<p>Scams love equity theater: paid “mentors,” screenshot P/L, urgency to buy a thin name, recovery agents after a loss. Real brokerage support never needs your full password/OTP theater on chat apps.</p>
+<p>MasteryCap certificates are self-issued study records. Completing Stocks Literacy does not license you, guarantee returns, or make you an advisor.</p>
+<p>{{redflag:“Guaranteed weekly stock income” = fantasy product.}}</p>`,
+      ur: `<p>Pump, fake mentor, screenshot P/L, recovery scam. Certificate = study record — license/income nahi.</p>
+<p>{{redflag:Guaranteed weekly income = fantasy.}}</p>`,
+    },
+    workedExample: {
+      en: `<p>DM: “Join VIP, 2% daily, deposit now.” Refuse. Check regulation. No deposit to unlock.</p>`,
+      ur: `<p>VIP 2% daily DM → refuse. Regulation check. No unlock deposit.</p>`,
+    },
+    commonMistake: {
+      en: `<p>Sending more money to a “recovery specialist” after a loss.</p>`,
+      ur: `<p>Loss ke baad recovery agent ko aur paisa.</p>`,
+    },
+    exitTicket: { en: 'You can name three equity scam tells.', ur: 'Teen scam tells.' },
+    notebookPrompt: { en: 'List venues/people you will never fund. Pin it.', ur: 'Never-fund list.' },
+    flashcardSeeds: [
+      { front: { en: 'Guaranteed stock income', ur: 'Guaranteed' }, back: { en: 'Fantasy marketing.', ur: 'Fantasy.' } },
+      { front: { en: 'Recovery agent after loss', ur: 'Recovery' }, back: { en: 'Often a second scam.', ur: 'Second scam.' } },
+      { front: { en: 'MasteryCap certificate', ur: 'Cert' }, back: { en: 'Self-issued study record — not a license.', ur: 'Study record — license nahi.' } },
+      { front: { en: 'Chat OTP / full password asks', ur: 'OTP ask' }, back: { en: 'Refuse — attack pattern.', ur: 'Refuse.' } },
+      { front: { en: 'Thin-name urgency pump', ur: 'Pump' }, back: { en: 'Classic dump setup.', ur: 'Dump setup.' } },
+    ],
+    quiz: [
+      { q: { en: '“2% daily guaranteed stocks” is:', ur: '2% daily:' },
+        opts: { en: ['A red flag / fantasy pitch', 'Normal SECP product', 'Risk-free compounding'], ur: ['Red flag', 'SECP normal', 'Risk-free'] },
+        correct: 0, explain: { en: 'Income promises sell fantasy.', ur: 'Fantasy.' } },
+      { q: { en: 'After a loss, a stranger offers recovery for a fee:', ur: 'Recovery:' },
+        opts: { en: ['Treat as likely second scam', 'Send more immediately', 'Share seed/password'], ur: ['Second scam', 'Send more', 'Share pass'] },
+        correct: 0, explain: { en: 'Common double-dip.', ur: 'Double-dip.' } },
+      { q: { en: 'This track’s certificate means:', ur: 'Cert:' },
+        opts: { en: ['Local study progress — not a credential', 'Advisor license', 'Income entitlement'], ur: ['Study progress', 'License', 'Income'] },
+        correct: 0, explain: { en: 'Honesty framing.', ur: 'Honesty.' } },
+      { q: { en: 'Best response to password/OTP requests in chat:', ur: 'OTP chat:' },
+        opts: { en: ['Refuse and verify on official channels', 'Send to unlock account', 'Post in group for help'], ur: ['Refuse + official', 'Send unlock', 'Post group'] },
+        correct: 0, explain: { en: 'Attack pattern.', ur: 'Attack.' } },
+    ],
+  }),
 ];
 
 export const STOCKS_DEEP_PLACEMENT = [
@@ -219,4 +311,8 @@ export const STOCKS_DEEP_PLACEMENT = [
   { topic: 3, q: { en: 'Full size through unknowns is:', ur: 'Full size:' }, opts: { en: ['Gambling posture', 'Professional requirement', 'Risk-free'], ur: ['Gambling', 'Required', 'Risk-free'] }, correct: 0 },
   { topic: 4, q: { en: 'Equity practice loop starts with:', ur: 'Loop:' }, opts: { en: ['Broker, hours, risk size', 'Max leverage', 'Tip first'], ur: ['Broker+hours+size', 'Max lev', 'Tip'] }, correct: 0 },
   { topic: 4, q: { en: 'Skipping the journal because it felt obvious:', ur: 'Skip journal:' }, opts: { en: ['Breaks the review loop', 'Is professional', 'Removes fees'], ur: ['Breaks review', 'Pro', 'Removes fees'] }, correct: 0 },
+  { topic: 5, q: { en: 'Position size should use:', ur: 'Size:' }, opts: { en: ['Risk $ and stop', 'Story heat', 'Tip lot'], ur: ['Risk+stop', 'Story', 'Tip'] }, correct: 0 },
+  { topic: 5, q: { en: 'Dilution can:', ur: 'Dilution:' }, opts: { en: ['Shrink ownership %', 'Delete all risk', 'Guarantee dividends'], ur: ['Shrink %', 'Delete risk', 'Guarantee div'] }, correct: 0 },
+  { topic: 6, q: { en: 'Guaranteed weekly stock income is:', ur: 'Guaranteed:' }, opts: { en: ['Fantasy marketing', 'SECP default', 'Risk-free'], ur: ['Fantasy', 'SECP', 'Risk-free'] }, correct: 0 },
+  { topic: 6, q: { en: 'Recovery DMs after a loss are often:', ur: 'Recovery:' }, opts: { en: ['Second scams', 'Official police', 'Required insurance'], ur: ['Second scam', 'Police', 'Insurance'] }, correct: 0 },
 ];

@@ -210,6 +210,98 @@ export const FOREX_DEEP_WEEKS = [
         correct: 0, explain: { en: 'Process competence.', ur: 'Process.' } },
     ],
   }),
+  week({
+    id: 5,
+    title: { en: 'Carry Honesty & Theme Risk', ur: 'Carry Honesty aur Theme Risk' },
+    objective: {
+      en: 'Treat carry as paid risk, not free yield; size correlated USD themes as one.',
+      ur: 'Carry = paid risk; USD theme = ek budget.',
+    },
+    teach: {
+      en: `<p><strong>Carry</strong> collects rate differential — until risk sentiment flips and the unwind is violent. Swap is real P/L; ignoring it is how “small” holds bleed.</p>
+<p>Long EUR/USD + long GBP/USD + short USD/JPY is often one short-dollar book. Count theme risk, not ticket count.</p>
+<p>{{redflag:“Passive FX yield with no risk” is a sales line.}}</p>`,
+      ur: `<p>Carry slow grind, fast crash. Swap = P/L. Teen ticket = ek USD theme ho sakta.</p>
+<p>{{redflag:Riskless FX yield = sales.}}</p>`,
+    },
+    workedExample: {
+      en: `<p>Theme budget 1%. Three correlated tickets at 1% each = ~3% theme — not diversified.</p>`,
+      ur: `<p>Theme 1%. Teen correlated 1% = ~3% theme.</p>`,
+    },
+    commonMistake: {
+      en: `<p>Calling three USD shorts “diversification.”</p>`,
+      ur: `<p>Teen USD short = diversify samajhna.</p>`,
+    },
+    exitTicket: { en: 'You can state max theme risk % for USD bets.', ur: 'Max USD theme risk%.' },
+    notebookPrompt: { en: 'Write carry rule + theme risk cap.', ur: 'Carry rule + theme cap.' },
+    flashcardSeeds: [
+      { front: { en: 'Carry failure mode', ur: 'Carry fail' }, back: { en: 'Slow grind up, violent unwind.', ur: 'Slow up, fast crash.' } },
+      { front: { en: 'Swap is', ur: 'Swap' }, back: { en: 'Overnight interest — real P/L.', ur: 'Overnight — real P/L.' } },
+      { front: { en: 'Correlated USD tickets', ur: 'Corr USD' }, back: { en: 'Size as one theme.', ur: 'Ek theme.' } },
+      { front: { en: 'Riskless FX yield', ur: 'Riskless yield' }, back: { en: 'Marketing, not literacy.', ur: 'Marketing.' } },
+      { front: { en: 'Ticket count ≠', ur: 'Tickets' }, back: { en: 'Diversification if themes match.', ur: 'Diversify nahi agar theme same.' } },
+    ],
+    quiz: [
+      { q: { en: 'Classic carry failure looks like:', ur: 'Carry fail:' },
+        opts: { en: ['Slow grind, then violent crash on risk-off', 'Never fails', 'Fails politely over years only'], ur: ['Slow then crash', 'Never', 'Polite only'] },
+        correct: 0, explain: { en: 'Crowded unwind.', ur: 'Unwind.' } },
+      { q: { en: 'Three correlated USD shorts should be budgeted as:', ur: '3 shorts:' },
+        opts: { en: ['One theme risk', 'Three free 1% risks', 'Unlimited'], ur: ['One theme', 'Three free', 'Unlimited'] },
+        correct: 0, explain: { en: 'Theme math.', ur: 'Theme.' } },
+      { q: { en: 'Ignoring swap for weeks often causes:', ur: 'Ignore swap:' },
+        opts: { en: ['Silent P/L bleed', 'Free insurance', 'Higher regulation'], ur: ['Silent bleed', 'Insurance', 'Regulation'] },
+        correct: 0, explain: { en: 'Swap is P/L.', ur: 'Swap = P/L.' } },
+      { q: { en: '“Passive FX yield, no risk” is:', ur: 'Passive yield:' },
+        opts: { en: ['A sales line', 'Central-bank law', 'Risk-free'], ur: ['Sales', 'Law', 'Risk-free'] },
+        correct: 0, explain: { en: 'Honesty.', ur: 'Honesty.' } },
+    ],
+  }),
+  week({
+    id: 6,
+    title: { en: 'FX Scams & Closing Process', ur: 'FX Scams aur Closing Process' },
+    objective: {
+      en: 'Refuse offshore leverage traps; close with a boring verified practice loop.',
+      ur: 'Offshore traps refuse; boring verified loop.',
+    },
+    teach: {
+      en: `<p>Unregulated 1:1000 venues, withdrawal “fees,” mystery stop-hunts, and recovery agents are venue/scam risk — not edge. Prefer regulated access; failed withdrawals = leave.</p>
+<p>End state: verified venue → calendar → risk/theme size → (micro) → log → weekly review. Charts without that stack are decoration.</p>
+<p>{{redflag:Deposit more to “unlock profits” = trap.}}</p>`,
+      ur: `<p>1:1000 offshore, unlock fees, recovery agent = trap. Venue → calendar → size → log → review.</p>
+<p>{{redflag:Unlock deposit = trap.}}</p>`,
+    },
+    workedExample: {
+      en: `<p>Final practice card: “Regulated demo/micro · no red-news entry · theme ≤1% · journal · no signal group.”</p>`,
+      ur: `<p>Regulated micro · no red news · theme ≤1% · journal · no signals.</p>`,
+    },
+    commonMistake: {
+      en: `<p>Sending more funds to unlock a blocked withdrawal.</p>`,
+      ur: `<p>Blocked withdraw pe aur deposit.</p>`,
+    },
+    exitTicket: { en: 'You can recite FX loop + one scam refuse rule.', ur: 'FX loop + ek refuse rule.' },
+    notebookPrompt: { en: 'Write never-fund list + FX loop six bullets.', ur: 'Never-fund + FX loop.' },
+    flashcardSeeds: [
+      { front: { en: '1:1000 offshore pitch', ur: '1:1000' }, back: { en: 'Venue risk theater — not skill.', ur: 'Venue risk.' } },
+      { front: { en: 'Unlock withdrawal fee ask', ur: 'Unlock fee' }, back: { en: 'Trap — stop funding.', ur: 'Trap.' } },
+      { front: { en: 'FX end loop', ur: 'Loop' }, back: { en: 'Venue → calendar → size → log → review.', ur: 'Venue → calendar → size → log → review.' } },
+      { front: { en: 'Charts without rails', ur: 'Charts' }, back: { en: 'Decoration.', ur: 'Decoration.' } },
+      { front: { en: 'Certificate here means', ur: 'Cert' }, back: { en: 'Study progress — not a trading license.', ur: 'Study — license nahi.' } },
+    ],
+    quiz: [
+      { q: { en: 'Blocked withdrawal + “pay unlock fee” is:', ur: 'Unlock fee:' },
+        opts: { en: ['A trap — stop funding', 'Normal banking', 'Required by all regulators'], ur: ['Trap', 'Normal', 'Required'] },
+        correct: 0, explain: { en: 'Do not feed.', ur: 'Feed mat.' } },
+      { q: { en: 'Sober FX closing process prioritizes:', ur: 'Close:' },
+        opts: { en: ['Verified venue + risk/calendar rails', 'Max leverage forever', 'Signal VIP only'], ur: ['Venue + rails', 'Max lev', 'VIP signals'] },
+        correct: 0, explain: { en: 'Process competence.', ur: 'Process.' } },
+      { q: { en: 'Charts alone are insufficient because:', ur: 'Charts:' },
+        opts: { en: ['Venue, size, calendar, logs still decide survival', 'Charts are illegal', 'Indicators always fail'], ur: ['Rails decide survival', 'Illegal', 'Always fail'] },
+        correct: 0, explain: { en: 'Survival stack.', ur: 'Survival.' } },
+      { q: { en: 'This track’s certificate means:', ur: 'Cert:' },
+        opts: { en: ['Local study progress — not a license', 'Broker license', 'Income entitlement'], ur: ['Study progress', 'Broker license', 'Income'] },
+        correct: 0, explain: { en: 'Honesty.', ur: 'Honesty.' } },
+    ],
+  }),
 ];
 
 export const FOREX_DEEP_PLACEMENT = [
@@ -221,4 +313,8 @@ export const FOREX_DEEP_PLACEMENT = [
   { topic: 3, q: { en: 'Blocked withdrawals mean:', ur: 'Withdraw:' }, opts: { en: ['Leave the venue', 'Send more unlock fees', 'Post seed in chat'], ur: ['Leave', 'Unlock fee', 'Seed chat'] }, correct: 0 },
   { topic: 4, q: { en: 'FX practice loop starts with:', ur: 'Loop:' }, opts: { en: ['Venue, calendar, risk size', 'Max leverage', 'Signal first'], ur: ['Venue+calendar+size', 'Max lev', 'Signal'] }, correct: 0 },
   { topic: 4, q: { en: 'Three correlated USD bets are:', ur: '3 bets:' }, opts: { en: ['Often one theme', 'Always diversification', 'Risk-free'], ur: ['One theme', 'Diversify', 'Risk-free'] }, correct: 0 },
+  { topic: 5, q: { en: 'Carry classic failure:', ur: 'Carry:' }, opts: { en: ['Slow grind then violent unwind', 'Never fails', 'Only fails on Sundays'], ur: ['Slow then crash', 'Never', 'Sunday only'] }, correct: 0 },
+  { topic: 5, q: { en: 'Correlated tickets budget as:', ur: 'Budget:' }, opts: { en: ['One theme', 'Per ticket free risk', 'Unlimited'], ur: ['One theme', 'Per ticket', 'Unlimited'] }, correct: 0 },
+  { topic: 6, q: { en: 'Unlock withdrawal fee ask:', ur: 'Unlock:' }, opts: { en: ['Trap — stop funding', 'Normal', 'Required'], ur: ['Trap', 'Normal', 'Required'] }, correct: 0 },
+  { topic: 6, q: { en: 'FX certificate here means:', ur: 'Cert:' }, opts: { en: ['Study progress — not a license', 'Broker license', 'Income right'], ur: ['Study', 'License', 'Income'] }, correct: 0 },
 ];
