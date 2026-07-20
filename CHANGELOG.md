@@ -1,3 +1,11 @@
+## [42.4.0] — 2026-07-20
+
+### Reading mode + campus family syllabus
+- **Apple Books–like reading mode** for lessons: paginated pages, progress bar, tap edges, skippable first-run guide; quiz stays separate (`js/reading.js`)
+- **Four extension families** now live with bilingual starter tracks (3–4 weeks each): Personal Finance, Career Systems, Product Builders, Focus & Wellness
+- `js/data/personal-finance.js`, `career-systems.js`, `product-builders.js`, `wellness-focus.js`; wired in `tracks.js` + `families.js`
+- SW `masterycap-v4240`
+
 ## [42.3.0] — 2026-07-20
 
 ### Campus families shell

@@ -275,6 +275,7 @@ export const KEYS = {
   backupRemindDismissed: 'backupRemindDismissed',
   lastSeenVersion: 'lastSeenVersion',
   skimMode: 'skimMode',
+  readingGuideSeen: 'readingGuideSeen',
   coolDownUntil: 'coolDownUntil',
   mistakeBank: 'mistakeBank',
   glossWeak: 'glossWeak',

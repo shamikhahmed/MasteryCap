@@ -27,9 +27,10 @@ import { startTime, pauseTime, softSessionNudge } from '../time.js';
 import { markToday } from '../today.js';
 import { trackLockReason, preferredStartTrack, seedFoundationsSoftStart, canOpenTradingLab } from '../gates.js';
 import { openWeekFlash, openStudyNotes } from './study.js';
+import { renderReading } from '../reading.js';
 
 let S = {
-  track: 'foundations', view: 'home', activeWeek: null,
+  track: 'foundations', view: 'home', activeWeek: null, lessonMode: 'read',
   placementAnswers: {}, placementMsg: null, placementOrder: null,
   quizAnswers: {}, quizSubmitted: false, quizMsg: null, quizOrder: null, lastMastered: 0,
   gateAnswers: {}, gateOrder: null,
@@ -75,6 +76,7 @@ function applyFocusDetail(detail) {
   if (detail.kind === 'week' && detail.weekId != null) {
     S.activeWeek = detail.weekId;
     S.view = 'week';
+    S.lessonMode = 'read';
   } else if (detail.kind === 'placement' || detail.kind === 'home' || detail.kind === 'start') {
     S.view = 'home';
     S.activeWeek = detail.weekId || null;
@@ -99,7 +101,8 @@ const slabel = (App, st) => App.t(st === 'completed' ? 'completed' : st === 'cur
 function draw() {
   if (S.view === 'placement') return drawPlacement();
   if (S.view === 'placementResult') return drawPlacementResult();
-  if (S.view === 'week') return drawWeek();
+  if (S.view === 'week') return S.lessonMode === 'study' ? drawWeek() : drawReading();
+  if (S.view === 'reading') return drawReading();
   if (S.view === 'quiz') return drawQuiz();
   if (S.view === 'gate') return drawBinaryGate();
   if (S.view === 'exam') return drawExam();
@@ -234,7 +237,7 @@ function drawHome() {
     App.haptic();
     openSearch(App, {
       onOpenWeek: (trackId, weekId) => {
-        S.track = trackId; S.activeWeek = weekId; S.view = 'week'; draw();
+        S.track = trackId; S.activeWeek = weekId; S.view = 'week'; S.lessonMode = 'read'; draw();
       },
     });
   });
@@ -292,7 +295,13 @@ function drawHome() {
     S.view = 'placement'; S.placementAnswers = {}; S.placementMsg = null; S.dirty = true;
     buildPlacementOrders(track); draw();
   });
-  c.querySelectorAll('[data-week]').forEach((el) => el.addEventListener('click', () => { S.activeWeek = Number(el.dataset.week); S.view = 'week'; App.haptic(); draw(); }));
+  c.querySelectorAll('[data-week]').forEach((el) => el.addEventListener('click', () => {
+    S.activeWeek = Number(el.dataset.week);
+    S.view = 'week';
+    S.lessonMode = 'read';
+    App.haptic();
+    draw();
+  }));
   c.querySelectorAll('[data-path-track]').forEach((el) => el.addEventListener('click', () => {
     const id = el.dataset.pathTrack;
     S.track = trackLockReason(id, App) ? 'foundations' : id;
@@ -402,7 +411,80 @@ function weekRow(App, w, st, clickable) {
   </div>`;
 }
 
-/* ---------------- WEEK ---------------- */
+/* ---------------- READING (Apple Books–like) ---------------- */
+function buildLessonBody(track, w, lang) {
+  let body = prefixMarkers(w.body[lang], track.id, w.id, lang);
+  body = appendBody(body, track.id, w.id, lang);
+  body = injectFigures(body, lang);
+  body = injectLessonExtras(body, lang);
+  body = linkGlossaryTerms(body);
+  return body;
+}
+
+function drawReading() {
+  const App = APP, c = ROOT, lang = App.lang;
+  const track = getTrack(S.track);
+  const raw = track.weeks.find((x) => x.id === S.activeWeek);
+  if (!raw) {
+    S.view = 'home';
+    S.activeWeek = null;
+    drawHome();
+    return;
+  }
+  const w = mergeWeekExtras(track.id, raw);
+  const body = buildLessonBody(track, w, lang);
+  startTime('lesson', { courseId: track.id, topicId: String(w.id) });
+  renderReading(App, c, {
+    track,
+    week: w,
+    bodyHtml: `<h1 class="reading-title">${w.title[lang]}</h1>${body}`,
+    onBack: () => {
+      if (S._back) {
+        S.track = S._back.track;
+        S.activeWeek = S._back.week;
+        S._back = null;
+        S.view = 'week';
+        draw();
+        return;
+      }
+      S.view = 'home';
+      draw();
+    },
+    onQuiz: () => {
+      S.view = 'quiz';
+      S.quizAnswers = {};
+      S.quizSubmitted = false;
+      S.quizMsg = null;
+      buildQuizOrders(w);
+      App.haptic();
+      draw();
+    },
+    onStudyTools: () => {
+      S.lessonMode = 'study';
+      App.haptic();
+      drawWeek();
+    },
+    onGlossClick: (el) => showGlossPop(App, el),
+  });
+  c.querySelectorAll('[data-xref-track]').forEach((el) => el.addEventListener('click', () => {
+    const xt = getTrack(el.dataset.xrefTrack);
+    const xw = Number(el.dataset.xrefWeek);
+    if (!xt?.weeks?.find((wk) => wk.id === xw)) {
+      App.haptic();
+      return;
+    }
+    S._back = { track: S.track, week: S.activeWeek };
+    S.track = el.dataset.xrefTrack;
+    S.activeWeek = xw;
+    S.view = 'week';
+    S.lessonMode = 'read';
+    App.haptic();
+    draw();
+  }));
+  App.bumpStreak();
+}
+
+/* ---------------- WEEK (study tools) ---------------- */
 function drawWeek() {
   const App = APP, c = ROOT, lang = App.lang;
   const track = getTrack(S.track);
@@ -416,11 +498,7 @@ function drawWeek() {
   const w = mergeWeekExtras(track.id, raw);
   const st = App.getCourse(track.id).weekStatus[w.id];
   const skimOn = !!store.get(STORE_KEYS.skimMode);
-  let body = prefixMarkers(w.body[lang], track.id, w.id, lang);
-  body = appendBody(body, track.id, w.id, lang);
-  body = injectFigures(body, lang);
-  body = injectLessonExtras(body, lang);
-  body = linkGlossaryTerms(body);
+  const body = buildLessonBody(track, w, lang);
   const formula = renderFormulaStrip(w, lang);
   const memo = renderMemoPanel(w, lang);
   const skim = skimOn ? renderSkim(w, lang) : '';
@@ -439,6 +517,7 @@ function drawWeek() {
     <div class="spread" style="align-items:center;margin-bottom:8px">
       <div class="lesson-kicker" style="margin:0">${App.t('week').toUpperCase()} ${String(w.id).padStart(2, '0')}</div>
       <div class="hstack" style="gap:6px">
+        <button class="pill acc" id="goRead">${lang === 'en' ? 'Read' : 'Parho'}</button>
         <button class="pill" id="togListen" aria-label="Listen">${lang === 'en' ? '🔊 Listen' : '🔊 Sunein'}</button>
         <button class="pill ${skimOn ? 'acc' : ''}" id="togSkim">${lang === 'en' ? 'Skim' : 'Skim'}</button>
       </div>
@@ -467,6 +546,11 @@ function drawWeek() {
       return;
     }
     S.view = 'home'; draw();
+  });
+  document.getElementById('goRead')?.addEventListener('click', () => {
+    S.lessonMode = 'read';
+    App.haptic();
+    drawReading();
   });
   document.getElementById('togSkim')?.addEventListener('click', () => {
     store.set(STORE_KEYS.skimMode, !store.get(STORE_KEYS.skimMode)); App.haptic(); draw();

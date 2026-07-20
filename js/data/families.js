@@ -1,9 +1,9 @@
 /* ============================================================
    families.js — campus course families (Coursera-style IA).
-   Trading Literacy is live (existing TRACKS). Four more scaffolds.
+   Trading Literacy + four extension families with starter syllabus.
    ============================================================ */
 
-import { TRACKS } from './tracks.js';
+import { TRADING_TRACK_IDS } from './tracks.js';
 
 /** @typedef {{ id: string, name: {en:string,ur:string}, blurb: {en:string,ur:string}, status: 'live'|'scaffold', level?: 'basic'|'advanced', trackIds: string[] }} CourseFamily */
 
@@ -18,51 +18,51 @@ export const COURSE_FAMILIES = [
     },
     status: 'live',
     level: 'basic',
-    trackIds: TRACKS.map((t) => t.id),
+    trackIds: TRADING_TRACK_IDS,
   },
   {
     id: 'personal-finance',
     name: { en: 'Personal Finance', ur: 'Personal Finance' },
     blurb: {
-      en: 'Budgets, debt, emergency fund — coming as full campus courses.',
-      ur: 'Budget, debt, emergency fund — jaldi full courses.',
+      en: 'Budgets, debt, emergency fund — literacy not income promises.',
+      ur: 'Budget, debt, emergency fund — literacy, income promise nahi.',
     },
-    status: 'scaffold',
+    status: 'live',
     level: 'basic',
-    trackIds: [],
+    trackIds: ['pf-budget', 'pf-debt'],
   },
   {
     id: 'career-systems',
     name: { en: 'Career Systems', ur: 'Career Systems' },
     blurb: {
-      en: 'Interviews, offers, remote work — scaffold only for now.',
-      ur: 'Interviews, offers, remote — abhi scaffold.',
+      en: 'Interviews, offers, remote craft — repeatable systems.',
+      ur: 'Interviews, offers, remote — repeatable systems.',
     },
-    status: 'scaffold',
+    status: 'live',
     level: 'basic',
-    trackIds: [],
+    trackIds: ['career-interviews', 'career-remote'],
   },
   {
     id: 'product-builders',
     name: { en: 'Product Builders', ur: 'Product Builders' },
     blurb: {
-      en: 'Ship Cap-style products: research → MVP → launch discipline.',
+      en: 'Cap-style products: research → MVP → launch discipline.',
       ur: 'Cap-style products: research → MVP → launch.',
     },
-    status: 'scaffold',
+    status: 'live',
     level: 'advanced',
-    trackIds: [],
+    trackIds: ['pb-research', 'pb-launch'],
   },
   {
     id: 'wellness-focus',
     name: { en: 'Focus & Wellness', ur: 'Focus & Wellness' },
     blurb: {
-      en: 'Sleep, attention, burnout — complementary to market stress.',
+      en: 'Sleep, attention, burnout — complements market stress.',
       ur: 'Sleep, attention, burnout — market stress ke saath.',
     },
-    status: 'scaffold',
+    status: 'live',
     level: 'basic',
-    trackIds: [],
+    trackIds: ['wellness-sleep', 'wellness-attention'],
   },
 ];
 

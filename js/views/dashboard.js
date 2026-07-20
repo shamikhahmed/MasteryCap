@@ -264,10 +264,8 @@ export function renderDashboard(App, c) {
       <div class="panel-h"><span class="ph-t">${App.t('campus_families')}</span></div>
       <div class="pad" style="padding-top:4px">
         ${COURSE_FAMILIES.map((fam) => {
-          const live = fam.status === 'live';
-          const tracks = live
-            ? fam.trackIds.map((id) => getTrack(id)).filter(Boolean)
-            : [];
+          const tracks = (fam.trackIds || []).map((id) => getTrack(id)).filter(Boolean);
+          const live = fam.status === 'live' && tracks.length > 0;
           const wdone = tracks.reduce((s, t) => {
             const prog = App.getCourse(t.id);
             return s + t.weeks.filter((w) => ['completed', 'mastered'].includes(prog.weekStatus[w.id])).length;
