@@ -63,7 +63,8 @@ export function renderRecords(App, el) {
       <div class="slabel mt16">${en ? 'Enrollments' : 'Enrollments'}</div>
       <div class="inst-list">${enrollList}</div>
       <button class="btn accent mt16" id="recCampus" style="width:100%">${en ? 'Go to Campus' : 'Campus'}</button>
-      <button class="btn ghost mt10" id="recSet" style="width:100%">${en ? 'All settings' : 'Settings'}</button>`;
+      <button class="btn ghost mt10" id="recSet" style="width:100%">${en ? 'All settings' : 'Settings'}</button>
+      <button class="btn ghost mt10" id="recJournal" style="width:100%">${en ? 'Markets journal (legacy)' : 'Markets journal'}</button>`;
   } else if (pane === 'transcript') {
     body = `
       <div class="slabel">${en ? 'Course progress' : 'Course progress'}</div>
@@ -115,6 +116,7 @@ export function renderRecords(App, el) {
   }));
   document.getElementById('recSet')?.addEventListener('click', () => openSettings(App));
   document.getElementById('recCampus')?.addEventListener('click', () => App.navigate('campus'));
+  document.getElementById('recJournal')?.addEventListener('click', () => App.navigate('journal'));
   document.getElementById('recExport')?.addEventListener('click', () => exportBackup(App));
   document.getElementById('recSaveName')?.addEventListener('click', () => {
     const n = (document.getElementById('recName')?.value || '').trim() || 'Learner';
