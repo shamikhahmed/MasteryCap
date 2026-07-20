@@ -271,12 +271,36 @@ export const App = {
       : (this.tab === 'learn' || this.tab === 'drills' || this.tab === 'review' || this.tab === 'study' || this.tab === 'sim' || this.tab === 'charts')
         ? (this.tab === 'learn' ? 'campus' : 'practice')
         : (this.tab === 'journal' || this.tab === 'progress' ? 'records' : 'today');
-    nav.innerHTML = `<div class="tabbar-inner">${tabs.map(([id, ic, label]) => `
-      <button class="tab ${active === id ? 'active' : ''}" data-tab="${id}">
+    nav.setAttribute('aria-label', 'Main');
+    nav.innerHTML = `<div class="tabbar-inner" role="tablist" aria-label="Main tabs">${tabs.map(([id, ic, label]) => `
+      <button type="button" class="tab ${active === id ? 'active' : ''}" role="tab" id="tab-${id}"
+        data-tab="${id}" aria-selected="${active === id ? 'true' : 'false'}"
+        aria-controls="app-root" tabindex="${active === id ? '0' : '-1'}">
         <span class="tab-ic-wrap">${icon(ic, { size: 21 })}${id === 'practice' && due > 0 ? `<span class="tab-badge" aria-label="${due} due">${due > 9 ? '9+' : due}</span>` : ''}</span>
         <span class="tab-label">${label}</span>
       </button>`).join('')}</div>`;
-    nav.querySelectorAll('.tab').forEach((b) => b.addEventListener('click', () => this.navigate(b.dataset.tab)));
+    const order = tabs.map(([id]) => id);
+    nav.querySelectorAll('.tab').forEach((b) => {
+      b.addEventListener('click', () => this.navigate(b.dataset.tab));
+      b.addEventListener('keydown', (e) => {
+        const i = order.indexOf(b.dataset.tab);
+        if (i < 0) return;
+        let next = -1;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % order.length;
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + order.length) % order.length;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = order.length - 1;
+        if (next < 0) return;
+        e.preventDefault();
+        const target = nav.querySelector(`[data-tab="${order[next]}"]`);
+        if (target) { target.focus(); this.navigate(order[next]); }
+      });
+    });
+    const panel = document.getElementById('app-root');
+    if (panel) {
+      panel.setAttribute('role', 'tabpanel');
+      panel.setAttribute('aria-labelledby', `tab-${active}`);
+    }
   },
 };
 

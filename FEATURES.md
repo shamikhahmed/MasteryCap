@@ -1,6 +1,6 @@
 # MasteryCap Features
 
-**Version:** 50.9.0 · Premium School
+**Version:** 51.0.0 · Premium School
 
 ## Strengths
 - Offline-first PWA; no accounts
@@ -11,6 +11,7 @@
 - Guided daily session Continuity on Today; Charts hub / Daily review / Hasil on Practice
 - Sim process fails feed Mistake museum → Daily review MCQs
 - Light / Sepia / Dark themes; bilingual EN / Roman Urdu depth bars
+- Bottom nav exposed as ARIA tabs (selected + keyboard)
 - Age-band tip layer; honest self-issued certificates; Markets education-only
 
 ## Weaknesses

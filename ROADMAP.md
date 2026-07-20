@@ -115,4 +115,6 @@ Next (in order):
 
 **v50.8:** Parsons one-use pool + 5 course project checklists for cert honesty.
 
+**v51.0:** bottom nav tab a11y (tablist/selected/keyboard).
+
 **v50.9:** PRESENTATION.md + README tabs synced to institute shell.

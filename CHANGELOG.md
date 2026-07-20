@@ -1,3 +1,12 @@
+## [51.0.0] — 2026-07-20
+
+### Tab a11y
+- Bottom nav: `role="tablist"` / `role="tab"` / `aria-selected` / roving `tabindex`
+- Arrow/Home/End keyboard; panel `role="tabpanel"` + `aria-labelledby`
+- SW `masterycap-v5100`
+
+
+
 ## [50.9.0] — 2026-07-20
 
 ### Docs sync — PRESENTATION + README tabs
