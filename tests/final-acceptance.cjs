@@ -86,23 +86,22 @@ async function onboard(page) {
 }
 
 
-async function openLearn(page) {
+async function openLearn(page, trackId = 'foundations') {
   await page.locator('#tabbar button[data-tab="campus"]').click();
   await page.waitForTimeout(120);
   await dismissNoise(page);
-  if (await page.locator('#camOpenMkt').count()) {
-    await page.locator('#camOpenMkt').click();
-  } else if (await page.locator('[data-school="markets"]').count()) {
-    await page.locator('[data-school="markets"]').click();
-    await page.locator('#camOpenMkt').click();
-  } else {
-    await page.locator('button[data-tab="today"]').click();
-    await page.locator('#tdMarkets').click({ timeout: 2000 }).catch(async () => {
-      await page.locator('#tabbar button[data-tab="campus"]').click();
-      await page.locator('[data-school="markets"]').click();
-      await page.locator('#camOpenMkt').click();
-    });
+  // Back out of an open track syllabus if already inside Markets
+  if (await page.locator('#mktBackCampus').count()) {
+    await page.locator('#mktBackCampus').click();
+    await page.waitForTimeout(120);
   }
+  if (await page.locator('[data-school="markets"]').count()) {
+    await page.locator('[data-school="markets"]').click();
+    await page.waitForTimeout(120);
+  }
+  const sel = `[data-mkt="${trackId}"]`;
+  await page.waitForSelector(sel, { timeout: 5000 });
+  await page.locator(sel).click();
   await page.waitForTimeout(200);
   await dismissNoise(page);
 }
@@ -260,15 +259,15 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
     await goHome(page);
     await openLearn(page);
     await page.waitForTimeout(200);
-    if (!(await page.locator('[data-track]').count())) fail('offline Learn tracks missing');
+    if (!(await page.locator('[data-week], #startPlacement, #softStartFoundations').count())) {
+      fail('offline Learn syllabus missing');
+    }
     log('OK offline shell nav');
     await context.setOffline(false);
 
     /* Foundations quiz */
     await openLearn(page);
     await page.waitForTimeout(150);
-    await page.locator('[data-track="foundations"]').click();
-    await page.waitForTimeout(300);
     const weekBtn = page.locator('[data-week="1"], [data-week="5"], [data-week]').first();
     if (!(await weekBtn.count())) fail('Foundations week row missing');
     await weekBtn.click({ timeout: 10000 });
@@ -283,10 +282,8 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
     log('OK Foundations quiz');
 
     /* Crypto quiz */
-    await openLearn(page);
+    await openLearn(page, 'crypto');
     await page.waitForTimeout(150);
-    await page.locator('[data-track="crypto"]').click();
-    await page.waitForTimeout(250);
     if (!(await page.locator('[data-week]').count())) fail('Crypto week row missing');
     await page.locator('[data-week]').first().click();
     await page.waitForSelector('.reading-title, .lesson-body, #startQuiz', { timeout: 8000 });
@@ -332,12 +329,10 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
     log('OK Paper tab n=' + simN);
 
     /* Graduation panel */
-    await openLearn(page);
+    await openLearn(page, 'crypto');
     await page.waitForTimeout(150);
-    await page.locator('[data-track="crypto"]').click().catch(() => {});
-    await page.waitForTimeout(250);
     body = await page.locator('body').innerText();
-    if (!/Graduation|grad|Sim trades|Process|Foundations|Campus/i.test(body)) {
+    if (!/Graduation|grad|Sim trades|Process|Foundations|Campus|Weeks/i.test(body)) {
       log('SKIP graduation panel (markets UI variant)');
     } else {
       log('OK graduation panel');
@@ -372,8 +367,7 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
     await page.reload({ waitUntil: 'networkidle' });
     await page.waitForTimeout(500);
     await dismissNoise(page);
-    await openLearn(page);
-    await page.locator('[data-track="crypto"]').click();
+    await openLearn(page, 'crypto');
     await page.waitForTimeout(300);
     if (await page.locator('#doGraduate').count()) {
       await page.locator('#doGraduate').click();

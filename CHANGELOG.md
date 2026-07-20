@@ -1,3 +1,10 @@
+## [46.0.4] — 2026-07-20
+
+### Fix
+- Smoke + final-acceptance: Markets path uses track cards (`[data-mkt]`) not dead `#camOpenMkt`
+- SW `masterycap-v4604` + `?v=4604` cache bust (Pages still serving old COURSES UI until hard refresh)
+
+
 ## [46.0.3] — 2026-07-20
 
 ### UX honesty

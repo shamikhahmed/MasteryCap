@@ -126,8 +126,9 @@ async function goTab(page, id) {
       await page.waitForTimeout(200);
       await goTab(page, 'campus');
       await page.waitForTimeout(200);
-      // Markets journal via Records shortcut
+      // Markets journal via Records → Profile shortcut
       await goTab(page, 'records');
+      await page.waitForSelector('#recJournal', { timeout: 5000 });
       await page.locator('#recJournal').click();
       await page.waitForTimeout(200);
       await page.locator('#editBal').click();
@@ -151,13 +152,12 @@ async function goTab(page, id) {
       await page.screenshot({ path: path.join(outDir, `lesson-${width}.png`), fullPage: true });
       await page.locator('#lsBack').click();
       await page.waitForSelector('#tabbar:not(.hidden)', { timeout: 5000 });
-      // Markets track sample
+      // Markets track sample (Campus → track cards, no Enter CTA)
       await goTab(page, 'campus');
       await page.locator('[data-school="markets"]').click();
-      await page.locator('#camOpenMkt').click();
+      await page.waitForSelector('[data-mkt="foundations"]', { timeout: 5000 });
+      await page.locator('[data-mkt="foundations"]').click();
       await page.waitForTimeout(400);
-      await page.locator('[data-track="foundations"]').click().catch(() => {});
-      await page.waitForTimeout(200);
       const week = page.locator('[data-week]').first();
       if (await week.count()) {
         await week.click();
