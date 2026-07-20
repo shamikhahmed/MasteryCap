@@ -1,5 +1,5 @@
 /* ============================================================
-   MasteryCap — exam booklet / academic seal
+   MasteryCap — trade-school workbench / competency stamp
    Light + dark (via theme.js). Serif display + Geist UI.
    ============================================================ */
 
@@ -32,10 +32,10 @@
   --t4: #757C86;
 
   /* --- accent: seal/stamp orange (softer) --- */
-  --acc: #E86A2C;
-  --acc-2: #F08A52;
-  --acc-dim: rgba(232,106,44,0.14);
-  --acc-line: rgba(232,106,44,0.28);
+  --acc: #F4C430;
+  --acc-2: #FFDD33;
+  --acc-dim: rgba(244,196,48,0.16);
+  --acc-line: rgba(244,196,48,0.32);
 
   /* --- market semantics --- */
   --up: #2F9B6E;
@@ -196,7 +196,7 @@ a { color: inherit; text-decoration: none; }
 }
 #splash.hide { opacity: 0; pointer-events: none; }
 .splash-inner { display: flex; flex-direction: column; align-items: center; gap: 18px; }
-.splash-booklet {
+.splash-booklet/* workbench card */ {
   width: min(58vw, 168px);
   aspect-ratio: 3 / 4;
   position: relative;
@@ -208,7 +208,7 @@ a { color: inherit; text-decoration: none; }
   overflow: hidden;
   animation: rise 0.7s var(--out) both;
 }
-.splash-booklet::before {
+.splash-booklet/* workbench card */::before {
   content: '';
   position: absolute;
   inset: 12% 10% 16% 16%;
@@ -217,7 +217,7 @@ a { color: inherit; text-decoration: none; }
     linear-gradient(color-mix(in srgb, var(--t3) 18%, transparent) 1px, transparent 1px);
   background-size: 100% 11px;
 }
-.splash-booklet::after {
+.splash-booklet/* workbench card */::after {
   content: '';
   position: absolute;
   left: 0; top: 8%; bottom: 8%; width: 6px;
