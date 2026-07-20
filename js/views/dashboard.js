@@ -1,5 +1,5 @@
 /* ============================================================
-   dashboard.js — school campus Home (v22).
+   dashboard.js — school campus Home — workbench MOBILE≠DESKTOP.
    Next lesson, beginner path, study stats. No trading desk.
    ============================================================ */
 
@@ -116,7 +116,10 @@ export function renderDashboard(App, c) {
   })();
 
   c.innerHTML = `
-  <div class="screen booklet-cover">
+  <div class="screen workbench-campus">
+    <div class="wb-bench" aria-hidden="true"></div>
+    <div class="wb-layout">
+      <div class="wb-main">
     <div class="lt-head">
       <div class="head-row">
         <div>
@@ -271,6 +274,9 @@ export function renderDashboard(App, c) {
       </div>
     </div>
 
+      </div>
+      <aside class="wb-rail" aria-label="Workbench tools">
+        <div class="wb-rail__label">Tools</div>
     <div class="panel" style="margin-bottom:14px">
       <div class="panel-h"><span class="ph-t">${App.t('campus_path')}</span></div>
       <div class="pad" style="padding-top:4px">
@@ -301,6 +307,8 @@ export function renderDashboard(App, c) {
     </div>
     <div class="note-box" style="margin-bottom:14px;font-size:12px;color:var(--t3)">${App.t('campus_no_rich')}</div>
     <button class="btn ghost mt14" id="goDesk" style="width:100%">${icon('journal', { size: 17 })} ${App.t('campus_desk')}</button>
+      </aside>
+    </div>
   </div>`;
 
   c.querySelectorAll('[data-lang]').forEach((b) => b.addEventListener('click', () => App.setLang(b.dataset.lang)));

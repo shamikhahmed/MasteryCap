@@ -1,3 +1,9 @@
+## [42.2.3] — 2026-07-20
+
+### Campus workbench MOBILE≠DESKTOP
+- Mobile: stacked campus continue / today / map
+- ≥900px: workbench main + sticky tools rail (path / shortcuts). SW `masterycap-v4223`.
+
 ## [42.2.2] — 2026-07-20
 
 ### Identity — trade-school workbench / competency stamp
