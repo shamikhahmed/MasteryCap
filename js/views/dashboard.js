@@ -387,7 +387,7 @@ export function renderDashboard(App, c) {
     }
   });
   document.getElementById('goReview')?.addEventListener('click', () => App.openReview());
-  document.getElementById('goDesk')?.addEventListener('click', () => App.navigate('journal'));
+  document.getElementById('goDesk')?.addEventListener('click', () => App.openJournal('today'));
   document.getElementById('goGlossCampus')?.addEventListener('click', () => { App.haptic(); openGlossary(App); });
   document.getElementById('goStudy')?.addEventListener('click', () => App.openStudy());
   document.getElementById('reportDismiss')?.addEventListener('click', () => {

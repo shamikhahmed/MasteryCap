@@ -7,6 +7,8 @@ export const T = {
   en: {
     /* nav */
     nav_dashboard: 'Campus', nav_learn: 'Courses', nav_journal: 'Desk', nav_progress: 'Hasil',
+    nav_today: 'Today', nav_campus: 'Campus', nav_practice: 'Practice', nav_records: 'Records',
+    nav_main: 'Main tabs',
 
     /* course (ported) */
     startPlacement: 'Take placement test',
@@ -436,6 +438,8 @@ export const T = {
   },
   ur: {
     nav_dashboard: 'Campus', nav_learn: 'Seekho', nav_journal: 'Desk', nav_progress: 'Hasil',
+    nav_today: 'Aaj', nav_campus: 'Campus', nav_practice: 'Practice', nav_records: 'Records',
+    nav_main: 'Asasi tabs',
 
     startPlacement: 'Placement test lo',
     placementIntro: '22 sawalat neeche di gayi har cheez pe. Honestly jawab do — agar pata nahi to guess kar lo ya chor do, ye sirf ye decide karega ke aap kahan se start karo. Jo cheez pehle se achi tarah pata hai wo pass mark ho jayegi taake dobara na parhni pare.',

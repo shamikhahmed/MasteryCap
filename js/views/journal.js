@@ -47,6 +47,7 @@ export function renderJournal(App, c) {
 
   c.innerHTML = `
   <div class="screen">
+    <button class="text-back" id="jBack">${icon('back', { size: 16 })} ${App.t('nav_records')}</button>
     <div class="lt-head"><div class="kicker">${App.t('nav_journal')}</div><h1>${App.t('j_desk_title')}</h1></div>
     <p style="font-size:13.5px;color:var(--t3);margin:-10px 0 18px;line-height:1.5">${App.t('j_desk_sub')}</p>
     ${cd ? `<div class="note-box warn" id="cdPill" style="margin-bottom:12px">${App.t('cooldown_pill').replace('{t}', new Date(cd).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))}
@@ -192,6 +193,14 @@ export function renderJournal(App, c) {
       <div id="log"></div>
     </div>
   </div>`;
+
+  document.getElementById('jBack')?.addEventListener('click', () => {
+    const back = App._journalReturn || 'records';
+    App._journalReturn = null;
+    App.tab = back === 'dashboard' ? 'today' : back;
+    App.render();
+    App.renderNav();
+  });
 
   const balInput = document.getElementById('jBalance');
   balInput.addEventListener('input', updateCalc);

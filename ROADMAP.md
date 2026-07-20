@@ -115,6 +115,8 @@ Next (in order):
 
 **v50.8:** Parsons one-use pool + 5 course project checklists for cert honesty.
 
+**v51.2:** bilingual tab labels + Journal back to Records.
+
 **v51.1:** tab focus restore + dashboard back leftovers + HTTP Lab lesson return.
 
 **v51.0:** bottom nav tab a11y (tablist/selected/keyboard).

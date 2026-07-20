@@ -181,6 +181,15 @@ export const App = {
     this.renderNav();
   },
 
+  openJournal(fromTab) {
+    this._journalReturn = fromTab || (this.tab === 'journal' ? 'records' : this.tab);
+    this.tab = 'journal';
+    this.haptic(6);
+    window.scrollTo({ top: 0 });
+    this.render();
+    this.renderNav();
+  },
+
   openReview() {
     this._reviewReturn = this.tab === 'review' ? 'practice' : this.tab;
     this.tab = 'review'; this.haptic(6);
@@ -261,18 +270,19 @@ export const App = {
     nav.classList.remove('hidden');
     const due = dueReviewCount() + mistakeCountDue();
     const tabs = [
-      ['today', 'home', 'Today'],
-      ['campus', 'book', 'Campus'],
-      ['practice', 'target', 'Practice'],
-      ['records', 'journal', 'Records'],
+      ['today', 'home', this.t('nav_today')],
+      ['campus', 'book', this.t('nav_campus')],
+      ['practice', 'target', this.t('nav_practice')],
+      ['records', 'journal', this.t('nav_records')],
     ];
     const main = new Set(['today', 'campus', 'practice', 'records']);
     const active = main.has(this.tab) ? this.tab
       : (this.tab === 'learn' || this.tab === 'drills' || this.tab === 'review' || this.tab === 'study' || this.tab === 'sim' || this.tab === 'charts')
         ? (this.tab === 'learn' ? 'campus' : 'practice')
         : (this.tab === 'journal' || this.tab === 'progress' ? 'records' : 'today');
-    nav.setAttribute('aria-label', 'Main');
-    nav.innerHTML = `<div class="tabbar-inner" role="tablist" aria-label="Main tabs">${tabs.map(([id, ic, label]) => `
+    const mainLabel = this.t('nav_main');
+    nav.setAttribute('aria-label', mainLabel);
+    nav.innerHTML = `<div class="tabbar-inner" role="tablist" aria-label="${mainLabel}">${tabs.map(([id, ic, label]) => `
       <button type="button" class="tab ${active === id ? 'active' : ''}" role="tab" id="tab-${id}"
         data-tab="${id}" aria-selected="${active === id ? 'true' : 'false'}"
         aria-controls="app-root" tabindex="${active === id ? '0' : '-1'}">

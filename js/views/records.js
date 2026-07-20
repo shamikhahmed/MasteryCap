@@ -132,7 +132,7 @@ export function renderRecords(App, el) {
   }));
   document.getElementById('recSet')?.addEventListener('click', () => openSettings(App));
   document.getElementById('recCampus')?.addEventListener('click', () => App.navigate('campus'));
-  document.getElementById('recJournal')?.addEventListener('click', () => App.navigate('journal'));
+  document.getElementById('recJournal')?.addEventListener('click', () => App.openJournal('records'));
   document.getElementById('recFlipId')?.addEventListener('click', () => {
     App._showStudentId = !App._showStudentId;
     App.render();

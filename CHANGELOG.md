@@ -1,3 +1,12 @@
+## [51.2.0] — 2026-07-21
+
+### Tab i18n + Journal return
+- Bottom tabs use `nav_today`/`campus`/`practice`/`records` (UR: Aaj)
+- `openJournal` + Desk back → Records (mirrors Hasil)
+- SW `masterycap-v5120`
+
+
+
 ## [51.1.0] — 2026-07-21
 
 ### Nav return polish
