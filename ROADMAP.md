@@ -85,7 +85,9 @@ Next (in order):
 2. ~~v42.1 Guided session runner~~ — Continuity shipped v48.3 (`js/session.js`).
 3. ~~v49 Worked chart examples~~ — annotated `{{chart:id}}` + Charts hub (v49.0).
 4. ~~v49.1 Scenario ladder~~ — funding squeeze / theta burn / margin call (v49.1).
-5. **v43 Post-trade debrief** — one interrogation question after each sim trade.
+5. ~~v49.2 Post-trade debrief~~ — one interrogation after each sim close (v49.2).
 6. ~~v44 Share card~~ — DONE v42.
 7. ~~v44 Glossary popovers~~ — DONE (lesson term tap).
-8. **v44 Competence statements** — Progress shows "can / can't yet" per track.
+8. ~~v49.2 Competence statements~~ — Progress can / can't-yet (v49.2).
+
+**University build queue: COMPLETE** (Lab v2 / FE authorship / UR parity still locked out).

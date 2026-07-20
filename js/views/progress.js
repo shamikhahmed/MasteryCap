@@ -9,6 +9,7 @@ import { store, KEYS } from '../store.js';
 import { getDrillStats, drillTypes, typeLabel } from '../drills.js';
 import { allInsights } from '../insights.js';
 import { disciplineReport } from '../discipline.js';
+import { competenceStatements } from '../competence.js';
 
 const EMO = {
   calm: { label: 'Calm', color: 'var(--up)' },
@@ -89,7 +90,7 @@ export function renderProgress(App, c) {
     <div class="note-box" style="margin-bottom:14px;font-size:13px">${App.t('limits_honest')}</div>
     ${tradeReadyBadges(App)}`;
 
-  const header = `<div class="lt-head"><div class="kicker">${App.t('nav_progress')}</div><h1>${lang === 'en' ? 'Hasil' : 'Hasil'}</h1></div>${masteryPanel}${certPanel}${timePanel}${skillPanel}`;
+  const header = `<div class="lt-head"><div class="kicker">${App.t('nav_progress')}</div><h1>${lang === 'en' ? 'Hasil' : 'Hasil'}</h1></div>${masteryPanel}${competencePanel(App)}${certPanel}${timePanel}${skillPanel}`;
 
   if (!trades.length) {
     c.innerHTML = `<div class="screen">${header}${weeksPanel(App)}${drillsPanel(App)}
@@ -394,6 +395,35 @@ function drillsPanel(App) {
   }).join('');
   const overall = stats.attempts ? Math.round((stats.correct / stats.attempts) * 100) : 0;
   return `<div class="panel mt14"><div class="panel-h"><span class="ph-t">${App.t('drill_accuracy')}</span><span class="metric-big">${overall}%</span></div><div class="pad">${rows}</div></div>`;
+}
+
+function competencePanel(App) {
+  const lang = App.lang;
+  const rows = competenceStatements(App).slice(0, 8);
+  if (!rows.length) return '';
+  const body = rows.map((r) => {
+    const can = (r.can || []).slice(0, 2).map((x) =>
+      `<div class="check-row" style="opacity:1;margin-top:4px"><span class="check-box" style="background:var(--acc);border-color:var(--acc);color:#000">✓</span><span class="check-t" style="font-size:13px">${x[lang] || x.en}</span></div>`).join('');
+    const cant = (r.cant || []).slice(0, 2).map((x) =>
+      `<div class="check-row" style="opacity:0.75;margin-top:4px"><span class="check-box"></span><span class="check-t" style="font-size:13px">${x[lang] || x.en}</span></div>`).join('');
+    return `<div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--line)">
+      <div class="hstack" style="justify-content:space-between;align-items:baseline">
+        <strong style="font-size:14px">${r.name[lang]}</strong>
+        <span class="pill mono">${r.done}/${r.total}${r.ready ? ' · TR' : ''}</span>
+      </div>
+      <div class="slabel" style="margin:8px 0 0">${lang === 'en' ? 'Can' : 'Kar sakte'}</div>
+      ${can || `<p style="font-size:12.5px;color:var(--t3);margin:6px 0 0">${lang === 'en' ? 'Still building.' : 'Abhi build.'}</p>`}
+      <div class="slabel" style="margin:10px 0 0">${lang === 'en' ? "Can't yet" : 'Abhi nahi'}</div>
+      ${cant || `<p style="font-size:12.5px;color:var(--t3);margin:6px 0 0">${lang === 'en' ? 'No blockers listed.' : 'Blocker list khali.'}</p>`}
+    </div>`;
+  }).join('');
+  return `<div class="panel pad" style="margin-bottom:14px">
+    <div class="slabel">${lang === 'en' ? 'Competence (can / can\'t yet)' : 'Competence (can / abhi nahi)'}</div>
+    <p style="font-size:12px;color:var(--t3);margin:6px 0 0;line-height:1.45">${lang === 'en'
+      ? 'Self-assessment from weeks + sim process — not a broker/SECP credential. Skills decay.'
+      : 'Weeks + sim process se self-assessment — broker/SECP credential nahi. Skills kamzor hoti.'}</p>
+    ${body}
+  </div>`;
 }
 
 function weeksPanel(App) {

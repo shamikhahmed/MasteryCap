@@ -12,12 +12,16 @@ import { createPortfolioSession, PORTFOLIO_IDS } from '../sim/portfolio.js';
 import { teacherLine } from '../teacher.js';
 import { startTime, pauseTime } from '../time.js';
 import { markToday } from '../today.js';
+import { pickTradeProbe } from '../sim/debrief-q.js';
 
 let S = {
   view: 'picker', session: null, scenario: null,
   playTimer: null, playSpeed: 1,
   msg: null, debrief: null, orderType: 'market',
   pf: null, // portfolio session state
+  tradeProbe: null,
+  pendingEnd: false,
+  probePick: null,
 };
 let APP = null, ROOT = null;
 
@@ -36,6 +40,7 @@ function stopPlay() { if (S.playTimer) { clearInterval(S.playTimer); S.playTimer
 function fmt(n, dp = 2) { return Number(n).toLocaleString('en-US', { minimumFractionDigits: dp, maximumFractionDigits: dp }); }
 
 function draw() {
+  if (S.view === 'trade_probe') return drawTradeProbe();
   if (S.view === 'session') return drawSession();
   if (S.view === 'debrief') return drawDebrief();
   if (S.view === 'pf_plan') return drawPfPlan();
@@ -193,7 +198,13 @@ function drawSession() {
   }));
 
   if (pos) {
-    document.getElementById('simClose').addEventListener('click', () => { stopPlay(); sess.closeManual(); APP.haptic(14); draw(); });
+    document.getElementById('simClose').addEventListener('click', () => {
+      stopPlay();
+      const r = sess.closeManual();
+      APP.haptic(14);
+      if (r?.ok && r.trade) afterTradeClose(r.trade);
+      else draw();
+    });
     c.querySelectorAll('[data-partial]').forEach((b) => b.addEventListener('click', () => {
       const r = sess.closePartial(parseFloat(b.dataset.partial));
       S.msg = r.ok ? null : APP.t('sim_err_' + r.err);
@@ -326,8 +337,14 @@ function tradeRow(App, t) {
 
 function doStep() {
   const r = S.session.step();
-  if (r.closed) { stopPlay(); APP.haptic(14); }
-  if (r.done) { stopPlay(); endSession(); return; }
+  if (r.closed) {
+    stopPlay();
+    APP.haptic(14);
+    if (r.done) S.pendingEnd = true;
+    afterTradeClose(r.closed);
+    return;
+  }
+  if (r.done) { stopPlay(); finishEndSession(); return; }
   draw();
 }
 
@@ -342,9 +359,81 @@ function startPlay() {
   const ms = PLAY_MS[S.playSpeed] || 600;
   S.playTimer = setInterval(() => {
     const r = S.session.step();
-    if (r.closed || r.done) { stopPlay(); if (r.done) { endSession(); return; } }
+    if (r.closed) {
+      stopPlay();
+      if (r.done) S.pendingEnd = true;
+      afterTradeClose(r.closed);
+      return;
+    }
+    if (r.done) { stopPlay(); finishEndSession(); return; }
     draw();
   }, ms);
+}
+
+/** One interrogation after each closed trade. */
+function afterTradeClose(trade) {
+  if (!trade) {
+    if (S.pendingEnd) finishEndSession();
+    else draw();
+    return;
+  }
+  S.probePick = null;
+  S.tradeProbe = { trade, q: pickTradeProbe(trade, APP.lang) };
+  S.view = 'trade_probe';
+  draw();
+}
+
+function drawTradeProbe() {
+  const App = APP, c = ROOT, lang = App.lang;
+  const probe = S.tradeProbe;
+  if (!probe) { S.view = 'session'; draw(); return; }
+  const q = probe.q;
+  const LETTERS = ['A', 'B', 'C'];
+  c.innerHTML = `<div class="screen">
+    <div class="lesson-kicker">${App.t('debrief_title')}</div>
+    <div class="note-box warn" style="margin-bottom:12px;font-size:12.5px">${lang === 'en'
+      ? 'One question before you continue. Process over P/L.'
+      : 'Continue se pehle ek sawal. Process > P/L.'}</div>
+    <div class="panel pad">
+      <p class="lesson-body" style="font-size:15px;margin:0 0 14px;line-height:1.45">${q.q}</p>
+      ${q.opts.map((o, i) => `
+        <button class="opt ${S.probePick === i ? 'selected' : ''}" data-probe="${i}">
+          <span class="opt-key">${LETTERS[i]}</span><span>${o}</span>
+        </button>`).join('')}
+      <button class="btn accent mt14" id="probeSave" style="width:100%" ${S.probePick == null ? 'disabled style="opacity:0.5;width:100%"' : ''}>${App.t('debrief_save')}</button>
+      <button class="btn ghost mt10" id="probeSkip" style="width:100%">${App.t('debrief_skip')}</button>
+    </div>
+  </div>`;
+
+  c.querySelectorAll('[data-probe]').forEach((b) => b.addEventListener('click', () => {
+    S.probePick = Number(b.dataset.probe);
+    App.haptic();
+    drawTradeProbe();
+  }));
+  document.getElementById('probeSave')?.addEventListener('click', () => {
+    if (S.probePick == null) return;
+    const ok = S.probePick === q.correct;
+    probe.trade.probe = { id: q.id, pick: S.probePick, correct: q.correct, ok };
+    App.haptic(ok ? 14 : 8);
+    finishProbe();
+  });
+  document.getElementById('probeSkip')?.addEventListener('click', () => {
+    probe.trade.probe = { id: q.id, skipped: true };
+    App.haptic();
+    finishProbe();
+  });
+}
+
+function finishProbe() {
+  S.tradeProbe = null;
+  S.probePick = null;
+  if (S.pendingEnd || S.session?.state?.done) {
+    S.pendingEnd = false;
+    finishEndSession();
+    return;
+  }
+  S.view = 'session';
+  draw();
 }
 
 /* ---------------- debrief ---------------- */
@@ -352,11 +441,31 @@ function endSession() {
   stopPlay();
   pauseTime();
   const sess = S.session, st = sess.state;
+  if (st.pos) {
+    const r = sess.closeManual();
+    S.pendingEnd = true;
+    if (r?.ok && r.trade) {
+      afterTradeClose(r.trade);
+      return;
+    }
+  }
+  finishEndSession();
+}
+
+function finishEndSession() {
+  stopPlay();
+  pauseTime();
+  const sess = S.session, st = sess.state;
   if (st.pos) sess.closeManual();
 
   // persist: simTrades + simStats (additive keys)
   const all = store.get(KEYS.simTrades, []);
-  st.trades.forEach((t) => all.unshift({ ...t, date: new Date().toISOString(), track: S.scenario.track }));
+  st.trades.forEach((t) => all.unshift({
+    ...t,
+    date: new Date().toISOString(),
+    track: S.scenario.track,
+    scenarioId: t.scenarioId || S.scenario.id,
+  }));
   store.set(KEYS.simTrades, all);
 
   const stats = store.get(KEYS.simStats, {});
@@ -413,6 +522,7 @@ function drawDebrief() {
     ${d.trades.length ? `<div class="panel mt14">${d.trades.map((t) => `
       ${tradeRow(App, t)}
       ${t.process.fails.length ? `<div style="padding:0 18px 12px"><span class="tag flag">${t.process.fails.map((f) => App.t('sim_fail_' + f)).join(' · ')}</span></div>` : ''}
+      ${t.probe && !t.probe.skipped ? `<div style="padding:0 18px 12px;font-size:12px;color:var(--t3)">${lang === 'en' ? 'Probe' : 'Probe'}: ${t.probe.ok ? (lang === 'en' ? 'answered well' : 'theek jawab') : (lang === 'en' ? 'review again' : 'dobara review')}</div>` : ''}
     `).join('')}</div>` : ''}
     <div class="spread mono mt14" style="font-size:14px;padding:0 4px">
       <span>${App.t('sim_net')}</span>

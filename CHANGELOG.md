@@ -1,3 +1,12 @@
+## [49.2.0] — 2026-07-20
+
+### Post-trade debrief + competence
+- One interrogation after each sim trade close (skip allowed); probe saved on trade
+- Progress: can / can't-yet competence panel from weeks + sim process
+- University build queue closed (Lab/FE/UR still locked out)
+- SW `masterycap-v4920`
+
+
 ## [49.1.0] — 2026-07-20
 
 ### Scenario ladder

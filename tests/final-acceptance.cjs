@@ -51,6 +51,7 @@ async function dismissNoise(page) {
     await next.click();
     await page.waitForTimeout(80);
   }
+  await page.locator('#committee-sheet [data-close], #committee-sheet .sheet-x').first().click({ timeout: 500 }).catch(() => {});
   for (let i = 0; i < 5; i++) {
     const closed = await page.locator('.sheet-root.on [data-close], .sheet-root.on .sheet-x, #mbDismiss, #backupDismiss, #corruptKeep, #streak-recover [data-close], #streak-recover button')
       .first().click({ timeout: 400 }).then(() => true).catch(() => false);
@@ -59,6 +60,8 @@ async function dismissNoise(page) {
   }
   await page.evaluate(() => {
     document.querySelectorAll('.sheet-root.on').forEach((el) => el.classList.remove('on'));
+    document.getElementById('committee-sheet')?.remove();
+    document.getElementById('session-sheet')?.remove();
   });
 }
 
@@ -168,6 +171,8 @@ async function passQuiz(page, trackId) {
   await page.locator('#quizDone').click().catch(() => {});
   await page.locator('#glossMiniSkip').click({ timeout: 800 }).catch(() => {});
   await page.locator('#glossMiniDone').click({ timeout: 400 }).catch(() => {});
+  await page.waitForTimeout(200);
+  await dismissNoise(page);
 }
 
 async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit = false, partial = false } = {}) {
@@ -228,9 +233,17 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
     await page.locator('#simClose').click();
     await page.waitForTimeout(80);
   }
+  if (await page.locator('#probeSkip').count()) {
+    await page.locator('#probeSkip').click();
+    await page.waitForTimeout(80);
+  }
   if (await page.locator('#simEnd').count()) {
     await page.locator('#simEnd').click();
     await page.waitForTimeout(200);
+  }
+  if (await page.locator('#probeSkip').count()) {
+    await page.locator('#probeSkip').click();
+    await page.waitForTimeout(80);
   }
 }
 

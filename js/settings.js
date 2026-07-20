@@ -8,7 +8,7 @@ import { applyTheme, getAppearance, setAppearance } from './theme.js';
 import { getTeacher, setTeacher, TEACHERS } from './teacher.js';
 import { evidenceHash } from './exam.js';
 
-export const APP_VERSION = 'v49.1.0';
+export const APP_VERSION = 'v49.2.0';
 
 function todayStamp() {
   const d = new Date();

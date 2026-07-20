@@ -97,6 +97,7 @@ async function dismissSheets(page) {
   await page.evaluate(() => {
     document.querySelectorAll('.sheet-root.on').forEach((el) => el.classList.remove('on'));
     document.getElementById('readingGuide')?.remove();
+    document.getElementById('committee-sheet')?.remove();
   });
 }
 
@@ -247,9 +248,18 @@ async function goTab(page, id) {
             await page.locator('#simClose').click();
             await page.waitForTimeout(100);
           }
+          // Post-trade probe (v49.2) — skip to continue
+          if (await page.locator('#probeSkip').count()) {
+            await page.locator('#probeSkip').click();
+            await page.waitForTimeout(100);
+          }
           if (await page.locator('#simEnd').count()) {
             await page.locator('#simEnd').click();
             await page.waitForTimeout(250);
+          }
+          if (await page.locator('#probeSkip').count()) {
+            await page.locator('#probeSkip').click();
+            await page.waitForTimeout(100);
           }
           if (await page.locator('#simDone').count()) {
             await page.locator('#simDone').click();
