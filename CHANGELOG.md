@@ -1,3 +1,12 @@
+## [50.5.0] — 2026-07-20
+
+### BE-301 HTTP Lab checklist parity
+- Project items add `auth` + `put` (match 5 lab exercises)
+- Sync PASS → BE-301 attests all five ids
+- SW `masterycap-v5050`
+
+
+
 ## [50.4.0] — 2026-07-20
 
 ### Nav reconnect — Today / Practice orphans

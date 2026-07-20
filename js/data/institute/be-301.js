@@ -815,17 +815,27 @@ export const COURSE = {
       {
         "id": "get",
         "en": "GET list resource",
-        "ur": "GET list"
+        "ur": "GET list resource"
       },
       {
         "id": "post",
         "en": "POST create resource",
-        "ur": "POST create"
+        "ur": "POST create resource"
       },
       {
         "id": "err",
         "en": "Observe 404 response",
-        "ur": "404 dekho"
+        "ur": "404 response dekho"
+      },
+      {
+        "id": "auth",
+        "en": "401 then authorized GET /users/me",
+        "ur": "401 phir authorized GET /users/me"
+      },
+      {
+        "id": "put",
+        "en": "PUT update a note",
+        "ur": "PUT se note update"
       }
     ]
   }

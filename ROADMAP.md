@@ -106,3 +106,5 @@ Next (in order):
 **v50.3:** flashcardSeeds + all placement exports UR thin → 0.
 
 **v50.4:** Today session CTA + Practice Charts/Review/Hasil + sim→review MCQs.
+
+**v50.5:** BE-301 project checklist = all 5 HTTP Lab exercises (auth/put sync).

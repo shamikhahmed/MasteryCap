@@ -1,6 +1,6 @@
 # MasteryCap Features
 
-**Version:** 50.4.0 · Premium School
+**Version:** 50.5.0 · Premium School
 
 ## Strengths
 - Offline-first PWA; no accounts
@@ -16,7 +16,6 @@
 ## Weaknesses
 - Markets lesson UI still separate from institute reader (merge later)
 - Short quiz option stubs stay telegraphic by design
-- Some BE-301 lab exercises (auth/put) not yet on project checklist sync
 
 ## Limitations
 - Certificates not accredited

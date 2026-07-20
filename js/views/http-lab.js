@@ -97,13 +97,16 @@ export function renderHttpLab(App, el) {
   });
   document.getElementById('labSync')?.addEventListener('click', () => {
     const g = gradeLabExercises(getInstitute().labHistory || []);
+    const ids = new Set(['get', 'post', 'err', 'auth', 'put']);
+    let n = 0;
     g.forEach((row) => {
-      if (row.pass && ['get', 'post', 'err'].includes(row.id)) {
+      if (row.pass && ids.has(row.id)) {
         attestProject('BE-301', row.id, true);
+        n += 1;
       }
     });
     alert(en
-      ? `Synced ${g.filter((x) => x.pass).length} PASS items where checklist ids match.`
-      : `${g.filter((x) => x.pass).length} PASS sync.`);
+      ? `Synced ${n} PASS checklist items to BE-301 (${g.filter((x) => x.pass).length}/${g.length} lab exercises passed).`
+      : `${n} PASS → BE-301 checklist (${g.filter((x) => x.pass).length}/${g.length} lab PASS).`);
   });
 }
