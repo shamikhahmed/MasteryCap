@@ -278,14 +278,20 @@ export const COURSE = {
       ],
       "practiceCode": {
         "prompt": {
-          "en": "save(notes) writes JSON to key notes.v1",
-          "ur": "save(notes) notes.v1 pe JSON"
+          "en": "save(notes) writes JSON.stringify(notes) to localStorage key notes.v1",
+          "ur": "save(notes) → localStorage notes.v1 pe JSON"
         },
-        "starter": "function save(notes) {\n  // TODO localStorage.setItem\n}\n",
+        "starter": "function save(notes) {\n  // TODO: localStorage.setItem(\"notes.v1\", JSON.stringify(notes))\n}\n",
         "tests": [
           {
             "name": "save fn",
             "run": "typeof save === \"function\""
+          },
+          {
+            "name": "writes notes.v1 JSON",
+            "assert": "eq",
+            "expr": "(save([{id:1}]), localStorage.getItem(\"notes.v1\"))",
+            "expect": "[{\"id\":1}]"
           }
         ]
       }

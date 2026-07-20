@@ -278,14 +278,26 @@ export const COURSE = {
       ],
       "practiceCode": {
         "prompt": {
-          "en": "toggle(i) sets active index i (0 or 1).",
-          "ur": "toggle(i) active index set."
+          "en": "toggle(i) sets active = i (0 or 1).",
+          "ur": "toggle(i) → active = i."
         },
-        "starter": "let active = 0;\nfunction toggle(i) {\n  // TODO\n}\n",
+        "starter": "let active = 0;\nfunction toggle(i) {\n  // TODO: active = i\n}\n",
         "tests": [
           {
             "name": "toggle exists",
             "run": "typeof toggle === \"function\""
+          },
+          {
+            "name": "toggle(1) sets active",
+            "assert": "eq",
+            "expr": "(toggle(1), active)",
+            "expect": 1
+          },
+          {
+            "name": "toggle(0) sets active",
+            "assert": "eq",
+            "expr": "(toggle(0), active)",
+            "expect": 0
           }
         ]
       }

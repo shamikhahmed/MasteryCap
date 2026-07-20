@@ -1,5 +1,5 @@
 /**
- * Institute gallery — 12 shots (6 mobile + 6 desktop) into docs/screenshots/gallery/.
+ * Institute gallery — 12 shots (6 mobile + 6 desktop, incl. HTTP Lab) into docs/screenshots/gallery/.
  * Run: npm run gallery
  */
 const { chromium } = require('playwright');
@@ -52,8 +52,19 @@ async function dismissSheets(page) {
 }
 
 async function onboard(page) {
-  await page.waitForSelector('#onbNext, #tabbar', { timeout: 15000 });
+  await page.waitForSelector('#onbNext, #onbSkip, #tabbar', { timeout: 15000 });
   if (await page.locator('#tabbar:not(.hidden)').count()) { await dismissSheets(page); return; }
+  if (await page.locator('#onbSkip').count()) {
+    await page.locator('#onbSkip').click();
+    await page.waitForSelector('#tabbar:not(.hidden)', { timeout: 10000 });
+    await page.waitForTimeout(450);
+    await dismissSheets(page);
+    await page.locator('#first-backup-sheet [data-close]').first().click({ timeout: 800 }).catch(() => {});
+    await page.evaluate(() => {
+      document.querySelectorAll('.sheet-root.on').forEach((el) => el.classList.remove('on'));
+    });
+    return;
+  }
   await page.locator('#onbNext').click();
   await page.locator('#onbNext').click();
   await page.locator('#onbName').fill('Gallery');
@@ -69,7 +80,9 @@ async function onboard(page) {
   await page.locator('[data-field="timeBand"][data-val="2-5"]').click();
   await page.locator('#onbNext').click();
   await page.locator('#onbNext').click();
-  await page.waitForSelector('#tabbar:not(.hidden)');
+  await page.waitForSelector('[data-testid="student-card"]', { timeout: 5000 }).catch(() => {});
+  await page.locator('#onbNext').click();
+  await page.waitForSelector('#tabbar:not(.hidden)', { timeout: 10000 });
   await dismissSheets(page);
   await page.locator('#first-backup-sheet [data-close]').first().click({ timeout: 800 }).catch(() => {});
 }

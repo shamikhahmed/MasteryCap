@@ -110,3 +110,5 @@ Next (in order):
 **v50.5:** BE-301 project checklist = all 5 HTTP Lab exercises (auth/put sync).
 
 **v50.6:** Records dynamic project checklists + Hasil bridge; gallery HTTP Lab shot.
+
+**v50.7:** Gallery HTTP Lab PNGs + FE practiceCode behavioral asserts.

@@ -1,3 +1,13 @@
+## [50.7.0] — 2026-07-20
+
+### Gallery regen + FE practiceCode real asserts
+- Gallery: onboard skip fix; HTTP Lab shots regenerated (12 PNGs)
+- `runAsserts` mocks `document` + `localStorage`
+- FE-202/203/204 practiceCode: behavioral asserts (TODO starter fails)
+- SW `masterycap-v5070`
+
+
+
 ## [50.6.0] — 2026-07-20
 
 ### Records projects + Hasil bridge

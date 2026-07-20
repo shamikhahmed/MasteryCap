@@ -278,14 +278,20 @@ export const COURSE = {
       ],
       "practiceCode": {
         "prompt": {
-          "en": "Write a function that returns the first .primary button.",
-          "ur": ".primary button return karo."
+          "en": "Write findPrimary() that returns document.querySelector('.primary').",
+          "ur": "findPrimary() → document.querySelector('.primary')."
         },
-        "starter": "function findPrimary() {\n  // TODO\n}\n",
+        "starter": "function findPrimary() {\n  // TODO: return document.querySelector('.primary')\n}\n",
         "tests": [
           {
-            "name": "returns element or null",
+            "name": "findPrimary is a function",
             "run": "typeof findPrimary === \"function\""
+          },
+          {
+            "name": "returns .primary node",
+            "assert": "eq",
+            "expr": "(findPrimary() && findPrimary()._sel)",
+            "expect": ".primary"
           }
         ]
       }
@@ -426,14 +432,20 @@ export const COURSE = {
       ],
       "practiceCode": {
         "prompt": {
-          "en": "Complete onClick so it sets text of #out to \"ok\".",
-          "ur": "#out text \"ok\" set karo."
+          "en": "Complete onClick so it sets textContent of #out to \"ok\".",
+          "ur": "onClick → #out.textContent = \"ok\"."
         },
-        "starter": "function onClick() {\n  // TODO: document.querySelector(\"#out\")...\n}\n",
+        "starter": "function onClick() {\n  // TODO: document.querySelector(\"#out\").textContent = \"ok\"\n}\n",
         "tests": [
           {
             "name": "onClick is a function",
             "run": "typeof onClick === \"function\""
+          },
+          {
+            "name": "sets #out to ok",
+            "assert": "eq",
+            "expr": "(onClick(), document.querySelector(\"#out\").textContent)",
+            "expect": "ok"
           }
         ]
       }

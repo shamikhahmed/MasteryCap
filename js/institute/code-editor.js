@@ -71,9 +71,26 @@ export function renderCodeEditor({ prompt, starter, lang = 'en', parsons = null 
 export function runAsserts(src, tests = []) {
   const lines = [];
   let passed = 0;
+  const harness = `
+var __els = Object.create(null);
+var document = {
+  querySelector: function(sel) {
+    if (!__els[sel]) __els[sel] = { textContent: '', className: String(sel).replace(/^\\./, ''), _sel: sel };
+    return __els[sel];
+  },
+  querySelectorAll: function(sel) { return [document.querySelector(sel)]; },
+  createElement: function(tag) { return { tagName: String(tag).toUpperCase(), textContent: '' }; },
+};
+var __ls = Object.create(null);
+var localStorage = {
+  setItem: function(k, v) { __ls[k] = String(v); },
+  getItem: function(k) { return Object.prototype.hasOwnProperty.call(__ls, k) ? __ls[k] : null; },
+  removeItem: function(k) { delete __ls[k]; },
+};
+`;
   try {
     // eslint-disable-next-line no-new-func
-    new Function(`${src}\n; return 1;`)();
+    new Function(`${harness}\n${src}\n; return 1;`)();
     lines.push('Parse: OK');
   } catch (e) {
     return { lines: [`Parse FAIL: ${e.message}`], passed: 0, total: tests.length };
@@ -84,7 +101,7 @@ export function runAsserts(src, tests = []) {
       let ok = false;
       if (t.assert === 'eq') {
         // eslint-disable-next-line no-new-func
-        const got = new Function(`${src}\n; return (${t.expr});`)();
+        const got = new Function(`${harness}\n${src}\n; return (${t.expr});`)();
         ok = Object.is(got, t.expect) || got === t.expect
           || (typeof t.expect === 'object' && JSON.stringify(got) === JSON.stringify(t.expect));
         lines.push(`${ok ? 'PASS' : 'FAIL'}: ${t.name} (got ${JSON.stringify(got)})`);
@@ -92,13 +109,13 @@ export function runAsserts(src, tests = []) {
         let threw = false;
         try {
           // eslint-disable-next-line no-new-func
-          new Function(`${src}\n; (${t.expr});`)();
+          new Function(`${harness}\n${src}\n; (${t.expr});`)();
         } catch (e) { threw = true; }
         ok = threw;
         lines.push(`${ok ? 'PASS' : 'FAIL'}: ${t.name}`);
       } else {
         // eslint-disable-next-line no-new-func
-        ok = !!(new Function(`${src}\n; return !!(${t.run || t.expr});`)());
+        ok = !!(new Function(`${harness}\n${src}\n; return !!(${t.run || t.expr});`)());
         lines.push(`${ok ? 'PASS' : 'FAIL'}: ${t.name}`);
       }
       if (ok) passed += 1;
