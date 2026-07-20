@@ -18,7 +18,7 @@ import { todayProgress } from '../today.js';
 import { canOpenTradingLab } from '../gates.js';
 import { planPosition, semesterOf } from '../syllabus.js';
 import { weeklyReport, lastReport } from '../report.js';
-import { openSessionRunner } from '../session.js';
+import { openSessionRunner, sessionStatus } from '../session.js';
 
 function ladderStages(App, trackId) {
   const track = getTrack(trackId);
@@ -189,6 +189,7 @@ export function renderDashboard(App, c) {
     ${(() => {
       const pos = planPosition(App);
       const sessionMins = store.get(KEYS.settings, {}).sessionMins || 15;
+      const sess = sessionStatus();
       const sem = pos.nextItem ? semesterOf(pos.nextItem.trackId) : null;
       const planLine = pos.totalCalWeeks
         ? `<div class="hstack" style="gap:8px;margin-top:6px;flex-wrap:wrap">
@@ -197,11 +198,16 @@ export function renderDashboard(App, c) {
             <span class="pill mono ${pos.onTrack ? 'acc' : ''}">${pos.onTrack ? (lang === 'en' ? 'on track' : 'on track') : (lang === 'en' ? 'behind plan' : 'plan se peeche')}</span>
           </div>`
         : '';
+      const cta = sess.active
+        ? `${App.t('session_resume')} · ${sess.step}/${sess.total}`
+        : sess.doneToday
+          ? (lang === 'en' ? `Session done · ${sessionMins} min` : `Session mukammal · ${sessionMins} min`)
+          : `${App.t('session_start')} · ${sessionMins} min`;
       return `<div class="panel pad" style="margin-bottom:14px;border-color:var(--acc)">
       <div class="slabel">${App.t('campus_next')}</div>
       ${planLine}
       <div style="font-size:17px;font-weight:650;letter-spacing:-0.02em;margin-top:8px;line-height:1.35">${nextLabel}</div>
-      <button class="btn accent mt14" id="goContinue" style="width:100%">${icon('learn', { size: 17 })} ${App.t('session_start')} · ${sessionMins} min</button>
+      <button class="btn accent mt14" id="goContinue" style="width:100%">${icon('learn', { size: 17 })} ${cta}</button>
     </div>`;
     })()}
 

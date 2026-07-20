@@ -1,7 +1,7 @@
 /* ============================================================
-   session.js — Guided daily session runner (v42.1 stub).
-   Composes steps via syllabus.buildDailySession; advances
-   lesson → cards → quiz → optional sim. Additive storage only.
+   session.js — Guided daily session Continuity (v48.3).
+   Composes steps via syllabus.buildDailySession; resumes mid-day;
+   auto-advances on lesson/cards/quiz/sim milestones.
    ============================================================ */
 
 import { store, KEYS } from './store.js';
@@ -10,6 +10,7 @@ import { buildDailySession } from './syllabus.js';
 import { getTrack } from './data/tracks.js';
 import { canOpenTradingLab } from './gates.js';
 import { openWeekFlash } from './views/study.js';
+import { markToday } from './today.js';
 
 const STEP_LABEL = {
   lesson: { en: 'Lesson', ur: 'Lesson' },
@@ -43,10 +44,19 @@ function getRun() {
   return store.get(KEYS.sessionRun, null);
 }
 
-/** Build a fresh run for today (or resume if same day mid-session). */
+function stepMatches(stepKind, milestone) {
+  if (milestone === 'lesson') return stepKind === 'lesson' || stepKind === 'lesson-continue';
+  return stepKind === milestone;
+}
+
+function lessonRef(run) {
+  return run?.steps?.find((s) => s.trackId && s.weekId) || null;
+}
+
+/** Build a fresh run for today (or resume / keep done snapshot same day). */
 function ensureRun(App) {
   const existing = getRun();
-  if (existing && existing.day === todayKey() && !existing.done) return existing;
+  if (existing && existing.day === todayKey()) return existing;
   const plan = buildDailySession(App);
   const run = {
     day: todayKey(),
@@ -59,12 +69,31 @@ function ensureRun(App) {
   return run;
 }
 
+/**
+ * Snapshot for Home CTA: Start / Resume / done today.
+ * @returns {{ active: boolean, doneToday: boolean, step?: number, total?: number, kind?: string, mins?: number }}
+ */
+export function sessionStatus() {
+  const run = getRun();
+  if (!run || run.day !== todayKey()) return { active: false, doneToday: false };
+  if (run.done) return { active: false, doneToday: true, mins: run.mins, total: run.steps.length };
+  return {
+    active: true,
+    doneToday: false,
+    step: run.step + 1,
+    total: run.steps.length,
+    kind: run.steps[run.step]?.kind,
+    mins: run.mins,
+  };
+}
+
 function executeStep(App, step) {
   if (!step) return;
   App.haptic();
+  const ref = lessonRef(getRun());
   if (step.kind === 'lesson' || step.kind === 'lesson-continue') {
-    const trackId = step.trackId || getRun()?.steps?.find((s) => s.trackId)?.trackId;
-    const weekId = step.weekId || getRun()?.steps?.find((s) => s.weekId)?.weekId;
+    const trackId = step.trackId || ref?.trackId;
+    const weekId = step.weekId || ref?.weekId;
     if (!trackId) { App.navigate('learn'); return; }
     App.navigate('learn');
     window.dispatchEvent(new CustomEvent('masterycap:focus-track', {
@@ -73,20 +102,20 @@ function executeStep(App, step) {
     return;
   }
   if (step.kind === 'cards') {
-    const lesson = getRun()?.steps?.find((s) => s.kind === 'lesson');
-    if (lesson?.trackId && lesson?.weekId) {
-      openWeekFlash(App, lesson.trackId, lesson.weekId);
+    if (ref?.trackId && ref?.weekId) {
+      openWeekFlash(App, ref.trackId, ref.weekId, { limit: step.count || 0 });
     } else {
       App.openStudy();
     }
     return;
   }
   if (step.kind === 'quiz') {
-    const lesson = getRun()?.steps?.find((s) => s.kind === 'lesson');
-    if (lesson?.trackId) {
+    const trackId = step.trackId || ref?.trackId;
+    const weekId = step.weekId || ref?.weekId;
+    if (trackId && weekId != null) {
       App.navigate('learn');
       window.dispatchEvent(new CustomEvent('masterycap:focus-track', {
-        detail: { trackId: lesson.trackId, weekId: lesson.weekId || null, kind: 'week' },
+        detail: { trackId, weekId, kind: 'quiz' },
       }));
     } else {
       App.navigate('learn');
@@ -107,12 +136,26 @@ export function advanceSession(App) {
   if (run.step >= run.steps.length) {
     run.done = true;
     saveRun(run);
+    markToday('lesson');
     showDoneSheet(App, run);
     return;
   }
   saveRun(run);
   executeStep(App, run.steps[run.step]);
   renderSessionBar(App);
+}
+
+/**
+ * Auto-advance when current step matches milestone kind.
+ * @returns {boolean} true if advanced
+ */
+export function notifySessionMilestone(App, kind) {
+  const run = getRun();
+  if (!run || run.done || run.day !== todayKey()) return false;
+  const cur = run.steps[run.step];
+  if (!cur || !stepMatches(cur.kind, kind)) return false;
+  advanceSession(App);
+  return true;
 }
 
 function showDoneSheet(App, run) {
@@ -157,20 +200,19 @@ export function renderSessionBar(App) {
   bar.id = 'session-bar';
   bar.setAttribute('role', 'status');
   bar.style.cssText = 'position:fixed;left:12px;right:12px;bottom:calc(64px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--bg2,#12141a);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.35)';
+  const skipBtn = cur.optional
+    ? `<button class="btn secondary" id="sessionSkip" style="flex-shrink:0;padding:8px 10px">${App.t('session_skip')}</button>`
+    : '';
   bar.innerHTML = `
     <div style="flex:1;min-width:0">
       <div class="slabel" style="margin:0">${App.t('session_title')} · ${n}/${m}</div>
       <div style="font-size:13px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${stepLabel(cur.kind, lang)}${cur.count ? ` ×${cur.count}` : ''}${cur.optional ? ` (${lang === 'en' ? 'optional' : 'optional'})` : ''}</div>
     </div>
-    <button class="btn secondary" id="sessionSkip" style="flex-shrink:0;padding:8px 10px">${App.t('session_skip')}</button>
+    ${skipBtn}
     <button class="btn accent" id="sessionNext" style="flex-shrink:0;padding:8px 12px">${App.t('session_next')}</button>`;
   document.body.appendChild(bar);
   bar.querySelector('#sessionNext')?.addEventListener('click', () => advanceSession(App));
-  bar.querySelector('#sessionSkip')?.addEventListener('click', () => {
-    const r = getRun();
-    if (r && r.steps[r.step]?.optional) advanceSession(App);
-    else advanceSession(App);
-  });
+  bar.querySelector('#sessionSkip')?.addEventListener('click', () => advanceSession(App));
 }
 
 /**
@@ -208,8 +250,13 @@ export function openSessionRunner(App) {
       <div class="sheet-body">
         <p style="font-size:13px;color:var(--t3);line-height:1.45;margin-bottom:12px">${App.t('session_blurb')}</p>
         ${rows}
-        <button class="btn accent mt14" id="sessionStart" style="width:100%">${run.step > 0 && !run.done ? App.t('session_resume') : App.t('session_start')}</button>
+        <button class="btn accent mt14" id="sessionStart" style="width:100%">${
+          run.done
+            ? (lang === 'en' ? 'Start another plan' : 'Naya plan')
+            : (run.step > 0 ? App.t('session_resume') : App.t('session_start'))
+        }</button>
         ${run.step > 0 && !run.done ? `<button class="btn ghost mt10" id="sessionReset" style="width:100%">${lang === 'en' ? 'Restart plan' : 'Plan dubara'}</button>` : ''}
+        ${run.done ? `<button class="btn ghost mt10" id="sessionReset" style="width:100%">${lang === 'en' ? 'Clear & rebuild' : 'Clear & rebuild'}</button>` : ''}
       </div>
     </div>`;
   document.body.appendChild(el);
@@ -240,4 +287,12 @@ export function syncSessionBar(App) {
   const run = getRun();
   if (run && !run.done && run.day === todayKey()) renderSessionBar(App);
   else document.getElementById('session-bar')?.remove();
+}
+
+if (typeof window !== 'undefined' && !window.__mcSessionMilestoneBound) {
+  window.__mcSessionMilestoneBound = true;
+  window.addEventListener('masterycap:session-milestone', (e) => {
+    const { kind, App } = e.detail || {};
+    if (App && kind) notifySessionMilestone(App, kind);
+  });
 }

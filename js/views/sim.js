@@ -347,6 +347,9 @@ function endSession() {
 
   if (typeof APP.bumpStreak === 'function') APP.bumpStreak();
   markToday('lab');
+  window.dispatchEvent(new CustomEvent('masterycap:session-milestone', {
+    detail: { kind: 'sim', App: APP },
+  }));
 
   S.debrief = {
     trades: st.trades, balance: st.balance, start: st.startBalance,
@@ -541,6 +544,9 @@ function endPortfolio(d) {
   store.set(KEYS.simStats, stats);
   if (typeof APP.bumpStreak === 'function') APP.bumpStreak();
   markToday('lab');
+  window.dispatchEvent(new CustomEvent('masterycap:session-milestone', {
+    detail: { kind: 'sim', App: APP },
+  }));
   S.pf.debrief = d;
   S.view = 'pf_debrief';
   draw();

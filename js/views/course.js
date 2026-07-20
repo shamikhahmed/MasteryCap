@@ -27,6 +27,7 @@ import { markToday } from '../today.js';
 import { trackLockReason, preferredStartTrack, seedFoundationsSoftStart, canOpenTradingLab } from '../gates.js';
 import { openWeekFlash, openStudyNotes } from './study.js';
 import { seedWeekStudy } from '../study.js';
+import { notifySessionMilestone } from '../session.js';
 import { renderReading } from '../reading.js';
 import { foundationsGateOpen } from '../syllabus.js';
 import { showCommitteeApproval } from '../institute/committee.js';
@@ -79,6 +80,18 @@ export function renderCourse(App, c) {
 function applyFocusDetail(detail) {
   if (!detail?.trackId) return;
   S.track = detail.trackId;
+  if (detail.kind === 'quiz' && detail.weekId != null) {
+    S.activeWeek = detail.weekId;
+    S.view = 'quiz';
+    S.quizAnswers = {};
+    S.quizSubmitted = false;
+    S.quizMsg = null;
+    S.dirty = false;
+    const track = getTrack(S.track);
+    const w = track?.weeks?.find((x) => x.id === detail.weekId);
+    if (w) buildQuizOrders(w);
+    return;
+  }
   if (detail.kind === 'week' && detail.weekId != null) {
     S.activeWeek = detail.weekId;
     S.view = 'week';
@@ -694,9 +707,17 @@ function drawQuiz() {
   const sub = document.getElementById('submitQuiz'); if (sub) sub.addEventListener('click', submitQuiz);
   const done = document.getElementById('quizDone'); if (done) done.addEventListener('click', () => {
     if (S._pendingGloss) { S.view = 'glossMini'; draw(); return; }
-    maybeShowCommittee(App);
-    S.view = 'home'; S.dirty = false; draw();
+    exitQuizFlow(App);
   });
+}
+
+/** Leave quiz results — Continuity auto-advance if guided session on quiz step. */
+function exitQuizFlow(App) {
+  maybeShowCommittee(App);
+  S.dirty = false;
+  if (notifySessionMilestone(App, 'quiz')) return;
+  S.view = 'home';
+  draw();
 }
 
 function maybeShowCommittee(App) {
@@ -994,8 +1015,7 @@ function drawGlossMini() {
       store.set(STORE_KEYS.glossWeak, weak);
     }
     S._pendingGloss = null; S.glossAnswers = {};
-    maybeShowCommittee(App);
-    S.view = 'home'; draw();
+    exitQuizFlow(App);
   };
   document.getElementById('glossMiniDone').addEventListener('click', () => finish(false));
   document.getElementById('glossMiniSkip').addEventListener('click', () => finish(true));

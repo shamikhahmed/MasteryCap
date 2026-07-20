@@ -95,6 +95,12 @@ function drawCards() {
   const lang = App.lang;
   const card = S.deck[S.idx];
   if (!card) {
+    markToday('review');
+    if (typeof App.bumpStreak === 'function') App.bumpStreak();
+    window.dispatchEvent(new CustomEvent('masterycap:session-milestone', {
+      detail: { kind: 'cards', App },
+    }));
+    if (App.tab !== 'study') return;
     S.mode = 'hub';
     const stats = getCardStats();
     ROOT.innerHTML = `<div class="screen">
@@ -107,8 +113,6 @@ function drawCards() {
     </div>`;
     document.getElementById('studyAgain')?.addEventListener('click', () => startDeck(buildMixDeck(lang)));
     document.getElementById('studyHub')?.addEventListener('click', () => { S.mode = 'hub'; drawHub(); });
-    markToday('review');
-    if (typeof App.bumpStreak === 'function') App.bumpStreak();
     return;
   }
 
@@ -212,11 +216,14 @@ function escapeHtml(s) {
     .replace(/"/g, '&quot;');
 }
 
-/** Open week-specific deck from Learn. */
-export function openWeekFlash(App, trackId, weekId) {
+/** Open week-specific deck from Learn. Optional limit for guided session card count. */
+export function openWeekFlash(App, trackId, weekId, opts = {}) {
   APP = App;
   S.mode = 'cards';
-  S.deck = buildWeekDeck(trackId, weekId, App.lang);
+  let deck = buildWeekDeck(trackId, weekId, App.lang);
+  const lim = Number(opts.limit) || 0;
+  if (lim > 0 && deck.length > lim) deck = deck.slice(0, lim);
+  S.deck = deck;
   S.idx = 0;
   S.flipped = false;
   App._studyReturn = 'learn';

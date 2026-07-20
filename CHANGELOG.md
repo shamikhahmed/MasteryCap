@@ -1,3 +1,13 @@
+## [48.3.0] — 2026-07-20
+
+### Session Continuity
+- Home CTA: Resume · n/m / Session done (same-day)
+- Quiz step opens week quiz; cards honor session count
+- Auto-advance on cards done / quiz exit / sim debrief
+- Skip only on optional steps; done plan kept until rebuild
+- SW `masterycap-v4830`
+
+
 ## [48.2.0] — 2026-07-20
 
 ### Elective warn-first bars
