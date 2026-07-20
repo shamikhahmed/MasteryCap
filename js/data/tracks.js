@@ -9,9 +9,9 @@ import { OPTIONS_DEEP_WEEKS, OPTIONS_DEEP_PLACEMENT } from './options-deep.js';
 import { FUTURES_DEEP_WEEKS, FUTURES_DEEP_PLACEMENT } from './futures-deep.js';
 import { FOREX_DEEP_WEEKS, FOREX_DEEP_PLACEMENT } from './forex-deep.js';
 import { SPOT_DEEP_WEEKS, SPOT_DEEP_PLACEMENT } from './spot-deep.js';
-import { BINARY_WEEKS, BINARY_PLACEMENT } from './binary.js';
+import { BINARY_DEEP_WEEKS, BINARY_DEEP_PLACEMENT } from './binary-deep.js';
 import { INVEST_DEEP_WEEKS, INVEST_DEEP_PLACEMENT } from './invest-deep.js';
-import { BOTS_WEEKS, BOTS_PLACEMENT } from './bots.js';
+import { BOTS_DEEP_WEEKS, BOTS_DEEP_PLACEMENT } from './bots-deep.js';
 import { FOUNDATIONS_WEEKS, FOUNDATIONS_PLACEMENT } from './foundations.js';
 import { GREEKS_DEEP_WEEKS, GREEKS_DEEP_PLACEMENT } from './greeks-deep.js';
 import { TAX_DEEP_WEEKS, TAX_DEEP_PLACEMENT } from './tax-deep.js';
@@ -127,23 +127,23 @@ export const TRACKS = [
   },
   {
     id: 'bots',
-    name: { en: 'Bots & Copy Trading', ur: 'Bots aur Copy Trading' },
-    blurb: { en: 'Automation, signals, scam defense', ur: 'Automation, signals, scam se bachao' },
+    name: { en: 'Bots & Copy Defense', ur: 'Bots & Copy Defense' },
+    blurb: { en: 'Elective — scam defense, not profit bots', ur: 'Elective — scam defense, profit bots nahi' },
     status: 'live',
     elective: true,
     warning: true,
-    weeks: BOTS_WEEKS,
-    placement: BOTS_PLACEMENT,
+    weeks: BOTS_DEEP_WEEKS,
+    placement: BOTS_DEEP_PLACEMENT,
   },
   {
     id: 'binary',
-    name: { en: 'Binary Options', ur: 'Binary Options (elective)' },
-    blurb: { en: 'High-risk — know the traps first', ur: 'High-risk — pehle traps samjho' },
+    name: { en: 'Binary Harm Reduction', ur: 'Binary Harm Reduction' },
+    blurb: { en: 'Elective — refuse literacy, not a playbook', ur: 'Elective — refuse literacy, playbook nahi' },
     status: 'live',
     elective: true,
     warning: true,
-    weeks: BINARY_WEEKS,
-    placement: BINARY_PLACEMENT,
+    weeks: BINARY_DEEP_WEEKS,
+    placement: BINARY_DEEP_PLACEMENT,
   },
   /* —— Campus extension families (v42.4) —— */
   {

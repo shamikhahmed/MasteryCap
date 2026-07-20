@@ -1,3 +1,11 @@
+## [48.2.0] — 2026-07-20
+
+### Elective warn-first bars
+- Bots & Copy Defense + Binary Harm Reduction: 4-week 6-part (refuse / scam defense)
+- Trading more-tracks depth wave complete for Markets ladder electives
+- SW `masterycap-v4820`
+
+
 ## [48.1.0] — 2026-07-20
 
 ### Options / Greeks / Futures literacy bars
