@@ -1,3 +1,14 @@
+## [51.7.0] — 2026-07-21
+
+### Craft lesson + Lab UR chrome
+- Lesson kickers: Maqsad/Garmi/Sabak/Nazara/Mashq/Akhri jumla/Jaanch
+- Final: Mansookh / Final imtihaan / Bhejo; back aria via i18n
+- HTTP Lab: Sabak/Bhejo/Jawab/Mashqein; code editor Code mashq + Shuffle dubara
+- HANDOVER Craft range → APP-403
+- SW `masterycap-v5170`
+
+
+
 ## [51.6.0] — 2026-07-21
 
 ### Practice / Today / session UR chrome

@@ -39,8 +39,8 @@ export function renderHttpLab(App, el) {
 
   el.innerHTML = `<div class="screen inst-screen">
     <button class="text-back" id="labBack">${icon('back', { size: 16 })} ${App._labReturn === 'lesson'
-      ? (en ? 'Lesson' : 'Lesson')
-      : (en ? 'Practice' : 'Practice')}</button>
+      ? (en ? 'Lesson' : 'Sabak')
+      : (en ? 'Practice' : App.t('nav_practice'))}</button>
     <div class="lt-head">
       <div class="kicker mono">BE-301 · HTTP Lab</div>
       <h1>HTTP Lab</h1>
@@ -60,12 +60,12 @@ export function renderHttpLab(App, el) {
       <textarea id="labHeaders" class="code-editor" rows="3" placeholder="Authorization: Bearer lab-token">${esc(S.headerText)}</textarea>
       <label class="slabel mt10">${en ? 'Body (JSON)' : 'Body (JSON)'}</label>
       <textarea id="labBody" class="code-editor" rows="5">${esc(S.body)}</textarea>
-      <button class="btn accent mt10" id="labSend">${en ? 'Send' : 'Send'}</button>
+      <button class="btn accent mt10" id="labSend">${en ? 'Send' : 'Bhejo'}</button>
     </div>
-    <div class="slabel mt16">${en ? 'Response (status + headers + body)' : 'Response'}</div>
+    <div class="slabel mt16">${en ? 'Response (status + headers + body)' : 'Jawab (status + headers + body)'}</div>
     <pre class="code-out" id="labOut">${S.last ? formatRes(S.last) : (en ? 'Send a request.' : 'Request bhejo.')}</pre>
 
-    <div class="slabel mt16">${en ? 'Exercises (auto-grade)' : 'Exercises (auto-grade)'}</div>
+    <div class="slabel mt16">${en ? 'Exercises (auto-grade)' : 'Mashqein (auto-grade)'}</div>
     <div class="inst-list">
       ${grades.map((g) => `
         <div class="inst-row-item static">
@@ -73,7 +73,7 @@ export function renderHttpLab(App, el) {
           <span class="grow">${g.name[lang] || g.name.en}<br><span class="inst-muted">${g.detail[lang] || g.detail.en}</span></span>
         </div>`).join('')}
     </div>
-    <p class="inst-muted mt10">${grades.filter((g) => g.pass).length}/${grades.length} ${en ? 'complete' : 'mukammal'} · ${history.length} ${en ? 'requests logged' : 'requests'}</p>
+    <p class="inst-muted mt10">${grades.filter((g) => g.pass).length}/${grades.length} ${en ? 'complete' : 'mukammal'} · ${history.length} ${en ? 'requests logged' : 'requests logged'}</p>
     <button class="btn secondary mt10" id="labSync">${en ? 'Sync PASS → BE-301 checklist' : 'PASS → BE-301 checklist'}</button>
   </div>`;
 

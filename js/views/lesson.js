@@ -17,7 +17,7 @@ export function renderLesson(App, el) {
   const lesson = course?.lessons?.find((l) => l.id === lessonId);
   const en = App.lang === 'en';
   if (!lesson) {
-    el.innerHTML = `<div class="screen"><p>Lesson missing.</p><button class="btn" id="lsBack">Back</button></div>`;
+    el.innerHTML = `<div class="screen"><p>${en ? 'Lesson missing.' : 'Lesson nahi mili.'}</p><button class="btn" id="lsBack">${en ? 'Back' : 'Wapas'}</button></div>`;
     document.getElementById('lsBack')?.addEventListener('click', () => App.navigate('campus'));
     return;
   }
@@ -32,11 +32,11 @@ export function renderLesson(App, el) {
 
   let body = '';
   if (key === 'objective') {
-    body = `<div class="kicker">${en ? 'Objective' : 'Objective'}</div>
+    body = `<div class="kicker">${en ? 'Objective' : 'Maqsad'}</div>
       <h2 class="inst-h2">${L(lesson.title)}</h2>
       <p class="inst-lead">${L(lesson.objective)}</p>`;
   } else if (key === 'warmup') {
-    body = `<div class="kicker">${en ? 'Warm-up' : 'Warm-up'}</div>
+    body = `<div class="kicker">${en ? 'Warm-up' : 'Garmi'}</div>
       <h2 class="inst-h2">${L(lesson.warmUp)}</h2>
       <p class="inst-muted">${en ? 'Think for 20 seconds before continuing.' : '20 sec socho, phir aage.'}</p>`;
   } else if (key === 'teach') {
@@ -46,7 +46,7 @@ export function renderLesson(App, el) {
     if (!App._teachPage) App._teachPage = 0;
     if (App._teachPage >= pages.length) App._teachPage = pages.length - 1;
     const pi = App._teachPage;
-    body = `<div class="kicker">${en ? 'Teach' : 'Teach'} · ${registerLabel(reg, lang)} · ${pi + 1}/${pages.length}</div>
+    body = `<div class="kicker">${en ? 'Teach' : 'Sabak'} · ${registerLabel(reg, lang)} · ${pi + 1}/${pages.length}</div>
       <div class="inst-reader">
         <div class="inst-prose inst-reader-page">${pages[pi] || ''}</div>
         <div class="inst-reader-nav">
@@ -56,7 +56,7 @@ export function renderLesson(App, el) {
       </div>`;
   } else if (key === 'visual') {
     const svg = lesson.visual ? diagram(lesson.visual) : '';
-    body = `<div class="kicker">${en ? 'Visual' : 'Visual'}</div>
+    body = `<div class="kicker">${en ? 'Visual' : 'Nazara'}</div>
       ${svg ? `<div class="inst-visual">${svg}</div>` : `<p class="inst-muted">${en ? 'No diagram for this lesson — the practice is the visual.' : 'Is lesson ka diagram nahi — practice hi visual.'}</p>`}`;
   } else if (key === 'check') {
     body = renderCheck(App, lesson, lang, en);
@@ -72,12 +72,12 @@ export function renderLesson(App, el) {
     if (isOn('httpLab') && lesson.lab) {
       extra += `<button class="btn secondary mt10" id="lsLab">${en ? 'Open HTTP Lab' : 'HTTP Lab kholo'}</button>`;
     }
-    body = `<div class="kicker">${en ? 'Practice' : 'Practice'}</div>
+    body = `<div class="kicker">${en ? 'Practice' : 'Mashq'}</div>
       <h2 class="inst-h2">${L(lesson.practice)}</h2>
       <p class="inst-muted">${en ? 'Do the work, then continue.' : 'Kaam karo, phir aage.'}</p>
       ${extra}`;
   } else {
-    body = `<div class="kicker">${en ? 'Exit ticket' : 'Exit ticket'}</div>
+    body = `<div class="kicker">${en ? 'Exit ticket' : 'Akhri jumla'}</div>
       <h2 class="inst-h2">${L(lesson.exitTicket)}</h2>
       <textarea class="inst-textarea" id="lsReflect" rows="3" placeholder="${en ? 'One sentence…' : 'Ek jumla…'}"></textarea>`;
   }
@@ -87,7 +87,7 @@ export function renderLesson(App, el) {
 
   el.innerHTML = `<div class="screen inst-screen lesson-screen">
     <div class="lesson-top">
-      <button class="icon-btn" id="lsBack" aria-label="Back">${icon('back', { size: 18 })}</button>
+      <button class="icon-btn" id="lsBack" aria-label="${App.t('back')}">${icon('back', { size: 18 })}</button>
       <div class="onb-progress"><i style="width:${((step + 1) / steps.length) * 100}%"></i></div>
       ${both ? `<button class="pill" id="lsLang">${lang === 'en' ? 'UR' : 'EN'}</button>` : '<span style="width:34px"></span>'}
     </div>
@@ -173,7 +173,7 @@ export function renderLesson(App, el) {
 function renderCheck(App, lesson, lang, en) {
   const answers = App._checkAnswers || [];
   const graded = App._checkGraded;
-  let html = `<div class="kicker">${en ? 'Check' : 'Check'}</div>`;
+  let html = `<div class="kicker">${en ? 'Check' : 'Jaanch'}</div>`;
   (lesson.check || []).forEach((q, i) => {
     const opts = q.opts?.[lang] || q.opts?.en || [];
     html += `<div class="inst-card check-q"><p>${q.q?.[lang] || q.q?.en}</p>
@@ -264,11 +264,11 @@ export function renderFinal(App, el) {
   if (!App._finalOrder) App._finalOrder = shuffle(qs.map((_, i) => i));
 
   el.innerHTML = `<div class="screen inst-screen">
-    <button class="text-back" id="fnBack">${icon('back', { size: 16 })} ${en ? 'Cancel' : 'Cancel'}</button>
+    <button class="text-back" id="fnBack">${icon('back', { size: 16 })} ${en ? 'Cancel' : 'Mansookh'}</button>
     <div class="lt-head">
       <div class="kicker mono">${code}</div>
-      <h1>${en ? 'Final assessment' : 'Final assessment'}</h1>
-      <p class="inst-muted">${en ? `Pass ≥${course.passScore}%` : `Pass ≥${course.passScore}%`}</p>
+      <h1>${en ? 'Final assessment' : 'Final imtihaan'}</h1>
+      <p class="inst-muted">${en ? `Pass ≥${course.passScore}%` : `Final ≥${course.passScore}%`}</p>
     </div>
     ${App._finalOrder.map((qi, display) => {
       const q = qs[qi];
@@ -278,7 +278,7 @@ export function renderFinal(App, el) {
           <button class="opt-card ${App._finalAnswers[qi] === j ? 'on' : ''}" data-fi="${qi}" data-fj="${j}">${o}</button>`).join('')}</div>
       </div>`;
     }).join('')}
-    <button class="btn accent" id="fnSubmit">${en ? 'Submit' : 'Submit'}</button>
+    <button class="btn accent" id="fnSubmit">${en ? 'Submit' : 'Bhejo'}</button>
   </div>`;
 
   document.getElementById('fnBack')?.addEventListener('click', () => {

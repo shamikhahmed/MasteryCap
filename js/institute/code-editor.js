@@ -29,7 +29,7 @@ export function renderCodeEditor({ prompt, starter, lang = 'en', parsons = null 
 
   if (desktop) {
     return `<div class="code-lab">
-      <div class="kicker">${en ? 'Code practice' : 'Code practice'}</div>
+      <div class="kicker">${en ? 'Code practice' : 'Code mashq'}</div>
       <p class="inst-muted">${prompt?.[lang] || prompt?.en || ''}</p>
       <label class="slabel" for="codeEditor">${en ? 'Editor' : 'Editor'}</label>
       <textarea id="codeEditor" class="code-editor" spellcheck="false" rows="12">${esc(starter || '')}</textarea>
@@ -59,7 +59,7 @@ export function renderCodeEditor({ prompt, starter, lang = 'en', parsons = null 
     </div>
     <div class="code-actions">
       <button class="btn accent" id="codeRun">${en ? 'Check order + asserts' : 'Order + asserts'}</button>
-      <button class="btn ghost" id="codeReset">${en ? 'Shuffle reset' : 'Shuffle reset'}</button>
+      <button class="btn ghost" id="codeReset">${en ? 'Shuffle reset' : 'Shuffle dubara'}</button>
     </div>
     <pre class="code-out" id="codeOut"></pre>
     <textarea id="codeEditor" class="hidden" hidden>${esc(starter || '')}</textarea>
