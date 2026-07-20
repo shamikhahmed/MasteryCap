@@ -1,3 +1,11 @@
+## [46.0.3] — 2026-07-20
+
+### UX honesty
+- **Practice “4”** was due-review count glued to label — now badge on icon only
+- **Records:** Profile / Transcript / Certs panes; projects only for enrolled courses (no raw prospectus dump)
+- Student profile pane: name edit, theme, enrollments
+- SW network-first for JS/CSS + cache bust `?v=4603` so Pages stops serving stale COURSES supermarket
+
 ## [46.0.2] — 2026-07-20
 
 ### Markets UX

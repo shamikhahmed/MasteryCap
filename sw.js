@@ -1,5 +1,5 @@
 /* MasteryCap service worker — offline-first shell cache */
-const CACHE = 'masterycap-v4602';
+const CACHE = 'masterycap-v4603';
 const ASSETS = [
   './',
   './index.html',
@@ -139,9 +139,19 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   const { request } = e;
   if (request.method !== 'GET') return;
-  // network-first for navigations, cache-first for assets
-  if (request.mode === 'navigate') {
-    e.respondWith(fetch(request).catch(() => caches.match('./index.html')));
+  const url = new URL(request.url);
+  const path = url.pathname;
+  // network-first for navigations + JS/CSS so deploys don't stick on stale SW cache
+  if (request.mode === 'navigate' || path.endsWith('.js') || path.endsWith('.css') || path.endsWith('.html')) {
+    e.respondWith(
+      fetch(request)
+        .then((res) => {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(request, copy)).catch(() => {});
+          return res;
+        })
+        .catch(() => caches.match(request).then((c) => c || caches.match('./index.html')))
+    );
     return;
   }
   e.respondWith(

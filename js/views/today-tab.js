@@ -67,13 +67,13 @@ export function renderToday(App, el) {
       </div>
       <button class="icon-btn" id="tdSettings" aria-label="Settings">${icon('settings', { size: 18 })}</button>
     </div>
-    <div class="inst-card student-strip">
+    <button class="inst-card student-strip" id="tdProfile" style="width:100%;text-align:left;cursor:pointer">
       <div class="kicker">${en ? 'Student' : 'Student'}</div>
-      <p class="inst-muted">${esc(reg)} · ${enrollN} ${en ? 'enrolled' : 'enrolled'} · ${en ? 'Theme' : 'Theme'}</p>
+      <p class="inst-muted">${esc(reg)} · ${enrollN} ${en ? 'enrolled' : 'enrolled'} · ${en ? 'Open profile →' : 'Profile →'}</p>
       <div class="seg theme-quick" style="width:100%;margin-top:10px">
-        ${['light', 'sepia', 'dark'].map((m) => `<button style="flex:1" class="${mode === m ? 'on' : ''}" data-theme="${m}">${m === 'light' ? (en ? 'Light' : 'Light') : m === 'sepia' ? 'Sepia' : (en ? 'Dark' : 'Dark')}</button>`).join('')}
+        ${['light', 'sepia', 'dark'].map((m) => `<button type="button" style="flex:1" class="${mode === m ? 'on' : ''}" data-theme="${m}">${m === 'light' ? (en ? 'Light' : 'Light') : m === 'sepia' ? 'Sepia' : (en ? 'Dark' : 'Dark')}</button>`).join('')}
       </div>
-    </div>
+    </button>
     ${hero}
     <div class="inst-row mt16">
       <button class="inst-stat" id="tdReview">
@@ -91,6 +91,11 @@ export function renderToday(App, el) {
   </div>`;
 
   document.getElementById('tdSettings')?.addEventListener('click', () => openSettings(App));
+  document.getElementById('tdProfile')?.addEventListener('click', (e) => {
+    if (e.target.closest('[data-theme]')) return;
+    App._recordsPane = 'profile';
+    App.navigate('records');
+  });
   document.getElementById('tdCampus')?.addEventListener('click', () => App.navigate('campus'));
   document.getElementById('tdCampus2')?.addEventListener('click', () => App.navigate('campus'));
   document.getElementById('tdReview')?.addEventListener('click', () => App.navigate('practice'));

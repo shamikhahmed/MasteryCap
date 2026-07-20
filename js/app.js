@@ -267,7 +267,8 @@ export const App = {
         : (this.tab === 'journal' || this.tab === 'progress' ? 'records' : 'today');
     nav.innerHTML = `<div class="tabbar-inner">${tabs.map(([id, ic, label]) => `
       <button class="tab ${active === id ? 'active' : ''}" data-tab="${id}">
-        ${icon(ic, { size: 21 })}<span class="tab-label">${label}${id === 'practice' && due > 0 ? ` <span class="mono" style="color:var(--acc)">${due}</span>` : ''}</span>
+        <span class="tab-ic-wrap">${icon(ic, { size: 21 })}${id === 'practice' && due > 0 ? `<span class="tab-badge" aria-label="${due} due">${due > 9 ? '9+' : due}</span>` : ''}</span>
+        <span class="tab-label">${label}</span>
       </button>`).join('')}</div>`;
     nav.querySelectorAll('.tab').forEach((b) => b.addEventListener('click', () => this.navigate(b.dataset.tab)));
   },

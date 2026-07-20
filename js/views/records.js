@@ -1,80 +1,133 @@
-/* Records — transcript, certificates, export */
+/* Records — profile, transcript, projects (enrolled only), certificates */
 
 import { icon } from '../icons.js';
 import { store, KEYS } from '../store.js';
 import { getCourse } from '../data/institute/catalog.js';
 import { loadCourse } from '../data/institute/courses.js';
+import { registerLabel } from '../institute/register.js';
 import {
   getInstitute, CERT_DISCLAIMER, attestProject, projectComplete, courseProgressPct,
 } from '../institute/progress.js';
 import { openSettings } from '../settings.js';
+import { getAppearance, setAppearance } from '../theme.js';
 
 export function renderRecords(App, el) {
   const en = App.lang === 'en';
+  const pane = App._recordsPane || 'profile';
   const inst = getInstitute();
+  const p = App.profile || {};
   const certs = Object.values(inst.certificates || {});
-  const codes = Object.keys(inst.completedLessons || {});
+  const enrollCodes = Object.keys(inst.enrollments || {});
+  const progressCodes = [...new Set([
+    ...Object.keys(inst.completedLessons || {}),
+    ...enrollCodes.filter((c) => c !== 'MKT-LEGACY'),
+  ])];
+
+  const tabs = `
+    <div class="seg records-seg" style="width:100%;margin:0 0 16px">
+      <button style="flex:1" class="${pane === 'profile' ? 'on' : ''}" data-rpane="profile">${en ? 'Profile' : 'Profile'}</button>
+      <button style="flex:1" class="${pane === 'transcript' ? 'on' : ''}" data-rpane="transcript">${en ? 'Transcript' : 'Transcript'}</button>
+      <button style="flex:1" class="${pane === 'certs' ? 'on' : ''}" data-rpane="certs">${en ? 'Certs' : 'Certs'}</button>
+    </div>`;
+
+  let body = '';
+  if (pane === 'profile') {
+    const mode = getAppearance().mode || 'light';
+    const enrollList = enrollCodes.length
+      ? enrollCodes.map((code) => {
+        if (code === 'MKT-LEGACY') {
+          return `<div class="inst-row-item static"><span class="grow">${en ? 'School of Markets' : 'School of Markets'}</span><span class="mono">${en ? 'enrolled' : 'enrolled'}</span></div>`;
+        }
+        const meta = getCourse(code);
+        return `<div class="inst-row-item static"><span class="mono">${code}</span><span class="grow">${meta?.title?.[App.lang] || meta?.title?.en || code}</span></div>`;
+      }).join('')
+      : `<p class="inst-muted">${en ? 'No enrollments yet — open Campus and admit to a course.' : 'Abhi enroll nahi — Campus se admit.'}</p>`;
+
+    body = `
+      <div class="inst-card accent-rule">
+        <div class="kicker">${en ? 'Student' : 'Student'}</div>
+        <h2 class="inst-h2">${esc(p.name || 'Learner')}</h2>
+        <p class="inst-muted">${esc(registerLabel(p.register || 'young', App.lang))}</p>
+        <p class="inst-muted">${humanProfile(p, en)}</p>
+        <p class="inst-muted mono">${enrollCodes.length} ${en ? 'enrollments' : 'enrollments'} · ${certs.length} ${en ? 'certs' : 'certs'}</p>
+        <div class="field" style="margin-top:14px">
+          <label>${en ? 'Display name' : 'Name'}</label>
+          <input id="recName" type="text" maxlength="32" value="${esc(p.name || '')}" />
+        </div>
+        <button class="btn secondary mt10" id="recSaveName">${en ? 'Save name' : 'Name save'}</button>
+      </div>
+      <div class="slabel mt16">${en ? 'Reading theme' : 'Theme'}</div>
+      <div class="seg" style="width:100%;margin-bottom:12px">
+        ${['light', 'sepia', 'dark'].map((m) => `<button style="flex:1" class="${mode === m ? 'on' : ''}" data-theme="${m}">${m === 'light' ? 'Light' : m === 'sepia' ? 'Sepia' : 'Dark'}</button>`).join('')}
+      </div>
+      <div class="slabel mt16">${en ? 'Enrollments' : 'Enrollments'}</div>
+      <div class="inst-list">${enrollList}</div>
+      <button class="btn accent mt16" id="recCampus" style="width:100%">${en ? 'Go to Campus' : 'Campus'}</button>
+      <button class="btn ghost mt10" id="recSet" style="width:100%">${en ? 'All settings' : 'Settings'}</button>`;
+  } else if (pane === 'transcript') {
+    body = `
+      <div class="slabel">${en ? 'Course progress' : 'Course progress'}</div>
+      <div class="inst-list">
+        ${progressCodes.length ? progressCodes.map((code) => {
+          const meta = getCourse(code);
+          const course = loadCourse(code);
+          const pct = course ? courseProgressPct(course) : 0;
+          const passed = inst.finals[code]?.passed;
+          return `<div class="inst-row-item static">
+            <span class="mono">${code}</span>
+            <span class="grow">${meta?.title?.[App.lang] || meta?.title?.en || code}</span>
+            <span class="mono">${passed ? 'pass' : pct + '%'}</span>
+          </div>`;
+        }).join('') : `<p class="inst-muted">${en ? 'Admit to a course on Campus, then finish a lesson — progress shows here.' : 'Campus pe admit, lesson mukammal — yahan progress.'}</p>`}
+      </div>
+      ${renderAttempts(inst, en)}
+      ${renderProjects(App, inst, en, enrollCodes)}
+      <button class="btn secondary mt16" id="recExport">${en ? 'Export backup JSON' : 'Backup JSON'}</button>`;
+  } else {
+    body = `
+      <div class="slabel">${en ? 'Certificates' : 'Certificates'}</div>
+      ${certs.length ? certs.map((c) => `
+        <div class="inst-cert" data-cert="${esc(c.courseId || c.hash)}">
+          <div class="kicker">${en ? 'Certificate of Completion' : 'Certificate'}</div>
+          <div class="cert-name">${esc(c.name)}</div>
+          <div class="cert-course">${esc((c.title && (c.title[App.lang] || c.title.en)) || c.courseId)}</div>
+          <p class="inst-muted mono">${c.score}% · ${c.hours}h · ${c.date}</p>
+          <p class="cert-disc">${CERT_DISCLAIMER}</p>
+          <p class="mono" style="font-size:10px;word-break:break-all">hash ${c.hash}</p>
+          <div class="cert-actions cert-no-print">
+            <button class="btn secondary" data-print-cert="${esc(c.courseId || c.hash)}">${en ? 'Print / Save PDF' : 'Print / PDF'}</button>
+          </div>
+        </div>`).join('') : `<p class="inst-muted">${en ? 'Pass a course final (≥85%) and finish any project checklist to unlock a self-issued certificate.' : 'Final ≥85% + project checklist → certificate.'}</p>`}`;
+  }
 
   el.innerHTML = `<div class="screen inst-screen">
-    <div class="lt-head head-row">
-      <div>
-        <div class="kicker">${en ? 'Records' : 'Records'}</div>
-        <h1>${en ? 'Transcript' : 'Transcript'}</h1>
-      </div>
-      <button class="icon-btn" id="recSet" aria-label="Settings">${icon('settings', { size: 18 })}</button>
+    <div class="lt-head">
+      <div class="kicker">${en ? 'Records' : 'Records'}</div>
+      <h1>${pane === 'profile' ? (en ? 'Your profile' : 'Profile') : pane === 'transcript' ? (en ? 'Transcript' : 'Transcript') : (en ? 'Certificates' : 'Certificates')}</h1>
     </div>
-
-    <div class="inst-card">
-      <div class="kicker">${en ? 'Student profile' : 'Student profile'}</div>
-      <div class="inst-h3">${esc(App.profile?.name || 'Learner')}</div>
-      <p class="inst-muted">${humanProfile(App.profile, en)}</p>
-      <p class="inst-muted mono">${Object.keys(inst.enrollments || {}).length} ${en ? 'enrollments' : 'enrollments'}</p>
-    </div>
-
-    ${renderAttempts(inst, en)}
-
-    <div class="slabel mt16">${en ? 'Course progress' : 'Course progress'}</div>
-    <div class="inst-list">
-      ${codes.length ? codes.map((code) => {
-        const meta = getCourse(code);
-        const course = loadCourse(code);
-        const pct = course ? courseProgressPct(course) : 0;
-        const passed = inst.finals[code]?.passed;
-        return `<div class="inst-row-item static">
-          <span class="mono">${code}</span>
-          <span class="grow">${meta?.title?.[App.lang] || meta?.title?.en || code}</span>
-          <span class="mono">${passed ? 'pass' : pct + '%'}</span>
-        </div>`;
-      }).join('') : `<p class="inst-muted">${en ? 'Complete your first lesson to begin your transcript.' : 'Pehli lesson se transcript shuru.'}</p>`}
-    </div>
-
-    ${renderProjects(App, inst, en)}
-
-    <div class="slabel mt16">${en ? 'Certificates' : 'Certificates'}</div>
-    ${certs.length ? certs.map((c) => `
-      <div class="inst-cert" data-cert="${esc(c.courseId || c.hash)}">
-        <div class="kicker">${en ? 'Certificate of Completion' : 'Certificate of Completion'}</div>
-        <div class="cert-name">${esc(c.name)}</div>
-        <div class="cert-course">${esc((c.title && (c.title[App.lang] || c.title.en)) || c.courseId)}</div>
-        <p class="inst-muted mono">${c.score}% · ${c.hours}h · ${c.date}</p>
-        <p class="cert-disc">${CERT_DISCLAIMER}</p>
-        <p class="mono" style="font-size:10px;word-break:break-all">hash ${c.hash}</p>
-        <div class="cert-actions cert-no-print">
-          <button class="btn secondary" data-print-cert="${esc(c.courseId || c.hash)}">${en ? 'Print / Save PDF' : 'Print / PDF'}</button>
-        </div>
-      </div>`).join('') : `<p class="inst-muted">${en ? 'Certificates unlock after final ≥85% and project checklist (if any).' : 'Final ≥85% + project checklist ke baad.'}</p>`}
-
-    <div class="mt16">
-      <button class="btn secondary" id="recExport">${en ? 'Export backup JSON' : 'Backup JSON export'}</button>
-      <button class="btn ghost mt10" id="recJournal">${en ? 'Discipline journal (markets)' : 'Discipline journal'}</button>
-      <button class="btn ghost mt10" id="recProgress">${en ? 'Legacy progress charts' : 'Legacy progress'}</button>
-    </div>
+    ${tabs}
+    ${body}
   </div>`;
 
+  el.querySelectorAll('[data-rpane]').forEach((b) => b.addEventListener('click', () => {
+    App._recordsPane = b.dataset.rpane;
+    App.render();
+  }));
   document.getElementById('recSet')?.addEventListener('click', () => openSettings(App));
-  document.getElementById('recJournal')?.addEventListener('click', () => App.navigate('journal'));
-  document.getElementById('recProgress')?.addEventListener('click', () => App.navigate('progress'));
+  document.getElementById('recCampus')?.addEventListener('click', () => App.navigate('campus'));
   document.getElementById('recExport')?.addEventListener('click', () => exportBackup(App));
+  document.getElementById('recSaveName')?.addEventListener('click', () => {
+    const n = (document.getElementById('recName')?.value || '').trim() || 'Learner';
+    App.profile = { ...(App.profile || {}), name: n };
+    store.set(KEYS.profile, App.profile);
+    App.toast?.(en ? 'Name saved' : 'Name save');
+    App.render();
+  });
+  el.querySelectorAll('[data-theme]').forEach((b) => b.addEventListener('click', () => {
+    setAppearance({ mode: b.dataset.theme });
+    App.haptic?.(4);
+    App.render();
+  }));
   el.querySelectorAll('[data-print-cert]').forEach((b) => {
     b.addEventListener('click', () => {
       const id = b.getAttribute('data-print-cert');
@@ -95,21 +148,30 @@ export function renderRecords(App, el) {
   });
 }
 
-function renderProjects(App, inst, en) {
+function renderProjects(App, inst, en, enrollCodes) {
   const blocks = [];
+  const allow = new Set(enrollCodes || []);
+  // Also allow if learner already attested something
+  for (const code of Object.keys(inst.projects || {})) allow.add(code);
+
   for (const code of ['WEB-102', 'WEB-103', 'FIN-101', 'FIN-201', 'FIN-301']) {
+    if (!allow.has(code)) continue;
     const course = loadCourse(code);
     if (!course?.project) continue;
     const done = inst.projects[code] || {};
-    blocks.push(`<div class="slabel mt16">${course.project.title[App.lang] || course.project.title.en}</div>
+    const title = course.project.title[App.lang] || course.project.title.en;
+    blocks.push(`<div class="slabel mt16">${code} · ${title}</div>
       <div class="inst-list">${course.project.items.map((it) => `
         <button class="inst-row-item" data-proj="${code}::${it.id}" aria-pressed="${done[it.id] ? 'true' : 'false'}">
           <span class="mono">${done[it.id] ? '[x]' : '[ ]'}</span>
           <span class="grow">${it[App.lang] || it.en}</span>
         </button>`).join('')}</div>
-      <p class="inst-muted">${projectComplete(code, course.project.items) ? (en ? 'Project checklist complete' : 'Checklist mukammal') : ''}</p>`);
+      <p class="inst-muted">${projectComplete(code, course.project.items) ? (en ? 'Checklist complete' : 'Mukammal') : (en ? 'Attest after you finish the work' : 'Kaam ke baad attest')}</p>`);
   }
-  return blocks.join('') || '';
+  if (!blocks.length) return '';
+  return `<div class="slabel mt16">${en ? 'Project checklists' : 'Project checklists'}</div>
+    <p class="inst-muted" style="margin-bottom:8px">${en ? 'Only for courses you enrolled in.' : 'Sirf enrolled courses.'}</p>
+    ${blocks.join('')}`;
 }
 
 function renderAttempts(inst, en) {
@@ -167,7 +229,7 @@ function exportBackup(App) {
 }
 
 function esc(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({
+  return String(s || '').replace(/[&<>"']/g, (c) => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
   }[c]));
 }

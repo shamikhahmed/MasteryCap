@@ -987,7 +987,26 @@ html[data-contrast="high"] {
   body.inst-desktop #app-root { max-width: var(--maxw); margin: 0 auto; }
 }
 
-.branch-grid .branch-card { text-align: left; position: relative; padding-bottom: 36px; }
+.tab { position: relative; }
+.tab-ic-wrap { position: relative; display: inline-flex; }
+.tab-badge {
+  position: absolute; top: -6px; right: -10px;
+  min-width: 16px; height: 16px; padding: 0 4px;
+  border-radius: 8px; background: var(--acc); color: #fff;
+  font-family: var(--mono); font-size: 10px; line-height: 16px; text-align: center;
+  font-weight: 600;
+}
+.records-seg { gap: 4px; }
+.branch-grid {
+  display: grid;
+  gap: 12px;
+}
+@media (min-width: 900px) {
+  .branch-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .inst-list.branch-grid { display: grid; }
+}
 .branch-enter { position: absolute; right: 16px; bottom: 14px; color: var(--acc); font-size: 12px; }
 .student-strip { margin-bottom: 14px; }
 .inst-reader {
