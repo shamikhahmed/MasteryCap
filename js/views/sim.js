@@ -7,7 +7,7 @@ import { icon } from '../icons.js';
 import { store, KEYS } from '../store.js';
 import { renderCandles } from '../candles.js';
 import { createSession } from '../sim/engine.js';
-import { SIM_SCENARIOS, getScenario, SIM_TRACK_ORDER, SIM_TRACK_LABEL, scenariosByTrack } from '../sim/scenarios.js';
+import { SIM_SCENARIOS, getScenario, SIM_TRACK_ORDER, SIM_TRACK_LABEL, scenariosByTrack, LADDER_SCENARIOS } from '../sim/scenarios.js';
 import { createPortfolioSession, PORTFOLIO_IDS } from '../sim/portfolio.js';
 import { teacherLine } from '../teacher.js';
 import { startTime, pauseTime } from '../time.js';
@@ -53,9 +53,21 @@ function drawPicker() {
     return st.runs ? `${st.pass}/${st.runs} ${App.t('pf_pass')}` : App.t('sim_not_run');
   };
   const byTrack = scenariosByTrack();
+  const ladder = LADDER_SCENARIOS();
+  const ladderRows = ladder.map((sc, i) => {
+    const st = stats[sc.id] || { runs: 0, pass: 0 };
+    return `<div class="week-row" data-sc="${sc.id}">
+      <span class="week-idx mono">L${i + 1}</span>
+      <div class="week-body">
+        <div class="wb-t">${sc.name[lang]}</div>
+        <div class="wb-s ${st.pass > 0 ? 's-done' : 's-current'}">${st.runs ? `${st.pass}/${st.runs} ${App.t('sim_process_pass')}` : App.t('sim_not_run')}</div>
+      </div>
+      ${icon('chevron', { size: 20, cls: 'week-state-ic' })}
+    </div>`;
+  }).join('');
   let idx = 0;
   const sections = SIM_TRACK_ORDER.map((trackId) => {
-    const list = byTrack[trackId] || [];
+    const list = (byTrack[trackId] || []).filter((s) => !s.ladder);
     if (!list.length) return '';
     const label = (SIM_TRACK_LABEL[trackId] || { en: trackId, ur: trackId })[lang];
     const rows = list.map((sc) => {
@@ -78,6 +90,11 @@ function drawPicker() {
     <button class="backlink" id="simBack">${icon('back', { size: 16 })} ${App.t('back')}</button>
     <div class="lt-head"><div class="kicker">${App.t('sim_kicker')}</div><h1>${App.t('sim_title')}</h1></div>
     <p style="font-size:13.5px;color:var(--t3);margin:-8px 0 16px;line-height:1.55">${App.t('sim_intro')}</p>
+    <div class="slabel" style="margin:0 0 8px;padding:0 4px">${lang === 'en' ? 'Scenario ladder' : 'Scenario ladder'}</div>
+    <p style="font-size:12.5px;color:var(--t3);margin:0 0 8px;line-height:1.45;padding:0 4px">${lang === 'en'
+      ? 'Funding squeeze · Theta burn · Margin call — process drills, not signals.'
+      : 'Funding squeeze · Theta burn · Margin call — process drills, signals nahi.'}</p>
+    <div class="panel" style="margin-bottom:14px;border-color:var(--acc)">${ladderRows}</div>
     <div class="slabel" style="margin:0 0 8px;padding:0 4px">${App.t('pf_section')}</div>
     <div class="panel" style="margin-bottom:14px">
       <div class="week-row" data-pf="invest">
@@ -269,6 +286,10 @@ function orderPanel(App, sc, mark) {
 }
 
 function posPanel(App, pos, u) {
+  const drain = pos.funding || 0;
+  const drainLabel = pos.instrument === 'option'
+    ? (App.lang === 'en' ? 'Theta' : 'Theta')
+    : (App.lang === 'en' ? 'Funding' : 'Funding');
   return `<div class="panel">
     <div class="panel-h"><span class="ph-t">${App.t('sim_position')}</span>
       <span class="pill ${pos.dir === 'long' ? 'up' : 'down'}">${App.t(pos.dir)} · ${fmt(pos.lev, 1)}x</span></div>
@@ -277,6 +298,7 @@ function posPanel(App, pos, u) {
         <span>uP/L: <span class="${u.pl >= 0 ? 'up' : 'down'}">${u.pl >= 0 ? '+' : ''}$${fmt(u.pl)}</span></span>
         <span>R: <span class="${u.r >= 0 ? 'up' : 'down'}">${fmt(u.r, 2)}</span></span>
       </div>
+      ${drain ? `<div class="mono" style="font-size:12px;color:var(--warn);margin:-4px 0 12px">${drainLabel}: −$${fmt(Math.abs(drain))}</div>` : ''}
       <div class="f-row">
         <div class="field" style="margin-bottom:0"><label>${App.t('sim_move_stop')}</label><input id="newStop" class="num" type="number" inputmode="decimal" step="any" value="${fmt(pos.stop)}" /></div>
         <div class="field" style="margin-bottom:0;display:flex;align-items:flex-end"><button class="btn secondary" id="simMove">${App.t('sim_move')}</button></div>

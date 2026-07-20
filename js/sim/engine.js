@@ -113,7 +113,7 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
       const signed = P.dir === 'long' ? (exitPrice - P.entry) : (P.entry - exitPrice);
       return signed * qty;
     }
-    // perp: sizeD is notional
+    // perp: sizeD is notional; option premium proxy uses same % move on sizeD
     return (P.dir === 'long' ? exitPrice - P.entry : P.entry - exitPrice) / P.entry * (P.sizeD * sizeFrac);
   }
 
@@ -168,6 +168,14 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
       sizeD = shares * entry;
       lev = 1;
       liq = null;
+    } else if (inst === 'option') {
+      // Long-premium literacy proxy: size from stop distance; extrinsic burns via thetaPerBar.
+      const stopDist = Math.abs(entry - stop) / entry;
+      if (!(stopDist > 0)) return { ok: false, err: 'stop_side' };
+      sizeD = riskD / stopDist;
+      lev = sizeD / S.balance;
+      liq = null;
+      qty = sizeD;
     } else {
       // perp (default)
       const stopDist = Math.abs(entry - stop) / entry;
@@ -182,11 +190,13 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
 
     const fee = sizeD * S.feePct;
     S.balance -= fee;
+    const thetaPct = (inst === 'option') ? (scenario.spec?.thetaPct ?? 0.003) : 0;
     S.pos = {
       dir, entry, stop, tp, sizeD, lev, liq, qty,
       tickSize, tickValue, margin, pipSize, pipValue,
       riskPct, riskD, openedAt: S.i,
       movedStop: 0, funding: 0, fees: fee,
+      thetaPerBar: thetaPct ? sizeD * thetaPct : 0,
       overRisk,
       stopBeyondLiq: liq !== null && (dir === 'long' ? stop < liq : stop > liq),
       partials: [],
@@ -353,9 +363,17 @@ export function createSession({ scenario, seed, balance = 1000, feePct = 0.0005,
 
     if (S.pos) {
       const P = S.pos;
-      // funding tick (perp)
-      if (S.scenario.instrument === 'perp' && (S.i - P.openedAt) > 0 && (S.i - P.openedAt) % FUNDING_EVERY === 0) {
-        const f = P.sizeD * FUNDING_RATE;
+      const inst = P.instrument || S.scenario.instrument || 'perp';
+      // option theta burn (extrinsic) — stored on funding field for P/L
+      if (inst === 'option' && P.thetaPerBar > 0) {
+        P.funding += P.thetaPerBar;
+        log('theta', { f: P.thetaPerBar });
+      } else if (inst === 'perp' && (S.i - P.openedAt) > 0 && (S.i - P.openedAt) % FUNDING_EVERY === 0) {
+        const rate = S.scenario.gen?.fundingRate ?? FUNDING_RATE;
+        let f = P.sizeD * rate;
+        if (S.scenario.gen?.fundingLongPays) {
+          f = P.dir === 'long' ? Math.abs(f) : -Math.abs(f) * 0.25;
+        }
         P.funding += f;
         log('funding', { f });
       }

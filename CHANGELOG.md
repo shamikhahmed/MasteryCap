@@ -1,3 +1,13 @@
+## [49.1.0] — 2026-07-20
+
+### Scenario ladder
+- L1 Funding squeeze (crypto perp, crowded-long pays)
+- L2 Theta burn (option premium proxy)
+- L3 Margin call distance (thin futures margin)
+- Sim picker ladder strip; funding/theta drain on position panel
+- SW `masterycap-v4910`
+
+
 ## [49.0.0] — 2026-07-20
 
 ### Worked chart examples

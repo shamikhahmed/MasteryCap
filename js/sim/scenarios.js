@@ -89,6 +89,24 @@ export const SIM_SCENARIOS = [
     gen: { visible: 40, segments: [ { n: 80, drift: 0, vol: 0.02 } ] },
     constraints: { maxRiskPct: 0.5 },
   },
+  {
+    id: 'c9_funding_squeeze', track: 'crypto', instrument: 'perp', ladder: true,
+    name: { en: 'Funding squeeze', ur: 'Funding squeeze' },
+    mission: {
+      en: 'Crowded longs pay heavy funding every few bars. Prefer flat/short or tiny long with a time plan. Risk ≤ 0.5%. Oversized long through funding grind is the anti-lesson.',
+      ur: 'Crowded longs heavy funding pay karte. Flat/short ya tiny long + time plan. Risk ≤ 0.5%. Oversized long through funding = anti-lesson.',
+    },
+    gen: {
+      visible: 40,
+      fundingRate: 0.0025,
+      fundingLongPays: true,
+      segments: [
+        { n: 36, drift: 0.001, vol: 0.007 },
+        { n: 44, drift: -0.004, vol: 0.012 },
+      ],
+    },
+    constraints: { maxRiskPct: 0.5 },
+  },
 
   /* ---------- FUTURES (S4) — tick / margin discipline ---------- */
   {
@@ -150,6 +168,36 @@ export const SIM_SCENARIOS = [
     },
     gen: { start: 4500, visible: 40, segments: [ { n: 80, drift: 0, vol: 0.0035 } ] },
     constraints: { maxRiskPct: 0.5 },
+  },
+  {
+    id: 'f7_margin_call', track: 'futures', instrument: 'futures', ladder: true,
+    spec: { tickSize: 0.25, tickValue: 12.5, margin: 200 },
+    name: { en: 'Margin call distance', ur: 'Margin call distance' },
+    mission: {
+      en: 'Thin margin → liquidation line sits close. Stop MUST sit inside wipe. Count ticks before size — or skip. Risk ≤ 1%. Liquidation = process fail.',
+      ur: 'Thin margin → liq line qareeb. Stop wipe ke ANDAR. Ticks gino — ya skip. Risk ≤ 1%. Liquidation = process fail.',
+    },
+    gen: {
+      start: 4500, visible: 40,
+      segments: [
+        { n: 28, drift: 0.0002, vol: 0.002 },
+        { n: 52, drift: -0.0025, vol: 0.005 },
+      ],
+    },
+    constraints: { maxRiskPct: 1 },
+  },
+
+  /* ---------- OPTIONS LADDER (theta literacy) ---------- */
+  {
+    id: 'o1_theta_burn', track: 'options', instrument: 'option', ladder: true,
+    spec: { thetaPct: 0.004 },
+    name: { en: 'Theta burn (long premium)', ur: 'Theta burn (long premium)' },
+    mission: {
+      en: 'Flat tape. Long premium only. Extrinsic decays every bar — time is the cost. Risk ≤ 1%. Lesson: do not hold hope through theta without a catalyst plan.',
+      ur: 'Flat tape. Sirf long premium. Extrinsic har bar decay — time = cost. Risk ≤ 1%. Hope + theta bina plan = anti-lesson.',
+    },
+    gen: { start: 100, visible: 40, segments: [ { n: 80, drift: 0, vol: 0.004 } ] },
+    constraints: { maxRiskPct: 1, dirAllowed: 'long' },
   },
 
   /* ---------- FOREX (S4) — pip / session ---------- */
@@ -289,14 +337,18 @@ export const SIM_SCENARIOS = [
   },
 ];
 
-export const SIM_TRACK_ORDER = ['crypto', 'futures', 'forex', 'stocks'];
+export const SIM_TRACK_ORDER = ['crypto', 'futures', 'options', 'forex', 'stocks'];
 
 export const SIM_TRACK_LABEL = {
   crypto: { en: 'Crypto & Perps', ur: 'Crypto & Perps' },
   futures: { en: 'Futures', ur: 'Futures' },
+  options: { en: 'Options (ladder)', ur: 'Options (ladder)' },
   forex: { en: 'Forex', ur: 'Forex' },
   stocks: { en: 'Stocks', ur: 'Stocks' },
 };
+
+/** Signature scenario-ladder drills (funding / theta / margin). */
+export const LADDER_SCENARIOS = () => SIM_SCENARIOS.filter((s) => s.ladder);
 
 export function getScenario(id) {
   return SIM_SCENARIOS.find((s) => s.id === id) || SIM_SCENARIOS[0];
