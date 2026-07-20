@@ -52,12 +52,12 @@ export function renderProgress(App, c) {
     </div>`;
     return `<div class="panel pad" style="margin-bottom:14px">
       <div class="hstack" style="justify-content:space-between;align-items:baseline">
-        <div class="slabel">${lang === 'en' ? 'Certificate progress' : 'Certificate progress'} · ${track.name[lang]}</div>
+        <div class="slabel">${lang === 'en' ? 'Certificate progress' : 'Certificate taraqqi'} · ${track.name[lang]}</div>
         <span class="pill mono ${gs.ready ? 'acc' : ''}">${gs.met.length}/${gs.met.length + gs.missing.length}</span>
       </div>
       <div style="margin-top:10px;border:2px ${gs.ready ? 'solid var(--acc)' : 'dashed var(--line-2)'};border-radius:10px;padding:14px;text-align:center;${gs.ready ? '' : 'opacity:0.6'}">
         <div class="mono" style="font-size:11px;letter-spacing:0.2em;color:var(--acc)">M A S T E R Y C A P</div>
-        <div style="font-family:Georgia,serif;font-size:20px;font-weight:650;margin-top:6px">${gs.ready ? (lang === 'en' ? 'Ready to issue' : 'Issue ke liye tayyar') : (lang === 'en' ? 'Certificate locked' : 'Certificate locked')}</div>
+        <div style="font-family:Georgia,serif;font-size:20px;font-weight:650;margin-top:6px">${gs.ready ? (lang === 'en' ? 'Ready to issue' : 'Issue ke liye tayyar') : (lang === 'en' ? 'Certificate locked' : 'Certificate band')}</div>
         <div style="font-size:11px;color:var(--t3);margin-top:4px">${lang === 'en' ? 'Self-issued study record — not a license' : 'Self-issued study record — license nahi'}</div>
       </div>
       <div style="margin-top:10px">${gs.met.map((m) => row(m, true)).join('')}${gs.missing.map((m) => row(m, false)).join('')}</div>
@@ -75,7 +75,7 @@ export function renderProgress(App, c) {
   </div>`;
 
   const skillPanel = `<div class="panel pad" style="margin-bottom:14px">
-    <div class="slabel">${lang === 'en' ? 'Skills mastered' : 'Skills mastered'}</div>
+    <div class="slabel">${lang === 'en' ? 'Skills mastered' : 'Master skills'}</div>
     <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">
       ${Object.keys(skills.mastered || {}).length
         ? Object.keys(skills.mastered).map((id) => {
@@ -283,7 +283,7 @@ function calmFlaggedPanel(App, trades) {
   const c = stats(calm), f = stats(flagged);
   const lang = App.lang;
   return `<div class="panel" style="margin-bottom:14px">
-    <div class="panel-h"><span class="ph-t">${lang === 'en' ? 'Calm vs flagged' : 'Calm vs flagged'}</span></div>
+    <div class="panel-h"><span class="ph-t">${lang === 'en' ? 'Calm vs flagged' : 'Shant vs flagged'}</span></div>
     <div class="pad" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13px">
       <div><div class="slabel">Calm · n=${c.n}</div>
         <div class="mono">${c.wr}% WR</div>

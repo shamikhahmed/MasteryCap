@@ -115,6 +115,8 @@ Next (in order):
 
 **v50.8:** Parsons one-use pool + 5 course project checklists for cert honesty.
 
+**v51.8:** Charts + Hasil UR chrome.
+
 **v51.7:** Craft lesson + HTTP Lab UR chrome.
 
 **v51.6:** Practice/Today/session UR chrome.

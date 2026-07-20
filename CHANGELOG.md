@@ -1,3 +1,12 @@
+## [51.8.0] — 2026-07-21
+
+### Charts + Hasil UR chrome
+- Charts: Kaam ke examples / Misalein / Chart markaz / Mashq; UR `chart_title` = Chart dobara
+- Hasil: Certificate taraqqi/band, Master skills, Shant vs flagged
+- SW `masterycap-v5180`
+
+
+
 ## [51.7.0] — 2026-07-21
 
 ### Craft lesson + Lab UR chrome

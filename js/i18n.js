@@ -662,7 +662,7 @@ export const T = {
     set_reset_2: 'Last chance — wapas nahi hoga. Ab reset?',
     set_changelog: 'Changelog',
 
-    chart_title: 'Chart replay',
+    chart_title: 'Chart dobara',
     chart_h1: 'Chart parho',
     chart_cta: 'Chart drills',
     chart_tap_hint: 'Resistance zone pe chart tap karo.',

@@ -36,7 +36,7 @@ function drawHub() {
         : 'Pehle annotated structure. Phir drill. Labels literacy — live signal nahi.'}</p>
     </div>
     <div class="panel pad" style="margin-top:14px">
-      <div class="slabel">${lang === 'en' ? 'Worked examples' : 'Worked examples'}</div>
+      <div class="slabel">${lang === 'en' ? 'Worked examples' : 'Kaam ke examples'}</div>
       ${examples.map((ex) => `
         <button type="button" class="check-row" data-ex="${ex.id}" style="width:100%;text-align:left;background:none;border:0;color:inherit;cursor:pointer;margin-top:8px">
           <span class="check-box">${icon('progress', { size: 12 })}</span>
@@ -64,7 +64,7 @@ function drawExample() {
   const App = APP, c = ROOT, lang = App.lang;
   const html = renderWorkedChart(S.exampleId, lang);
   c.innerHTML = `<div class="screen">
-    <button class="backlink" id="exBack">${icon('back', { size: 16 })} ${lang === 'en' ? 'Examples' : 'Examples'}</button>
+    <button class="backlink" id="exBack">${icon('back', { size: 16 })} ${lang === 'en' ? 'Examples' : 'Misalein'}</button>
     <div class="panel pad" style="margin-top:10px">${html}
       <div class="note-box warn mt14">${lang === 'en'
         ? 'Not a trade signal. Use Practice Ledger only after checklist.'
@@ -121,10 +121,10 @@ function drawDrill() {
   }
 
   c.innerHTML = `<div class="screen">
-    <button class="backlink" id="chBack">${icon('back', { size: 16 })} ${lang === 'en' ? 'Chart hub' : 'Chart hub'}</button>
+    <button class="backlink" id="chBack">${icon('back', { size: 16 })} ${lang === 'en' ? 'Chart hub' : 'Chart markaz'}</button>
     <div class="lt-head" style="padding-top:4px">
       <div class="kicker">${App.t('chart_title')}</div>
-      <h1>${lang === 'en' ? 'Drill' : 'Drill'}</h1>
+      <h1>${lang === 'en' ? 'Drill' : 'Mashq'}</h1>
     </div>
     <div class="panel pad">${body}</div>
   </div>`;
