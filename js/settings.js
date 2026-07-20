@@ -8,7 +8,7 @@ import { applyTheme, getAppearance, setAppearance } from './theme.js';
 import { getTeacher, setTeacher, TEACHERS } from './teacher.js';
 import { evidenceHash } from './exam.js';
 
-export const APP_VERSION = 'v45.1.0';
+export const APP_VERSION = 'v46.0.0';
 
 function todayStamp() {
   const d = new Date();
@@ -118,8 +118,8 @@ export function openSettings(App) {
         </div>
 
         <div class="slabel" style="margin:0 0 10px">${App.t('set_appearance')}</div>
-        <div class="seg" style="width:100%;margin-bottom:16px">
-          ${['dark', 'light', 'auto'].map((m) => `<button style="flex:1" class="${(getAppearance().mode || 'dark') === m ? 'on' : ''}" data-mode="${m}">${App.t('theme_' + m)}</button>`).join('')}
+        <div class="seg" style="width:100%;margin-bottom:16px;flex-wrap:wrap">
+          ${['light', 'sepia', 'dark', 'auto'].map((m) => `<button style="flex:1;min-width:22%" class="${(getAppearance().mode || 'light') === m ? 'on' : ''}" data-mode="${m}">${App.t('theme_' + m)}</button>`).join('')}
         </div>
         <div class="slabel" style="margin:0 0 8px;font-size:11px;opacity:0.8">${App.lang === 'en' ? 'Daily session length' : 'Rozana session'}</div>
         <div class="seg" style="width:100%;margin-bottom:16px">
@@ -379,7 +379,7 @@ function seedDemo() {
     crypto: { placementDone: true, weekStatus: { 1: 'completed', 2: 'completed', 3: 'current' }, xp: 150 },
     stocks: { placementDone: false, weekStatus: {}, xp: 0 },
   });
-  store.set(KEYS.profile, { name: 'Demo Trader', experience: 'some', markets: ['crypto', 'stocks'] });
+  store.set(KEYS.profile, { name: 'Demo Trader', experience: 'some', markets: ['crypto', 'stocks'], campus: true, register: 'young', ageBand: '18-24', goal: 'apps', timeBand: '2-5' });
   store.set(KEYS.onboarded, true);
   store.set(KEYS.streak, { lastDay: new Date().toISOString().slice(0, 10), current: 3, best: 5 });
 }

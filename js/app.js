@@ -25,7 +25,7 @@ import { isOn } from './institute/features.js';
 import {
   recommendPath, AGE_OPTS, LANG_OPTS, BUILD_OPTS, GOAL_OPTS, TIME_OPTS,
 } from './institute/placement.js';
-import { setActiveCourse } from './institute/progress.js';
+import { enrollCourse } from './institute/progress.js';
 import { touchStreak, touchStreakWithFreeze, markHabitDay, dueReviewCount, tryStreakRecovery, getStreak } from './retention.js';
 import { applySettings, openSettings, APP_VERSION } from './settings.js';
 import { mistakeCountDue } from './mistakes.js';
@@ -66,6 +66,18 @@ export const App = {
   haptic(ms = 8) {
     if (this._haptics === false) return;
     try { if (navigator.vibrate) navigator.vibrate(ms); } catch (e) {}
+  },
+
+  toast(msg) {
+    if (!msg) return;
+    document.getElementById('mc-toast')?.remove();
+    const el = document.createElement('div');
+    el.id = 'mc-toast';
+    el.setAttribute('role', 'status');
+    el.style.cssText = 'position:fixed;left:50%;bottom:calc(72px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:120;max-width:min(92vw,420px);padding:12px 16px;background:var(--surface-3);color:var(--t0);border:1px solid var(--line-2);border-radius:10px;font-size:13.5px;line-height:1.4;box-shadow:0 8px 24px rgba(0,0,0,.25)';
+    el.textContent = msg;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 2800);
   },
 
   money(n, { sign = false, dp = 2 } = {}) {
@@ -117,6 +129,7 @@ export const App = {
 
   /* ----- routing ----- */
   navigate(tab) {
+    if (tab === 'dashboard') tab = 'today';
     if (tab === this.tab) { this.render(); return; }
     if (this.tab === 'learn' && tab !== 'learn') {
       if (!confirmCourseLeave(this)) return;
@@ -430,8 +443,8 @@ function renderOnboarding() {
     };
     store.set(KEYS.profile, App.profile);
     store.set(KEYS.onboarded, true);
-    if (plan.course && plan.course !== 'MKT-LEGACY') setActiveCourse(plan.course);
-    if (plan.school === 'markets') setActiveCourse('MKT-LEGACY');
+    if (plan.course && plan.course !== 'MKT-LEGACY') enrollCourse(plan.course, plan.school);
+    if (plan.school === 'markets') enrollCourse('MKT-LEGACY', 'markets');
     seedFoundationsSoftStart(App.profile.experience);
     App.tab = 'today';
     App.render();
@@ -569,24 +582,41 @@ function maybeCorruptSheet() {
 function maybeWhatsNew() {
   const seen = store.get(KEYS.lastSeenVersion);
   if (seen === APP_VERSION) return;
-  store.set(KEYS.lastSeenVersion, APP_VERSION);
-  if (!seen) return; // first install — skip sheet
   const el = document.createElement('div');
   el.id = 'whatsnew-sheet';
   el.className = 'sheet-root on';
+  const en = App.lang !== 'ur';
   el.innerHTML = `<div class="sheet-backdrop" data-close></div>
     <div class="sheet" role="dialog">
       <div class="sheet-handle"></div>
-      <div class="sheet-head"><div class="slabel">${App.t('whats_new')} · ${APP_VERSION}</div>
+      <div class="sheet-head"><div class="slabel">${en ? 'Welcome Update' : 'Welcome Update'} · ${APP_VERSION}</div>
         <button class="sheet-x" data-close>${icon('x', { size: 18 })}</button></div>
       <div class="sheet-body" style="font-size:14px;color:var(--t2);line-height:1.55">
-        <p>v45.1.0 Scope lock: WEB-101→FE-201 + Money In Session; FE-202→APP-403 Announced; age-band tips; Lab/editor = v2.
-          Markets school wraps trading literacy. Offline · no accounts · honest certs.</p>
-        <p style="color:var(--t3)">See CHANGELOG.md for full notes.</p>
+        <p style="font-family:var(--serif);font-size:20px;color:var(--t0);margin:0 0 12px">${en ? 'MasteryCap 46 — Premium School' : 'MasteryCap 46 — Premium School'}</p>
+        <p>${en ? 'This update brought:' : 'Is update mein:'}</p>
+        <ul class="onb-ul" style="margin:8px 0 14px;padding-left:18px">
+          <li>${en ? 'Campus branches — Software Craft, Markets, Money' : 'Campus branches — Software Craft, Markets, Money'}</li>
+          <li>${en ? 'Enroll + final attempts on your transcript' : 'Enroll + final attempts transcript pe'}</li>
+          <li>${en ? 'Light / Sepia / Dark reading themes' : 'Light / Sepia / Dark themes'}</li>
+          <li>${en ? 'Student profile strip + calmer splash' : 'Student profile + calm splash'}</li>
+          <li>${en ? 'Desktop campus layout fix' : 'Desktop campus fix'}</li>
+        </ul>
+        <p style="color:var(--t3)">${en ? 'Offline. No accounts. Progress stays on this device.' : 'Offline. No accounts. Progress is device pe.'}</p>
+        <button class="btn accent mt14" id="welcomeEnter" style="width:100%">${en ? 'Enter campus' : 'Campus mein jao'}</button>
       </div>
     </div>`;
   document.body.appendChild(el);
-  el.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', () => el.remove()));
+  const dismiss = () => {
+    store.set(KEYS.lastSeenVersion, APP_VERSION);
+    el.remove();
+  };
+  el.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', dismiss));
+  document.getElementById('welcomeEnter')?.addEventListener('click', () => {
+    dismiss();
+    if (store.get(KEYS.onboarded) && App.profile?.campus) {
+      App.navigate('campus');
+    }
+  });
 }
 
 function maybeTour() {

@@ -138,7 +138,7 @@ function showDoneSheet(App, run) {
     </div>`;
   document.body.appendChild(el);
   requestAnimationFrame(() => el.classList.add('on'));
-  const close = () => { closeSheet(); App.navigate('dashboard'); };
+  const close = () => { closeSheet(); App.navigate('today'); };
   el.querySelectorAll('[data-close]').forEach((n) => n.addEventListener('click', close));
   el.querySelector('#sessionHome')?.addEventListener('click', close);
 }

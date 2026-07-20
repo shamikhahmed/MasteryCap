@@ -1,12 +1,14 @@
-/* Today tab — desk: next lesson, reviews, pace */
+/* Today tab — student desk */
 
 import { icon } from '../icons.js';
 import { openSettings } from '../settings.js';
 import { loadCourse } from '../data/institute/courses.js';
 import { getCourse } from '../data/institute/catalog.js';
+import { registerLabel } from '../institute/register.js';
 import {
   getInstitute, nextLesson, courseProgressPct, dueSrs, srsCapForProfile, setActiveCourse,
 } from '../institute/progress.js';
+import { getAppearance, setAppearance } from '../theme.js';
 
 export function renderToday(App, el) {
   const p = App.profile || {};
@@ -14,7 +16,6 @@ export function renderToday(App, el) {
   const inst = getInstitute();
   const rawCode = inst.activeCourse || p.starterCourse || null;
   const meta = rawCode ? getCourse(rawCode) : null;
-  // Announced / unloaded courses (FE-202→APP-403) fall back to Campus CTA
   const code = (rawCode === 'MKT-LEGACY' || meta?.status === 'session') ? rawCode : null;
   const course = code && code !== 'MKT-LEGACY' ? loadCourse(code) : null;
   const nxt = course ? nextLesson(course) : null;
@@ -22,6 +23,9 @@ export function renderToday(App, el) {
   const cap = srsCapForProfile(p);
   const due = dueSrs(cap).length;
   const en = App.lang === 'en';
+  const reg = registerLabel(p.register || 'young', App.lang);
+  const enrollN = Object.keys(inst.enrollments || {}).length;
+  const mode = getAppearance().mode || 'light';
 
   let hero = '';
   if (code === 'MKT-LEGACY') {
@@ -48,19 +52,27 @@ export function renderToday(App, el) {
   } else {
     hero = `<div class="inst-card accent-rule">
       <div class="kicker">${en ? 'Campus' : 'Campus'}</div>
-      <h2 class="inst-h2">${en ? 'Your campus is waiting' : 'Campus intezaar kar raha'}</h2>
-      <p class="inst-muted">${en ? 'Choose a school and start an In Session course.' : 'School chuno — In Session course shuru.'}</p>
+      <h2 class="inst-h2">${en ? 'Pick a branch' : 'Branch chuno'}</h2>
+      <p class="inst-muted">${en ? 'Software Craft, Markets, or Money — enroll in an Open course.' : 'Software Craft, Markets, ya Money — Open course mein enroll.'}</p>
       <button class="btn accent" id="tdCampus">${en ? 'Explore Campus' : 'Campus dekho'}</button>
     </div>`;
   }
 
-  el.innerHTML = `<div class="screen inst-screen">
+  el.innerHTML = `<div class="screen inst-screen workbench-campus">
+    <div class="wb-bench" aria-hidden="true"></div>
     <div class="lt-head head-row">
       <div>
         <div class="kicker">${en ? 'Today' : 'Aaj'}</div>
         <h1>${en ? `Hello, ${esc(name)}` : `Salam, ${esc(name)}`}</h1>
       </div>
-      <button class="icon-btn" id="tdSettings" aria-label="Settings">${icon('check', { size: 18 })}</button>
+      <button class="icon-btn" id="tdSettings" aria-label="Settings">${icon('settings', { size: 18 })}</button>
+    </div>
+    <div class="inst-card student-strip">
+      <div class="kicker">${en ? 'Student' : 'Student'}</div>
+      <p class="inst-muted">${esc(reg)} · ${enrollN} ${en ? 'enrolled' : 'enrolled'} · ${en ? 'Theme' : 'Theme'}</p>
+      <div class="seg theme-quick" style="width:100%;margin-top:10px">
+        ${['light', 'sepia', 'dark'].map((m) => `<button style="flex:1" class="${mode === m ? 'on' : ''}" data-theme="${m}">${m === 'light' ? (en ? 'Light' : 'Light') : m === 'sepia' ? 'Sepia' : (en ? 'Dark' : 'Dark')}</button>`).join('')}
+      </div>
     </div>
     ${hero}
     <div class="inst-row mt16">
@@ -69,8 +81,8 @@ export function renderToday(App, el) {
         <span>${en ? 'Reviews due' : 'Reviews due'}</span>
       </button>
       <button class="inst-stat" id="tdCampus2">
-        <span class="mono">${en ? 'Schools' : 'Schools'}</span>
-        <span>${en ? 'Browse catalog' : 'Catalog'}</span>
+        <span class="mono">${en ? 'Branches' : 'Branches'}</span>
+        <span>${en ? 'Browse campus' : 'Campus'}</span>
       </button>
     </div>
     <p class="inst-foot-note">${en
@@ -93,6 +105,11 @@ export function renderToday(App, el) {
   document.getElementById('tdFinal')?.addEventListener('click', () => {
     App.openFinal(code);
   });
+  el.querySelectorAll('[data-theme]').forEach((b) => b.addEventListener('click', () => {
+    setAppearance({ mode: b.dataset.theme });
+    App.haptic?.(4);
+    App.render();
+  }));
 }
 
 function esc(s) {

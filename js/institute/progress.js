@@ -12,6 +12,9 @@ function blank() {
     projects: {}, // courseCode -> { [itemId]: true }
     certificates: {}, // courseCode -> cert object
     srs: [], // { id, front, back, due, interval, ease, course, lesson }
+    enrollments: {}, // code -> { at, school }
+    attempts: {}, // code -> [{ at, score, passed }]
+    notes: {}, // lessonId -> string
     activeCourse: null,
     activeLesson: null,
   };
@@ -117,6 +120,14 @@ export async function tryIssueCertificate(courseCode, meta, score) {
     disclaimer: CERT_DISCLAIMER,
   };
   inst.finals[courseCode] = { score, at: Date.now(), passed: score >= (meta.passScore || 85) };
+  if (!inst.attempts) inst.attempts = {};
+  if (!inst.attempts[courseCode]) inst.attempts[courseCode] = [];
+  inst.attempts[courseCode].push({
+    at: Date.now(),
+    score,
+    passed: inst.finals[courseCode].passed,
+  });
+  inst.finals[courseCode].attemptCount = inst.attempts[courseCode].length;
   if (inst.finals[courseCode].passed) {
     inst.certificates[courseCode] = cert;
   }
@@ -128,6 +139,43 @@ export function setActiveCourse(code) {
   const inst = getInstitute();
   inst.activeCourse = code;
   setInstitute(inst);
+}
+
+export function enrollCourse(code, schoolId) {
+  const inst = getInstitute();
+  if (!inst.enrollments) inst.enrollments = {};
+  if (!inst.enrollments[code]) {
+    inst.enrollments[code] = { at: Date.now(), school: schoolId || null };
+  }
+  inst.activeCourse = code;
+  setInstitute(inst);
+  return inst.enrollments[code];
+}
+
+export function isEnrolled(code) {
+  return !!getInstitute().enrollments?.[code];
+}
+
+export function recordFinalAttempt(courseCode, score, passed) {
+  const inst = getInstitute();
+  if (!inst.attempts) inst.attempts = {};
+  if (!inst.attempts[courseCode]) inst.attempts[courseCode] = [];
+  inst.attempts[courseCode].push({ at: Date.now(), score, passed: !!passed });
+  const prev = inst.finals[courseCode];
+  const best = Math.max(score, prev?.score || 0);
+  inst.finals[courseCode] = {
+    score: best,
+    at: Date.now(),
+    passed: !!(passed || prev?.passed),
+    lastScore: score,
+    attemptCount: inst.attempts[courseCode].length,
+  };
+  setInstitute(inst);
+  return inst.attempts[courseCode].length;
+}
+
+export function attemptCount(courseCode) {
+  return (getInstitute().attempts?.[courseCode] || []).length;
 }
 
 export function dueSrs(cap = 25) {

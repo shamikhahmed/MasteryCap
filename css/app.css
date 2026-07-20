@@ -983,8 +983,25 @@ html[data-contrast="high"] {
 .onb-ul { color: var(--t1); }
 
 @media (min-width: 900px) {
-  :root { --maxw: 720px; }
-  body.inst-desktop #app-root { }
+  :root { --maxw: 1100px; }
+  body.inst-desktop #app-root { max-width: var(--maxw); margin: 0 auto; }
+}
+
+.branch-grid .branch-card { text-align: left; position: relative; padding-bottom: 36px; }
+.branch-enter { position: absolute; right: 16px; bottom: 14px; color: var(--acc); font-size: 12px; }
+.student-strip { margin-bottom: 14px; }
+.inst-reader {
+  background: var(--surface);
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 220px;
+}
+.inst-reader-page { min-height: 160px; }
+.inst-reader-nav { display: flex; gap: 8px; margin-top: 14px; }
+[data-theme="sepia"] .inst-reader,
+html[data-mode="sepia"] .inst-reader {
+  background: #F3E9D6;
 }
 
 /* Code lab + HTTP lab */

@@ -21,14 +21,17 @@ export function renderRecords(App, el) {
         <div class="kicker">${en ? 'Records' : 'Records'}</div>
         <h1>${en ? 'Transcript' : 'Transcript'}</h1>
       </div>
-      <button class="icon-btn" id="recSet" aria-label="Settings">${icon('edit', { size: 18 })}</button>
+      <button class="icon-btn" id="recSet" aria-label="Settings">${icon('settings', { size: 18 })}</button>
     </div>
 
     <div class="inst-card">
-      <div class="kicker">${en ? 'Learner' : 'Learner'}</div>
+      <div class="kicker">${en ? 'Student profile' : 'Student profile'}</div>
       <div class="inst-h3">${esc(App.profile?.name || 'Learner')}</div>
-      <p class="inst-muted mono">${App.profile?.ageBand || '—'} · ${App.profile?.goal || '—'} · ${App.profile?.timeBand || '—'}</p>
+      <p class="inst-muted">${humanProfile(App.profile, en)}</p>
+      <p class="inst-muted mono">${Object.keys(inst.enrollments || {}).length} ${en ? 'enrollments' : 'enrollments'}</p>
     </div>
+
+    ${renderAttempts(inst, en)}
 
     <div class="slabel mt16">${en ? 'Course progress' : 'Course progress'}</div>
     <div class="inst-list">
@@ -107,6 +110,43 @@ function renderProjects(App, inst, en) {
       <p class="inst-muted">${projectComplete(code, course.project.items) ? (en ? 'Project checklist complete' : 'Checklist mukammal') : ''}</p>`);
   }
   return blocks.join('') || '';
+}
+
+function renderAttempts(inst, en) {
+  const rows = Object.entries(inst.attempts || {});
+  if (!rows.length) return '';
+  return `<div class="slabel mt16">${en ? 'Final attempts' : 'Final attempts'}</div>
+    <div class="inst-list">${rows.map(([code, list]) => {
+      const last = list[list.length - 1];
+      const best = Math.max(...list.map((a) => a.score || 0));
+      return `<div class="inst-row-item static">
+        <span class="mono">${code}</span>
+        <span class="grow">${en ? `${list.length} tries · best ${best}%` : `${list.length} tries · best ${best}%`}</span>
+        <span class="mono">${last?.passed ? 'pass' : '—'}</span>
+      </div>`;
+    }).join('')}</div>`;
+}
+
+function humanProfile(p, en) {
+  if (!p) return '—';
+  const age = ({
+    teen: en ? 'Teen' : 'Teen',
+    '18-24': en ? 'Young adult' : 'Young adult',
+    '25-34': en ? 'Career years' : 'Career',
+    '35+': en ? 'Adult beginner' : 'Adult',
+  })[p.ageBand] || p.ageBand || '—';
+  const goal = ({
+    apps: en ? 'Build apps' : 'Apps',
+    web: en ? 'Web craft' : 'Web',
+    markets: en ? 'Market literacy' : 'Markets',
+    money: en ? 'Money literacy' : 'Money',
+  })[p.goal] || p.goal || '—';
+  const time = ({
+    lt2: en ? '<2h/week' : '<2h/hafta',
+    '2-5': en ? '2–5h/week' : '2–5h',
+    '5-10': en ? '5–10h/week' : '5–10h',
+  })[p.timeBand] || p.timeBand || '—';
+  return `${age} · ${goal} · ${time}`;
 }
 
 function exportBackup(App) {

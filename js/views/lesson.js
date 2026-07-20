@@ -42,8 +42,18 @@ export function renderLesson(App, el) {
   } else if (key === 'teach') {
     const reg = App.profile?.register || 'young';
     const html = resolveTeach(lesson, reg, lang);
-    body = `<div class="kicker">${en ? 'Teach' : 'Teach'} · ${registerLabel(reg, lang)}</div>
-      <div class="inst-prose">${html}</div>`;
+    const pages = splitTeachPages(html);
+    if (!App._teachPage) App._teachPage = 0;
+    if (App._teachPage >= pages.length) App._teachPage = pages.length - 1;
+    const pi = App._teachPage;
+    body = `<div class="kicker">${en ? 'Teach' : 'Teach'} · ${registerLabel(reg, lang)} · ${pi + 1}/${pages.length}</div>
+      <div class="inst-reader">
+        <div class="inst-prose inst-reader-page">${pages[pi] || ''}</div>
+        <div class="inst-reader-nav">
+          <button class="btn ghost" id="rdPrev" ${pi <= 0 ? 'disabled' : ''}>${en ? 'Prev page' : 'Pehle'}</button>
+          <button class="btn secondary" id="rdNext" ${pi >= pages.length - 1 ? 'disabled' : ''}>${en ? 'Next page' : 'Agla'}</button>
+        </div>
+      </div>`;
   } else if (key === 'visual') {
     const svg = lesson.visual ? diagram(lesson.visual) : '';
     body = `<div class="kicker">${en ? 'Visual' : 'Visual'}</div>
@@ -100,6 +110,7 @@ export function renderLesson(App, el) {
   });
   document.getElementById('lsPrev')?.addEventListener('click', () => {
     App._lessonStep = Math.max(0, step - 1);
+    App._teachPage = 0;
     App.render();
   });
   document.getElementById('lsNext')?.addEventListener('click', () => {
@@ -115,6 +126,7 @@ export function renderLesson(App, el) {
       markLessonComplete(courseCode, lessonId, lesson.cards || []);
       App._lesson = null;
       App._lessonStep = 0;
+      App._teachPage = 0;
       App._checkOk = false;
       App._checkAnswers = null;
       App._campusView = { level: 'course', code: courseCode, schoolId: getCourse(courseCode)?.school };
@@ -126,10 +138,21 @@ export function renderLesson(App, el) {
       App._checkOk = false;
       App._checkGraded = false;
       App._checkAnswers = null;
+      App._teachPage = 0;
       App.render();
       return;
     }
     App._lessonStep = step + 1;
+    App._teachPage = 0;
+    App.render();
+  });
+
+  document.getElementById('rdPrev')?.addEventListener('click', () => {
+    App._teachPage = Math.max(0, (App._teachPage || 0) - 1);
+    App.render();
+  });
+  document.getElementById('rdNext')?.addEventListener('click', () => {
+    App._teachPage = (App._teachPage || 0) + 1;
     App.render();
   });
 
@@ -213,7 +236,7 @@ export function renderFinal(App, el) {
       <div class="kicker mono">${code}</div>
       <h1>${r.passed ? (en ? 'Passed' : 'Pass') : (en ? 'Not yet' : 'Abhi nahi')}</h1>
       <p class="mono" style="font-size:28px">${r.score}%</p>
-      <p class="inst-muted">${en ? `Need ≥${course.passScore}%. Retake anytime — questions shuffle.` : `≥${course.passScore}% chahiye. Retake OK.`}</p>
+      <p class="inst-muted">${en ? `Need ≥${course.passScore}%. Attempts: ${r.attempts || 1}. Retake anytime.` : `≥${course.passScore}%. Attempts: ${r.attempts || 1}.`}</p>
       ${r.cert ? `<div class="inst-cert"><div class="cert-name">${esc(r.cert.name)}</div>
         <p class="cert-disc">${r.cert.disclaimer}</p>
         <p class="mono" style="font-size:10px">${r.cert.hash}</p></div>` : ''}
@@ -272,29 +295,48 @@ export function renderFinal(App, el) {
       if (App._finalAnswers[i] === q.correct) right += 1;
     });
     const score = Math.round((100 * right) / qs.length);
-    const { tryIssueCertificate, projectComplete } = await import('../institute/progress.js');
+    const { tryIssueCertificate, projectComplete, recordFinalAttempt, attemptCount } = await import('../institute/progress.js');
     let cert = null;
     const projOk = projectComplete(code, course.project?.items || []);
     const passed = score >= course.passScore && projOk;
     if (score >= course.passScore && !projOk) {
-      alert(en ? 'Score OK but project checklist incomplete — attest in Records.' : 'Score OK — pehle Records mein project checklist.');
+      App.toast?.(en ? 'Score OK but project checklist incomplete — attest in Records.' : 'Score OK — pehle Records mein project checklist.');
     }
+    let attempts = 1;
     if (passed) {
       cert = await tryIssueCertificate(code, {
         title: course.title,
         hours: meta?.hours || 0,
         passScore: course.passScore,
       }, score);
+      attempts = attemptCount(code);
     } else {
-      // still record attempt
-      const instMod = await import('../institute/progress.js');
-      const inst = instMod.getInstitute();
-      inst.finals[code] = { score, at: Date.now(), passed: false };
-      instMod.setInstitute(inst);
+      attempts = recordFinalAttempt(code, score, false);
     }
-    App._finalResult = { score, passed, cert };
+    App._finalResult = { score, passed, cert, attempts };
     App.render();
   });
+}
+
+function splitTeachPages(html) {
+  const raw = String(html || '').trim();
+  if (!raw) return [''];
+  const parts = raw.split(/<\/p>/i).map((p) => p.trim()).filter(Boolean).map((p) => (p.endsWith('>') ? p : `${p}</p>`));
+  if (parts.length <= 1) return [raw];
+  const pages = [];
+  let buf = '';
+  let n = 0;
+  for (const part of parts) {
+    buf += part;
+    n += 1;
+    if (n >= 2) {
+      pages.push(buf);
+      buf = '';
+      n = 0;
+    }
+  }
+  if (buf) pages.push(buf);
+  return pages.length ? pages : [raw];
 }
 
 function shuffle(arr) {
