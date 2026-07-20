@@ -8,14 +8,14 @@ import { STOCKS_DEEP_WEEKS, STOCKS_DEEP_PLACEMENT } from './stocks-deep.js';
 import { OPTIONS_WEEKS, OPTIONS_PLACEMENT } from './options.js';
 import { FUTURES_WEEKS, FUTURES_PLACEMENT } from './futures.js';
 import { FOREX_DEEP_WEEKS, FOREX_DEEP_PLACEMENT } from './forex-deep.js';
-import { SPOT_WEEKS, SPOT_PLACEMENT } from './spot.js';
+import { SPOT_DEEP_WEEKS, SPOT_DEEP_PLACEMENT } from './spot-deep.js';
 import { BINARY_WEEKS, BINARY_PLACEMENT } from './binary.js';
 import { INVEST_DEEP_WEEKS, INVEST_DEEP_PLACEMENT } from './invest-deep.js';
 import { BOTS_WEEKS, BOTS_PLACEMENT } from './bots.js';
 import { FOUNDATIONS_WEEKS, FOUNDATIONS_PLACEMENT } from './foundations.js';
 import { GREEKS_WEEKS, GREEKS_PLACEMENT } from './greeks.js';
 import { TAX_DEEP_WEEKS, TAX_DEEP_PLACEMENT } from './tax-deep.js';
-import { MACRO_WEEKS, MACRO_PLACEMENT } from './macro.js';
+import { MACRO_DEEP_WEEKS, MACRO_DEEP_PLACEMENT } from './macro-deep.js';
 import {
   PF_BUDGET_WEEKS, PF_BUDGET_PLACEMENT, PF_DEBT_WEEKS, PF_DEBT_PLACEMENT,
 } from './personal-finance.js';
@@ -47,11 +47,11 @@ export const TRACKS = [
   },
   {
     id: 'macro',
-    name: { en: 'Macro Backdrop', ur: 'Macro Background' },
-    blurb: { en: 'Inflation, rates, FX, liquidity — context not crystal ball', ur: 'Inflation, rates, FX, liquidity — context, crystal ball nahi' },
+    name: { en: 'Macro Literacy', ur: 'Macro Literacy' },
+    blurb: { en: 'Backdrop for size — not crystal ball (4 weeks)', ur: 'Backdrop for size — crystal ball nahi' },
     status: 'live',
-    weeks: MACRO_WEEKS,
-    placement: MACRO_PLACEMENT,
+    weeks: MACRO_DEEP_WEEKS,
+    placement: MACRO_DEEP_PLACEMENT,
   },
   {
     id: 'invest',
@@ -72,10 +72,10 @@ export const TRACKS = [
   {
     id: 'spot',
     name: { en: 'Spot vs Derivatives', ur: 'Spot vs Derivatives' },
-    blurb: { en: 'Ownership vs contracts', ur: 'Ownership vs contracts — farq' },
+    blurb: { en: 'Ownership vs contracts — failure modes (4 weeks)', ur: 'Ownership vs contracts — failure modes' },
     status: 'live',
-    weeks: SPOT_WEEKS,
-    placement: SPOT_PLACEMENT,
+    weeks: SPOT_DEEP_WEEKS,
+    placement: SPOT_DEEP_PLACEMENT,
   },
   {
     id: 'stocks',

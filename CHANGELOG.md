@@ -1,3 +1,10 @@
+## [48.0.0] — 2026-07-20
+
+### Markets more-tracks depth (v48 start)
+- Macro Literacy + Spot vs Derivatives: 4-week 6-part bars
+- SW `masterycap-v4800`
+
+
 ## [47.5.0] — 2026-07-20
 
 ### Paper University close-out
