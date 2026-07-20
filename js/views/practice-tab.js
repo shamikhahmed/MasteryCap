@@ -101,7 +101,7 @@ export function renderPracticeTab(App, el) {
   document.getElementById('prReview')?.addEventListener('click', () => App.openReview());
   document.getElementById('prCharts')?.addEventListener('click', () => App.openCharts());
   document.getElementById('prHasil')?.addEventListener('click', () => {
-    App.tab = 'progress'; App.haptic(6); App.render(); App.renderNav();
+    App.openHasil('practice');
   });
   document.getElementById('prDrills')?.addEventListener('click', () => App.openDrills());
   document.getElementById('prStudy')?.addEventListener('click', () => App.openStudy());

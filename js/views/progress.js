@@ -90,12 +90,17 @@ export function renderProgress(App, c) {
     <div class="note-box" style="margin-bottom:14px;font-size:13px">${App.t('limits_honest')}</div>
     ${tradeReadyBadges(App)}`;
 
-  const header = `<div class="lt-head"><div class="kicker">${App.t('nav_progress')}</div><h1>${lang === 'en' ? 'Hasil' : 'Hasil'}</h1></div>${masteryPanel}${competencePanel(App)}${certPanel}${timePanel}${skillPanel}`;
+  const back = `<button class="backlink" id="hasilBack">${icon('back', { size: 16 })} ${App.t('back')}</button>`;
+  const header = `${back}<div class="lt-head"><div class="kicker">${App.t('nav_progress')}</div><h1>${lang === 'en' ? 'Hasil' : 'Hasil'}</h1></div>${masteryPanel}${competencePanel(App)}${certPanel}${timePanel}${skillPanel}`;
 
   if (!trades.length) {
     c.innerHTML = `<div class="screen">${header}${weeksPanel(App)}${drillsPanel(App)}
       <div class="panel mt14"><div class="empty">${icon('progress', { size: 40, cls: 'e-ic', sw: 1.3 })}${App.t('no_data')}</div></div></div>`;
     attachShareCard(App);
+    document.getElementById('hasilBack')?.addEventListener('click', () => {
+      App.tab = App._progressReturn || 'practice';
+      App.render(); App.renderNav();
+    });
     return;
   }
 
@@ -142,6 +147,11 @@ export function renderProgress(App, c) {
     ${weeksPanel(App)}
     ${drillsPanel(App)}
   </div>`;
+  attachShareCard(App);
+  document.getElementById('hasilBack')?.addEventListener('click', () => {
+    App.tab = App._progressReturn || 'practice';
+    App.render(); App.renderNav();
+  });
 }
 
 function dualMetricPanel(App, trades) {
@@ -161,7 +171,6 @@ function dualMetricPanel(App, trades) {
     </div>
     <div class="pad" style="font-size:12.5px;color:var(--t3);padding-top:0">${App.t('dual_hint')}</div>
   </div>`;
-  attachShareCard(App);
 }
 
 function radarPanel(App) {

@@ -3,7 +3,7 @@
 import { icon } from '../icons.js';
 import { store, KEYS } from '../store.js';
 import { getCourse } from '../data/institute/catalog.js';
-import { loadCourse } from '../data/institute/courses.js';
+import { loadCourse, listAuthoredCodes } from '../data/institute/courses.js';
 import { registerLabel } from '../institute/register.js';
 import {
   getInstitute, CERT_DISCLAIMER, attestProject, projectComplete, courseProgressPct,
@@ -97,7 +97,8 @@ export function renderRecords(App, el) {
       </div>
       ${renderAttempts(inst, en)}
       ${renderProjects(App, inst, en, enrollCodes)}
-      <button class="btn secondary mt16" id="recExport">${en ? 'Export backup JSON' : 'Backup JSON'}</button>`;
+      <button class="btn secondary mt16" id="recHasil" style="width:100%">${en ? 'Hasil — can / can\'t-yet' : 'Hasil — can / can\'t-yet'}</button>
+      <button class="btn secondary mt10" id="recExport">${en ? 'Export backup JSON' : 'Backup JSON'}</button>`;
   } else {
     body = `
       <div class="slabel">${en ? 'Certificates' : 'Certificates'}</div>
@@ -142,6 +143,7 @@ export function renderRecords(App, el) {
     setTimeout(() => window.print(), 80);
   });
   document.getElementById('recExport')?.addEventListener('click', () => exportBackup(App));
+  document.getElementById('recHasil')?.addEventListener('click', () => App.openHasil?.('records'));
   document.getElementById('recSaveName')?.addEventListener('click', () => {
     const n = (document.getElementById('recName')?.value || '').trim() || 'Learner';
     App.profile = { ...(App.profile || {}), name: n };
@@ -177,11 +179,13 @@ export function renderRecords(App, el) {
 function renderProjects(App, inst, en, enrollCodes) {
   const blocks = [];
   const allow = new Set(enrollCodes || []);
-  // Also allow if learner already attested something
   for (const code of Object.keys(inst.projects || {})) allow.add(code);
 
-  for (const code of ['WEB-102', 'WEB-103', 'FIN-101', 'FIN-201', 'FIN-301']) {
-    if (!allow.has(code)) continue;
+  const codes = listAuthoredCodes()
+    .filter((code) => allow.has(code) && loadCourse(code)?.project)
+    .sort();
+
+  for (const code of codes) {
     const course = loadCourse(code);
     if (!course?.project) continue;
     const done = inst.projects[code] || {};
@@ -196,7 +200,7 @@ function renderProjects(App, inst, en, enrollCodes) {
   }
   if (!blocks.length) return '';
   return `<div class="slabel mt16">${en ? 'Project checklists' : 'Project checklists'}</div>
-    <p class="inst-muted" style="margin-bottom:8px">${en ? 'Only for courses you enrolled in.' : 'Sirf enrolled courses.'}</p>
+    <p class="inst-muted" style="margin-bottom:8px">${en ? 'Enrolled or attested courses with a project.' : 'Enrolled / attested courses + project.'}</p>
     ${blocks.join('')}`;
 }
 

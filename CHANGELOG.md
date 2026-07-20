@@ -1,3 +1,13 @@
+## [50.6.0] — 2026-07-20
+
+### Records projects + Hasil bridge
+- Transcript project checklists: all authored courses with `project` (incl. BE-301)
+- Records → Hasil; Practice uses `openHasil`; Hasil back link
+- EN `nav_progress` → Hasil; gallery script restores HTTP Lab shot
+- SW `masterycap-v5060`
+
+
+
 ## [50.5.0] — 2026-07-20
 
 ### BE-301 HTTP Lab checklist parity

@@ -6,7 +6,7 @@
 export const T = {
   en: {
     /* nav */
-    nav_dashboard: 'Campus', nav_learn: 'Courses', nav_journal: 'Desk', nav_progress: 'Transcript',
+    nav_dashboard: 'Campus', nav_learn: 'Courses', nav_journal: 'Desk', nav_progress: 'Hasil',
 
     /* course (ported) */
     startPlacement: 'Take placement test',

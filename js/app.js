@@ -172,6 +172,15 @@ export const App = {
     this.render(); this.renderNav();
   },
 
+  openHasil(fromTab) {
+    this._progressReturn = fromTab || (this.tab === 'progress' ? 'practice' : this.tab);
+    this.tab = 'progress';
+    this.haptic(6);
+    window.scrollTo({ top: 0 });
+    this.render();
+    this.renderNav();
+  },
+
   openReview() {
     this._reviewReturn = this.tab === 'review' ? 'practice' : this.tab;
     this.tab = 'review'; this.haptic(6);

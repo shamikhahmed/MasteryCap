@@ -110,7 +110,13 @@ async function shot(page, shots, vpName, idx, label, route, fileSlug) {
     await page.waitForTimeout(200);
     await shot(page, shots, vpName, n++, 'Practice', '[data-tab=practice]', 'practice');
 
-    // HTTP Lab = v2 (feature flag off) — skip Lab shot
+    if (await page.locator('#prLab').count()) {
+      await page.locator('#prLab').click();
+      await page.waitForTimeout(300);
+      await shot(page, shots, vpName, n++, 'HTTP Lab', '[data-tab=practice]', 'httplab');
+      await page.locator('#labBack').click().catch(() => {});
+      await page.waitForTimeout(200);
+    }
 
     await page.locator('#tabbar button[data-tab="records"]').click();
     await page.waitForTimeout(200);
