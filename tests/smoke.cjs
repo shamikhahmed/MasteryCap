@@ -44,9 +44,20 @@ async function onboard(page) {
     await dismissSheets(page);
     return;
   }
-  // welcome → notthis → name → age → lang → build → goal → time → plan
-  await page.locator('#onbNext').click(); // welcome
-  await page.locator('#onbNext').click(); // notthis
+  // Prefer skip for reliability — still issues Student ID + Markets soft-start
+  if (await page.locator('#onbSkip').count()) {
+    await page.locator('#onbSkip').click();
+    await page.waitForSelector('#tabbar:not(.hidden)', { timeout: 10000 });
+    await page.waitForTimeout(450);
+    await dismissSheets(page);
+    await page.locator('#first-backup-sheet [data-close]').first().click({ timeout: 800 }).catch(() => {});
+    await page.evaluate(() => {
+      document.querySelectorAll('.sheet-root.on').forEach((el) => el.classList.remove('on'));
+    });
+    return;
+  }
+  await page.locator('#onbNext').click();
+  await page.locator('#onbNext').click();
   await page.locator('#onbName').fill('Smoke');
   await page.locator('#onbNext').click();
   await page.locator('[data-field="ageBand"][data-val="18-24"]').click();
@@ -55,11 +66,13 @@ async function onboard(page) {
   await page.locator('#onbNext').click();
   await page.locator('[data-field="buildExp"][data-val="never"]').click();
   await page.locator('#onbNext').click();
-  await page.locator('[data-field="goal"][data-val="apps"]').click();
+  await page.locator('[data-field="goal"][data-val="markets"]').click();
   await page.locator('#onbNext').click();
   await page.locator('[data-field="timeBand"][data-val="2-5"]').click();
   await page.locator('#onbNext').click();
-  await page.locator('#onbNext').click(); // enter campus
+  await page.locator('#onbNext').click();
+  await page.waitForSelector('[data-testid="student-card"]', { timeout: 5000 });
+  await page.locator('#onbNext').click();
   await page.waitForSelector('#tabbar:not(.hidden)');
   await dismissSheets(page);
   await page.locator('#first-backup-sheet [data-close]').first().click({ timeout: 800 }).catch(() => {});
@@ -138,23 +151,34 @@ async function goTab(page, id) {
       const balTxt = await page.locator('#eqBal').textContent();
       if (!String(balTxt).includes('321.5')) throw new Error('edit bal failed: ' + balTxt);
 
-      // Institute lesson (WEB-101)
+      // Institute lesson (WEB-101) — or Markets Foundations if Markets admit
       await goTab(page, 'today');
       if (await page.locator('#tdContinue').count()) {
         await page.locator('#tdContinue').click();
+      } else if (await page.locator('#tdMarkets').count()) {
+        await page.locator('#tdMarkets').click();
+        await page.waitForSelector('[data-mkt="foundations"]', { timeout: 5000 });
+        await page.locator('[data-mkt="foundations"]').click();
+        await page.waitForTimeout(300);
+        const soft = page.locator('#softStartFoundations, #startPlacement, [data-week]').first();
+        if (await soft.count()) await soft.click().catch(() => {});
       } else {
         await goTab(page, 'campus');
         await page.locator('[data-school="software"]').click();
         await page.locator('[data-code="WEB-101"]').click();
+        if (await page.locator('#camEnroll').count()) await page.locator('#camEnroll').click();
+        await page.waitForSelector('#camStart', { timeout: 5000 });
         await page.locator('#camStart').click();
       }
-      await page.waitForSelector('.lesson-screen', { timeout: 10000 });
+      await page.waitForSelector('.lesson-screen, .lesson-body, #startQuiz, [data-week]', { timeout: 10000 });
       await page.screenshot({ path: path.join(outDir, `lesson-${width}.png`), fullPage: true });
-      await page.locator('#lsBack').click();
-      await page.waitForSelector('#tabbar:not(.hidden)', { timeout: 5000 });
-      // Markets track sample (Campus → track cards, no Enter CTA)
+      await page.locator('#lsBack, #mktBackCampus').first().click().catch(() => {});
+      await page.waitForSelector('#tabbar:not(.hidden)', { timeout: 5000 }).catch(() => {});
+      // Markets track sample (Campus → track cards)
       await goTab(page, 'campus');
-      await page.locator('[data-school="markets"]').click();
+      if (await page.locator('[data-school="markets"]').count()) {
+        await page.locator('[data-school="markets"]').click();
+      }
       await page.waitForSelector('[data-mkt="foundations"]', { timeout: 5000 });
       await page.locator('[data-mkt="foundations"]').click();
       await page.waitForTimeout(400);

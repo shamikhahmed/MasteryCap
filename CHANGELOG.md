@@ -1,3 +1,13 @@
+## [47.0.0] — 2026-07-20
+
+### Paper University (Phase A)
+- Admission flow + Student ID card (`MCI-YY-BRANCH-RAND-C`), optional photo
+- Today school homeboard (Continue / Standing / mini ID / Study due)
+- Markets core ladder: Foundations → Crypto/Stocks/Forex unlock together (weeks complete OR exam)
+- Practice promotes Study Hub; sim labeled Practice Ledger
+- SW `masterycap-v4700` + `css/institute.css`
+
+
 ## [46.0.4] — 2026-07-20
 
 ### Fix

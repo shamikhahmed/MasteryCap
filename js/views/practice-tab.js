@@ -41,29 +41,27 @@ export function renderPracticeTab(App, el) {
   el.innerHTML = `<div class="screen inst-screen">
     <div class="lt-head">
       <div class="kicker">${en ? 'Practice' : 'Practice'}</div>
-      <h1>${en ? 'Reviews & labs' : 'Reviews & labs'}</h1>
+      <h1>${en ? 'Study & labs' : 'Study & labs'}</h1>
       <p class="inst-muted">${en
-        ? `Spaced repetition + market practice. Cap today: ${cap}`
-        : `SRS + market practice. Cap: ${cap}`}</p>
+        ? 'Flashcards, notebooks, spaced reviews, and practice ledger.'
+        : 'Flashcards, notebooks, SRS, practice ledger.'}</p>
     </div>
     <div class="inst-card accent-rule">
+      <div class="kicker">${en ? 'Study hub' : 'Study hub'}</div>
       <div class="mono" style="font-size:28px">${due.length}</div>
-      <p class="inst-muted">${en ? 'Due now' : 'Ab due'} · ${total} ${en ? 'in deck' : 'deck mein'}</p>
-      <button class="btn accent" id="prStart" ${due.length ? '' : 'disabled'}>${en ? 'Start review' : 'Review shuru'}</button>
+      <p class="inst-muted">${en ? 'Reviews due now' : 'Ab due'} · ${total} ${en ? 'in deck' : 'deck mein'}</p>
+      <button class="btn accent" id="prStudy" style="width:100%">${en ? 'Open study desk' : 'Study desk'}</button>
+      <button class="btn secondary mt10" id="prStart" style="width:100%" ${due.length ? '' : 'disabled'}>${en ? 'Start SRS review' : 'SRS review'}</button>
     </div>
-    <div class="slabel mt16">${en ? 'Labs' : 'Labs'}</div>
+    <div class="slabel mt16">${en ? 'Practice ledger & drills' : 'Practice ledger & drills'}</div>
     <div class="inst-list">
       ${labRow}
       <button class="inst-row-item" id="prDrills">
         <span class="grow">${en ? 'Market drills' : 'Market drills'}</span>
         <span class="mono">→</span>
       </button>
-      <button class="inst-row-item" id="prStudy">
-        <span class="grow">${en ? 'Study desk' : 'Study desk'}</span>
-        <span class="mono">→</span>
-      </button>
       <button class="inst-row-item" id="prSim">
-        <span class="grow">${en ? 'Paper trading lab' : 'Paper trading lab'}</span>
+        <span class="grow">${en ? 'Practice ledger (paper lab)' : 'Practice ledger'}</span>
         <span class="mono">→</span>
       </button>
     </div>

@@ -10,6 +10,8 @@ import {
 } from '../institute/progress.js';
 import { openSettings } from '../settings.js';
 import { getAppearance, setAppearance } from '../theme.js';
+import { getStudentId, getStudentPhoto } from '../institute/student-id.js';
+import { renderStudentIdCard, renderStudentIdBack } from './student-id-view.js';
 
 export function renderRecords(App, el) {
   const en = App.lang === 'en';
@@ -22,6 +24,9 @@ export function renderRecords(App, el) {
     ...Object.keys(inst.completedLessons || {}),
     ...enrollCodes.filter((c) => c !== 'MKT-LEGACY'),
   ])];
+  const card = getStudentId();
+  const photo = getStudentPhoto();
+  const showId = !!App._showStudentId;
 
   const tabs = `
     <div class="seg records-seg" style="width:100%;margin:0 0 16px">
@@ -43,19 +48,28 @@ export function renderRecords(App, el) {
       }).join('')
       : `<p class="inst-muted">${en ? 'No enrollments yet — open Campus and admit to a course.' : 'Abhi enroll nahi — Campus se admit.'}</p>`;
 
+    const idBlock = card
+      ? `<div class="slabel mt16">${en ? 'Student ID' : 'Student ID'}</div>
+         <div id="recIdFront">${renderStudentIdCard(card, { lang: App.lang, photoUrl: photo })}</div>
+         ${showId ? `<div class="mt10">${renderStudentIdBack(card, { lang: App.lang })}</div>` : ''}
+         <button class="btn secondary mt10" id="recFlipId" style="width:100%">${showId ? (en ? 'Hide back' : 'Back chhupao') : (en ? 'Show back / print' : 'Back / print')}</button>
+         <button class="btn ghost mt10" id="recPrintId" style="width:100%">${en ? 'Print ID' : 'Print ID'}</button>`
+      : `<p class="inst-muted mt16">${en ? 'No Student ID yet.' : 'Student ID nahi.'}</p>`;
+
     body = `
       <div class="inst-card accent-rule">
         <div class="kicker">${en ? 'Student' : 'Student'}</div>
         <h2 class="inst-h2">${esc(p.name || 'Learner')}</h2>
         <p class="inst-muted">${esc(registerLabel(p.register || 'young', App.lang))}</p>
         <p class="inst-muted">${humanProfile(p, en)}</p>
-        <p class="inst-muted mono">${enrollCodes.length} ${en ? 'enrollments' : 'enrollments'} · ${certs.length} ${en ? 'certs' : 'certs'}</p>
+        <p class="inst-muted mono">${card ? esc(card.idNumber) : '—'} · ${enrollCodes.length} ${en ? 'enrollments' : 'enrollments'}</p>
         <div class="field" style="margin-top:14px">
           <label>${en ? 'Display name' : 'Name'}</label>
           <input id="recName" type="text" maxlength="32" value="${esc(p.name || '')}" />
         </div>
         <button class="btn secondary mt10" id="recSaveName">${en ? 'Save name' : 'Name save'}</button>
       </div>
+      ${idBlock}
       <div class="slabel mt16">${en ? 'Reading theme' : 'Theme'}</div>
       <div class="seg" style="width:100%;margin-bottom:12px">
         ${['light', 'sepia', 'dark'].map((m) => `<button style="flex:1" class="${mode === m ? 'on' : ''}" data-theme="${m}">${m === 'light' ? 'Light' : m === 'sepia' ? 'Sepia' : 'Dark'}</button>`).join('')}
@@ -112,11 +126,21 @@ export function renderRecords(App, el) {
 
   el.querySelectorAll('[data-rpane]').forEach((b) => b.addEventListener('click', () => {
     App._recordsPane = b.dataset.rpane;
+    App._showStudentId = false;
     App.render();
   }));
   document.getElementById('recSet')?.addEventListener('click', () => openSettings(App));
   document.getElementById('recCampus')?.addEventListener('click', () => App.navigate('campus'));
   document.getElementById('recJournal')?.addEventListener('click', () => App.navigate('journal'));
+  document.getElementById('recFlipId')?.addEventListener('click', () => {
+    App._showStudentId = !App._showStudentId;
+    App.render();
+  });
+  document.getElementById('recPrintId')?.addEventListener('click', () => {
+    App._showStudentId = true;
+    App.render();
+    setTimeout(() => window.print(), 80);
+  });
   document.getElementById('recExport')?.addEventListener('click', () => exportBackup(App));
   document.getElementById('recSaveName')?.addEventListener('click', () => {
     const n = (document.getElementById('recName')?.value || '').trim() || 'Learner';

@@ -1,0 +1,245 @@
+/* MasteryCap Institute — Student ID, homeboard, admission photo, desktop fill */
+
+.homeboard {
+  max-width: 720px;
+  margin: 0 auto;
+  padding-bottom: 28px;
+}
+.hb-section { margin-top: 20px; }
+.hb-label {
+  font-family: var(--mono, 'IBM Plex Mono', ui-monospace, monospace);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--t3);
+  margin-bottom: 8px;
+}
+.hb-continue .prog-line { margin-top: 12px; }
+
+.list-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  margin-bottom: 8px;
+}
+.list-row.static { cursor: default; }
+.list-row .grow { flex: 1; font-size: 14px; color: var(--t0); }
+.list-row .mono { font-size: 12px; color: var(--t2); }
+
+/* Mini ID strip */
+.mini-id-btn {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+.mini-id-strip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.mini-id-photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--t0);
+}
+.mini-id-photo img { width: 100%; height: 100%; object-fit: cover; }
+.mini-id-meta { flex: 1; min-width: 0; }
+.mini-id-name {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--t0);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mini-id-sub { font-size: 12px; color: var(--t2); margin-top: 2px; }
+.mini-id-cta {
+  font-size: 12px;
+  color: var(--acc);
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+/* Full Student ID card */
+.student-card {
+  width: min(340px, 100%);
+  aspect-ratio: 1.586;
+  margin: 0 auto;
+  border-radius: 20px;
+  border: 1px solid var(--line-2);
+  background: var(--surface);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 0 var(--line);
+}
+.student-card-back { aspect-ratio: auto; min-height: 200px; }
+.sid-header { margin-bottom: 12px; }
+.sid-wordmark {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--t0);
+}
+.sid-cred {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--t3);
+  margin-top: 2px;
+}
+.sid-body {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 14px;
+  flex: 1;
+  align-items: start;
+}
+.sid-photo-slot { width: 80px; height: 80px; }
+.sid-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  background: var(--surface-2);
+}
+.sid-mono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--t0);
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+}
+.sid-name {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  color: var(--t0);
+  line-height: 1.2;
+}
+.sid-id { font-size: 12px; color: var(--acc); margin-bottom: 6px; }
+.sid-row { font-size: 12px; color: var(--t2); line-height: 1.45; }
+.sid-footer {
+  margin-top: auto;
+  padding-top: 10px;
+  font-size: 10px;
+  color: var(--t3);
+  line-height: 1.35;
+  border-top: 1px solid var(--line);
+}
+.sid-rule { border: none; border-top: 1px solid var(--line); margin: 10px 0; }
+.sid-disc { font-size: 12px; color: var(--t2); line-height: 1.5; }
+
+/* Admission photo */
+.photo-admit-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 8px;
+}
+.photo-admit-preview {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.photo-admit-preview img { width: 100%; height: 100%; object-fit: cover; }
+.photo-mono {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--t0);
+}
+.photo-admit-actions { flex: 1; min-width: 0; }
+
+.ladder-core .inst-card:first-child {
+  border-color: var(--acc);
+}
+
+/* Splash — institute ceremony */
+#splash .splash-wordmark {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 36px;
+  letter-spacing: -0.02em;
+}
+#splash .splash-tag {
+  font-size: 13px;
+  color: var(--t2);
+}
+#splash .splash-foot {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--t3);
+}
+
+/* Desktop desk — fill width, not phone-in-a-lake */
+@media (min-width: 900px) {
+  body.inst-desktop #app-root {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 28px 40px;
+  }
+  body.inst-desktop .homeboard {
+    max-width: 920px;
+  }
+  body.inst-desktop .inst-screen {
+    min-height: calc(100vh - 88px);
+  }
+  body.inst-desktop .branch-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  body.inst-desktop .ladder-core {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+@media print {
+  .tabbar, .onb-top, .onb-foot, #tdSettings, .records-seg, .btn, .seg {
+    display: none !important;
+  }
+  .student-card, .student-card-back {
+    break-inside: avoid;
+    box-shadow: none;
+  }
+}

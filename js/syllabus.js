@@ -28,33 +28,46 @@ export const SEMESTERS = [
   { id: 'elective', name: { en: 'Electives — Eyes Open', ur: 'Electives — Aankhein Khuli' }, tracks: ['bots', 'binary'] },
 ];
 
-/** Prerequisites: track → tracks that must be CREDITED first (strict). */
+/** Prerequisites: track → tracks that must be CREDITED first (strict).
+ *  v47: Crypto / Stocks / Forex unlock together after Foundations gate
+ *  (all weeks credited OR Foundations exam ≥80%). Spot no longer blocks Core. */
 export const PREREQS = {
   foundations: [],
   macro: ['foundations'],
   spot: ['foundations'],
-  stocks: ['foundations', 'spot'],
+  stocks: ['foundations'],
   invest: ['foundations'],
   tax: ['foundations'],
   options: ['foundations', 'spot'],
   greeks: ['options'],
-  crypto: ['foundations', 'spot'],
+  crypto: ['foundations'],
   futures: ['foundations', 'spot'],
-  forex: ['foundations', 'spot'],
+  forex: ['foundations'],
   bots: ['foundations'],
   binary: ['foundations'],
 };
+
+/** Foundations gate: all weeks done OR exam passed (either path). */
+export function foundationsGateOpen(App) {
+  if (isCredited(App, 'foundations')) return true;
+  const prog = App.getCourse('foundations');
+  return !!(prog && prog.examPassed);
+}
 
 /** A track is credited when every week is completed/mastered. */
 export function isCredited(App, trackId) {
   const t = getTrack(trackId);
   if (!t || t.status !== 'live') return false;
   const prog = App.getCourse(trackId);
-  return t.weeks.every((w) => ['completed', 'mastered'].includes(prog.weekStatus[w.id]));
+  return t.weeks.every((w) => ['completed', 'mastered'].includes(prog.weekStatus?.[w.id]));
 }
 
 export function missingPrereqs(App, trackId) {
-  return (PREREQS[trackId] || []).filter((req) => !isCredited(App, req));
+  const reqs = PREREQS[trackId] || [];
+  return reqs.filter((req) => {
+    if (req === 'foundations') return !foundationsGateOpen(App);
+    return !isCredited(App, req);
+  });
 }
 
 /** Strict gate — UI must route through this before opening a track. */

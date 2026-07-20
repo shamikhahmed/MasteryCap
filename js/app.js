@@ -22,18 +22,15 @@ import { renderRecords } from './views/records.js';
 import { renderLesson, renderFinal } from './views/lesson.js';
 import { renderHttpLab } from './views/http-lab.js';
 import { isOn } from './institute/features.js';
-import {
-  recommendPath, AGE_OPTS, LANG_OPTS, BUILD_OPTS, GOAL_OPTS, TIME_OPTS,
-} from './institute/placement.js';
-import { enrollCourse } from './institute/progress.js';
 import { touchStreak, touchStreakWithFreeze, markHabitDay, dueReviewCount, tryStreakRecovery, getStreak } from './retention.js';
 import { applySettings, openSettings, APP_VERSION } from './settings.js';
 import { mistakeCountDue } from './mistakes.js';
 import { applyTheme } from './theme.js';
 import { pauseTime, touchTime } from './time.js';
-import { seedFoundationsSoftStart, preferredStartTrack } from './gates.js';
+import { preferredStartTrack } from './gates.js';
 import { canOpenTradingLab } from './gates.js';
 import { syncSessionBar } from './session.js';
+import { renderAdmission } from './views/admission.js';
 
 const root = () => document.getElementById('app-root');
 
@@ -275,185 +272,11 @@ export const App = {
 };
 
 /* ============================================================
-   Onboarding — institute placement (5 questions + plan letter)
+   Onboarding — Admission + Student ID (v47)
    ============================================================ */
 function renderOnboarding() {
-  document.getElementById('tabbar').classList.add('hidden');
-  let step = 0;
-  const data = {
-    name: '',
-    ageBand: '',
-    language: 'en',
-    buildExp: '',
-    goal: '',
-    timeBand: '',
-  };
-  // welcome, notthis, name, age, lang, build, goal, time, plan
-  const steps = ['welcome', 'notthis', 'name', 'age', 'lang', 'build', 'goal', 'time', 'plan'];
-  let plan = null;
-
-  function draw() {
-    const c = root();
-    const key = steps[step];
-    const en = App.lang === 'en';
-    let main = '';
-
-    if (key === 'welcome') {
-      main = `<div class="onb-main">
-        <div class="onb-eyebrow">MasteryCap</div>
-        <h1 class="onb-title">${en ? 'An institute in your pocket' : 'Pocket mein institute'}</h1>
-        <p class="onb-sub">${en
-          ? 'Complete courses in software, markets, and money — English and Roman Urdu, fully offline. No accounts. No promises we cannot keep.'
-          : 'Software, markets, money — English aur Roman Urdu, fully offline. No accounts. Jo promise na kar saken woh nahi.'}</p>
-      </div>`;
-    } else if (key === 'notthis') {
-      main = `<div class="onb-main">
-        <div class="onb-eyebrow">${en ? 'Honesty' : 'Imandari'}</div>
-        <h1 class="onb-title">${en ? 'What this is not' : 'Ye kya nahi hai'}</h1>
-        <ul class="inst-ul onb-ul">
-          <li>${en ? 'Not an accredited university or professional license.' : 'Accredited university ya professional license nahi.'}</li>
-          <li>${en ? 'Not financial advice or an income promise.' : 'Financial advice ya income promise nahi.'}</li>
-          <li>${en ? 'Certificates are self-issued on your device — proof of completed work, honestly.' : 'Certificates device pe self-issued — mukammal kaam ka imandar record.'}</li>
-        </ul>
-      </div>`;
-    } else if (key === 'name') {
-      main = `<div class="onb-main">
-        <div class="onb-eyebrow">${en ? 'Identity' : 'Shanakht'}</div>
-        <h1 class="onb-title">${en ? 'What should we call you?' : 'Naam kya likhen?'}</h1>
-        <div class="onb-field"><input class="onb-input" id="onbName" placeholder="Name" autocomplete="off" value="${data.name}" /></div>
-      </div>`;
-    } else if (key === 'age') {
-      main = optScreen(en ? 'Age range sets how we explain things — never what you can learn.' : 'Age se explanation change — seekhne ki had nahi.',
-        en ? 'Your age range' : 'Age range', AGE_OPTS, 'ageBand', data.ageBand);
-    } else if (key === 'lang') {
-      main = optScreen(en ? 'Language for lessons' : 'Lessons ki language',
-        en ? 'Preferred language' : 'Language', LANG_OPTS, 'language', data.language);
-    } else if (key === 'build') {
-      main = optScreen(en ? 'Honest placement — no ego trap.' : 'Imandar placement.',
-        en ? 'Have you built software before?' : 'Pehle software banaya?', BUILD_OPTS, 'buildExp', data.buildExp);
-    } else if (key === 'goal') {
-      main = optScreen(en ? 'Your recommended school follows this.' : 'Is se school recommend hoga.',
-        en ? 'What do you want to master first?' : 'Pehle kya master?', GOAL_OPTS, 'goal', data.goal);
-    } else if (key === 'time') {
-      main = optScreen(en ? 'Sets review card caps and week estimates.' : 'Review cap aur weeks.',
-        en ? 'Time you can invest' : 'Kitna time', TIME_OPTS, 'timeBand', data.timeBand);
-    } else if (key === 'plan') {
-      plan = recommendPath(data);
-      const nm = (data.name || 'Learner').trim() || 'Learner';
-      main = `<div class="onb-main">
-        <div class="onb-eyebrow">${en ? 'Placement' : 'Placement'}</div>
-        <h1 class="onb-title">${en ? `Welcome, ${nm}` : `Khush amdeed, ${nm}`}</h1>
-        <div class="inst-card accent-rule">
-          <div class="kicker">${en ? 'START HERE' : 'YAHAN SE'}</div>
-          <p class="inst-muted">${en ? 'Path' : 'Path'}</p>
-          <div class="inst-h3">${plan.pathName[en ? 'en' : 'ur']}</div>
-          <p class="inst-muted mt10">${en ? 'First lesson' : 'Pehli lesson'}</p>
-          <div>${plan.firstLesson[en ? 'en' : 'ur']}</div>
-          ${plan.weeks ? `<p class="mono mt10">~${plan.weeks} ${en ? 'weeks at your pace' : 'hafte aapki pace pe'}</p>` : ''}
-        </div>
-      </div>`;
-    }
-
-    function optScreen(sub, title, opts, field, val) {
-      return `<div class="onb-main">
-        <div class="onb-eyebrow">${en ? 'Placement' : 'Placement'}</div>
-        <h1 class="onb-title">${title}</h1>
-        <p class="onb-sub">${sub}</p>
-        <div class="opt-list">${opts.map(([v, lab]) => `
-          <button class="opt-card ${val === v ? 'on' : ''}" data-field="${field}" data-val="${v}">
-            <span class="oc-body"><span class="oc-t">${lab[en ? 'en' : 'ur']}</span></span>
-            <span class="oc-check">${icon('checkThin', { size: 13, sw: 2.4 })}</span>
-          </button>`).join('')}</div>
-      </div>`;
-    }
-
-    const last = key === 'plan';
-    const btnLabel = key === 'welcome' ? (en ? 'Begin' : 'Shuru')
-      : last ? (en ? 'Enter campus' : 'Campus mein')
-        : (en ? 'Continue' : 'Aage');
-
-    c.innerHTML = `<div class="onb">
-      <div class="onb-top">
-        ${step > 0 ? `<button class="icon-btn" id="onbBack" style="width:34px;height:34px">${icon('back', { size: 17 })}</button>` : '<span style="width:34px"></span>'}
-        <div class="onb-progress"><i style="width:${((step + 1) / steps.length) * 100}%"></i></div>
-        <button class="pill" id="onbSkip" style="font-size:11px">${en ? 'Skip' : 'Skip'}</button>
-      </div>
-      ${main}
-      <div class="onb-foot"><button class="btn accent" id="onbNext">${btnLabel}</button></div>
-    </div>`;
-
-    const nameInput = document.getElementById('onbName');
-    if (nameInput) {
-      nameInput.addEventListener('input', (e) => { data.name = e.target.value; });
-      setTimeout(() => nameInput.focus(), 60);
-    }
-    c.querySelectorAll('[data-field]').forEach((b) => b.addEventListener('click', () => {
-      data[b.dataset.field] = b.dataset.val;
-      if (b.dataset.field === 'language' && b.dataset.val !== 'both') {
-        App.lang = b.dataset.val;
-      }
-      App.haptic();
-      draw();
-    }));
-    document.getElementById('onbBack')?.addEventListener('click', () => { App.haptic(); step--; draw(); });
-    document.getElementById('onbSkip')?.addEventListener('click', () => {
-      data.name = data.name || 'Learner';
-      data.ageBand = data.ageBand || '18-24';
-      data.language = data.language || 'en';
-      data.buildExp = data.buildExp || 'never';
-      data.goal = data.goal || 'apps';
-      data.timeBand = data.timeBand || '2-5';
-      finish();
-    });
-    document.getElementById('onbNext')?.addEventListener('click', () => {
-      App.haptic();
-      if (key === 'age' && !data.ageBand) return;
-      if (key === 'build' && !data.buildExp) return;
-      if (key === 'goal' && !data.goal) return;
-      if (key === 'time' && !data.timeBand) return;
-      if (last) return finish();
-      step++;
-      draw();
-    });
-  }
-
-  function finish() {
-    plan = recommendPath(data);
-    const lang = data.language === 'ur' ? 'ur' : 'en';
-    App.lang = lang;
-    const settings = store.get(KEYS.settings, {});
-    settings.lang = lang;
-    store.set(KEYS.settings, settings);
-
-    App.profile = {
-      name: (data.name || '').trim() || 'Learner',
-      ageBand: data.ageBand || '18-24',
-      language: data.language || 'en',
-      buildExp: data.buildExp || 'never',
-      goal: data.goal || 'apps',
-      timeBand: data.timeBand || '2-5',
-      starterCourse: plan.course,
-      starterSchool: plan.school,
-      register: plan.register,
-      campus: true,
-      // legacy fields for markets modules
-      experience: data.goal === 'markets'
-        ? (data.buildExp === 'shipped' ? 'exp' : data.buildExp === 'dabbled' ? 'some' : 'new')
-        : 'new',
-      markets: data.goal === 'markets' ? ['foundations'] : ['foundations'],
-    };
-    store.set(KEYS.profile, App.profile);
-    store.set(KEYS.onboarded, true);
-    if (plan.course && plan.course !== 'MKT-LEGACY') enrollCourse(plan.course, plan.school);
-    if (plan.school === 'markets') enrollCourse('MKT-LEGACY', 'markets');
-    seedFoundationsSoftStart(App.profile.experience);
-    App.tab = 'today';
-    App.render();
-    App.renderNav();
-    setTimeout(() => { maybeFirstBackup(); }, 300);
-  }
-
-  draw();
+  renderAdmission(App, root);
+  App._maybeFirstBackup = maybeFirstBackup;
 }
 
 /* ============================================================

@@ -62,25 +62,40 @@ function renderSchool(App, el, schoolId, done, en) {
   }
 
   if (schoolId === 'markets') {
+    const CORE = ['foundations', 'crypto', 'stocks', 'forex'];
     const trading = TRACKS.filter((t) => TRADING_TRACK_IDS.includes(t.id));
-    const cards = trading.map((t) => {
+    const core = CORE.map((id) => trading.find((t) => t.id === id)).filter(Boolean);
+    const more = trading.filter((t) => !CORE.includes(t.id));
+
+    const cardHtml = (t) => {
       const lock = trackLockReason(t.id, App);
       const badge = lock ? (en ? 'Locked' : 'Locked') : (en ? 'Open' : 'Open');
+      const lockHint = lock
+        ? (en ? ' · Complete Foundations (or pass exam) first' : ' · Pehle Foundations / exam')
+        : '';
       return `<button class="inst-card ${lock ? 'dim' : ''}" data-mkt="${t.id}" data-lock="${lock || ''}">
         <div class="kicker mono">${badge}</div>
         <div class="inst-h3">${t.name[App.lang] || t.name.en}</div>
-        <p class="inst-muted">${t.blurb?.[App.lang] || t.blurb?.en || ''}${lock ? ` · ${en ? 'Finish Foundations first' : 'Pehle Foundations'}` : ''}</p>
+        <p class="inst-muted">${t.blurb?.[App.lang] || t.blurb?.en || ''}${lockHint}</p>
       </button>`;
-    }).join('');
+    };
 
     el.innerHTML = `<div class="screen inst-screen">
       <button class="text-back" id="camBack">${icon('back', { size: 16 })} ${en ? 'Branches' : 'Branches'}</button>
       <div class="lt-head">
         <div class="kicker">${en ? 'Branch' : 'Branch'}</div>
         <h1>${school.name.en}</h1>
-        <p class="inst-honesty">${en ? 'Education only. Not financial advice or an income path.' : 'Sirf education. Financial advice ya income path nahi.'}</p>
+        <p class="inst-foot-note">${en
+          ? 'Education only. Not financial advice or an income path.'
+          : 'Sirf education. Financial advice ya income path nahi.'}</p>
       </div>
-      <div class="inst-list">${cards}</div>
+      <div class="slabel">${en ? 'Core ladder' : 'Core ladder'}</div>
+      <p class="inst-muted" style="margin-bottom:10px">${en
+        ? 'Foundations first. Crypto, Stocks, and Forex unlock together when Foundations is complete or the exam is passed.'
+        : 'Pehle Foundations. Crypto / Stocks / Forex ek saath unlock.'}</p>
+      <div class="inst-list ladder-core">${core.map(cardHtml).join('')}</div>
+      <div class="slabel mt16">${en ? 'More tracks' : 'More tracks'}</div>
+      <div class="inst-list">${more.map(cardHtml).join('')}</div>
     </div>`;
     document.getElementById('camBack')?.addEventListener('click', () => {
       App._campusView = { level: 'schools' };
@@ -88,7 +103,9 @@ function renderSchool(App, el, schoolId, done, en) {
     });
     el.querySelectorAll('[data-mkt]').forEach((b) => b.addEventListener('click', () => {
       if (b.dataset.lock) {
-        App.toast?.(en ? 'Locked — complete Foundations first.' : 'Locked — pehle Foundations.');
+        App.toast?.(en
+          ? 'Locked — complete Markets Foundations (all weeks) or pass the Foundations exam.'
+          : 'Locked — pehle Foundations ya exam.');
         return;
       }
       enrollCourse('MKT-LEGACY', 'markets');

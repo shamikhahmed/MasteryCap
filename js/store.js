@@ -10,7 +10,12 @@ const IDB_STORE = 'kv';
 const QUOTA_WARN = 4 * 1024 * 1024;
 
 const MIGRATIONS = {
-  /* future: 2: (store) => { ... } */
+  2: (s) => {
+    /* v47: studentId key may be absent — leave legacy profile alone */
+    if (!s.get(KEYS.studentId, null) && s.get(KEYS.profile, null)?.studentIdNumber) {
+      /* profile already has id number from newer admission; card rebuilt on demand */
+    }
+  },
 };
 
 function _key(k) { return NS + k; }
@@ -248,7 +253,7 @@ export const store = {
       this.set(KEYS.schemaVersion, 1);
       ver = 1;
     }
-    const target = 1;
+    const target = 2;
     for (let v = ver + 1; v <= target; v++) {
       const fn = MIGRATIONS[v];
       if (typeof fn === 'function') fn(this);
@@ -307,6 +312,8 @@ export const KEYS = {
   taxChecklist: 'taxChecklist',
   sessionRun: 'sessionRun',
   institute: 'institute',
+  studentId: 'studentId',
+  studentPhoto: 'studentPhoto',
 };
 
 export { djb2, QUOTA_WARN };

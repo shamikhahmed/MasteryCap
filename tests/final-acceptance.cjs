@@ -65,6 +65,18 @@ async function dismissNoise(page) {
 async function onboard(page) {
   await page.waitForSelector('#onbNext, #tabbar', { timeout: 15000 });
   if (await page.locator('#tabbar:not(.hidden)').count()) return;
+  // Prefer skip — still issues Student ID
+  if (await page.locator('#onbSkip').count()) {
+    await page.locator('#onbSkip').click();
+    await page.waitForSelector('#tabbar:not(.hidden)', { timeout: 10000 });
+    await page.waitForTimeout(450);
+    await dismissNoise(page);
+    await page.locator('#first-backup-sheet [data-close]').first().click({ timeout: 800 }).catch(() => {});
+    await page.evaluate(() => {
+      document.querySelectorAll('.sheet-root.on').forEach((el) => el.classList.remove('on'));
+    });
+    return;
+  }
   await page.locator('#onbNext').click();
   await page.locator('#onbNext').click();
   await page.locator('#onbName').fill('FinalAccept');
@@ -79,7 +91,9 @@ async function onboard(page) {
   await page.locator('#onbNext').click();
   await page.locator('[data-field="timeBand"][data-val="2-5"]').click();
   await page.locator('#onbNext').click();
-  await page.locator('#onbNext').click();
+  await page.locator('#onbNext').click(); // photo skip
+  await page.waitForSelector('[data-testid="student-card"]', { timeout: 5000 });
+  await page.locator('#onbNext').click(); // enter campus
   await page.waitForSelector('#tabbar:not(.hidden)');
   await dismissNoise(page);
   await page.locator('#first-backup-sheet [data-close]').first().click({ timeout: 800 }).catch(() => {});

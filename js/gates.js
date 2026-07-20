@@ -4,7 +4,9 @@
 
 import { store, KEYS } from './store.js';
 import { getTrack } from './data/tracks.js';
-import { missingPrereqs } from './syllabus.js';
+import { missingPrereqs, foundationsGateOpen } from './syllabus.js';
+
+export { foundationsGateOpen };
 
 const ADVANCED = new Set(['crypto', 'forex', 'futures', 'options', 'greeks', 'bots', 'binary']);
 
