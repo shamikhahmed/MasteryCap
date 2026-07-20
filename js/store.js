@@ -306,6 +306,7 @@ export const KEYS = {
   backupRemindDismissedAt: 'backupRemindDismissedAt',
   taxChecklist: 'taxChecklist',
   sessionRun: 'sessionRun',
+  institute: 'institute',
 };
 
 export { djb2, QUOTA_WARN };

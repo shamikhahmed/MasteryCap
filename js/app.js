@@ -15,6 +15,15 @@ import { renderReview } from './views/review.js';
 import { renderCharts } from './views/charts.js';
 import { renderSim, stopSimPlayback } from './views/sim.js';
 import { renderStudy } from './views/study.js';
+import { renderToday } from './views/today-tab.js';
+import { renderCampus } from './views/campus.js';
+import { renderPracticeTab } from './views/practice-tab.js';
+import { renderRecords } from './views/records.js';
+import { renderLesson, renderFinal } from './views/lesson.js';
+import {
+  recommendPath, AGE_OPTS, LANG_OPTS, BUILD_OPTS, GOAL_OPTS, TIME_OPTS,
+} from './institute/placement.js';
+import { setActiveCourse } from './institute/progress.js';
 import { touchStreak, touchStreakWithFreeze, markHabitDay, dueReviewCount, tryStreakRecovery, getStreak } from './retention.js';
 import { applySettings, openSettings, APP_VERSION } from './settings.js';
 import { mistakeCountDue } from './mistakes.js';
@@ -28,7 +37,7 @@ const root = () => document.getElementById('app-root');
 
 export const App = {
   lang: 'en',
-  tab: 'dashboard',
+  tab: 'today',
   profile: null,
 
   t(key) { return tr(this.lang, key); },
@@ -112,27 +121,54 @@ export const App = {
       clearCourseDirty();
     }
     if (this.tab === 'sim' && tab !== 'sim') stopSimPlayback();
+    if (tab === 'today' || tab === 'campus' || tab === 'practice' || tab === 'records') {
+      this._lesson = null;
+      this._finalCode = null;
+    }
     this.tab = tab; this.haptic(6);
     window.scrollTo({ top: 0 });
     this.render(); this.renderNav();
   },
 
+  openLesson(courseCode, lessonId) {
+    this._lesson = { courseCode, lessonId };
+    this._lessonStep = 0;
+    this._checkAnswers = null;
+    this._checkGraded = false;
+    this._checkOk = false;
+    this.tab = 'lesson';
+    this.haptic(6);
+    window.scrollTo({ top: 0 });
+    this.render(); this.renderNav();
+  },
+
+  openFinal(courseCode) {
+    this._finalCode = courseCode;
+    this._finalAnswers = [];
+    this._finalOrder = null;
+    this._finalResult = null;
+    this.tab = 'final';
+    this.haptic(6);
+    window.scrollTo({ top: 0 });
+    this.render(); this.renderNav();
+  },
+
   openDrills() {
-    this._drillReturn = this.tab === 'drills' ? 'dashboard' : this.tab;
+    this._drillReturn = this.tab === 'drills' ? 'today' : this.tab;
     this.tab = 'drills'; this.haptic(6);
     window.scrollTo({ top: 0 });
     this.render(); this.renderNav();
   },
 
   openReview() {
-    this._reviewReturn = this.tab === 'review' ? 'dashboard' : this.tab;
+    this._reviewReturn = this.tab === 'review' ? 'practice' : this.tab;
     this.tab = 'review'; this.haptic(6);
     window.scrollTo({ top: 0 });
     this.render(); this.renderNav();
   },
 
   openCharts() {
-    this._chartReturn = this.tab === 'charts' ? 'dashboard' : this.tab;
+    this._chartReturn = this.tab === 'charts' ? 'today' : this.tab;
     this.tab = 'charts'; this.haptic(6);
     window.scrollTo({ top: 0 });
     this.render(); this.renderNav();
@@ -143,14 +179,14 @@ export const App = {
       this.openDrills();
       return;
     }
-    this._simReturn = this.tab === 'sim' ? 'dashboard' : this.tab;
+    this._simReturn = this.tab === 'sim' ? 'practice' : this.tab;
     this.tab = 'sim'; this.haptic(6);
     window.scrollTo({ top: 0 });
     this.render(); this.renderNav();
   },
 
   openStudy() {
-    this._studyReturn = this.tab === 'study' ? 'dashboard' : this.tab;
+    this._studyReturn = this.tab === 'study' ? 'practice' : this.tab;
     this.tab = 'study'; this.haptic(6);
     window.scrollTo({ top: 0 });
     this.render(); this.renderNav();
@@ -158,7 +194,7 @@ export const App = {
 
   closeSim() {
     stopSimPlayback();
-    this.tab = this._simReturn || 'dashboard';
+    this.tab = this._simReturn || 'practice';
     this.render(); this.renderNav();
   },
 
@@ -167,155 +203,230 @@ export const App = {
   render() {
     const c = root(); if (!c) return;
     if (this.tab !== 'sim') stopSimPlayback();
-    ({ dashboard: renderDashboard, learn: renderCourse, journal: renderJournal, progress: renderProgress, drills: renderDrills, review: renderReview, charts: renderCharts, sim: renderSim, study: renderStudy }[this.tab])(this, c);
+    const map = {
+      today: renderToday,
+      campus: renderCampus,
+      practice: renderPracticeTab,
+      records: renderRecords,
+      lesson: renderLesson,
+      final: renderFinal,
+      dashboard: renderDashboard,
+      learn: renderCourse,
+      journal: renderJournal,
+      progress: renderProgress,
+      drills: renderDrills,
+      review: renderReview,
+      charts: renderCharts,
+      sim: renderSim,
+      study: renderStudy,
+    };
+    (map[this.tab] || renderToday)(this, c);
     syncSessionBar(this);
   },
 
   renderNav() {
     const nav = document.getElementById('tabbar');
     if (!nav) return;
+    const hide = this.tab === 'lesson' || this.tab === 'final' || this.tab === 'sim';
+    if (hide) { nav.classList.add('hidden'); return; }
     nav.classList.remove('hidden');
     const due = dueReviewCount() + mistakeCountDue();
-    const tabs = [['dashboard', 'home', 'nav_dashboard'], ['learn', 'learn', 'nav_learn'], ['journal', 'journal', 'nav_journal'], ['progress', 'progress', 'nav_progress']];
-    nav.innerHTML = `<div class="tabbar-inner">${tabs.map(([id, ic, key]) => `
-      <button class="tab ${this.tab === id ? 'active' : ''}" data-tab="${id}">
-        ${icon(ic, { size: 21 })}<span class="tab-label">${this.t(key)}${id === 'learn' && due > 0 ? ` <span class="mono" style="color:var(--acc)">${due}</span>` : ''}</span>
+    const tabs = [
+      ['today', 'home', 'Today'],
+      ['campus', 'book', 'Campus'],
+      ['practice', 'target', 'Practice'],
+      ['records', 'journal', 'Records'],
+    ];
+    const main = new Set(['today', 'campus', 'practice', 'records']);
+    const active = main.has(this.tab) ? this.tab
+      : (this.tab === 'learn' || this.tab === 'drills' || this.tab === 'review' || this.tab === 'study' || this.tab === 'sim' || this.tab === 'charts')
+        ? (this.tab === 'learn' ? 'campus' : 'practice')
+        : (this.tab === 'journal' || this.tab === 'progress' ? 'records' : 'today');
+    nav.innerHTML = `<div class="tabbar-inner">${tabs.map(([id, ic, label]) => `
+      <button class="tab ${active === id ? 'active' : ''}" data-tab="${id}">
+        ${icon(ic, { size: 21 })}<span class="tab-label">${label}${id === 'practice' && due > 0 ? ` <span class="mono" style="color:var(--acc)">${due}</span>` : ''}</span>
       </button>`).join('')}</div>`;
     nav.querySelectorAll('.tab').forEach((b) => b.addEventListener('click', () => this.navigate(b.dataset.tab)));
   },
 };
 
 /* ============================================================
-   Onboarding — editorial, no emoji
+   Onboarding — institute placement (5 questions + plan letter)
    ============================================================ */
 function renderOnboarding() {
   document.getElementById('tabbar').classList.add('hidden');
   let step = 0;
-  const data = { name: '', experience: '', markets: [] };
-  const steps = ['welcome', 'name', 'exp', 'markets'];
-
-  const expOpts = [
-    ['new', 'seed', 'exp_new', { en: 'Starting from zero', ur: 'Zero se shuru' }],
-    ['some', 'spark', 'exp_some', { en: 'Traded a little, no system', ur: 'Thora kiya, koi system nahi' }],
-    ['exp', 'target', 'exp_exp', { en: 'Trade regularly', ur: 'Regularly trade karta hoon' }],
-  ];
-  const mktOptsAll = [
-    ['foundations', 'book', { en: 'Foundations (start here)', ur: 'Foundations (yahan se)' }],
-    ['invest', 'book', { en: 'Investing', ur: 'Investing' }],
-    ['spot', 'book', { en: 'Spot vs Derivatives', ur: 'Spot vs Derivatives' }],
-    ['stocks', 'stocks', { en: 'Stocks (equities)', ur: 'Stocks (equities)' }],
-    ['options', 'stocks', { en: 'Options', ur: 'Options' }],
-    ['crypto', 'crypto', { en: 'Crypto & Perps', ur: 'Crypto & Perps' }],
-    ['futures', 'futures', { en: 'Futures', ur: 'Futures' }],
-    ['forex', 'forex', { en: 'Forex', ur: 'Forex' }],
-    ['binary', 'binary', { en: 'Binary (elective)', ur: 'Binary (elective)' }],
-  ];
-  const mktOptsBeginner = mktOptsAll.filter((x) =>
-    ['foundations', 'invest', 'spot', 'stocks'].includes(x[0]));
-  const ADV_ONBOARD = new Set(['crypto', 'futures', 'forex', 'binary', 'options']);
+  const data = {
+    name: '',
+    ageBand: '',
+    language: 'en',
+    buildExp: '',
+    goal: '',
+    timeBand: '',
+  };
+  // welcome, notthis, name, age, lang, build, goal, time, plan
+  const steps = ['welcome', 'notthis', 'name', 'age', 'lang', 'build', 'goal', 'time', 'plan'];
+  let plan = null;
 
   function draw() {
     const c = root();
     const key = steps[step];
-    const last = step === steps.length - 1;
+    const en = App.lang === 'en';
     let main = '';
 
     if (key === 'welcome') {
       main = `<div class="onb-main">
         <div class="onb-eyebrow">MasteryCap</div>
-        <h1 class="onb-title">${App.t('onb_welcome_title')}</h1>
-        <p class="onb-sub">${App.t('onb_welcome_sub')}</p>
+        <h1 class="onb-title">${en ? 'An institute in your pocket' : 'Pocket mein institute'}</h1>
+        <p class="onb-sub">${en
+          ? 'Complete courses in software, markets, and money — English and Roman Urdu, fully offline. No accounts. No promises we cannot keep.'
+          : 'Software, markets, money — English aur Roman Urdu, fully offline. No accounts. Jo promise na kar saken woh nahi.'}</p>
+      </div>`;
+    } else if (key === 'notthis') {
+      main = `<div class="onb-main">
+        <div class="onb-eyebrow">${en ? 'Honesty' : 'Imandari'}</div>
+        <h1 class="onb-title">${en ? 'What this is not' : 'Ye kya nahi hai'}</h1>
+        <ul class="inst-ul onb-ul">
+          <li>${en ? 'Not an accredited university or professional license.' : 'Accredited university ya professional license nahi.'}</li>
+          <li>${en ? 'Not financial advice or an income promise.' : 'Financial advice ya income promise nahi.'}</li>
+          <li>${en ? 'Certificates are self-issued on your device — proof of completed work, honestly.' : 'Certificates device pe self-issued — mukammal kaam ka imandar record.'}</li>
+        </ul>
       </div>`;
     } else if (key === 'name') {
       main = `<div class="onb-main">
-        <div class="onb-eyebrow">${App.lang === 'en' ? 'Identity' : 'Shanakht'}</div>
-        <h1 class="onb-title">${App.t('onb_name_t')}</h1>
-        <p class="onb-sub">${App.t('onb_name_sub')}</p>
+        <div class="onb-eyebrow">${en ? 'Identity' : 'Shanakht'}</div>
+        <h1 class="onb-title">${en ? 'What should we call you?' : 'Naam kya likhen?'}</h1>
         <div class="onb-field"><input class="onb-input" id="onbName" placeholder="Name" autocomplete="off" value="${data.name}" /></div>
       </div>`;
-    } else if (key === 'exp') {
+    } else if (key === 'age') {
+      main = optScreen(en ? 'Age range sets how we explain things — never what you can learn.' : 'Age se explanation change — seekhne ki had nahi.',
+        en ? 'Your age range' : 'Age range', AGE_OPTS, 'ageBand', data.ageBand);
+    } else if (key === 'lang') {
+      main = optScreen(en ? 'Language for lessons' : 'Lessons ki language',
+        en ? 'Preferred language' : 'Language', LANG_OPTS, 'language', data.language);
+    } else if (key === 'build') {
+      main = optScreen(en ? 'Honest placement — no ego trap.' : 'Imandar placement.',
+        en ? 'Have you built software before?' : 'Pehle software banaya?', BUILD_OPTS, 'buildExp', data.buildExp);
+    } else if (key === 'goal') {
+      main = optScreen(en ? 'Your recommended school follows this.' : 'Is se school recommend hoga.',
+        en ? 'What do you want to master first?' : 'Pehle kya master?', GOAL_OPTS, 'goal', data.goal);
+    } else if (key === 'time') {
+      main = optScreen(en ? 'Sets review card caps and week estimates.' : 'Review cap aur weeks.',
+        en ? 'Time you can invest' : 'Kitna time', TIME_OPTS, 'timeBand', data.timeBand);
+    } else if (key === 'plan') {
+      plan = recommendPath(data);
+      const nm = (data.name || 'Learner').trim() || 'Learner';
       main = `<div class="onb-main">
-        <div class="onb-eyebrow">${App.lang === 'en' ? 'Level' : 'Level'}</div>
-        <h1 class="onb-title">${App.t('onb_exp_t')}</h1>
-        <div class="opt-list">${expOpts.map(([v, ic, lk, sub]) => `
-          <button class="opt-card ${data.experience === v ? 'on' : ''}" data-exp="${v}">
-            <span class="oc-icon">${icon(ic, { size: 20 })}</span>
-            <span class="oc-body"><span class="oc-t">${App.t(lk)}</span><span class="oc-s">${sub[App.lang]}</span></span>
-            <span class="oc-check">${icon('checkThin', { size: 13, sw: 2.4 })}</span>
-          </button>`).join('')}</div>
+        <div class="onb-eyebrow">${en ? 'Placement' : 'Placement'}</div>
+        <h1 class="onb-title">${en ? `Welcome, ${nm}` : `Khush amdeed, ${nm}`}</h1>
+        <div class="inst-card accent-rule">
+          <div class="kicker">${en ? 'START HERE' : 'YAHAN SE'}</div>
+          <p class="inst-muted">${en ? 'Path' : 'Path'}</p>
+          <div class="inst-h3">${plan.pathName[en ? 'en' : 'ur']}</div>
+          <p class="inst-muted mt10">${en ? 'First lesson' : 'Pehli lesson'}</p>
+          <div>${plan.firstLesson[en ? 'en' : 'ur']}</div>
+          ${plan.weeks ? `<p class="mono mt10">~${plan.weeks} ${en ? 'weeks at your pace' : 'hafte aapki pace pe'}</p>` : ''}
+        </div>
       </div>`;
-    } else if (key === 'markets') {
-      const mktOpts = (data.experience === 'new') ? mktOptsBeginner : mktOptsAll;
-      main = `<div class="onb-main">
-        <div class="onb-eyebrow">${App.lang === 'en' ? 'Markets' : 'Markets'}</div>
-        <h1 class="onb-title">${App.t('onb_markets_t')}</h1>
-        <p class="onb-sub">${data.experience === 'new' ? App.t('onb_markets_new') : App.t('onb_markets_sub')}</p>
-        <div class="opt-list">${mktOpts.map(([v, ic, nm]) => `
-          <button class="opt-card ${data.markets.includes(v) ? 'on' : ''}" data-mkt="${v}">
-            <span class="oc-icon">${icon(ic, { size: 20 })}</span>
-            <span class="oc-body"><span class="oc-t">${nm[App.lang]}</span></span>
+    }
+
+    function optScreen(sub, title, opts, field, val) {
+      return `<div class="onb-main">
+        <div class="onb-eyebrow">${en ? 'Placement' : 'Placement'}</div>
+        <h1 class="onb-title">${title}</h1>
+        <p class="onb-sub">${sub}</p>
+        <div class="opt-list">${opts.map(([v, lab]) => `
+          <button class="opt-card ${val === v ? 'on' : ''}" data-field="${field}" data-val="${v}">
+            <span class="oc-body"><span class="oc-t">${lab[en ? 'en' : 'ur']}</span></span>
             <span class="oc-check">${icon('checkThin', { size: 13, sw: 2.4 })}</span>
           </button>`).join('')}</div>
       </div>`;
     }
 
-    const btnLabel = key === 'welcome' ? (App.lang === 'en' ? 'Begin' : 'Shuru karo') : last ? App.t('onb_get') : App.t('onb_next');
+    const last = key === 'plan';
+    const btnLabel = key === 'welcome' ? (en ? 'Begin' : 'Shuru')
+      : last ? (en ? 'Enter campus' : 'Campus mein')
+        : (en ? 'Continue' : 'Aage');
+
     c.innerHTML = `<div class="onb">
       <div class="onb-top">
         ${step > 0 ? `<button class="icon-btn" id="onbBack" style="width:34px;height:34px">${icon('back', { size: 17 })}</button>` : '<span style="width:34px"></span>'}
         <div class="onb-progress"><i style="width:${((step + 1) / steps.length) * 100}%"></i></div>
-        <button class="pill" id="onbSkip" style="font-size:11px">${App.t('onb_skip')}</button>
+        <button class="pill" id="onbSkip" style="font-size:11px">${en ? 'Skip' : 'Skip'}</button>
       </div>
       ${main}
       <div class="onb-foot"><button class="btn accent" id="onbNext">${btnLabel}</button></div>
     </div>`;
 
     const nameInput = document.getElementById('onbName');
-    if (nameInput) { nameInput.addEventListener('input', (e) => { data.name = e.target.value; }); setTimeout(() => nameInput.focus(), 60); }
-    c.querySelectorAll('[data-exp]').forEach((b) => b.addEventListener('click', () => { data.experience = b.dataset.exp; App.haptic(); draw(); }));
-    c.querySelectorAll('[data-mkt]').forEach((b) => b.addEventListener('click', () => {
-      const m = b.dataset.mkt;
-      data.markets.includes(m) ? data.markets.splice(data.markets.indexOf(m), 1) : data.markets.push(m);
-      App.haptic(); draw();
+    if (nameInput) {
+      nameInput.addEventListener('input', (e) => { data.name = e.target.value; });
+      setTimeout(() => nameInput.focus(), 60);
+    }
+    c.querySelectorAll('[data-field]').forEach((b) => b.addEventListener('click', () => {
+      data[b.dataset.field] = b.dataset.val;
+      if (b.dataset.field === 'language' && b.dataset.val !== 'both') {
+        App.lang = b.dataset.val;
+      }
+      App.haptic();
+      draw();
     }));
-    const back = document.getElementById('onbBack');
-    if (back) back.addEventListener('click', () => { App.haptic(); step--; draw(); });
+    document.getElementById('onbBack')?.addEventListener('click', () => { App.haptic(); step--; draw(); });
     document.getElementById('onbSkip')?.addEventListener('click', () => {
-      data.name = data.name || 'Trader';
-      data.experience = 'new';
-      data.markets = ['foundations'];
+      data.name = data.name || 'Learner';
+      data.ageBand = data.ageBand || '18-24';
+      data.language = data.language || 'en';
+      data.buildExp = data.buildExp || 'never';
+      data.goal = data.goal || 'apps';
+      data.timeBand = data.timeBand || '2-5';
       finish();
     });
-    document.getElementById('onbNext').addEventListener('click', () => {
+    document.getElementById('onbNext')?.addEventListener('click', () => {
       App.haptic();
-      if (key === 'exp' && !data.experience) return;
-      if (key === 'markets' && !data.markets.length && data.experience === 'new') {
-        data.markets = ['foundations'];
-      }
+      if (key === 'age' && !data.ageBand) return;
+      if (key === 'build' && !data.buildExp) return;
+      if (key === 'goal' && !data.goal) return;
+      if (key === 'time' && !data.timeBand) return;
       if (last) return finish();
-      step++; draw();
+      step++;
+      draw();
     });
   }
 
   function finish() {
-    const experience = data.experience || 'new';
-    let markets = data.markets.length ? [...data.markets] : ['foundations'];
-    if (experience === 'new') {
-      markets = markets.filter((m) => !ADV_ONBOARD.has(m));
-      if (!markets.includes('foundations')) markets = ['foundations', ...markets];
-    } else if (!markets.includes('foundations') && experience === 'some') {
-      /* soft-start still seeds Foundations; markets can stay as chosen */
-    }
-    if (!markets.length) markets = ['foundations'];
-    App.profile = { name: (data.name || '').trim() || 'Trader', experience, markets };
+    plan = recommendPath(data);
+    const lang = data.language === 'ur' ? 'ur' : 'en';
+    App.lang = lang;
+    const settings = store.get(KEYS.settings, {});
+    settings.lang = lang;
+    store.set(KEYS.settings, settings);
+
+    App.profile = {
+      name: (data.name || '').trim() || 'Learner',
+      ageBand: data.ageBand || '18-24',
+      language: data.language || 'en',
+      buildExp: data.buildExp || 'never',
+      goal: data.goal || 'apps',
+      timeBand: data.timeBand || '2-5',
+      starterCourse: plan.course,
+      starterSchool: plan.school,
+      register: plan.register,
+      campus: true,
+      // legacy fields for markets modules
+      experience: data.goal === 'markets'
+        ? (data.buildExp === 'shipped' ? 'exp' : data.buildExp === 'dabbled' ? 'some' : 'new')
+        : 'new',
+      markets: data.goal === 'markets' ? ['foundations'] : ['foundations'],
+    };
     store.set(KEYS.profile, App.profile);
     store.set(KEYS.onboarded, true);
-    seedFoundationsSoftStart(experience);
-    App.tab = 'dashboard'; App.render(); App.renderNav();
-    setTimeout(() => {
-      maybeFirstBackup();
-      maybeTour();
-    }, 300);
+    if (plan.course && plan.course !== 'MKT-LEGACY') setActiveCourse(plan.course);
+    if (plan.school === 'markets') setActiveCourse('MKT-LEGACY');
+    seedFoundationsSoftStart(App.profile.experience);
+    App.tab = 'today';
+    App.render();
+    App.renderNav();
+    setTimeout(() => { maybeFirstBackup(); }, 300);
   }
 
   draw();
@@ -407,7 +518,7 @@ function boot() {
       const splash = document.getElementById('splash');
       if (splash) splash.classList.add('hide');
       setTimeout(() => splash && splash.remove(), 500);
-      if (onboarded && App.profile) { App.render(); App.renderNav(); }
+      if (onboarded && App.profile?.campus) { App.tab = 'today'; App.render(); App.renderNav(); }
       else renderOnboarding();
     }, 1700);
   });
@@ -459,7 +570,7 @@ function maybeWhatsNew() {
       <div class="sheet-head"><div class="slabel">${App.t('whats_new')} · ${APP_VERSION}</div>
         <button class="sheet-x" data-close>${icon('x', { size: 18 })}</button></div>
       <div class="sheet-body" style="font-size:14px;color:var(--t2);line-height:1.55">
-        <p>v38: Leitner flash SRS · backup first-export · blocking SW update · thicker Greeks · cert honesty · tax accountant checklist · zero-beginner market soft-lock.</p>
+        <p>v43.0.0 Institute campus: Today · Campus · Practice · Records. Software Craft WEB-101→FE-201 In Session. Honest certificates. Markets as a school.</p>
         <p style="color:var(--t3)">See CHANGELOG.md for full notes.</p>
       </div>
     </div>`;

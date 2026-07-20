@@ -44,21 +44,31 @@ async function onboard(page) {
     await dismissSheets(page);
     return;
   }
-  await page.locator('#onbNext').click();
+  // welcome → notthis → name → age → lang → build → goal → time → plan
+  await page.locator('#onbNext').click(); // welcome
+  await page.locator('#onbNext').click(); // notthis
   await page.locator('#onbName').fill('Smoke');
   await page.locator('#onbNext').click();
-  await page.locator('[data-exp="new"]').click();
+  await page.locator('[data-field="ageBand"][data-val="18-24"]').click();
   await page.locator('#onbNext').click();
-  await page.locator('[data-mkt="foundations"]').click();
+  await page.locator('[data-field="language"][data-val="en"]').click();
   await page.locator('#onbNext').click();
+  await page.locator('[data-field="buildExp"][data-val="never"]').click();
+  await page.locator('#onbNext').click();
+  await page.locator('[data-field="goal"][data-val="apps"]').click();
+  await page.locator('#onbNext').click();
+  await page.locator('[data-field="timeBand"][data-val="2-5"]').click();
+  await page.locator('#onbNext').click();
+  await page.locator('#onbNext').click(); // enter campus
   await page.waitForSelector('#tabbar:not(.hidden)');
   await dismissSheets(page);
-  // first-backup sheet may appear
   await page.locator('#first-backup-sheet [data-close]').first().click({ timeout: 800 }).catch(() => {});
 }
 
 async function dismissSheets(page) {
   await page.locator('#tourSkip').click({ timeout: 800 }).catch(() => {});
+  await page.locator('#readingGuideSkip').click({ timeout: 800 }).catch(() => {});
+  await page.locator('#readingGuideOk').click({ timeout: 500 }).catch(() => {});
   for (let i = 0; i < 4; i++) {
     const next = page.locator('#tourNext');
     if (!(await next.count())) break;
@@ -66,13 +76,14 @@ async function dismissSheets(page) {
     await page.waitForTimeout(80);
   }
   for (let i = 0; i < 6; i++) {
-    const closed = await page.locator('.sheet-root.on [data-close], .sheet-root.on .sheet-x, #mbDismiss, #backupDismiss, #corruptKeep, #first-backup-sheet [data-close]')
+    const closed = await page.locator('.sheet-root.on [data-close], .sheet-root.on .sheet-x, #mbDismiss, #backupDismiss, #corruptKeep, #first-backup-sheet [data-close], #readingGuide button')
       .first().click({ timeout: 400 }).then(() => true).catch(() => false);
     if (!closed) break;
     await page.waitForTimeout(60);
   }
   await page.evaluate(() => {
     document.querySelectorAll('.sheet-root.on').forEach((el) => el.classList.remove('on'));
+    document.getElementById('readingGuide')?.remove();
   });
 }
 
@@ -104,13 +115,20 @@ async function goTab(page, id) {
           foundations: { placementDone: true, weekStatus: { 1: 'completed', 2: 'completed', 3: 'completed', 4: 'completed', 5: 'current' }, xp: 200 },
           crypto: { placementDone: true, weekStatus: { 1: 'current' }, xp: 0 },
         }));
+        localStorage.setItem('masterycap:readingGuideSeen', 'true');
       });
-      await goTab(page, 'dashboard');
+      await goTab(page, 'today');
       await page.locator('#mbDismiss').click({ timeout: 800 }).catch(() => {});
       await page.locator('#backupDismiss').click({ timeout: 800 }).catch(() => {});
       await page.locator('#corruptKeep').click({ timeout: 800 }).catch(() => {});
-      await page.waitForSelector('#goContinue, #todayLesson', { timeout: 10000 });
-      await goTab(page, 'journal');
+      await page.waitForSelector('#tdContinue, #tdCampus, #tdMarkets, .inst-screen', { timeout: 10000 });
+      await goTab(page, 'records');
+      await page.waitForTimeout(200);
+      await goTab(page, 'campus');
+      await page.waitForTimeout(200);
+      // Markets journal via Records shortcut
+      await goTab(page, 'records');
+      await page.locator('#recJournal').click();
       await page.waitForTimeout(200);
       await page.locator('#editBal').click();
       await page.locator('#eqEditIn').fill('321.5');
@@ -119,32 +137,54 @@ async function goTab(page, id) {
       const balTxt = await page.locator('#eqBal').textContent();
       if (!String(balTxt).includes('321.5')) throw new Error('edit bal failed: ' + balTxt);
 
-      await goTab(page, 'learn');
-      await page.waitForTimeout(300);
+      // Institute lesson (WEB-101)
+      await goTab(page, 'today');
+      if (await page.locator('#tdContinue').count()) {
+        await page.locator('#tdContinue').click();
+      } else {
+        await goTab(page, 'campus');
+        await page.locator('[data-school="software"]').click();
+        await page.locator('[data-code="WEB-101"]').click();
+        await page.locator('#camStart').click();
+      }
+      await page.waitForSelector('.lesson-screen', { timeout: 10000 });
+      await page.screenshot({ path: path.join(outDir, `lesson-${width}.png`), fullPage: true });
+      await page.locator('#lsBack').click();
+      await page.waitForSelector('#tabbar:not(.hidden)', { timeout: 5000 });
+      // Markets track sample
+      await goTab(page, 'campus');
+      await page.locator('[data-school="markets"]').click();
+      await page.locator('#camOpenMkt').click();
+      await page.waitForTimeout(400);
       await page.locator('[data-track="foundations"]').click().catch(() => {});
       await page.waitForTimeout(200);
-      await page.locator('[data-week]').first().click();
-      await page.waitForSelector('.lesson-body');
-      await page.screenshot({ path: path.join(outDir, `lesson-${width}.png`), fullPage: true });
+      const week = page.locator('[data-week]').first();
+      if (await week.count()) {
+        await week.click();
+        await page.waitForSelector('.lesson-body', { timeout: 8000 }).catch(() => {});
+      }
 
       if (width === 375) {
-        await page.locator('#startQuiz').click();
-        await page.waitForSelector('#submitQuiz');
-        const corrects = await page.evaluate(async () => {
-          const { getTrack } = await import(new URL('./js/data/tracks.js', location.href).href);
-          return getTrack('foundations').weeks[0].quiz.map((q) => q.correct);
-        });
-        for (let i = 0; i < corrects.length; i++) {
-          await page.locator(`#qq${i} button[data-o="${corrects[i]}"]`).click();
+        if (await page.locator('#startQuiz').count()) {
+          await page.locator('#startQuiz').click();
+          await page.waitForSelector('#submitQuiz');
+          const corrects = await page.evaluate(async () => {
+            const { getTrack } = await import(new URL('./js/data/tracks.js', location.href).href);
+            return getTrack('foundations').weeks[0].quiz.map((q) => q.correct);
+          });
+          for (let i = 0; i < corrects.length; i++) {
+            await page.locator(`#qq${i} button[data-o="${corrects[i]}"]`).click();
+          }
+          await page.locator('#submitQuiz').click();
+          await page.waitForTimeout(300);
+          await page.locator('#quizDone').click().catch(() => {});
+          await page.locator('#glossMiniSkip').click({ timeout: 1000 }).catch(() => {});
+          await page.locator('#glossMiniDone').click({ timeout: 500 }).catch(() => {});
         }
-        await page.locator('#submitQuiz').click();
-        await page.waitForTimeout(300);
-        await page.locator('#quizDone').click().catch(() => {});
-        await page.locator('#glossMiniSkip').click({ timeout: 1000 }).catch(() => {});
-        await page.locator('#glossMiniDone').click({ timeout: 500 }).catch(() => {});
 
         page.on('dialog', (d) => d.accept());
-        await goTab(page, 'journal');
+        await goTab(page, 'records');
+        await page.locator('#recJournal').click();
         await page.waitForSelector('#saveTrade');
         await page.locator('#btnLong').click();
         await page.locator('#pair').fill('BTC');
@@ -154,10 +194,10 @@ async function goTab(page, id) {
         const n = await page.evaluate(() => JSON.parse(localStorage.getItem('masterycap:trades') || '[]').length);
         if (n < 1) { console.error('FAIL: trade not saved'); failed = true; }
 
-        // S7: paper sim — enter w/ stop, 10 steps, close → simTrades + Paper tab
-        await goTab(page, 'dashboard');
+        // S7: paper sim via Practice
+        await goTab(page, 'practice');
         await page.waitForTimeout(200);
-        await page.locator('#goSim').click();
+        await page.locator('#prSim').click();
         await page.waitForSelector('[data-sc]');
         await page.locator('[data-sc="c1_uptrend_pullback"]').click();
         await page.waitForSelector('#simEnter');
@@ -194,7 +234,10 @@ async function goTab(page, id) {
           const simN = await page.evaluate(() => JSON.parse(localStorage.getItem('masterycap:simTrades') || '[]').length);
           if (simN < 1) { console.error('FAIL: simTrades empty'); failed = true; }
 
-          await goTab(page, 'journal');
+          await page.locator('#simBack').click({ timeout: 2000 }).catch(() => {});
+          await page.waitForSelector('#tabbar:not(.hidden)', { timeout: 5000 });
+          await goTab(page, 'records');
+          await page.locator('#recJournal').click();
           await page.waitForTimeout(200);
           await page.locator('[data-hist="paper"]').click();
           await page.waitForTimeout(150);

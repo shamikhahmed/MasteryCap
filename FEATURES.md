@@ -1,19 +1,24 @@
-# MasteryCap — Features (S/W/L/R)
+# MasteryCap Features
 
-**Updated:** 2026-07-19 · Cap Family Mega-Wave · v42.1.0  
-**Codes:** S = shipped · W = this wave · L = later · R = rejected
+**Version:** 43.0.0 · Institute campus MVP
 
+## Strengths
+- Offline-first PWA (no accounts, local progress)
+- School of Software Craft: WEB-101 → FE-201 fully authored (EN + Roman Urdu)
+- Honest certificates (self-issued + hash + locked disclaimer)
+- School of Markets wraps existing trading literacy + journal + paper sim
+- Spaced repetition Practice tab across software lessons
 
-## S
-- Bilingual school · quizzes/SRS · journal · paper sim · glossary · certs · honesty lint
-- Brand PWA icons (favicon / apple-touch / maskable)
-- Guided session runner stub (Campus Continue → lesson → cards → quiz)
+## Weaknesses
+- Backend / App Builder courses still Announced (syllabus only)
+- Age-band teaching is tip-level, not full alternate lesson bodies yet
+- Desktop typed code editor not shipped (Parsons/fill-in later)
 
-## W
-- Gallery polish · Pages deploy verify
+## Limitations
+- Certificates are not accredited credentials
+- Backend teaching is literacy + future HTTP Lab — not live servers
+- Markets content is education only — not financial advice
 
-## L
-- Worked chart examples · scenario ladder · post-trade debrief · glossary popovers · competence statements
-
-## R
-- Live prices · LLM chat · income promises
+## Risks
+- Content depth debt for remaining Software Craft path
+- localStorage quota / Safari eviction — export from Records

@@ -144,7 +144,7 @@ test('Part1 browser E2E', async ({ browser }) => {
     await page.waitForTimeout(200);
 
     /* Drills — 5 correct via module + UI smoke */
-    await tab(page, 'Home').click();
+    await tab(page, 'Today').click();
     await page.waitForTimeout(200);
     await page.locator('#goDrills').click();
     await page.waitForSelector('#drillIn, #drillNext', { timeout: 5000 });
@@ -225,7 +225,7 @@ test('Part1 browser E2E', async ({ browser }) => {
     await page.evaluate(() => document.querySelector('.sheet-wrap')?.remove());
 
     /* Settings */
-    await tab(page, 'Home').click();
+    await tab(page, 'Today').click();
     await page.waitForTimeout(200);
     await page.locator('.avatar, #openSettings').first().click();
     await page.waitForSelector('#setExport, .sheet');
@@ -240,7 +240,7 @@ test('Part1 browser E2E', async ({ browser }) => {
     await page.waitForTimeout(400);
     if (await page.locator('#chBack, .screen').count()) {
       check('1.8 P5 charts view opens', true);
-      await page.locator('#chBack').click().catch(() => tab(page, 'Home').click());
+      await page.locator('#chBack').click().catch(() => tab(page, 'Today').click());
     } else {
       checks.push({ name: '1.8 P5 charts', result: 'N-A', detail: 'button missing' });
     }

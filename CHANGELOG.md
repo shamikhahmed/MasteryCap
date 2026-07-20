@@ -1,3 +1,16 @@
+## [43.0.0] — 2026-07-20
+
+### Institute campus MVP
+- **Product shift:** offline personal institute — Software Craft flagship; Markets as one school
+- **Tabs:** Today · Campus · Practice · Records (legacy Learn/Journal/Progress still reachable from Campus/Records/Practice)
+- **Onboarding:** honesty screen + name + age / language / build experience / goal / time → starter path letter (no course supermarket)
+- **Catalog:** School → Program → Course with In Session vs Announced; prereq locks
+- **Authored spine:** WEB-101, WEB-102, WEB-103, FE-201 (EN + Roman Urdu) with lesson template (objective → warm-up → teach → visual → check → practice → exit) + SVG diagrams
+- **Practice:** cross-course SRS; links to drills / study desk / paper lab
+- **Records:** transcript, project checklists, honest certificates (self-issued + hash + locked disclaimer), JSON export
+- **Visual:** Institute Terminal — ink/paper/orange, Fraunces + IBM Plex (Geist Mono fallback)
+- SW `masterycap-v4300`
+
 ## [42.4.0] — 2026-07-20
 
 ### Reading mode + campus family syllabus
