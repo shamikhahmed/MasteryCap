@@ -3,6 +3,8 @@
 import { icon } from '../icons.js';
 import { CATALOG, getCourse, prereqsMet } from '../data/institute/catalog.js';
 import { loadCourse } from '../data/institute/courses.js';
+import { TRACKS, TRADING_TRACK_IDS } from '../data/tracks.js';
+import { trackLockReason } from '../gates.js';
 import {
   completedCourseCodes, setActiveCourse, courseProgressPct, getInstitute,
   projectComplete, enrollCourse, isEnrolled, attemptCount,
@@ -60,28 +62,40 @@ function renderSchool(App, el, schoolId, done, en) {
   }
 
   if (schoolId === 'markets') {
+    const trading = TRACKS.filter((t) => TRADING_TRACK_IDS.includes(t.id));
+    const cards = trading.map((t) => {
+      const lock = trackLockReason(t.id, App);
+      const badge = lock ? (en ? 'Locked' : 'Locked') : (en ? 'Open' : 'Open');
+      return `<button class="inst-card ${lock ? 'dim' : ''}" data-mkt="${t.id}" data-lock="${lock || ''}">
+        <div class="kicker mono">${badge}</div>
+        <div class="inst-h3">${t.name[App.lang] || t.name.en}</div>
+        <p class="inst-muted">${t.blurb?.[App.lang] || t.blurb?.en || ''}${lock ? ` · ${en ? 'Finish Foundations first' : 'Pehle Foundations'}` : ''}</p>
+      </button>`;
+    }).join('');
+
     el.innerHTML = `<div class="screen inst-screen">
       <button class="text-back" id="camBack">${icon('back', { size: 16 })} ${en ? 'Branches' : 'Branches'}</button>
       <div class="lt-head">
         <div class="kicker">${en ? 'Branch' : 'Branch'}</div>
         <h1>${school.name.en}</h1>
-        <p class="inst-honesty">${en ? 'Education only. Nothing here is financial advice or a path to income.' : 'Sirf education. Financial advice ya income path nahi.'}</p>
+        <p class="inst-honesty">${en ? 'Education only. Not financial advice or an income path.' : 'Sirf education. Financial advice ya income path nahi.'}</p>
       </div>
-      <div class="inst-card">
-        <div class="inst-h3">${en ? 'Market Literacy Tracks' : 'Market Literacy Tracks'}</div>
-        <p class="inst-muted">${en ? 'Bilingual trading curriculum — Foundations through electives.' : 'Bilingual trading curriculum.'}</p>
-        <button class="btn accent" id="camOpenMkt">${en ? 'Enter tracks' : 'Tracks mein jao'}</button>
-      </div>
+      <div class="inst-list">${cards}</div>
     </div>`;
     document.getElementById('camBack')?.addEventListener('click', () => {
       App._campusView = { level: 'schools' };
       App.render();
     });
-    document.getElementById('camOpenMkt')?.addEventListener('click', () => {
+    el.querySelectorAll('[data-mkt]').forEach((b) => b.addEventListener('click', () => {
+      if (b.dataset.lock) {
+        App.toast?.(en ? 'Locked — complete Foundations first.' : 'Locked — pehle Foundations.');
+        return;
+      }
       enrollCourse('MKT-LEGACY', 'markets');
+      App._courseFocus = { trackId: b.dataset.mkt, kind: 'home' };
       App._marketsMode = true;
       App.navigate('learn');
-    });
+    }));
     return;
   }
 

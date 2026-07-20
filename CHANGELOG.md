@@ -1,3 +1,9 @@
+## [46.0.2] — 2026-07-20
+
+### Markets UX
+- Killed COURSES supermarket home (chip rail / how-to hub / beginner path pills)
+- School of Markets = Open/Locked track cards on Campus; track opens clean syllabus + weeks only
+
 ## [46.0.1] — 2026-07-20
 
 ### Boot

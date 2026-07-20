@@ -95,8 +95,8 @@ export function renderToday(App, el) {
   document.getElementById('tdCampus2')?.addEventListener('click', () => App.navigate('campus'));
   document.getElementById('tdReview')?.addEventListener('click', () => App.navigate('practice'));
   document.getElementById('tdMarkets')?.addEventListener('click', () => {
-    App._marketsMode = true;
-    App.navigate('learn');
+    App._campusView = { level: 'school', schoolId: 'markets' };
+    App.navigate('campus');
   });
   document.getElementById('tdContinue')?.addEventListener('click', () => {
     setActiveCourse(code);

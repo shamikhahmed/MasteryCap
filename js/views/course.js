@@ -61,7 +61,11 @@ function buildPlacementOrders(track) {
 
 export function renderCourse(App, c) {
   APP = App; ROOT = c;
-  if (!S._startSeeded) {
+  if (App._courseFocus) {
+    applyFocusDetail(App._courseFocus);
+    App._courseFocus = null;
+    S._startSeeded = true;
+  } else if (!S._startSeeded) {
     S.track = preferredStartTrack(App);
     S._startSeeded = true;
     seedFoundationsSoftStart(App.profile?.experience);
@@ -113,37 +117,31 @@ function draw() {
 function drawHome() {
   const App = APP, c = ROOT, lang = App.lang;
   const track = getTrack(S.track);
+  const en = lang === 'en';
 
-  const rail = `<div class="track-rail">${TRACKS.map((t) => {
-    const lock = trackLockReason(t.id, App);
-    return `
-    <button class="track-chip ${t.id === S.track ? 'on' : ''} ${lock ? 'dim' : ''}" data-track="${t.id}" ${lock ? `data-lock="${lock}"` : ''} style="${lock ? 'opacity:0.55' : ''}">
-      <span class="tc-ic">${icon(TRACK_ICON[t.id], { size: 18 })}</span>
-      <span><span class="tc-name">${t.name[lang]}${t.elective ? ' · EL' : ''}${lock ? ' · LOCK' : ''}</span><br/><span class="tc-meta">${t.weeks.length} MOD · <span class="tc-dot ${t.status === 'live' ? 'dot-live' : 'dot-soon'}" style="display:inline-block"></span> ${t.status === 'live' ? 'LIVE' : 'SOON'}</span></span>
-    </button>`;
-  }).join('')}</div>`;
-
-  const header = `<div class="lt-head"><div class="head-row">
-    <div><div class="kicker">${App.t('nav_learn')}</div><h1>${track.name[lang]}</h1></div>
-    <div class="hstack">
-      <button class="pill" id="openSearch" aria-label="${App.t('search_title')}">${icon('search', { size: 15 })}</button>
-      <button class="pill" id="openGloss" aria-label="${App.t('glossary')}">${icon('book', { size: 15 })}</button>
-      <span class="pill mono">${icon('bolt', { size: 13 })} ${App.totalXp()} XP</span>
+  // Clean syllabus home — no COURSES chip rail / how-to hub / beginner path soup
+  const header = `<div class="lt-head">
+    <button class="text-back" id="mktBackCampus">${icon('back', { size: 16 })} ${en ? 'School of Markets' : 'School of Markets'}</button>
+    <div class="head-row" style="margin-top:10px">
+      <div>
+        <div class="kicker">${en ? 'Track' : 'Track'}</div>
+        <h1>${track.name[lang]}</h1>
+        <p class="inst-muted" style="margin-top:6px">${track.blurb?.[lang] || track.blurb?.en || ''}</p>
+      </div>
+      <div class="hstack">
+        <button class="pill" id="openSearch" aria-label="${App.t('search_title')}">${icon('search', { size: 15 })}</button>
+        <button class="pill" id="openGloss" aria-label="${App.t('glossary')}">${icon('book', { size: 15 })}</button>
+      </div>
     </div>
-  </div></div>`;
+  </div>`;
 
   let body;
   if (track.status !== 'live') {
     body = `
-      ${track.warning ? `<div class="note-box warn mt10" style="margin-bottom:16px"><strong>${App.lang === 'en' ? 'High-risk.' : 'High-risk.'}</strong> ${lang === 'en' ? 'Binary options are banned for retail in many countries and sit closer to gambling than trading. This track teaches why — not how to chase it.' : 'Binary options bohat mulkon mein retail ke liye banned hain, trading se zyada gambling ke qareeb. Ye track kyun samjhata hai — chase karna nahi.'}</div>` : ''}
-      <div class="panel pad" style="text-align:center;margin-bottom:16px">
-        <div style="width:44px;height:44px;margin:0 auto 12px;color:var(--acc-2)">${icon(TRACK_ICON[track.id], { size: 44, sw: 1.5 })}</div>
-        <div style="font-size:17px;font-weight:600;letter-spacing:-0.02em">${lang === 'en' ? 'Curriculum ready' : 'Curriculum tayar'}</div>
-        <p style="font-size:13.5px;color:var(--t3);margin:8px auto 0;line-height:1.55;max-width:34ch">${lang === 'en' ? 'The full path is mapped below. Bilingual lessons and quizzes are authored next.' : 'Poora rasta neeche mapped hai. Bilingual lessons aur quizzes agli baar likhe jayenge.'}</p>
-      </div>
+      ${track.warning ? `<div class="note-box warn mt10" style="margin-bottom:16px"><strong>${en ? 'High-risk.' : 'High-risk.'}</strong> ${en ? 'Binary options are banned for retail in many countries and sit closer to gambling than trading. This track teaches why — not how to chase it.' : 'Binary options bohat mulkon mein retail ke liye banned hain.'}</div>` : ''}
       <div class="panel">${track.weeks.map((w) => weekRow(App, w, 'locked', false)).join('')}</div>`;
   } else if (track.id === 'binary' && !store.get(STORE_KEYS.binaryGate)) {
-    body = `${track.warning ? `<div class="note-box warn" style="margin-bottom:16px"><strong>High-risk.</strong> ${lang === 'en' ? 'Pass 3 harm-reduction questions before weeks unlock.' : 'Weeks se pehle 3 harm-reduction sawalat pass karo.'}</div>` : ''}
+    body = `${track.warning ? `<div class="note-box warn" style="margin-bottom:16px"><strong>High-risk.</strong> ${en ? 'Pass 3 harm-reduction questions before weeks unlock.' : 'Weeks se pehle 3 harm-reduction sawalat pass karo.'}</div>` : ''}
       <div class="panel pad">
         <div class="slabel">${App.t('gate_title')}</div>
         <p style="font-size:14px;color:var(--t2);line-height:1.55">${App.t('gate_body')}</p>
@@ -152,7 +150,7 @@ function drawHome() {
   } else {
     const prog = App.getCourse(track.id);
     const lockWhy = trackLockReason(track.id, App);
-    const warnBox = track.warning || track.elective ? `<div class="note-box warn" style="margin-bottom:16px"><strong>${track.elective ? App.t('elective_warn') : (lang === 'en' ? 'High-risk.' : 'High-risk.')}</strong> ${lang === 'en' ? (track.id === 'binary' ? 'Binary options are banned for retail in many countries and sit closer to gambling than trading. This track teaches the math and the traps — self-defense, not endorsement.' : 'Elective literacy — permanent warning framing. Never buy a “profit bot.”') : (track.id === 'binary' ? 'Binary options bohot mulkon mein banned — self-defense track.' : 'Elective literacy — permanent warning. Profit bot mat kharido.')}</div>` : '';
+    const warnBox = track.warning || track.elective ? `<div class="note-box warn" style="margin-bottom:16px"><strong>${track.elective ? App.t('elective_warn') : (en ? 'High-risk.' : 'High-risk.')}</strong> ${en ? (track.id === 'binary' ? 'Binary options are banned for retail in many countries. Self-defense, not endorsement.' : 'Elective literacy — never buy a “profit bot.”') : 'Elective / high-risk framing.'}</div>` : '';
     if (lockWhy) {
       body = `${warnBox}<div class="note-box warn" style="margin-bottom:16px"><strong>${App.t('track_locked')}</strong><br/>${App.t('track_lock_' + lockWhy)}</div>
         <button class="btn accent" id="goUnlockFoundations">${App.t('track_lock_cta')}</button>`;
@@ -177,7 +175,7 @@ function drawHome() {
           <div class="prog-track"><i style="width:${pct((done / weeks.length) * 100)}%"></i></div>
           <span class="prog-num">${pct((done / weeks.length) * 100)}%</span>
         </div>
-        ${beginnerPathPanel(App, track.id)}
+        <div class="slabel" style="margin:14px 0 8px">${en ? 'Weeks' : 'Weeks'}</div>
         <div class="panel">${weeks.map((w) => {
           const st = prog.weekStatus[w.id] || 'locked';
           return weekRow(App, w, st, st !== 'locked');
@@ -191,41 +189,18 @@ function drawHome() {
                <p style="font-size:12px;color:var(--t3);margin-top:8px;line-height:1.45">${App.t('exam_cert_hint')}</p>
                <div class="pill mono mt10">${App.t('exam_passed')}: ${String(prog.examPassed).slice(0, 10)}</div>`
             : `<button class="btn accent" id="startExam">${App.t('exam_start')}</button>`}
-        </div>` : ''}`;
+        </div>` : ''}
+        <p class="inst-foot-note" style="margin-top:16px">${en ? 'Drills & paper lab live under Practice tab.' : 'Drills aur paper lab Practice tab pe.'}</p>`;
     }
   }
 
-  c.innerHTML = `<div class="screen">${header}${rail}
-    ${track.id === 'foundations' ? `<div class="panel pad" style="margin-bottom:14px">
-      <div class="slabel">${App.t('howto_title')}</div>
-      <p style="font-size:13.5px;color:var(--t3);margin:8px 0 14px;line-height:1.5">${App.t('howto_honest')}</p>
-      <button class="btn secondary" id="goHowtoLearn">${icon('check', { size: 17 })} ${App.t('howto_cta')}</button>
-    </div>` : ''}
-    <div class="panel pad" style="margin-bottom:14px">
-      <div class="slabel">${App.t('drill_title')}</div>
-      <p style="font-size:13.5px;color:var(--t3);margin:8px 0 14px;line-height:1.5">${App.t('drill_home_hint')}</p>
-      ${canOpenTradingLab(App)
-        ? `<button class="btn secondary" id="goSimLearn" style="width:100%">${icon('journal', { size: 17 })} ${App.t('sim_cta')}</button>`
-        : `<div class="note-box warn" style="margin-bottom:10px">${App.t('lab_locked_learn')}</div>
-           <button class="btn secondary" id="goUnlockFoundationsLab" style="width:100%">${App.t('track_lock_cta')}</button>`}
-      <button class="btn ghost mt10" id="goDrillsLearn" style="width:100%">${icon('target', { size: 17 })} ${App.t('drill_cta')}</button>
-      <button class="btn ghost mt10" id="goChartsLearn" style="width:100%">${icon('progress', { size: 17 })} ${App.t('chart_cta')}</button>
-      ${track.id === 'tax' ? `<button class="btn ghost mt10" id="goTaxHowto" style="width:100%">${icon('check', { size: 17 })} ${App.t('tax_checklist_cta')}</button>` : ''}
-    </div>
-  ${body}</div>`;
+  c.innerHTML = `<div class="screen inst-screen">${header}${body}</div>`;
 
-  c.querySelectorAll('[data-track]').forEach((el) => el.addEventListener('click', () => { S.track = el.dataset.track; S.view = 'home'; App.haptic(); draw(); }));
-  const activeChip = c.querySelector('.track-chip.on');
-  if (activeChip) activeChip.scrollIntoView({ block: 'nearest', inline: 'center' });
-  document.getElementById('goHowtoLearn')?.addEventListener('click', () => { App.haptic(); openHowto(App); });
-  document.getElementById('goTaxHowto')?.addEventListener('click', () => { App.haptic(); openHowto(App, { guideId: 'tax-accountant' }); });
-  document.getElementById('goDrillsLearn')?.addEventListener('click', () => App.openDrills());
-  document.getElementById('goChartsLearn')?.addEventListener('click', () => App.openCharts());
-  document.getElementById('goSimLearn')?.addEventListener('click', () => App.openSim());
-  document.getElementById('goUnlockFoundations')?.addEventListener('click', () => {
-    S.track = 'foundations'; S.view = 'home'; App.haptic(); draw();
+  document.getElementById('mktBackCampus')?.addEventListener('click', () => {
+    App._campusView = { level: 'school', schoolId: 'markets' };
+    App.navigate('campus');
   });
-  document.getElementById('goUnlockFoundationsLab')?.addEventListener('click', () => {
+  document.getElementById('goUnlockFoundations')?.addEventListener('click', () => {
     S.track = 'foundations'; S.view = 'home'; App.haptic(); draw();
   });
   document.getElementById('softStartFoundations')?.addEventListener('click', () => {
@@ -301,11 +276,6 @@ function drawHome() {
     S.lessonMode = 'read';
     App.haptic();
     draw();
-  }));
-  c.querySelectorAll('[data-path-track]').forEach((el) => el.addEventListener('click', () => {
-    const id = el.dataset.pathTrack;
-    S.track = trackLockReason(id, App) ? 'foundations' : id;
-    S.view = 'home'; App.haptic(); draw();
   }));
 }
 
