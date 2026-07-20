@@ -126,7 +126,7 @@ export function renderToday(App, el) {
   const missDue = mistakeCountDue();
   const quizDue = dueReviewCount();
   const sessionBlock = `<section class="hb-section">
-      <div class="hb-label">${en ? 'Guided session' : 'Guided session'}</div>
+      <div class="hb-label">${App.t('session_title')}</div>
       <div class="inst-card accent-rule">
         <p class="inst-muted">${en
           ? 'Markets daily plan — lesson, flashcards, quiz, sim when unlocked.'
@@ -141,7 +141,7 @@ export function renderToday(App, el) {
         <div class="kicker">${en ? 'Today' : 'Aaj'}</div>
         <h1>${en ? `Hello, ${esc(name)}` : `Salam, ${esc(name)}`}</h1>
       </div>
-      <button class="icon-btn" id="tdSettings" aria-label="Settings">${icon('settings', { size: 18 })}</button>
+      <button class="icon-btn" id="tdSettings" aria-label="${App.t('settings')}">${icon('settings', { size: 18 })}</button>
     </div>
     ${continueBlock}
     ${sessionBlock}

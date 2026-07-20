@@ -56,6 +56,7 @@ export const App = {
   setLang(l) {
     this.lang = l;
     const s = store.get(KEYS.settings, {}); s.lang = l; store.set(KEYS.settings, s);
+    document.documentElement.lang = l === 'ur' ? 'ur' : 'en';
     this.render(); this.renderNav();
   },
 
@@ -414,6 +415,7 @@ function boot() {
   store.hydrate().then(() => {
     const settings = store.get(KEYS.settings, {});
     App.lang = settings.lang || 'en';
+    document.documentElement.lang = App.lang === 'ur' ? 'ur' : 'en';
     App.profile = store.get(KEYS.profile, null);
     const onboarded = store.get(KEYS.onboarded, false);
     applySettings(App);

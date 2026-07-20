@@ -1,3 +1,13 @@
+## [51.4.0] — 2026-07-21
+
+### Records UR chrome + lang a11y
+- Records seg/headers/labels: real Roman Urdu (Profail, Daakhle, taraqqi, …)
+- `document.documentElement.lang` follows App.lang; settings gear + sheet close use i18n
+- Today session label → `session_title` (UR: Rozana session); settings UR = Tarteeb
+- SW `masterycap-v5140`
+
+
+
 ## [51.3.0] — 2026-07-21
 
 ### Subview focus restore

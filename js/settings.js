@@ -8,7 +8,7 @@ import { applyTheme, getAppearance, setAppearance } from './theme.js';
 import { getTeacher, setTeacher, TEACHERS } from './teacher.js';
 import { evidenceHash } from './exam.js';
 
-export const APP_VERSION = 'v51.3.0';
+export const APP_VERSION = 'v51.4.0';
 
 function todayStamp() {
   const d = new Date();
@@ -98,7 +98,7 @@ export function openSettings(App) {
       <div class="sheet-handle"></div>
       <div class="sheet-head">
         <div class="slabel">${App.t('settings')}</div>
-        <button class="sheet-x" data-close aria-label="Close">${icon('x', { size: 18 })}</button>
+        <button class="sheet-x" data-close aria-label="${App.t('back')}">${icon('x', { size: 18 })}</button>
       </div>
       <div class="sheet-body">
         <div class="field">

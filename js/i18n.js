@@ -472,7 +472,7 @@ export const T = {
     howto_honest: 'Sirf checklists. Tips nahi. Broker pitch nahi. Steps complete ≠ income promise.',
     pretrade: 'Trade se pehle', pretrade_sub: 'Checklist chalao. Har dafa.',
     continueLearning: 'Seekhna jari rakho', jumpJournal: 'Trade log karo',
-    session_title: 'Guided session',
+    session_title: 'Rozana session',
     session_blurb: 'Lesson → cards → quiz, daily length ke hisaab se. Next jab ready ho.',
     session_start: 'Session shuru',
     session_resume: 'Session jari',
@@ -509,7 +509,7 @@ export const T = {
     exp_new: 'Bilkul naya', exp_some: 'Thora kiya hai', exp_exp: 'Tajurba-kaar',
     onb_start: 'Shuru', onb_next: 'Aagay', onb_get: 'Shuru karo',
 
-    settings: 'Settings',
+    settings: 'Tarteeb',
     backup_title: 'Backup aur restore',
     backup_export: 'Backup export karo',
     backup_import: 'Backup import karo',

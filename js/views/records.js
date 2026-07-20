@@ -30,7 +30,7 @@ export function renderRecords(App, el) {
 
   const tabs = `
     <div class="seg records-seg" style="width:100%;margin:0 0 16px">
-      <button style="flex:1" class="${pane === 'profile' ? 'on' : ''}" data-rpane="profile">${en ? 'Profile' : 'Profile'}</button>
+      <button style="flex:1" class="${pane === 'profile' ? 'on' : ''}" data-rpane="profile">${en ? 'Profile' : 'Profail'}</button>
       <button style="flex:1" class="${pane === 'transcript' ? 'on' : ''}" data-rpane="transcript">${en ? 'Transcript' : 'Transcript'}</button>
       <button style="flex:1" class="${pane === 'certs' ? 'on' : ''}" data-rpane="certs">${en ? 'Certs' : 'Certs'}</button>
     </div>`;
@@ -41,7 +41,7 @@ export function renderRecords(App, el) {
     const enrollList = enrollCodes.length
       ? enrollCodes.map((code) => {
         if (code === 'MKT-LEGACY') {
-          return `<div class="inst-row-item static"><span class="grow">${en ? 'School of Markets' : 'School of Markets'}</span><span class="mono">${en ? 'enrolled' : 'enrolled'}</span></div>`;
+          return `<div class="inst-row-item static"><span class="grow">${en ? 'School of Markets' : 'School of Markets'}</span><span class="mono">${en ? 'enrolled' : 'daakhil'}</span></div>`;
         }
         const meta = getCourse(code);
         return `<div class="inst-row-item static"><span class="mono">${code}</span><span class="grow">${meta?.title?.[App.lang] || meta?.title?.en || code}</span></div>`;
@@ -53,7 +53,7 @@ export function renderRecords(App, el) {
          <div id="recIdFront">${renderStudentIdCard(card, { lang: App.lang, photoUrl: photo })}</div>
          ${showId ? `<div class="mt10">${renderStudentIdBack(card, { lang: App.lang })}</div>` : ''}
          <button class="btn secondary mt10" id="recFlipId" style="width:100%">${showId ? (en ? 'Hide back' : 'Back chhupao') : (en ? 'Show back / print' : 'Back / print')}</button>
-         <button class="btn ghost mt10" id="recPrintId" style="width:100%">${en ? 'Print ID' : 'Print ID'}</button>`
+         <button class="btn ghost mt10" id="recPrintId" style="width:100%">${en ? 'Print ID' : 'ID print'}</button>`
       : `<p class="inst-muted mt16">${en ? 'No Student ID yet.' : 'Student ID nahi.'}</p>`;
 
     body = `
@@ -62,7 +62,7 @@ export function renderRecords(App, el) {
         <h2 class="inst-h2">${esc(p.name || 'Learner')}</h2>
         <p class="inst-muted">${esc(registerLabel(p.register || 'young', App.lang))}</p>
         <p class="inst-muted">${humanProfile(p, en)}</p>
-        <p class="inst-muted mono">${card ? esc(card.idNumber) : '—'} · ${enrollCodes.length} ${en ? 'enrollments' : 'enrollments'}</p>
+        <p class="inst-muted mono">${card ? esc(card.idNumber) : '—'} · ${enrollCodes.length} ${en ? 'enrollments' : 'daakhle'}</p>
         <div class="field" style="margin-top:14px">
           <label>${en ? 'Display name' : 'Name'}</label>
           <input id="recName" type="text" maxlength="32" value="${esc(p.name || '')}" />
@@ -72,16 +72,16 @@ export function renderRecords(App, el) {
       ${idBlock}
       <div class="slabel mt16">${en ? 'Reading theme' : 'Theme'}</div>
       <div class="seg" style="width:100%;margin-bottom:12px">
-        ${['light', 'sepia', 'dark'].map((m) => `<button style="flex:1" class="${mode === m ? 'on' : ''}" data-theme="${m}">${m === 'light' ? 'Light' : m === 'sepia' ? 'Sepia' : 'Dark'}</button>`).join('')}
+        ${['light', 'sepia', 'dark'].map((m) => `<button style="flex:1" class="${mode === m ? 'on' : ''}" data-theme="${m}">${m === 'light' ? (en ? 'Light' : 'Light') : m === 'sepia' ? (en ? 'Sepia' : 'Sepia') : (en ? 'Dark' : 'Dark')}</button>`).join('')}
       </div>
-      <div class="slabel mt16">${en ? 'Enrollments' : 'Enrollments'}</div>
+      <div class="slabel mt16">${en ? 'Enrollments' : 'Daakhle'}</div>
       <div class="inst-list">${enrollList}</div>
-      <button class="btn accent mt16" id="recCampus" style="width:100%">${en ? 'Go to Campus' : 'Campus'}</button>
-      <button class="btn ghost mt10" id="recSet" style="width:100%">${en ? 'All settings' : 'Settings'}</button>
+      <button class="btn accent mt16" id="recCampus" style="width:100%">${en ? 'Go to Campus' : 'Campus kholo'}</button>
+      <button class="btn ghost mt10" id="recSet" style="width:100%">${en ? 'All settings' : 'Tamam settings'}</button>
       <button class="btn ghost mt10" id="recJournal" style="width:100%">${en ? 'Markets journal (legacy)' : 'Markets journal'}</button>`;
   } else if (pane === 'transcript') {
     body = `
-      <div class="slabel">${en ? 'Course progress' : 'Course progress'}</div>
+      <div class="slabel">${en ? 'Course progress' : 'Course taraqqi'}</div>
       <div class="inst-list">
         ${progressCodes.length ? progressCodes.map((code) => {
           const meta = getCourse(code);
@@ -104,7 +104,7 @@ export function renderRecords(App, el) {
       <div class="slabel">${en ? 'Certificates' : 'Certificates'}</div>
       ${certs.length ? certs.map((c) => `
         <div class="inst-cert" data-cert="${esc(c.courseId || c.hash)}">
-          <div class="kicker">${en ? 'Certificate of Completion' : 'Certificate'}</div>
+          <div class="kicker">${en ? 'Certificate of Completion' : 'Mukammal certificate'}</div>
           <div class="cert-name">${esc(c.name)}</div>
           <div class="cert-course">${esc((c.title && (c.title[App.lang] || c.title.en)) || c.courseId)}</div>
           <p class="inst-muted mono">${c.score}% · ${c.hours}h · ${c.date}</p>
@@ -118,8 +118,8 @@ export function renderRecords(App, el) {
 
   el.innerHTML = `<div class="screen inst-screen">
     <div class="lt-head">
-      <div class="kicker">${en ? 'Records' : 'Records'}</div>
-      <h1>${pane === 'profile' ? (en ? 'Your profile' : 'Profile') : pane === 'transcript' ? (en ? 'Transcript' : 'Transcript') : (en ? 'Certificates' : 'Certificates')}</h1>
+      <div class="kicker">${App.t('nav_records')}</div>
+      <h1>${pane === 'profile' ? (en ? 'Your profile' : 'Aapka profile') : pane === 'transcript' ? (en ? 'Transcript' : 'Transcript') : (en ? 'Certificates' : 'Certificates')}</h1>
     </div>
     ${tabs}
     ${body}
@@ -199,7 +199,7 @@ function renderProjects(App, inst, en, enrollCodes) {
       <p class="inst-muted">${projectComplete(code, course.project.items) ? (en ? 'Checklist complete' : 'Mukammal') : (en ? 'Attest after you finish the work' : 'Kaam ke baad attest')}</p>`);
   }
   if (!blocks.length) return '';
-  return `<div class="slabel mt16">${en ? 'Project checklists' : 'Project checklists'}</div>
+  return `<div class="slabel mt16">${en ? 'Project checklists' : 'Project lists'}</div>
     <p class="inst-muted" style="margin-bottom:8px">${en ? 'Enrolled or attested courses with a project.' : 'Enrolled / attested courses + project.'}</p>
     ${blocks.join('')}`;
 }
@@ -207,13 +207,13 @@ function renderProjects(App, inst, en, enrollCodes) {
 function renderAttempts(inst, en) {
   const rows = Object.entries(inst.attempts || {});
   if (!rows.length) return '';
-  return `<div class="slabel mt16">${en ? 'Final attempts' : 'Final attempts'}</div>
+  return `<div class="slabel mt16">${en ? 'Final attempts' : 'Final tries'}</div>
     <div class="inst-list">${rows.map(([code, list]) => {
       const last = list[list.length - 1];
       const best = Math.max(...list.map((a) => a.score || 0));
       return `<div class="inst-row-item static">
         <span class="mono">${code}</span>
-        <span class="grow">${en ? `${list.length} tries · best ${best}%` : `${list.length} tries · best ${best}%`}</span>
+        <span class="grow">${en ? `${list.length} tries · best ${best}%` : `${list.length} tries · behtareen ${best}%`}</span>
         <span class="mono">${last?.passed ? 'pass' : '—'}</span>
       </div>`;
     }).join('')}</div>`;
@@ -223,20 +223,20 @@ function humanProfile(p, en) {
   if (!p) return '—';
   const age = ({
     teen: en ? 'Teen' : 'Teen',
-    '18-24': en ? 'Young adult' : 'Young adult',
+    '18-24': en ? 'Young adult' : 'Jawaan',
     '25-34': en ? 'Career years' : 'Career',
     '35+': en ? 'Adult beginner' : 'Adult',
   })[p.ageBand] || p.ageBand || '—';
   const goal = ({
-    apps: en ? 'Build apps' : 'Apps',
+    apps: en ? 'Build apps' : 'Apps banao',
     web: en ? 'Web craft' : 'Web',
     markets: en ? 'Market literacy' : 'Markets',
     money: en ? 'Money literacy' : 'Money',
   })[p.goal] || p.goal || '—';
   const time = ({
     lt2: en ? '<2h/week' : '<2h/hafta',
-    '2-5': en ? '2–5h/week' : '2–5h',
-    '5-10': en ? '5–10h/week' : '5–10h',
+    '2-5': en ? '2–5h/week' : '2–5h/hafta',
+    '5-10': en ? '5–10h/week' : '5–10h/hafta',
   })[p.timeBand] || p.timeBand || '—';
   return `${age} · ${goal} · ${time}`;
 }
