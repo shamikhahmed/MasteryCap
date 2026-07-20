@@ -1,3 +1,8 @@
+## [42.2.1] — 2026-07-20
+
+### Polish
+- Home booklet-cover spine + serif section titles; softer tab indicator; SW `masterycap-v4221`
+
 ## [42.2.0] — 2026-07-20
 
 ### Beauty — exam booklet / school stamp

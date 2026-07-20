@@ -180,10 +180,11 @@ a { color: inherit; text-decoration: none; }
 .tab.active svg { color: var(--acc); }
 .tab.active::before {
   content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-  width: 22px; height: 2px; border-radius: 2px; background: var(--acc);
-  animation: tab-ind 0.3s var(--spring);
+  width: 14px; height: 1.5px; border-radius: 1px;
+  background: color-mix(in srgb, var(--acc) 55%, var(--line-2));
+  animation: tab-ind 0.28s var(--out);
 }
-@keyframes tab-ind { from { width: 0; opacity: 0; } to { width: 22px; opacity: 1; } }
+@keyframes tab-ind { from { width: 0; opacity: 0; } to { width: 14px; opacity: 1; } }
 
 /* ============================================================
    Splash — exam booklet / school stamp
@@ -262,6 +263,39 @@ a { color: inherit; text-decoration: none; }
 .panel-title,
 .onb-title {
   font-family: var(--serif);
+}
+
+.booklet-cover {
+  position: relative;
+}
+.booklet-cover::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 4px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--acc), color-mix(in srgb, var(--acc) 35%, var(--line)));
+  opacity: 0.55;
+  pointer-events: none;
+}
+.booklet-cover .lt-head,
+.booklet-cover .panel,
+.booklet-cover .stat-strip,
+.booklet-cover .note-box {
+  position: relative;
+}
+.booklet-cover .ph-t,
+.booklet-cover > .panel .slabel,
+.booklet-cover > .panel.pad > .slabel,
+.booklet-cover #todayPath .slabel,
+.booklet-cover #reportCard .slabel,
+.booklet-cover .slabel {
+  font-family: var(--serif);
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 /* ============================================================
