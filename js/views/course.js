@@ -27,7 +27,9 @@ import { startTime, pauseTime, softSessionNudge } from '../time.js';
 import { markToday } from '../today.js';
 import { trackLockReason, preferredStartTrack, seedFoundationsSoftStart, canOpenTradingLab } from '../gates.js';
 import { openWeekFlash, openStudyNotes } from './study.js';
+import { seedWeekStudy } from '../study.js';
 import { renderReading } from '../reading.js';
+import { foundationsGateOpen } from '../syllabus.js';
 
 let S = {
   track: 'foundations', view: 'home', activeWeek: null, lessonMode: 'read',
@@ -708,6 +710,11 @@ function drawQuiz() {
   const sub = document.getElementById('submitQuiz'); if (sub) sub.addEventListener('click', submitQuiz);
   const done = document.getElementById('quizDone'); if (done) done.addEventListener('click', () => {
     if (S._pendingGloss) { S.view = 'glossMini'; draw(); return; }
+    if (S._committeeApproval) {
+      const msg = S._committeeApproval;
+      S._committeeApproval = null;
+      App.toast?.(msg.body);
+    }
     S.view = 'home'; S.dirty = false; draw();
   });
 }
@@ -758,13 +765,23 @@ function submitQuiz() {
     const next = track.weeks.find((x) => x.id === w.id + 1);
     if (next && !['completed', 'mastered'].includes(prog.weekStatus[next.id])) prog.weekStatus[next.id] = 'current';
     skillsForWeek(track.id, w.id).forEach((sid) => markSkillMastered(sid, track.id));
+    seedWeekStudy(track.id, w.id, lang);
     App.haptic(20);
     S._pendingGloss = pickGlossMini(track.id, w);
+    App.setCourse(track.id, prog);
+    if (track.id === 'foundations' && foundationsGateOpen(App)) {
+      S._committeeApproval = {
+        title: lang === 'en' ? 'Committee Approval' : 'Committee Approval',
+        body: lang === 'en'
+          ? 'Foundations literacy demonstrated. Crypto, Stocks, and Forex are now open on the Markets ladder.'
+          : 'Foundations gate open. Crypto, Stocks, Forex unlock.',
+      };
+    }
   } else {
     prog.xp = (prog.xp || 0) + 10;
     S._pendingGloss = null;
+    App.setCourse(track.id, prog);
   }
-  App.setCourse(track.id, prog);
   App.bumpStreak();
   if (sc.passed) markToday('lesson');
   S.dirty = false;

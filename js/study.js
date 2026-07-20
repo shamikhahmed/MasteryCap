@@ -120,6 +120,20 @@ export function buildWeekDeck(trackId, weekId, lang = 'en') {
   const w = track?.weeks?.find((x) => x.id === Number(weekId));
   if (!w) return buildGlossaryDeck(trackId, lang);
   const cards = [];
+  const seeds = w.flashcardSeeds || [];
+  seeds.forEach((s, i) => {
+    const front = s.front?.[lang] || s.front?.en;
+    const back = s.back?.[lang] || s.back?.en;
+    if (front && back) {
+      cards.push({
+        id: stableCardId('seed', [trackId, weekId, i]),
+        front,
+        back,
+        source: 'seed',
+        trackId,
+      });
+    }
+  });
   (w.quiz || []).forEach((q, qi) => {
     const front = q.q?.[lang] || q.q?.en;
     const back = q.explain?.[lang] || q.explain?.en
@@ -150,6 +164,40 @@ export function buildWeekDeck(trackId, weekId, lang = 'en') {
     cards.push(...buildGlossaryDeck(trackId, lang).slice(0, 8));
   }
   return prioritizeDue(shuffle(cards).slice(0, 24));
+}
+
+/** Seed flashcards into SRS map + optional notebook prompt note (idempotent-ish). */
+export function seedWeekStudy(trackId, weekId, lang = 'en') {
+  const track = getTrack(trackId);
+  const w = track?.weeks?.find((x) => x.id === Number(weekId));
+  if (!w) return { cards: 0, note: false };
+  const today = dayKey();
+  const map = getSrs();
+  let cards = 0;
+  (w.flashcardSeeds || []).forEach((s, i) => {
+    const id = stableCardId('seed', [trackId, weekId, i]);
+    if (!map[id]) {
+      map[id] = { box: 1, due: today };
+      cards += 1;
+    }
+  });
+  setSrs(map);
+
+  let note = false;
+  const prompt = w.notebookPrompt?.[lang] || w.notebookPrompt?.en;
+  if (prompt) {
+    const existing = notesForWeek(trackId, weekId);
+    const tagged = existing.some((n) => String(n.text || '').includes(prompt.slice(0, 40)));
+    if (!tagged) {
+      saveNote({
+        trackId,
+        weekId,
+        text: `Notebook prompt:\n${prompt}`,
+      });
+      note = true;
+    }
+  }
+  return { cards, note };
 }
 
 export function buildMixDeck(lang = 'en') {

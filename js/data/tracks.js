@@ -3,7 +3,7 @@
    full bilingual lessons, quizzes and placement tests.
    ============================================================ */
 
-import { CRYPTO_WEEKS, CRYPTO_PLACEMENT } from './course.js';
+import { CRYPTO_WEEKS, CRYPTO_PLACEMENT } from './crypto-deep.js';
 import { STOCKS_WEEKS, STOCKS_PLACEMENT } from './stocks.js';
 import { OPTIONS_WEEKS, OPTIONS_PLACEMENT, EQUITY_WEEKS, EQUITY_PLACEMENT } from './options.js';
 import { FUTURES_WEEKS, FUTURES_PLACEMENT } from './futures.js';
@@ -103,8 +103,8 @@ export const TRACKS = [
   },
   {
     id: 'crypto',
-    name: { en: 'Crypto & Perps', ur: 'Crypto aur Perps' },
-    blurb: { en: 'Spot, leverage, on-chain, discipline', ur: 'Spot, leverage, on-chain, discipline' },
+    name: { en: 'Crypto Literacy', ur: 'Crypto Literacy' },
+    blurb: { en: 'Custody, fees, spot vs leverage, scams, process', ur: 'Custody, fees, spot vs leverage, scams, process' },
     status: 'live',
     weeks: CRYPTO_WEEKS,
     placement: CRYPTO_PLACEMENT,

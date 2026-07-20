@@ -243,3 +243,21 @@
     box-shadow: none;
   }
 }
+
+.lesson-part {
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.lesson-part .kicker { margin-bottom: 8px; }
+.lesson-part p, .lesson-part li {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--t1);
+}
+.lesson-part.warn-part {
+  border-color: color-mix(in srgb, var(--down, #A3392E) 35%, var(--line));
+}
+.lesson-part.note-part { border-style: dashed; }

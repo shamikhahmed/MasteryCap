@@ -1,3 +1,12 @@
+## [47.1.0] — 2026-07-20
+
+### Content depth (Phase B/C)
+- Foundations rewritten to 6-part bar (objective/teach/example/mistake/check + flashcardSeeds + notebook)
+- Crypto Literacy track: custody, fees, spot vs leverage, scams, process (5 weeks)
+- Quiz pass seeds Study flashcards + notebook prompt; Committee Approval toast on Foundations gate
+- SW `masterycap-v4710`
+
+
 ## [47.0.0] — 2026-07-20
 
 ### Paper University (Phase A)
