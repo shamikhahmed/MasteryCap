@@ -1,3 +1,12 @@
+## [50.9.0] — 2026-07-20
+
+### Docs sync — PRESENTATION + README tabs
+- PRESENTATION.md rewritten for institute + Markets (was stuck at v38)
+- README tabs = Today / Campus / Practice / Records
+- SW `masterycap-v5090`
+
+
+
 ## [50.8.0] — 2026-07-20
 
 ### Parsons fix + cert honesty projects

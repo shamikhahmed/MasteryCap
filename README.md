@@ -1,29 +1,23 @@
 # MasteryCap
 
-Offline personal institute — Software Craft + Market Literacy. Honest certificates. PWA.
+**Version:** v50.9.0 · SW `masterycap-v5090` · see [VERSION](VERSION) · [CHANGELOG.md](CHANGELOG.md) · [GUIDE.md](GUIDE.md)
 
-# MasteryCap
-
-**Version:** 50.8.0
-
-Offline bilingual (EN / Roman Urdu) **trading school**: Learn → Practice → Graduate.
-Curriculum + paper simulator (process-graded, not P/L) + discipline journal. True-black
-terminal design (Geist, accent `#FF6B2C`). No accounts, no backend, no income promises.
+Offline personal institute — **Software Craft** + **Market literacy** (EN / Roman Urdu).
+Curriculum + paper simulator (process-graded, not P/L) + study desk + honest certificates.
+True-black terminal design (Geist, accent `#FF6B2C`). No accounts, no backend, no income promises.
 Data stays on-device under `masterycap:`.
 
-**Version:** v50.8.0 · SW `masterycap-v5080` · see [VERSION](VERSION) · [CHANGELOG.md](CHANGELOG.md) · [GUIDE.md](GUIDE.md)
-
 ## School path
-1. **Learn** — tracks from Foundations through Binary; quizzes unlock weeks; exams local-only.
-2. **Practice** — paper trade sim (crypto/futures/forex/stocks) + invest/spot portfolio adherence.
-3. **Graduate** — process gates (exam + sim process / portfolio adherence). Cert = TRADE-READY, process-measured — markets still decide outcomes.
+1. **Learn** — Craft courses + Markets tracks; quizzes unlock weeks; exams local-only.
+2. **Practice** — paper trade sim + HTTP Lab / editor + Charts / Daily review / Hasil.
+3. **Graduate** — process gates (exam + sim process / project checklist). Cert = self-issued, not accredited.
 4. **How-to hub** — after ready: open a real account, start micro size (checklists, not tips).
 
 ## Tabs
-- **Home** — school campus: next lesson, beginner path, Learn→Practice→Graduate ladder
-- **Learn** — bilingual tracks (lessons, quizzes, placement, XP, graduation panel)
-- **Journal** — practice desk: sizing, trade log, Paper|Live (sim vs real journal)
-- **Progress** — equity, win-rate, emotions, insights, discipline, weeks, drills
+- **Today** — continue + guided session + study due
+- **Campus** — Software Craft / Markets / Money enroll
+- **Practice** — study desk, HTTP Lab, Charts, review, Hasil, paper sim
+- **Records** — profile, transcript/projects, certificates, backup
 
 ## Honest claim
 Literacy + risk frameworks + process reps. Completing the school ≠ salary from charts.

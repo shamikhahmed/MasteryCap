@@ -114,3 +114,5 @@ Next (in order):
 **v50.7:** Gallery HTTP Lab PNGs + FE practiceCode behavioral asserts.
 
 **v50.8:** Parsons one-use pool + 5 course project checklists for cert honesty.
+
+**v50.9:** PRESENTATION.md + README tabs synced to institute shell.

@@ -1,30 +1,32 @@
-# MasteryCap — one-pager (v38)
+# MasteryCap — one-pager (v50.9)
 
-**What:** Offline bilingual (EN / Roman Urdu) trading-education PWA — curriculum,
-discipline journal, drills, chart replay, insights. For owner + 1–2 friends.
+**What:** Offline personal institute PWA — **Software Craft** + **Market literacy** (EN / Roman Urdu).
+Curriculum, paper sim (process-graded), study desk, honest self-issued certificates.
+For owner + 1–2 friends. Live: https://shamikhahmed.github.io/MasteryCap/
 
-**Not:** Broker, signals app, tip service, SaaS with accounts/billing.
+**Not:** Broker, signals, tip service, accredited school, SaaS with accounts/billing, fake “AI”.
 
 ## Why it exists
-Teach risk control and evaluation frameworks without fake “AI” or win promises.
-Journal + drills close the loop so reading becomes skill.
+Teach craft + market risk/process without income promises. Reading → quiz → paper reps →
+attest. Certificates = local TRADE-READY / course completion — markets still decide outcomes.
 
 ## Product surface
-- 8 live tracks (Crypto → Binary), quizzes + placement, XP
-- SVG lesson diagrams + glossary tap-definitions
-- Practice drills + synthetic chart-replay
-- Journal with emotion tags + discipline grade A–F
-- Insights (n≥3), streak, daily spaced review
-- Full offline after first load; backup/restore JSON
+- **Campus** — 3 schools: Software Craft · Markets · Money (Open / Locked / Announced)
+- **Today** — continue lesson + guided Session Continuity
+- **Practice** — SRS, HTTP Lab, typed editor / Parsons, Charts hub, Daily review, Hasil, paper sim
+- **Records** — profile, transcript + project checklists, self-issued certs, backup JSON
+- Markets deep tracks (Foundations → Crypto/Stocks/Forex + electives); process graduation
+- Bilingual week bars (objective / teach / example / mistake / exit / notebook)
 
 ## Stack
-Static ES modules. No build, no npm deps, no backend.
-`localStorage` (`masterycap:`). GitHub Pages–ready. SW cache `masterycap-v38`.
-School: Learn → Practice (paper sim) → Graduate (process gates). No income promises.
+Static ES modules. No build step required for the PWA shell. No backend.
+`localStorage` (`masterycap:`). GitHub Pages. SW cache `masterycap-v5090` · app **v50.9.0**.
 
 ## Design
-True-black `#08090A` · Geist · flat accent `#FF6B2C` · zero emoji · mono numerics.
+True-black terminal · Geist · accent `#FF6B2C` · zero emoji · mono numerics.
+Themes: Light / Sepia / Dark.
 
 ## Status
-Roadmap P0–P5 complete (2026-07-11). Urdu human QA checklist open.
-Deploy: push repo → GitHub Pages → Add to Home Screen.
+University build queue complete (v49.2). Unlock wave v50+ (Lab ON, Craft FE→APP session,
+UR parity, nav reconnect, cert-honesty projects). Optional later: Markets↔institute reader merge.
+Deploy: push `main` → GitHub Pages → hard-refresh / Add to Home Screen.
