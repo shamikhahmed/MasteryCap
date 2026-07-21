@@ -17,7 +17,7 @@ import FIN101 from './fin-101.js';
 import FIN201 from './fin-201.js';
 import FIN301 from './fin-301.js';
 
-const MAP = {
+const RAW = {
   'WEB-101': WEB101,
   'WEB-102': WEB102,
   'WEB-103': WEB103,
@@ -36,6 +36,31 @@ const MAP = {
   'FIN-201': FIN201,
   'FIN-301': FIN301,
 };
+
+function normalizeFinalQuestion(question, index) {
+  const opts = question?.opts || {};
+  const reference = opts.en || Object.values(opts).find(Array.isArray) || [];
+  const count = reference.length;
+  if (count < 2 || !Number.isInteger(question.correct) || question.correct < 0 || question.correct >= count) {
+    return question;
+  }
+  const target = index % count;
+  const order = reference.map((_, optionIndex) => optionIndex).filter((optionIndex) => optionIndex !== question.correct);
+  order.splice(target, 0, question.correct);
+  const normalizedOpts = Object.fromEntries(Object.entries(opts).map(([lang, values]) => [
+    lang,
+    Array.isArray(values) && values.length === count ? order.map((optionIndex) => values[optionIndex]) : values,
+  ]));
+  return { ...question, opts: normalizedOpts, correct: target };
+}
+
+const MAP = Object.fromEntries(Object.entries(RAW).map(([code, course]) => [
+  code,
+  {
+    ...course,
+    finalQuiz: (course.finalQuiz || []).map(normalizeFinalQuestion),
+  },
+]));
 
 export function loadCourse(code) {
   return MAP[code] || null;

@@ -8,7 +8,7 @@ import { applyTheme, getAppearance, setAppearance } from './theme.js';
 import { getTeacher, setTeacher, TEACHERS } from './teacher.js';
 import { evidenceHash } from './exam.js';
 
-export const APP_VERSION = 'v52.0.0';
+export const APP_VERSION = 'v52.1.0';
 
 function todayStamp() {
   const d = new Date();
@@ -103,15 +103,15 @@ export function openSettings(App) {
   sheet.className = 'sheet-root';
   sheet.innerHTML = `
     <div class="sheet-backdrop" data-close></div>
-    <div class="sheet" role="dialog" aria-label="${App.t('settings')}">
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
       <div class="sheet-handle"></div>
       <div class="sheet-head">
-        <div class="slabel">${App.t('settings')}</div>
+        <div class="slabel" id="settingsTitle">${App.t('settings')}</div>
         <button class="sheet-x" data-close aria-label="${App.t('back')}">${icon('x', { size: 18 })}</button>
       </div>
       <div class="sheet-body">
         <div class="field">
-          <label>${App.t('set_name')}</label>
+          <label for="setName">${App.t('set_name')}</label>
           <input id="setName" type="text" value="${escapeHtml(name)}" maxlength="32" />
         </div>
 
@@ -141,7 +141,7 @@ export function openSettings(App) {
         </div>
 
         <div class="field" style="margin-bottom:16px">
-          <label>${App.t('verify_cert')}</label>
+          <label for="setVerifyHash">${App.t('verify_cert')}</label>
           <input id="setVerifyHash" type="text" placeholder="verify:…" maxlength="24" />
           <p id="setVerifyOut" style="font-size:12px;color:var(--t3);margin:8px 0 0"></p>
           <p style="font-size:12px;color:var(--t3);margin:8px 0 0;line-height:1.45">${App.t('cert_not_license')}</p>
@@ -187,7 +187,7 @@ export function openSettings(App) {
         <div class="slabel" style="margin:22px 0 10px;color:var(--down)">${App.t('set_danger')}</div>
         <button class="btn ghost" id="setReset" style="border-color:rgba(234,57,67,0.35);color:var(--down)">${App.t('set_reset')}</button>
 
-        <div id="settings-msg" class="hidden"></div>
+        <div id="settings-msg" class="hidden" role="status" aria-live="polite"></div>
         <div style="margin-top:18px;font-size:12px;color:var(--t3)" class="mono">
           MasteryCap ${APP_VERSION} · <a href="CHANGELOG.md" style="color:var(--acc-2)">${App.t('set_changelog')}</a>
         </div>

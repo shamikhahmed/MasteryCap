@@ -33,7 +33,7 @@ export const FOUNDATIONS_WEEKS = [
   teach: {
     en: `<p>A <strong>market</strong> is a place (physical or electronic) where buyers and sellers agree on a price for something scarce: a share, a currency, a barrel of oil, a token. Every fill needs a <strong>counterparty</strong> who disagrees with you about value — if everyone agreed, there would be no trade.</p>
 <p>Price moves when orders arrive unevenly: more willing buyers lift the ask; more willing sellers hit the bid. News, positioning, liquidity, and fear all change who is willing. That is not magic and not a salary machine.</p>
-<p><strong>MasteryCap</strong> is a school on your device: frameworks, process, and practice. Completing lessons does <em>not</em> mean markets owe you money. Certificates here are self-issued study records — not licenses.</p>
+<p><strong>MasteryCap</strong> is a school on your device: frameworks, process, and practice. Completing lessons does <em>not</em> mean markets owe you money. Completion outputs are self-issued study records — not certificates or licenses.</p>
 <p>{{redflag:Anyone selling “finish this course → weekly income” is selling fantasy.}}</p>`,
     ur: `<p><strong>Market</strong> physical ya electronic jagah hai jahan buyer aur seller kisi scarce cheez — share, currency, oil barrel, token — ki price pe agree karte hain. Har fill ke liye <strong>counterparty</strong> chahiye jo value ke baare mein tumse disagree kare — sab agree hon to trade hi nahi hota.</p>
 <p>Price tab hilti hai jab orders uneven aate: zyada buyers ask uthate, zyada sellers bid hit karte. News, positioning, liquidity, fear sab willingness badalte. Ye magic nahi aur na salary machine.</p>

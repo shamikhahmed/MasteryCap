@@ -50,20 +50,20 @@ export function renderHttpLab(App, el) {
       ${LAB_PRESETS.map((p, i) => `<button class="pill" data-pre="${i}">${p.label}</button>`).join('')}
     </div>
     <div class="inst-card">
-      <label class="slabel">${en ? 'Method' : 'Method'}</label>
+      <label class="slabel" for="labMethod">${en ? 'Method' : 'Method'}</label>
       <select id="labMethod" class="onb-input">
         ${['GET', 'POST', 'PUT', 'DELETE'].map((m) => `<option ${S.method === m ? 'selected' : ''}>${m}</option>`).join('')}
       </select>
-      <label class="slabel mt10">${en ? 'Path' : 'Path'}</label>
+      <label class="slabel mt10" for="labPath">${en ? 'Path' : 'Path'}</label>
       <input id="labPath" class="onb-input" value="${esc(S.path)}" />
-      <label class="slabel mt10">${en ? 'Request headers' : 'Request headers'}</label>
+      <label class="slabel mt10" for="labHeaders">${en ? 'Request headers' : 'Request headers'}</label>
       <textarea id="labHeaders" class="code-editor" rows="3" placeholder="Authorization: Bearer lab-token">${esc(S.headerText)}</textarea>
-      <label class="slabel mt10">${en ? 'Body (JSON)' : 'Body (JSON)'}</label>
+      <label class="slabel mt10" for="labBody">${en ? 'Body (JSON)' : 'Body (JSON)'}</label>
       <textarea id="labBody" class="code-editor" rows="5">${esc(S.body)}</textarea>
       <button class="btn accent mt10" id="labSend">${en ? 'Send' : 'Bhejo'}</button>
     </div>
     <div class="slabel mt16">${en ? 'Response (status + headers + body)' : 'Jawab (status + headers + body)'}</div>
-    <pre class="code-out" id="labOut">${S.last ? formatRes(S.last) : (en ? 'Send a request.' : 'Request bhejo.')}</pre>
+    <pre class="code-out" id="labOut" role="status" aria-live="polite">${S.last ? formatRes(S.last) : (en ? 'Send a request.' : 'Request bhejo.')}</pre>
 
     <div class="slabel mt16">${en ? 'Exercises (auto-grade)' : 'Mashqein (auto-grade)'}</div>
     <div class="inst-list">
@@ -115,7 +115,7 @@ export function renderHttpLab(App, el) {
     let n = 0;
     g.forEach((row) => {
       if (row.pass && ids.has(row.id)) {
-        attestProject('BE-301', row.id, true);
+        attestProject('BE-301', row.id, true, `Auto-graded HTTP Lab PASS: ${row.name.en}`);
         n += 1;
       }
     });

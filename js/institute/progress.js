@@ -10,6 +10,7 @@ function blank() {
     lessonChecks: {}, // lessonId -> { score, at }
     finals: {}, // courseCode -> { score, at, passed }
     projects: {}, // courseCode -> { [itemId]: true }
+    projectEvidence: {}, // courseCode -> { [itemId]: { note, at } }
     certificates: {}, // courseCode -> cert object
     srs: [], // { id, front, back, due, interval, ease, course, lesson }
     enrollments: {}, // code -> { at, school }
@@ -62,16 +63,30 @@ export function markLessonComplete(courseCode, lessonId, cards = []) {
   return inst;
 }
 
-export function saveLessonCheck(lessonId, score) {
+export function saveLessonCheck(lessonId, score, { passed = score >= 80, missed = [] } = {}) {
   const inst = getInstitute();
-  inst.lessonChecks[lessonId] = { score, at: Date.now() };
+  const previous = inst.lessonChecks[lessonId] || {};
+  inst.lessonChecks[lessonId] = {
+    score,
+    passed: Boolean(passed),
+    missed: [...missed],
+    attempts: (previous.attempts || 0) + 1,
+    at: Date.now(),
+  };
   setInstitute(inst);
 }
 
-export function attestProject(courseCode, itemId, on) {
+export function attestProject(courseCode, itemId, on, evidence = '') {
   const inst = getInstitute();
   if (!inst.projects[courseCode]) inst.projects[courseCode] = {};
+  if (!inst.projectEvidence) inst.projectEvidence = {};
+  if (!inst.projectEvidence[courseCode]) inst.projectEvidence[courseCode] = {};
   inst.projects[courseCode][itemId] = !!on;
+  if (on && String(evidence).trim()) {
+    inst.projectEvidence[courseCode][itemId] = { note: String(evidence).trim(), at: Date.now() };
+  } else if (!on) {
+    delete inst.projectEvidence[courseCode][itemId];
+  }
   setInstitute(inst);
 }
 
@@ -79,7 +94,18 @@ export function projectComplete(courseCode, items) {
   if (!items || !items.length) return true;
   const inst = getInstitute();
   const done = inst.projects[courseCode] || {};
-  return items.every((it) => done[it.id]);
+  const evidence = inst.projectEvidence?.[courseCode] || {};
+  return projectEvidenceComplete(done, evidence, items);
+}
+
+export function projectEvidenceComplete(done, evidence, items) {
+  return (items || []).every((item) =>
+    Boolean(done?.[item.id]) && String(evidence?.[item.id]?.note || '').trim().length >= 12
+  );
+}
+
+export function getProjectEvidence(courseCode, itemId) {
+  return getInstitute().projectEvidence?.[courseCode]?.[itemId] || null;
 }
 
 export function allLessonsComplete(courseCode, lessons) {
@@ -104,14 +130,14 @@ export async function certHash(payload) {
 }
 
 export const CERT_DISCLAIMER =
-  'This certificate is self-issued locally on the learner\'s device by MasteryCap, an independent study application. It is not an accredited qualification and confers no license or degree. It records completed work, honestly.';
+  'This study record is generated locally on the learner\'s device by MasteryCap, an independent study application. It is not an accredited qualification, certificate, license, or degree. It records self-directed work and local assessment evidence only.';
 
 export async function tryIssueCertificate(courseCode, meta, score) {
   const inst = getInstitute();
   const name = store.get(KEYS.profile, {})?.name || 'Learner';
   const date = new Date().toISOString().slice(0, 10);
   const hours = meta.hours || 0;
-  const base = { courseId: courseCode, name, score, date, hours };
+  const base = { courseId: courseCode, name, score, date, hours, recordType: 'self-issued-study-record' };
   const hash = await certHash(base);
   const cert = {
     ...base,

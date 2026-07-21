@@ -1,5 +1,5 @@
 /* ============================================================
-   exam.js — track final exam + certificate canvas (Course / TRADE-READY).
+   exam.js — track final exam + local study-record canvas.
    ============================================================ */
 
 import { store, KEYS, djb2 } from './store.js';
@@ -119,19 +119,19 @@ export function downloadCertificate({
   // Title
   ctx.fillStyle = '#F2F4F7';
   ctx.font = '650 110px Georgia, "Times New Roman", serif';
-  center(isTR ? 'TRADE-READY' : 'COURSE LITERACY', 420);
+  center(isTR ? 'PAPER PROCESS READINESS RECORD' : 'COURSE STUDY RECORD', 420);
 
   // Honesty banner — locked copy, never soften
   ctx.fillStyle = isTR ? ACC : '#EA3943';
   ctx.font = '600 30px system-ui, sans-serif';
   center(isTR
     ? (lang === 'en' ? 'NOT A LICENSE · NOT SECP/BROKER/CFA' : 'LICENSE NAHI · SECP/BROKER/CFA NAHI')
-    : (lang === 'en' ? 'NOT TRADE-READY · NOT A LICENSE' : 'TRADE-READY NAHI · LICENSE NAHI'), 480);
+    : (lang === 'en' ? 'COURSE ASSESSMENT ONLY · NOT A LICENSE' : 'SIRF COURSE ASSESSMENT · LICENSE NAHI'), 480);
   ctx.fillStyle = '#A8B0BA';
   ctx.font = '500 26px system-ui, sans-serif';
   center(isTR
     ? (lang === 'en' ? 'process-measured · paper/tiny size · decays without practice' : 'process-measured · paper/tiny · practice ke baghair kamzor')
-    : (lang === 'en' ? 'exam + weeks only — Practice labs still required for TRADE-READY' : 'exam + weeks — TRADE-READY ke liye Practice labs abhi'), 526);
+    : (lang === 'en' ? 'exam + weeks only — Practice labs required for readiness record' : 'exam + weeks — readiness record ke liye Practice labs'), 526);
 
   // Awarded name — the hero
   ctx.fillStyle = '#8A939E';
@@ -180,8 +180,8 @@ export function downloadCertificate({
       ? '✓ Course weeks completed / exam passed'
       : '✓ Course weeks / exam pass');
     lines.push(lang === 'en'
-      ? '○ TRADE-READY requires Practice labs (separate)'
-      : '○ TRADE-READY ke liye Practice labs alag');
+      ? '○ Paper Process Readiness requires separate Practice labs'
+      : '○ Paper Process Readiness ke liye Practice labs alag');
   }
   ctx.fillStyle = '#C4C8CD';
   ctx.font = '400 28px system-ui, sans-serif';

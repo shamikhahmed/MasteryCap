@@ -37,7 +37,7 @@ export function renderCodeEditor({ prompt, starter, lang = 'en', parsons = null 
         <button class="btn accent" id="codeRun">${en ? 'Run asserts' : 'Asserts chalao'}</button>
         <button class="btn ghost" id="codeReset">${en ? 'Reset' : 'Reset'}</button>
       </div>
-      <pre class="code-out" id="codeOut">${en ? 'Assert results appear here.' : 'Assert results yahan.'}</pre>
+      <pre class="code-out" id="codeOut" role="status" aria-live="polite">${en ? 'Assert results appear here.' : 'Assert results yahan.'}</pre>
     </div>`;
   }
 
@@ -61,7 +61,7 @@ export function renderCodeEditor({ prompt, starter, lang = 'en', parsons = null 
       <button class="btn accent" id="codeRun">${en ? 'Check order + asserts' : 'Order + asserts'}</button>
       <button class="btn ghost" id="codeReset">${en ? 'Shuffle reset' : 'Shuffle dubara'}</button>
     </div>
-    <pre class="code-out" id="codeOut"></pre>
+    <pre class="code-out" id="codeOut" role="status" aria-live="polite"></pre>
     <textarea id="codeEditor" class="hidden" hidden>${esc(starter || '')}</textarea>
   </div>`;
 }
@@ -70,9 +70,15 @@ export function renderCodeEditor({ prompt, starter, lang = 'en', parsons = null 
  * Assert harness: tests are {name, run} where run is expression OR
  * {name, assert: 'eq'|'truthy'|'throws', expr, expect?}
  */
-export function runAsserts(src, tests = []) {
-  const lines = [];
-  let passed = 0;
+function sandboxWorkerMain() {
+  const send = globalThis.postMessage.bind(globalThis);
+  const secret = crypto.getRandomValues(new Uint32Array(4)).join('-');
+  const deny = () => { throw new Error('Network and persistent storage are disabled in code practice.'); };
+  ['fetch', 'indexedDB', 'caches', 'WebSocket', 'XMLHttpRequest', 'importScripts'].forEach((name) => {
+    try { Object.defineProperty(globalThis, name, { value: deny, configurable: false, writable: false }); } catch (_) {}
+  });
+  send({ type: 'READY', secret });
+
   const harness = `
 var __els = Object.create(null);
 var document = {
@@ -90,43 +96,126 @@ var localStorage = {
   removeItem: function(k) { delete __ls[k]; },
 };
 `;
-  try {
+  const execute = (src, suffix) => {
+    // User code runs only in this opaque-origin, disposable worker.
     // eslint-disable-next-line no-new-func
-    new Function(`${harness}\n${src}\n; return 1;`)();
-    lines.push('Parse: OK');
-  } catch (e) {
-    return { lines: [`Parse FAIL: ${e.message}`], passed: 0, total: tests.length };
-  }
+    return new Function(`"use strict";\n${harness}\n${src}\n${suffix}`)();
+  };
 
-  for (const t of tests) {
+  globalThis.onmessage = (event) => {
+    if (event.data?.type !== 'RUN') return;
+    const src = String(event.data.src || '').slice(0, 50000);
+    const tests = Array.isArray(event.data.tests) ? event.data.tests.slice(0, 50) : [];
+    const lines = [];
+    let passed = 0;
     try {
-      let ok = false;
-      if (t.assert === 'eq') {
-        // eslint-disable-next-line no-new-func
-        const got = new Function(`${harness}\n${src}\n; return (${t.expr});`)();
-        ok = Object.is(got, t.expect) || got === t.expect
-          || (typeof t.expect === 'object' && JSON.stringify(got) === JSON.stringify(t.expect));
-        lines.push(`${ok ? 'PASS' : 'FAIL'}: ${t.name} (got ${JSON.stringify(got)})`);
-      } else if (t.assert === 'throws') {
-        let threw = false;
-        try {
-          // eslint-disable-next-line no-new-func
-          new Function(`${harness}\n${src}\n; (${t.expr});`)();
-        } catch (e) { threw = true; }
-        ok = threw;
-        lines.push(`${ok ? 'PASS' : 'FAIL'}: ${t.name}`);
-      } else {
-        // eslint-disable-next-line no-new-func
-        ok = !!(new Function(`${harness}\n${src}\n; return !!(${t.run || t.expr});`)());
-        lines.push(`${ok ? 'PASS' : 'FAIL'}: ${t.name}`);
-      }
-      if (ok) passed += 1;
-    } catch (e) {
-      lines.push(`FAIL: ${t.name} — ${e.message}`);
+      execute(src, 'return 1;');
+      lines.push('Parse: OK');
+    } catch (error) {
+      send({ type: 'RESULT', secret, result: { lines: [`Parse FAIL: ${error.message}`], passed: 0, total: tests.length } });
+      return;
     }
+    for (const test of tests) {
+      try {
+        let ok = false;
+        if (test.assert === 'eq') {
+          const got = execute(src, `return (${test.expr});`);
+          ok = Object.is(got, test.expect) || got === test.expect
+            || (typeof test.expect === 'object' && JSON.stringify(got) === JSON.stringify(test.expect));
+          lines.push(`${ok ? 'PASS' : 'FAIL'}: ${test.name} (got ${JSON.stringify(got)})`);
+        } else if (test.assert === 'throws') {
+          let threw = false;
+          try { execute(src, `(${test.expr});`); } catch (_) { threw = true; }
+          ok = threw;
+          lines.push(`${ok ? 'PASS' : 'FAIL'}: ${test.name}`);
+        } else {
+          ok = Boolean(execute(src, `return !!(${test.run || test.expr});`));
+          lines.push(`${ok ? 'PASS' : 'FAIL'}: ${test.name}`);
+        }
+        if (ok) passed += 1;
+      } catch (error) {
+        lines.push(`FAIL: ${test.name} — ${error.message}`);
+      }
+    }
+    if (!tests.length) lines.push('No asserts — self-check the prompt.');
+    send({ type: 'RESULT', secret, result: { lines, passed, total: tests.length } });
+  };
+}
+
+function sandboxFrameHtml() {
+  return `<!doctype html><meta charset="utf-8"><script>
+    let worker;
+    let secret;
+    let runId;
+    let timer;
+    addEventListener('message', (event) => {
+      const data = event.data || {};
+      if (event.source !== parent || data.type !== 'INIT' || worker) return;
+      runId = data.runId;
+      const url = URL.createObjectURL(new Blob([data.workerSource], { type: 'text/javascript' }));
+      worker = new Worker(url);
+      timer = setTimeout(() => {
+        worker.terminate();
+        URL.revokeObjectURL(url);
+        parent.postMessage({ type: 'SANDBOX_TIMEOUT', runId }, '*');
+      }, data.timeout);
+      worker.onmessage = (workerEvent) => {
+        const message = workerEvent.data || {};
+        if (message.type === 'READY') {
+          URL.revokeObjectURL(url);
+          secret = message.secret;
+          worker.postMessage({ type: 'RUN', src: data.src, tests: data.tests });
+          return;
+        }
+        if (message.type !== 'RESULT' || message.secret !== secret) return;
+        clearTimeout(timer);
+        worker.terminate();
+        parent.postMessage({ type: 'SANDBOX_RESULT', runId, result: message.result }, '*');
+      };
+    });
+  <\/script>`;
+}
+
+export function runAsserts(src, tests = [], { timeout = 1200 } = {}) {
+  if (typeof document === 'undefined') {
+    return Promise.resolve({ lines: ['Sandbox unavailable.'], passed: 0, total: tests.length });
   }
-  if (!tests.length) lines.push('No asserts — self-check the prompt.');
-  return { lines, passed, total: tests.length };
+  return new Promise((resolve) => {
+    const runId = crypto.getRandomValues(new Uint32Array(4)).join('-');
+    const frame = document.createElement('iframe');
+    frame.hidden = true;
+    frame.setAttribute('sandbox', 'allow-scripts');
+    frame.setAttribute('title', 'Isolated code practice runner');
+    frame.srcdoc = sandboxFrameHtml();
+    const finish = (result) => {
+      clearTimeout(parentTimer);
+      window.removeEventListener('message', onMessage);
+      frame.remove();
+      resolve(result);
+    };
+    const onMessage = (event) => {
+      if (event.source !== frame.contentWindow || event.data?.runId !== runId) return;
+      if (event.data.type === 'SANDBOX_RESULT') finish(event.data.result);
+      if (event.data.type === 'SANDBOX_TIMEOUT') {
+        finish({ lines: ['Run stopped: code exceeded time limit.'], passed: 0, total: tests.length });
+      }
+    };
+    const parentTimer = setTimeout(() => {
+      finish({ lines: ['Run stopped: sandbox did not respond.'], passed: 0, total: tests.length });
+    }, timeout + 500);
+    window.addEventListener('message', onMessage);
+    frame.addEventListener('load', () => {
+      frame.contentWindow.postMessage({
+        type: 'INIT',
+        runId,
+        timeout,
+        src: String(src || ''),
+        tests,
+        workerSource: `(${sandboxWorkerMain.toString()})();`,
+      }, '*');
+    }, { once: true });
+    document.body.appendChild(frame);
+  });
 }
 
 export function wireCodeEditor(starter, tests = [], correctParsons = null) {
@@ -199,7 +288,7 @@ export function wireCodeEditor(starter, tests = [], correctParsons = null) {
     }
   });
 
-  document.getElementById('codeRun')?.addEventListener('click', () => {
+  document.getElementById('codeRun')?.addEventListener('click', async () => {
     let src = area ? area.value : '';
     if (pool) {
       src = built.map((r) => r.text).join('\n');
@@ -211,8 +300,10 @@ export function wireCodeEditor(starter, tests = [], correctParsons = null) {
       }
       out.textContent = 'Order PASS.\n';
     }
-    const result = runAsserts(src, tests);
-    out.textContent = (pool ? out.textContent : '') + result.lines.join('\n')
+    const prefix = pool ? 'Order PASS.\n' : '';
+    out.textContent = `${prefix}Running in isolated sandbox…`;
+    const result = await runAsserts(src, tests);
+    out.textContent = prefix + result.lines.join('\n')
       + (result.total ? `\n${result.passed}/${result.total} asserts` : '');
   });
 }

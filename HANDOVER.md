@@ -4,10 +4,10 @@
 > Last updated: 2026-07-21 · Fleet-wide standard: `capricorn-tooling/shared/CAP-STANDARD.md`
 
 ## What this is
-Offline personal institute PWA. Flagship **School of Software Craft** (WEB-101→APP-403 In Session). **School of Markets** wraps existing bilingual trading literacy. Honest self-issued certificates. No accounts, no fake AI, no income promises.
+Offline personal institute PWA. Flagship **School of Software Craft** (WEB-101→APP-403 In Session). **School of Markets** wraps existing bilingual trading literacy. Honest self-issued study records. No accounts, no fake AI, no income promises.
 
 ## Facts
-**Version:** v52.0.0 (sw: masterycap-v5200)
+**Version:** v52.1.0 (sw: masterycap-v5210)
 **Live:** https://shamikhahmed.github.io/MasteryCap/
 **Repo:** https://github.com/shamikhahmed/MasteryCap
 **Stack:** Vanilla JS PWA. Fraunces + IBM Plex (Google) with Geist Mono self-hosted. localStorage (`masterycap:`).
@@ -31,7 +31,7 @@ node tests/final-acceptance.cjs
 
 ## Gotchas
 - Design: paper institute default; accent from theme. No Inter, no purple gradients, no emoji chrome.
-- Certificates must keep locked disclaimer (`CERT_DISCLAIMER`).
+- Study records must keep locked disclaimer (`CERT_DISCLAIMER`) and require assessment plus project evidence.
 - Announced courses stay non-enrollable — titles without `session` status only. FE-202→APP-403 are **session** (v50).
 - Today hosts guided Session Continuity; Practice hosts Charts / Daily review / Hasil (v50.4).
 - No Welcome Update sheet (47.0.0) — version stamped silent via `lastSeenVersion`.

@@ -72,6 +72,11 @@
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--acc) 78%, white) !important;
+  outline-offset: 3px;
+}
+
 html, body {
   margin: 0; height: 100%;
   background: var(--bg);
@@ -410,7 +415,7 @@ html[data-theme="sepia"] .btn.accent { color: #fff; }
 .stat-cell .sc-s { font-size: 10.5px; color: var(--t4); margin-top: 2px; }
 
 /* checklist */
-.check-row { display: flex; align-items: center; gap: 13px; padding: 13px 18px; border-bottom: 1px solid var(--line); }
+.check-row { display: flex; width: 100%; align-items: center; gap: 13px; padding: 13px 18px; border-bottom: 1px solid var(--line); text-align: left; }
 .check-row:last-child { border-bottom: none; }
 .check-box { width: 22px; height: 22px; border-radius: 6px; flex: 0 0 auto; border: 1.5px solid var(--line-3); display: grid; place-items: center; color: transparent; transition: all 0.16s var(--spring); }
 .check-row.on .check-box { background: var(--acc); border-color: var(--acc); color: #0A0A0B; }

@@ -1,6 +1,6 @@
 # MasteryCap Features
 
-**Version:** 52.0.0 · Premium School
+**Version:** 52.1.0 · Premium School
 
 ## Strengths
 - Offline-first PWA; no accounts
@@ -12,14 +12,14 @@
 - Sim process fails feed Mistake museum → Daily review MCQs
 - Light / Sepia / Dark themes; bilingual EN / Roman Urdu depth bars
 - Bottom nav exposed as ARIA tabs (selected + keyboard)
-- Age-band tip layer; honest self-issued certificates; Markets education-only
+- Age-band tip layer; honest self-issued study records; Markets education-only
 
 ## Weaknesses
 - Markets lesson UI still separate from institute reader (merge later)
 - Short quiz option stubs stay telegraphic by design
 
 ## Limitations
-- Certificates not accredited
+- Study records are local and not accredited credentials
 - No cloud sync / accounts
 
 ## Risks

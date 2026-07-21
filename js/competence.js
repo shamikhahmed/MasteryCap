@@ -80,8 +80,8 @@ export function competenceStatements(App) {
 
     if (ready) {
       can.push({
-        en: 'Meet TRADE-READY gates for this track (self-issued)',
-        ur: 'Is track pe TRADE-READY gates (self-issued)',
+        en: 'Meet Paper Process Readiness gates for this track (local record)',
+        ur: 'Is track pe Paper Process Readiness gates (local record)',
       });
     }
 

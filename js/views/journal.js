@@ -63,7 +63,7 @@ export function renderJournal(App, c) {
       <div class="eq-bal mono" id="eqBalWrap">$<span id="eqBal">0.00</span></div>
       <div id="eqEditRow" class="hidden" style="margin-top:12px">
         <div class="field" style="margin:0">
-          <label>${App.t('portfolio')} ($)</label>
+          <label for="eqEditIn">${App.t('portfolio')} ($)</label>
           <input id="eqEditIn" class="num mono" type="number" inputmode="decimal" step="0.01" value="${balance}" />
         </div>
         <div class="hstack" style="gap:8px;margin-top:10px">
@@ -98,15 +98,15 @@ export function renderJournal(App, c) {
         <span class="pill mono" id="checkCount">${checkedNow()}/${CHECK_RULES.length}</span>
       </div>
       <div>${CHECK_RULES.map((r) => `
-        <div class="check-row ${checklist[r.id] ? 'on' : ''}" data-rule="${r.id}">
+        <button type="button" class="check-row ${checklist[r.id] ? 'on' : ''}" data-rule="${r.id}" aria-pressed="${Boolean(checklist[r.id])}">
           <span class="check-box">${icon('checkThin', { size: 13, sw: 2.6 })}</span>
           <span class="check-t">${lang === 'en' ? r.en : r.ur}</span>
-        </div>`).join('')}</div>
+        </button>`).join('')}</div>
     </div>
 
     <div class="panel" style="margin-bottom:16px">
       <div class="balance-bar">
-        <span class="bb-l">${App.t('portfolio')}</span>
+        <label class="bb-l" for="jBalance">${App.t('portfolio')}</label>
         <span class="bb-in"><span>$</span><input id="jBalance" class="mono" type="number" step="0.01" value="${balance}" /></span>
       </div>
     </div>
@@ -115,9 +115,9 @@ export function renderJournal(App, c) {
       <div class="panel-h"><span class="ph-t">${App.t('calc_title')}</span>${icon('target', { size: 17, cls: '' })}</div>
       <div class="pad" style="padding-bottom:14px">
         <div class="f-row three">
-          <div class="field" style="margin-bottom:0"><label>${App.t('entry_price')}</label><input id="calcEntry" class="num" type="number" step="any" placeholder="148.20" /></div>
-          <div class="field" style="margin-bottom:0"><label>${App.t('stop_price')}</label><input id="calcStop" class="num" type="number" step="any" placeholder="146.70" /></div>
-          <div class="field" style="margin-bottom:0"><label>${App.t('risk_pct')}</label><input id="calcRisk" class="num" type="number" step="0.1" value="2" /></div>
+          <div class="field" style="margin-bottom:0"><label for="calcEntry">${App.t('entry_price')}</label><input id="calcEntry" class="num" type="number" step="any" placeholder="148.20" /></div>
+          <div class="field" style="margin-bottom:0"><label for="calcStop">${App.t('stop_price')}</label><input id="calcStop" class="num" type="number" step="any" placeholder="146.70" /></div>
+          <div class="field" style="margin-bottom:0"><label for="calcRisk">${App.t('risk_pct')}</label><input id="calcRisk" class="num" type="number" step="0.1" value="2" /></div>
         </div>
         <div id="calcOut" class="calc-hint mt14">${App.t('calc_hint')}</div>
         <div class="note-box warn hidden mt10" id="calcWarn"></div>
@@ -127,37 +127,37 @@ export function renderJournal(App, c) {
     <div class="panel mt14">
       <div class="panel-h"><span class="ph-t">${App.t('log_trade')}</span></div>
       <div class="pad">
-        <div class="field"><label>${App.t('direction')}</label>
-          <div class="dir-seg">
-            <button id="btnLong" data-dir="long">${icon('arrowUp', { size: 16 })} ${App.t('long')}</button>
-            <button id="btnShort" data-dir="short">${icon('arrowDown', { size: 16 })} ${App.t('short')}</button>
+        <div class="field"><div class="slabel" id="directionLabel">${App.t('direction')}</div>
+          <div class="dir-seg" role="group" aria-labelledby="directionLabel">
+            <button id="btnLong" data-dir="long" type="button" aria-pressed="false">${icon('arrowUp', { size: 16 })} ${App.t('long')}</button>
+            <button id="btnShort" data-dir="short" type="button" aria-pressed="false">${icon('arrowDown', { size: 16 })} ${App.t('short')}</button>
           </div>
         </div>
         <div class="f-row three">
-          <div class="field"><label>${App.t('pair')}</label><input id="pair" type="text" placeholder="SOLUSDT" /></div>
-          <div class="field"><label>${App.t('leverage')}</label><input id="leverage" class="num" type="number" step="0.1" placeholder="5" /></div>
-          <div class="field"><label>${App.t('size')}</label><input id="size" class="num" type="number" step="0.01" placeholder="10" /></div>
+          <div class="field"><label for="pair">${App.t('pair')}</label><input id="pair" type="text" placeholder="SOLUSDT" /></div>
+          <div class="field"><label for="leverage">${App.t('leverage')}</label><input id="leverage" class="num" type="number" step="0.1" placeholder="5" /></div>
+          <div class="field"><label for="size">${App.t('size')}</label><input id="size" class="num" type="number" step="0.01" placeholder="10" /></div>
         </div>
         <div class="f-row three">
-          <div class="field"><label>${App.t('entry')}</label><input id="entry" class="num" type="number" step="any" /></div>
-          <div class="field"><label>${App.t('stop')}</label><input id="stop" class="num" type="number" step="any" /></div>
-          <div class="field"><label>${App.t('exit')}</label><input id="exit" class="num" type="number" step="any" inputmode="decimal" /></div>
+          <div class="field"><label for="entry">${App.t('entry')}</label><input id="entry" class="num" type="number" step="any" /></div>
+          <div class="field"><label for="stop">${App.t('stop')}</label><input id="stop" class="num" type="number" step="any" /></div>
+          <div class="field"><label for="exit">${App.t('exit')}</label><input id="exit" class="num" type="number" step="any" inputmode="decimal" /></div>
         </div>
         <div class="grid-3">
-          <div class="field"><label>Setup</label><input id="setup" type="text" list="setupList" placeholder="breakout" /></div>
-          <div class="field"><label>Market</label>
+          <div class="field"><label for="setup">Setup</label><input id="setup" type="text" list="setupList" placeholder="breakout" /></div>
+          <div class="field"><label for="market">Market</label>
             <select id="market"><option value="">—</option><option>crypto</option><option>stocks</option><option>forex</option><option>futures</option><option>other</option></select>
           </div>
-          <div class="field"><label>TF</label>
+          <div class="field"><label for="timeframe">TF</label>
             <select id="timeframe"><option value="">—</option><option>scalp</option><option>intraday</option><option>swing</option><option>position</option></select>
           </div>
         </div>
         <datalist id="setupList"></datalist>
         <div class="f-row">
-          <div class="field"><label>${App.t('result')}</label><input id="pl" class="num" type="number" step="0.01" placeholder="+/− $" /></div>
-          <div class="field"><label>${App.t('mental')}</label><select id="emotion">${EMOTIONS.map((e) => `<option value="${e.v}">${App.t(e.key)}</option>`).join('')}</select></div>
+          <div class="field"><label for="pl">${App.t('result')}</label><input id="pl" class="num" type="number" step="0.01" placeholder="+/− $" /></div>
+          <div class="field"><label for="emotion">${App.t('mental')}</label><select id="emotion">${EMOTIONS.map((e) => `<option value="${e.v}">${App.t(e.key)}</option>`).join('')}</select></div>
         </div>
-        <div class="field"><label>${App.t('notes')}</label><input id="notes" type="text" placeholder="${App.t('notes_ph')}" /></div>
+        <div class="field"><label for="notes">${App.t('notes')}</label><input id="notes" type="text" placeholder="${App.t('notes_ph')}" /></div>
         <div class="check-row" id="togStop" data-on="0" style="border:1px solid var(--line);border-radius:var(--r2);margin-bottom:10px">
           <span class="check-box">${icon('checkThin', { size: 13, sw: 2.6 })}</span>
           <span class="check-t">${App.t('disc_stop_placed')}</span>
@@ -180,11 +180,11 @@ export function renderJournal(App, c) {
         </div>
         <div id="histFilters" class="${histSource === 'paper' ? 'hidden' : ''}">
         <div class="grid-3">
-          <div class="field" style="margin:0"><label>Setup</label><input id="filtSetup" type="search" placeholder="…" /></div>
-          <div class="field" style="margin:0"><label>Market</label>
+          <div class="field" style="margin:0"><label for="filtSetup">Setup</label><input id="filtSetup" type="search" placeholder="…" /></div>
+          <div class="field" style="margin:0"><label for="filtMarket">Market</label>
             <select id="filtMarket"><option value="">—</option><option>crypto</option><option>stocks</option><option>forex</option><option>futures</option><option>other</option></select>
           </div>
-          <div class="field" style="margin:0"><label>TF</label>
+          <div class="field" style="margin:0"><label for="filtTf">TF</label>
             <select id="filtTf"><option value="">—</option><option>scalp</option><option>intraday</option><option>swing</option><option>position</option></select>
           </div>
         </div>
@@ -236,6 +236,7 @@ export function renderJournal(App, c) {
   c.querySelectorAll('.check-row[data-rule]').forEach((el) => el.addEventListener('click', () => {
     const cl = App.getChecklist(); cl[el.dataset.rule] = !cl[el.dataset.rule]; App.setChecklist(cl);
     el.classList.toggle('on', cl[el.dataset.rule]); App.haptic();
+    el.setAttribute('aria-pressed', String(Boolean(cl[el.dataset.rule])));
     const cc = document.getElementById('checkCount');
     if (cc) cc.textContent = `${checkedNow()}/${CHECK_RULES.length}`;
   }));
@@ -245,6 +246,8 @@ export function renderJournal(App, c) {
     const l = document.getElementById('btnLong'), s = document.getElementById('btnShort');
     l.classList.toggle('on', d === 'long'); l.classList.toggle('long', d === 'long');
     s.classList.toggle('on', d === 'short'); s.classList.toggle('short', d === 'short');
+    l.setAttribute('aria-pressed', String(d === 'long'));
+    s.setAttribute('aria-pressed', String(d === 'short'));
     App.haptic();
   }
   document.getElementById('btnLong').addEventListener('click', () => setDir('long'));
@@ -372,16 +375,20 @@ export function renderJournal(App, c) {
     box.classList.remove('hidden');
     box.className = 'panel pad mt14';
     box.innerHTML = `<div class="slabel">${App.t('debrief_title')}</div>
-      <div class="field"><label>${App.t('debrief_plan')}</label>
-        <div class="seg" style="width:100%"><button data-fp="1">Y</button><button data-fp="0">N</button></div></div>
-      <div class="field"><label>${App.t('debrief_worked')}</label><input id="dbWorked" type="text" /></div>
-      <div class="field"><label>${App.t('debrief_fix')}</label><input id="dbFix" type="text" /></div>
+      <div class="field"><div class="slabel" id="dbPlanLabel">${App.t('debrief_plan')}</div>
+        <div class="seg" role="group" aria-labelledby="dbPlanLabel" style="width:100%"><button type="button" data-fp="1" aria-pressed="false">Y</button><button type="button" data-fp="0" aria-pressed="false">N</button></div></div>
+      <div class="field"><label for="dbWorked">${App.t('debrief_worked')}</label><input id="dbWorked" type="text" /></div>
+      <div class="field"><label for="dbFix">${App.t('debrief_fix')}</label><input id="dbFix" type="text" /></div>
       <button class="btn secondary" id="dbSave">${App.t('debrief_save')}</button>
       <button class="btn ghost mt10" id="dbSkip">${App.t('debrief_skip')}</button>`;
     let followed = null;
     box.querySelectorAll('[data-fp]').forEach((b) => b.addEventListener('click', () => {
       followed = b.dataset.fp === '1';
-      box.querySelectorAll('[data-fp]').forEach((x) => x.classList.toggle('on', x === b));
+      box.querySelectorAll('[data-fp]').forEach((x) => {
+        const selected = x === b;
+        x.classList.toggle('on', selected);
+        x.setAttribute('aria-pressed', String(selected));
+      });
     }));
     const close = () => { pendingDebriefId = null; box.classList.add('hidden'); box.innerHTML = ''; };
     document.getElementById('dbSkip').addEventListener('click', close);

@@ -6,7 +6,7 @@ import { getCourse } from '../data/institute/catalog.js';
 import { loadCourse, listAuthoredCodes } from '../data/institute/courses.js';
 import { registerLabel } from '../institute/register.js';
 import {
-  getInstitute, CERT_DISCLAIMER, attestProject, projectComplete, courseProgressPct,
+  getInstitute, CERT_DISCLAIMER, attestProject, getProjectEvidence, projectComplete, courseProgressPct,
 } from '../institute/progress.js';
 import { downloadBackup, openSettings } from '../settings.js';
 import { getAppearance, setAppearance } from '../theme.js';
@@ -32,7 +32,7 @@ export function renderRecords(App, el) {
     <div class="seg records-seg" style="width:100%;margin:0 0 16px">
       <button style="flex:1" class="${pane === 'profile' ? 'on' : ''}" data-rpane="profile">${en ? 'Profile' : 'Profail'}</button>
       <button style="flex:1" class="${pane === 'transcript' ? 'on' : ''}" data-rpane="transcript">${en ? 'Transcript' : 'Transcript'}</button>
-      <button style="flex:1" class="${pane === 'certs' ? 'on' : ''}" data-rpane="certs">${en ? 'Certs' : 'Certs'}</button>
+      <button style="flex:1" class="${pane === 'certs' ? 'on' : ''}" data-rpane="certs">${en ? 'Records' : 'Records'}</button>
     </div>`;
 
   let body = '';
@@ -44,7 +44,7 @@ export function renderRecords(App, el) {
           return `<div class="inst-row-item static"><span class="grow">${en ? 'School of Markets' : 'School of Markets'}</span><span class="mono">${en ? 'enrolled' : 'daakhil'}</span></div>`;
         }
         const meta = getCourse(code);
-        return `<div class="inst-row-item static"><span class="mono">${code}</span><span class="grow">${meta?.title?.[App.lang] || meta?.title?.en || code}</span></div>`;
+        return `<div class="inst-row-item static"><span class="mono">${esc(code)}</span><span class="grow">${esc(meta?.title?.[App.lang] || meta?.title?.en || code)}</span></div>`;
       }).join('')
       : `<p class="inst-muted">${en ? 'No enrollments yet — open Campus and admit to a course.' : 'Abhi enroll nahi — Campus se admit.'}</p>`;
 
@@ -61,10 +61,10 @@ export function renderRecords(App, el) {
         <div class="kicker">${en ? 'Student' : 'Student'}</div>
         <h2 class="inst-h2">${esc(p.name || 'Learner')}</h2>
         <p class="inst-muted">${esc(registerLabel(p.register || 'young', App.lang))}</p>
-        <p class="inst-muted">${humanProfile(p, en)}</p>
+        <p class="inst-muted">${esc(humanProfile(p, en))}</p>
         <p class="inst-muted mono">${card ? esc(card.idNumber) : '—'} · ${enrollCodes.length} ${en ? 'enrollments' : 'daakhle'}</p>
         <div class="field" style="margin-top:14px">
-          <label>${en ? 'Display name' : 'Name'}</label>
+          <label for="recName">${en ? 'Display name' : 'Name'}</label>
           <input id="recName" type="text" maxlength="32" value="${esc(p.name || '')}" />
         </div>
         <button class="btn secondary mt10" id="recSaveName">${en ? 'Save name' : 'Name save'}</button>
@@ -89,8 +89,8 @@ export function renderRecords(App, el) {
           const pct = course ? courseProgressPct(course) : 0;
           const passed = inst.finals[code]?.passed;
           return `<div class="inst-row-item static">
-            <span class="mono">${code}</span>
-            <span class="grow">${meta?.title?.[App.lang] || meta?.title?.en || code}</span>
+            <span class="mono">${esc(code)}</span>
+            <span class="grow">${esc(meta?.title?.[App.lang] || meta?.title?.en || code)}</span>
             <span class="mono">${passed ? 'pass' : pct + '%'}</span>
           </div>`;
         }).join('') : `<p class="inst-muted">${en ? 'Admit to a course on Campus, then finish a lesson — progress shows here.' : 'Campus pe admit, lesson mukammal — yahan progress.'}</p>`}
@@ -101,10 +101,10 @@ export function renderRecords(App, el) {
       <button class="btn secondary mt10" id="recExport">${en ? 'Export backup JSON' : 'Backup JSON'}</button>`;
   } else {
     body = `
-      <div class="slabel">${en ? 'Certificates' : 'Certificates'}</div>
+      <div class="slabel">${en ? 'Self-issued study records' : 'Khud jari study records'}</div>
       ${certs.length ? certs.map((c) => `
         <div class="inst-cert" data-cert="${esc(c.courseId || c.hash)}">
-          <div class="kicker">${en ? 'Certificate of Completion' : 'Mukammal certificate'}</div>
+          <div class="kicker">${en ? 'Self-issued study record' : 'Khud jari study record'}</div>
           <div class="cert-name">${esc(c.name)}</div>
           <div class="cert-course">${esc((c.title && (c.title[App.lang] || c.title.en)) || c.courseId)}</div>
           <p class="inst-muted mono">${c.score}% · ${c.hours}h · ${c.date}</p>
@@ -113,13 +113,13 @@ export function renderRecords(App, el) {
           <div class="cert-actions cert-no-print">
             <button class="btn secondary" data-print-cert="${esc(c.courseId || c.hash)}">${en ? 'Print / Save PDF' : 'Print / PDF'}</button>
           </div>
-        </div>`).join('') : `<p class="inst-muted">${en ? 'Pass a course final (≥85%). If the course has a project checklist, finish it too — then a self-issued certificate unlocks.' : 'Final ≥85%. Project checklist ho to woh bhi — phir certificate.'}</p>`}`;
+        </div>`).join('') : `<p class="inst-muted">${en ? 'Pass a course final (≥85%) and add required project evidence notes to create a local study record.' : 'Final ≥85% pass aur project evidence notes mukammal — phir local study record.'}</p>`}`;
   }
 
   el.innerHTML = `<div class="screen inst-screen">
     <div class="lt-head">
       <div class="kicker">${App.t('nav_records')}</div>
-      <h1>${pane === 'profile' ? (en ? 'Your profile' : 'Aapka profile') : pane === 'transcript' ? (en ? 'Transcript' : 'Transcript') : (en ? 'Certificates' : 'Certificates')}</h1>
+      <h1>${pane === 'profile' ? (en ? 'Your profile' : 'Aapka profile') : pane === 'transcript' ? (en ? 'Transcript' : 'Transcript') : (en ? 'Study records' : 'Study records')}</h1>
     </div>
     ${tabs}
     ${body}
@@ -169,8 +169,23 @@ export function renderRecords(App, el) {
   el.querySelectorAll('[data-proj]').forEach((b) => {
     b.addEventListener('click', () => {
       const [code, id] = b.dataset.proj.split('::');
-      const on = b.getAttribute('aria-pressed') !== 'true';
-      attestProject(code, id, on);
+      const current = getProjectEvidence(code, id);
+      if (current) {
+        if (!confirm(en ? 'Remove this project evidence note?' : 'Project evidence note hatao?')) return;
+        attestProject(code, id, false);
+        App.render();
+        return;
+      }
+      const note = prompt(
+        en ? 'Evidence note: what did you build, test, or observe? (12+ characters)' : 'Evidence note: kya banaya, test kiya, ya dekha? (12+ huroof)',
+        ''
+      );
+      if (note == null) return;
+      if (note.trim().length < 12) {
+        App.toast?.(en ? 'Add a specific evidence note (12+ characters).' : 'Specific evidence note likho (12+ huroof).');
+        return;
+      }
+      attestProject(code, id, true, note);
       App.render();
     });
   });
@@ -189,14 +204,15 @@ function renderProjects(App, inst, en, enrollCodes) {
     const course = loadCourse(code);
     if (!course?.project) continue;
     const done = inst.projects[code] || {};
+    const evidence = inst.projectEvidence?.[code] || {};
     const title = course.project.title[App.lang] || course.project.title.en;
     blocks.push(`<div class="slabel mt16">${code} · ${title}</div>
       <div class="inst-list">${course.project.items.map((it) => `
-        <button class="inst-row-item" data-proj="${code}::${it.id}" aria-pressed="${done[it.id] ? 'true' : 'false'}">
-          <span class="mono">${done[it.id] ? '[x]' : '[ ]'}</span>
-          <span class="grow">${it[App.lang] || it.en}</span>
+        <button class="inst-row-item" data-proj="${code}::${it.id}" aria-pressed="${evidence[it.id] ? 'true' : 'false'}">
+          <span class="mono">${evidence[it.id] ? '[e]' : '[ ]'}</span>
+          <span class="grow">${it[App.lang] || it.en}${done[it.id] && !evidence[it.id] ? `<br><span class="inst-muted">${en ? 'Legacy check — add evidence note' : 'Purana check — evidence note likho'}</span>` : ''}${evidence[it.id] ? `<br><span class="inst-muted">${esc(evidence[it.id].note)}</span>` : ''}</span>
         </button>`).join('')}</div>
-      <p class="inst-muted">${projectComplete(code, course.project.items) ? (en ? 'Checklist complete' : 'Mukammal') : (en ? 'Attest after you finish the work' : 'Kaam ke baad attest')}</p>`);
+      <p class="inst-muted">${projectComplete(code, course.project.items) ? (en ? 'Evidence notes complete' : 'Evidence notes mukammal') : (en ? 'Add a specific note after completing each item' : 'Har item ke baad specific note likho')}</p>`);
   }
   if (!blocks.length) return '';
   return `<div class="slabel mt16">${en ? 'Project checklists' : 'Project lists'}</div>
@@ -212,7 +228,7 @@ function renderAttempts(inst, en) {
       const last = list[list.length - 1];
       const best = Math.max(...list.map((a) => a.score || 0));
       return `<div class="inst-row-item static">
-        <span class="mono">${code}</span>
+        <span class="mono">${esc(code)}</span>
         <span class="grow">${en ? `${list.length} tries · best ${best}%` : `${list.length} tries · behtareen ${best}%`}</span>
         <span class="mono">${last?.passed ? 'pass' : '—'}</span>
       </div>`;

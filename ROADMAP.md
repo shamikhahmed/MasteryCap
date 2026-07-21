@@ -11,7 +11,8 @@ Ground rules (still apply):
 
 ## v52 production hardening
 - **v52.0 complete:** atomic offline updates, canonical transactional backup/restore, stored-content safety, deterministic CI, Lighthouse/PWA budgets, and version consistency gates.
-- **Next:** assessment integrity/evidence model, then accessibility interaction safety and focused daily-learning UX.
+- **v52.1 complete:** balanced and shuffled finals, 80% lesson checks with remediation evidence, project evidence notes, honest study-record naming, and accessibility safety baseline.
+- **Next:** shared modal/focus architecture, branch-aware daily learning, route-level performance, and long-term IndexedDB records.
 
 ---
 

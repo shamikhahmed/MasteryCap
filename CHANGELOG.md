@@ -1,3 +1,15 @@
+## [52.1.0] — 2026-07-21
+
+### Assessment integrity, evidence, and accessibility
+- Institute final answer positions are normalized per course; question and option order shuffle independently while grading keeps original answer mapping.
+- Audit rejects invalid/duplicate distractors, answer-position bias, weak pass thresholds, and project completion without evidence.
+- Lesson checks now require 80%; failed concepts and attempt counts persist, with an explicit review/retry path.
+- Project completion requires a specific evidence note; HTTP Lab PASS results attach auto-graded evidence.
+- Code practice executes in a disposable opaque-origin Worker, blocks network/persistent storage, rejects result spoofing, and terminates infinite loops.
+- Completion outputs are named **Self-issued Study Records**; market readiness is **Paper Process Readiness**, not a certificate or professional claim.
+- Browser zoom, visible keyboard focus, form labels, pressed-state semantics, and live result announcements are enforced by browser tests.
+- SW `masterycap-v5210`
+
 ## [52.0.0] — 2026-07-21
 
 ### Trust, recovery, and deterministic delivery

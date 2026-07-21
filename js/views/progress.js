@@ -52,12 +52,12 @@ export function renderProgress(App, c) {
     </div>`;
     return `<div class="panel pad" style="margin-bottom:14px">
       <div class="hstack" style="justify-content:space-between;align-items:baseline">
-        <div class="slabel">${lang === 'en' ? 'Certificate progress' : 'Certificate taraqqi'} · ${track.name[lang]}</div>
+        <div class="slabel">${lang === 'en' ? 'Readiness record progress' : 'Readiness record taraqqi'} · ${track.name[lang]}</div>
         <span class="pill mono ${gs.ready ? 'acc' : ''}">${gs.met.length}/${gs.met.length + gs.missing.length}</span>
       </div>
       <div style="margin-top:10px;border:2px ${gs.ready ? 'solid var(--acc)' : 'dashed var(--line-2)'};border-radius:10px;padding:14px;text-align:center;${gs.ready ? '' : 'opacity:0.6'}">
         <div class="mono" style="font-size:11px;letter-spacing:0.2em;color:var(--acc)">M A S T E R Y C A P</div>
-        <div style="font-family:Georgia,serif;font-size:20px;font-weight:650;margin-top:6px">${gs.ready ? (lang === 'en' ? 'Ready to issue' : 'Issue ke liye tayyar') : (lang === 'en' ? 'Certificate locked' : 'Certificate band')}</div>
+        <div style="font-family:Georgia,serif;font-size:20px;font-weight:650;margin-top:6px">${gs.ready ? (lang === 'en' ? 'Ready to record' : 'Record ke liye tayyar') : (lang === 'en' ? 'Readiness record locked' : 'Readiness record band')}</div>
         <div style="font-size:11px;color:var(--t3);margin-top:4px">${lang === 'en' ? 'Self-issued study record — not a license' : 'Self-issued study record — license nahi'}</div>
       </div>
       <div style="margin-top:10px">${gs.met.map((m) => row(m, true)).join('')}${gs.missing.map((m) => row(m, false)).join('')}</div>
@@ -465,7 +465,7 @@ function tradeReadyBadges(App) {
   return `<div class="panel pad" style="margin-bottom:14px">
     <div class="slabel">${App.t('tr_badges_title')}</div>
     <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">
-      ${ready.map((t) => `<span class="pill" style="border-color:var(--acc)">${t.name[lang]} · TRADE-READY</span>`).join('')}
+      ${ready.map((t) => `<span class="pill" style="border-color:var(--acc)">${t.name[lang]} · PAPER PROCESS READY</span>`).join('')}
     </div>
     <p style="font-size:12px;color:var(--t3);margin:10px 0 0;line-height:1.45">${App.t('tr_badges_hint')}</p>
   </div>`;

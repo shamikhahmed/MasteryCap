@@ -146,8 +146,8 @@ function renderSchool(App, el, schoolId, done, en) {
       <h1>${school.name[App.lang] || school.name.en}</h1>
       <p class="inst-muted">${school.tagline[App.lang] || school.tagline.en}</p>
       <p class="inst-foot-note">${en
-        ? 'Education only. Open = enrollable. Locked = prereqs. Certificates are self-issued study records.'
-        : 'Sirf education. Open = enroll. Locked = prereq. Certificate = study record.'}</p>
+        ? 'Education only. Open = enrollable. Locked = prerequisites. Completion outputs are self-issued study records.'
+        : 'Sirf education. Open = enroll. Locked = prerequisite. Completion output = study record.'}</p>
     </div>
     <div class="inst-list">${cards.join('')}</div>
   </div>`;

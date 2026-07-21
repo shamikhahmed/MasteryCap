@@ -3,7 +3,10 @@
    Sync API preserved for callers. hydrate() heals from IDB.
    ============================================================ */
 
-let NS = (typeof localStorage !== 'undefined' && localStorage.getItem('masterycap_active_ns')) || 'masterycap:';
+let NS = 'masterycap:';
+if (typeof window !== 'undefined') {
+  try { NS = window.localStorage.getItem('masterycap_active_ns') || NS; } catch (_) {}
+}
 if (!NS.endsWith(':')) NS += ':';
 const IDB_NAME = 'masterycap';
 const IDB_STORE = 'kv';

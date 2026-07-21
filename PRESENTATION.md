@@ -1,14 +1,14 @@
-# MasteryCap — one-pager (v51.8)
+# MasteryCap — one-pager (v52.1)
 
 **What:** Offline personal institute PWA — **Software Craft** + **Market literacy** (EN / Roman Urdu).
-Curriculum, paper sim (process-graded), study desk, honest self-issued certificates.
+Curriculum, paper sim (process-graded), study desk, honest self-issued study records.
 For owner + 1–2 friends. Live: https://shamikhahmed.github.io/MasteryCap/
 
 **Not:** Broker, signals, tip service, accredited school, SaaS with accounts/billing, fake “AI”.
 
 ## Why it exists
 Teach craft + market risk/process without income promises. Reading → quiz → paper reps →
-attest. Certificates = local TRADE-READY / course completion — markets still decide outcomes.
+add evidence notes. Outputs = local course study records / Paper Process Readiness records — markets still decide outcomes.
 
 ## Product surface
 - **Campus** — 3 schools: Software Craft · Markets · Money (Open / Locked / Announced)
@@ -20,7 +20,7 @@ attest. Certificates = local TRADE-READY / course completion — markets still d
 
 ## Stack
 Static ES modules. No build step required for the PWA shell. No backend.
-`localStorage` (`masterycap:`). GitHub Pages. SW cache `masterycap-v5200` · app **v52.0.0**.
+`localStorage` (`masterycap:`). GitHub Pages. SW cache `masterycap-v5210` · app **v52.1.0**.
 
 ## Design
 True-black terminal · Geist · accent `#FF6B2C` · zero emoji · mono numerics.

@@ -11,6 +11,19 @@ import { resolveTeach, registerLabel } from '../institute/register.js';
 import { isOn } from '../institute/features.js';
 import { renderCodeEditor, wireCodeEditor } from '../institute/code-editor.js';
 
+export const LESSON_CHECK_PASS = 80;
+
+export function evaluateLessonCheck(questions, answers) {
+  let right = 0;
+  const missed = [];
+  questions.forEach((question, index) => {
+    if (answers?.[index] === question.correct) right += 1;
+    else missed.push(question.id || question.q?.en || `question-${index + 1}`);
+  });
+  const score = questions.length ? Math.round((100 * right) / questions.length) : 100;
+  return { score, passed: score >= LESSON_CHECK_PASS, missed };
+}
+
 export function renderLesson(App, el) {
   const { courseCode, lessonId } = App._lesson || {};
   const course = loadCourse(courseCode);
@@ -95,7 +108,7 @@ export function renderLesson(App, el) {
     ${body}
     <div class="lesson-foot">
       ${step > 0 ? `<button class="btn ghost" id="lsPrev">${en ? 'Back' : 'Wapas'}</button>` : '<span></span>'}
-      <button class="btn accent" id="lsNext">${last ? (en ? 'Complete lesson' : 'Lesson mukammal') : (en ? 'Continue' : 'Aage')}</button>
+      <button class="btn accent" id="lsNext" ${key === 'check' && App._checkGraded && !App._checkOk ? 'disabled' : ''}>${last ? (en ? 'Complete lesson' : 'Lesson mukammal') : (en ? 'Continue' : 'Aage')}</button>
     </div>
   </div>`;
 
@@ -115,7 +128,7 @@ export function renderLesson(App, el) {
   });
   document.getElementById('lsNext')?.addEventListener('click', () => {
     if (key === 'check' && !App._checkOk) {
-      // allow continue after attempting
+      if (App._checkGraded) return;
       const answered = (App._checkAnswers || []).filter((x) => x != null).length;
       if (answered < (lesson.check || []).length) return;
       gradeCheck(App, lesson);
@@ -185,13 +198,23 @@ function renderCheck(App, lesson, lang, en) {
   });
   if (graded) {
     const score = App._checkScore;
-    html += `<p class="mono">${en ? 'Score' : 'Score'}: ${score}%</p>`;
+    const passed = score >= LESSON_CHECK_PASS;
+    html += `<div role="status" aria-live="polite">
+      <p class="mono">${en ? 'Score' : 'Score'}: ${score}% · ${passed ? (en ? 'Passed' : 'Pass') : (en ? `Need ${LESSON_CHECK_PASS}%` : `${LESSON_CHECK_PASS}% chahiye`)}</p>
+      ${passed ? '' : `<button type="button" class="btn secondary" id="checkRetry">${en ? 'Review and retry' : 'Dobara koshish'}</button>`}
+    </div>`;
   }
   return html;
 }
 
 function wireCheck(App, lesson) {
   elClick(App, lesson);
+  document.getElementById('checkRetry')?.addEventListener('click', () => {
+    App._checkAnswers = [];
+    App._checkGraded = false;
+    App._checkOk = false;
+    App.render();
+  });
 }
 
 function elClick(App, lesson) {
@@ -207,15 +230,11 @@ function elClick(App, lesson) {
 
 function gradeCheck(App, lesson) {
   const qs = lesson.check || [];
-  let right = 0;
-  qs.forEach((q, i) => {
-    if (App._checkAnswers?.[i] === q.correct) right += 1;
-  });
-  const score = qs.length ? Math.round((100 * right) / qs.length) : 100;
-  App._checkScore = score;
+  const result = evaluateLessonCheck(qs, App._checkAnswers);
+  App._checkScore = result.score;
   App._checkGraded = true;
-  App._checkOk = true;
-  saveLessonCheck(lesson.id, score);
+  App._checkOk = result.passed;
+  saveLessonCheck(lesson.id, result.score, { passed: result.passed, missed: result.missed });
 }
 
 export function renderFinal(App, el) {
@@ -231,6 +250,12 @@ export function renderFinal(App, el) {
   if (!App._finalAnswers) App._finalAnswers = [];
   const qs = course.finalQuiz || [];
   const lang = App.lang === 'ur' ? 'ur' : 'en';
+  if (!App._finalOptionOrders) {
+    App._finalOptionOrders = qs.map((question) => {
+      const count = (question.opts?.en || []).length;
+      return shuffledOptionOrder(count);
+    });
+  }
 
   if (App._finalResult) {
     const r = App._finalResult;
@@ -249,6 +274,7 @@ export function renderFinal(App, el) {
       App._finalCode = null;
       App._finalResult = null;
       App._finalAnswers = null;
+      App._finalOptionOrders = null;
       App._campusView = { level: 'course', code, schoolId: meta?.school };
       App.navigate('campus');
     });
@@ -256,6 +282,7 @@ export function renderFinal(App, el) {
       App._finalResult = null;
       App._finalAnswers = [];
       App._finalOrder = shuffle(qs.map((_, i) => i));
+      App._finalOptionOrders = null;
       App.render();
     });
     return;
@@ -273,9 +300,10 @@ export function renderFinal(App, el) {
     ${App._finalOrder.map((qi, display) => {
       const q = qs[qi];
       const opts = q.opts?.[lang] || q.opts?.en || [];
+      const optionOrder = App._finalOptionOrders[qi] || opts.map((_, index) => index);
       return `<div class="inst-card check-q"><p>${display + 1}. ${q.q?.[lang] || q.q?.en}</p>
-        <div class="opt-list compact">${opts.map((o, j) => `
-          <button class="opt-card ${App._finalAnswers[qi] === j ? 'on' : ''}" data-fi="${qi}" data-fj="${j}">${o}</button>`).join('')}</div>
+        <div class="opt-list compact">${optionOrder.map((optionIndex) => `
+          <button class="opt-card ${App._finalAnswers[qi] === optionIndex ? 'on' : ''}" data-fi="${qi}" data-fj="${optionIndex}">${opts[optionIndex]}</button>`).join('')}</div>
       </div>`;
     }).join('')}
     <button class="btn accent" id="fnSubmit">${en ? 'Submit' : 'Bhejo'}</button>
@@ -284,6 +312,7 @@ export function renderFinal(App, el) {
   document.getElementById('fnBack')?.addEventListener('click', () => {
     App._finalCode = null;
     App._finalOrder = null;
+    App._finalOptionOrders = null;
     App.navigate('campus');
   });
   el.querySelectorAll('[data-fi]').forEach((b) => b.addEventListener('click', () => {
@@ -341,13 +370,17 @@ function splitTeachPages(html) {
   return pages.length ? pages : [raw];
 }
 
-function shuffle(arr) {
+function shuffle(arr, random = Math.random) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(random() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
+}
+
+export function shuffledOptionOrder(count, random = Math.random) {
+  return shuffle(Array.from({ length: count }, (_, index) => index), random);
 }
 
 function esc(s) {

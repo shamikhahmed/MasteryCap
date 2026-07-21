@@ -1,9 +1,9 @@
 # MasteryCap
 
-**Version:** v52.0.0 · SW `masterycap-v5200` · see [VERSION](VERSION) · [CHANGELOG.md](CHANGELOG.md) · [GUIDE.md](GUIDE.md)
+**Version:** v52.1.0 · SW `masterycap-v5210` · see [VERSION](VERSION) · [CHANGELOG.md](CHANGELOG.md) · [GUIDE.md](GUIDE.md)
 
 Offline personal institute — **Software Craft** + **Market literacy** (EN / Roman Urdu).
-Curriculum + paper simulator (process-graded, not P/L) + study desk + honest certificates.
+Curriculum + paper simulator (process-graded, not P/L) + study desk + honest self-issued study records.
 True-black terminal design (Geist, accent `#FF6B2C`). No accounts, no backend, no income promises.
 Data stays on-device under `masterycap:`.
 
@@ -17,7 +17,7 @@ Data stays on-device under `masterycap:`.
 - **Today** — continue + guided session + study due
 - **Campus** — Software Craft / Markets / Money enroll
 - **Practice** — study desk, HTTP Lab, Charts, review, Hasil, paper sim
-- **Records** — profile, transcript/projects, certificates, backup
+- **Records** — profile, transcript, project evidence, self-issued study records, backup
 
 ## Honest claim
 Literacy + risk frameworks + process reps. Completing the school ≠ salary from charts.
