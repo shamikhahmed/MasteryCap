@@ -3,7 +3,11 @@
    Light + dark (via theme.js). Oswald display + Noto Sans body.
    ============================================================ */
 
-/* ---------- Fonts (mono self-hosted; display/body via Google) ---------- */
+/* ---------- Self-hosted fonts ---------- */
+@font-face { font-family:'Geist'; font-weight:400; font-display:swap; src:url('../fonts/geist-400.woff2') format('woff2'); }
+@font-face { font-family:'Geist'; font-weight:500; font-display:swap; src:url('../fonts/geist-500.woff2') format('woff2'); }
+@font-face { font-family:'Geist'; font-weight:600; font-display:swap; src:url('../fonts/geist-600.woff2') format('woff2'); }
+@font-face { font-family:'Geist'; font-weight:700; font-display:swap; src:url('../fonts/geist-700.woff2') format('woff2'); }
 @font-face { font-family:'Geist Mono'; font-weight:500; font-display:swap; src:url('../fonts/geistmono-500.woff2') format('woff2'); }
 @font-face { font-family:'Geist Mono'; font-weight:600; font-display:swap; src:url('../fonts/geistmono-600.woff2') format('woff2'); }
 
@@ -59,8 +63,8 @@
   --st: env(safe-area-inset-top, 0px);
   --sb: env(safe-area-inset-bottom, 0px);
 
-  --sans: 'Noto Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --serif: 'Oswald', 'Noto Sans', sans-serif;
+  --sans: 'Geist', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --serif: Georgia, 'Times New Roman', serif;
   --mono: 'Geist Mono', ui-monospace, 'SF Mono', monospace;
   --fs: 1;
   --tabbar-bg: color-mix(in srgb, var(--bg) 88%, transparent);
@@ -147,6 +151,8 @@ a { color: inherit; text-decoration: none; }
 }
 .btn:active { transform: scale(0.98); }
 .btn.accent { background: var(--acc); color: #0A0A0B; }
+html[data-theme="light"] .btn.accent,
+html[data-theme="sepia"] .btn.accent { color: #fff; }
 .btn.secondary { background: var(--surface-2); color: var(--t0); border: 1px solid var(--line-2); }
 .btn.ghost { background: transparent; color: var(--t1); border: 1px solid var(--line-2); }
 .btn.sm { width: auto; padding: 9px 15px; font-size: 13px; border-radius: var(--r1); }
@@ -858,9 +864,9 @@ html[data-contrast="high"] {
   --acc-line: rgba(232,89,12,0.35);
   --paper: #F5F1E8;
   --ink: #0A0A0A;
-  --sans: 'IBM Plex Sans', 'Geist', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
-  --mono: 'IBM Plex Mono', 'Geist Mono', ui-monospace, monospace;
+  --sans: 'Geist', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --serif: Georgia, 'Times New Roman', serif;
+  --mono: 'Geist Mono', ui-monospace, monospace;
 }
 
 .lt-head h1, .onb-title, .splash-wordmark, .cert-name, .inst-h2 {

@@ -15,13 +15,13 @@ const PRESETS = {
     bg: '#F5F1E8', bg1: '#FFFBF3', surface: '#FFFBF3', surface2: '#EDE6D8', surface3: '#E4DCCB',
     t0: '#1C1810', t1: '#3D3528', t2: '#5C5344', t3: '#6E6454', t4: '#7A7060',
     line: 'rgba(80,60,20,0.12)', line2: 'rgba(80,60,20,0.18)',
-    acc: '#C44E0A', acc2: '#E8590C', accDim: 'rgba(196,78,10,0.12)',
+    acc: '#A63F00', acc2: '#963800', accDim: 'rgba(166,63,0,0.12)',
   },
   sepia: {
     bg: '#E8DCC8', bg1: '#F0E6D4', surface: '#F3E9D6', surface2: '#DDD0B8', surface3: '#D0C2A8',
     t0: '#3B2F1E', t1: '#5A4A32', t2: '#7A6848', t3: '#8A7858', t4: '#9A8868',
     line: 'rgba(60,40,10,0.14)', line2: 'rgba(60,40,10,0.2)',
-    acc: '#A84A12', acc2: '#C44E0A', accDim: 'rgba(168,74,18,0.14)',
+    acc: '#873605', acc2: '#783000', accDim: 'rgba(135,54,5,0.14)',
   },
 };
 

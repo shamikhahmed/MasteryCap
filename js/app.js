@@ -451,7 +451,7 @@ function boot() {
       setTimeout(() => splash && splash.remove(), 500);
       if (onboarded && App.profile?.campus) { App.tab = 'today'; App.render(); App.renderNav(); }
       else renderOnboarding();
-    }, 1700);
+    }, 300);
   });
 }
 

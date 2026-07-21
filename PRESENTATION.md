@@ -20,7 +20,7 @@ attest. Certificates = local TRADE-READY / course completion — markets still d
 
 ## Stack
 Static ES modules. No build step required for the PWA shell. No backend.
-`localStorage` (`masterycap:`). GitHub Pages. SW cache `masterycap-v5180` · app **v51.8.0**.
+`localStorage` (`masterycap:`). GitHub Pages. SW cache `masterycap-v5200` · app **v52.0.0**.
 
 ## Design
 True-black terminal · Geist · accent `#FF6B2C` · zero emoji · mono numerics.

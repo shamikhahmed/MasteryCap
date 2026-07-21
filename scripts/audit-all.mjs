@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const dir = path.dirname(fileURLToPath(import.meta.url));
 const scripts = [
+  'audit-version.mjs',
   'audit-data.mjs',
   'audit-figs.mjs',
   'audit-i18n.mjs',

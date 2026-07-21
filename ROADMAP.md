@@ -9,6 +9,10 @@ Ground rules (still apply):
 - Content policy unchanged: frameworks and risk control; no tips/signals/win promises.
 - Additive-only storage.
 
+## v52 production hardening
+- **v52.0 complete:** atomic offline updates, canonical transactional backup/restore, stored-content safety, deterministic CI, Lighthouse/PWA budgets, and version consistency gates.
+- **Next:** assessment integrity/evidence model, then accessibility interaction safety and focused daily-learning UX.
+
 ---
 
 ## Phase 0 — Hygiene · DONE (v4)

@@ -1,3 +1,15 @@
+## [52.0.0] — 2026-07-21
+
+### Trust, recovery, and deterministic delivery
+- Service-worker installs are atomic, preserve the previous verified cache, and only delete MasteryCap-owned caches.
+- Update-ready UI now gives learners an explicit reload action; runtime caches reject failed responses.
+- Full backups use one versioned, checksummed format across Settings and Records.
+- Restore validates before mutation, stages and verifies writes, rolls back failures, and keeps a recoverable pre-import snapshot.
+- Stored journal/profile/photo data is escaped or constrained before HTML rendering.
+- CI now uses `npm ci`, runs trust/security tests, full acceptance, and enforceable Lighthouse/PWA gates.
+- Version drift is blocked across runtime, cache, manifest, package lock, and release documentation.
+- SW `masterycap-v5200`
+
 ## [51.8.0] — 2026-07-21
 
 ### Charts + Hasil UR chrome

@@ -1,10 +1,12 @@
 {
   "name": "masterycap",
-  "version": "51.8.0",
+  "version": "52.0.0",
   "private": true,
+  "type": "module",
   "description": "MasteryCap offline trading-education PWA",
   "scripts": {
     "audit": "node scripts/audit-all.mjs",
+    "audit:version": "node scripts/audit-version.mjs",
     "smoke": "node tests/smoke.cjs",
     "final": "node tests/final-acceptance.cjs",
     "test:sw": "node tests/sw-lifecycle.cjs",
