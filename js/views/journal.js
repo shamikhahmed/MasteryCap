@@ -341,7 +341,14 @@ export function renderJournal(App, c) {
   // setup autocomplete from history
   const setups = [...new Set(App.getTrades().map((t) => t.setup).filter(Boolean))];
   const dl = document.getElementById('setupList');
-  if (dl) dl.innerHTML = setups.map((s) => `<option value="${s}">`).join('');
+  if (dl) {
+    const options = setups.map((setup) => {
+      const option = document.createElement('option');
+      option.value = String(setup);
+      return option;
+    });
+    dl.replaceChildren(...options);
+  }
 
   ['filtSetup', 'filtMarket', 'filtTf'].forEach((id) => {
     document.getElementById(id)?.addEventListener('input', () => renderLog());
@@ -406,11 +413,12 @@ export function renderJournal(App, c) {
         const pass = t.process?.pass;
         const reasonKey = 'sim_' + (t.reason || 'manual');
         const reason = App.t(reasonKey) !== reasonKey ? App.t(reasonKey) : (t.reason || '');
-        const scLabel = t.scenarioId || 'sim';
+        const scLabel = esc(t.scenarioId || 'sim');
+        const direction = t.dir === 'long' ? 'long' : 'short';
         return `<div class="trade-row">
-          <span class="trade-dir ${t.dir}">${icon(t.dir === 'long' ? 'arrowUp' : 'arrowDown', { size: 16 })}</span>
+          <span class="trade-dir ${direction}">${icon(direction === 'long' ? 'arrowUp' : 'arrowDown', { size: 16 })}</span>
           <div class="trade-body">
-            <div class="tb-t">${scLabel} · ${reason} <span class="tag ${pass ? '' : 'flag'}">${pass ? App.t('sim_process_pass') : App.t('sim_process_fail')}</span></div>
+            <div class="tb-t">${scLabel} · ${esc(reason)} <span class="tag ${pass ? '' : 'flag'}">${pass ? App.t('sim_process_pass') : App.t('sim_process_fail')}</span></div>
             <div class="tb-m mono">${fmtLev(t.lev)}x · ${ds}${t.r != null ? ` · ${Number(t.r).toFixed(2)}R` : ''}${t.bars != null ? ` · ${t.bars} bars` : ''}</div>
           </div>
           <span class="trade-pl ${pos ? 'up' : 'down'}">${pos ? '+' : ''}${App.money(t.pl)}</span>
@@ -435,15 +443,17 @@ export function renderJournal(App, c) {
       const d = new Date(t.date);
       const ds = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       const flagged = FLAGGED.includes(t.emotion);
-      const tags = [t.setup, t.market, t.timeframe].filter(Boolean).join(' · ');
+      const tags = [t.setup, t.market, t.timeframe].filter(Boolean).map(esc).join(' · ');
+      const direction = t.direction === 'long' ? 'long' : 'short';
+      const id = Number.isFinite(Number(t.id)) ? Number(t.id) : '';
       return `<div class="trade-row">
-        <span class="trade-dir ${t.direction}">${icon(t.direction === 'long' ? 'arrowUp' : 'arrowDown', { size: 16 })}</span>
+        <span class="trade-dir ${direction}">${icon(direction === 'long' ? 'arrowUp' : 'arrowDown', { size: 16 })}</span>
         <div class="trade-body">
-          <div class="tb-t">${t.pair} <span class="tag ${flagged ? 'flag' : ''}">${emoShort(t.emotion)}</span></div>
-          <div class="tb-m">${t.leverage || '?'}x · ${ds}${t.r != null ? ` · ${t.r}R` : ''}${tags ? ' · ' + tags : ''}${t.notes ? ' · ' + t.notes : ''}</div>
+          <div class="tb-t">${esc(t.pair)} <span class="tag ${flagged ? 'flag' : ''}">${esc(emoShort(t.emotion))}</span></div>
+          <div class="tb-m">${esc(t.leverage || '?')}x · ${ds}${t.r != null ? ` · ${esc(t.r)}R` : ''}${tags ? ' · ' + tags : ''}${t.notes ? ' · ' + esc(t.notes) : ''}</div>
         </div>
         <span class="trade-pl ${pos ? 'up' : 'down'}">${pos ? '+' : ''}${App.money(t.pl)}</span>
-        <button class="del" data-del="${t.id}">${icon('trash', { size: 15 })}</button>
+        <button class="del" data-del="${id}">${icon('trash', { size: 15 })}</button>
       </div>`;
     }).join('');
     log.querySelectorAll('[data-del]').forEach((b) => b.addEventListener('click', () => { App.setTrades(App.getTrades().filter((x) => x.id !== Number(b.dataset.del))); App.render(); }));
@@ -453,4 +463,10 @@ export function renderJournal(App, c) {
 function fmtLev(n) {
   const v = Number(n);
   return Number.isFinite(v) ? v.toFixed(1) : '?';
+}
+
+function esc(value) {
+  return String(value ?? '').replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  }[char]));
 }

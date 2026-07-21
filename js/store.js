@@ -8,6 +8,9 @@ if (!NS.endsWith(':')) NS += ':';
 const IDB_NAME = 'masterycap';
 const IDB_STORE = 'kv';
 const QUOTA_WARN = 4 * 1024 * 1024;
+const BACKUP_FORMAT = 2;
+const MAX_BACKUP_BYTES = 20 * 1024 * 1024;
+const PREIMPORT_KEY = () => `masterycap-preimport:${NS}`;
 
 const MIGRATIONS = {
   2: (s) => {
@@ -97,6 +100,61 @@ async function idbClearNs() {
   });
 }
 
+async function idbReplaceNs(rawMap) {
+  const db = await openIdb();
+  if (!db) return;
+  return new Promise((resolve, reject) => {
+    try {
+      const tx = db.transaction(IDB_STORE, 'readwrite');
+      const objectStore = tx.objectStore(IDB_STORE);
+      const req = objectStore.getAllKeys();
+      req.onsuccess = () => {
+        (req.result || []).forEach((key) => {
+          if (String(key).startsWith(NS)) objectStore.delete(key);
+        });
+        Object.entries(rawMap).forEach(([key, raw]) => objectStore.put(raw, NS + key));
+      };
+      req.onerror = () => tx.abort();
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error || new Error('IndexedDB replace failed'));
+      tx.onabort = () => reject(tx.error || new Error('IndexedDB replace aborted'));
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
+async function idbSetAbsolute(key, value) {
+  const db = await openIdb();
+  if (!db) return false;
+  return new Promise((resolve, reject) => {
+    try {
+      const tx = db.transaction(IDB_STORE, 'readwrite');
+      tx.objectStore(IDB_STORE).put(value, key);
+      tx.oncomplete = () => resolve(true);
+      tx.onerror = () => reject(tx.error || new Error('IndexedDB snapshot failed'));
+      tx.onabort = () => reject(tx.error || new Error('IndexedDB snapshot aborted'));
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
+async function idbGetAbsolute(key) {
+  const db = await openIdb();
+  if (!db) return null;
+  return new Promise((resolve) => {
+    try {
+      const tx = db.transaction(IDB_STORE, 'readonly');
+      const req = tx.objectStore(IDB_STORE).get(key);
+      req.onsuccess = () => resolve(req.result ?? null);
+      req.onerror = () => resolve(null);
+    } catch (_) {
+      resolve(null);
+    }
+  });
+}
+
 function serializedSize() {
   let n = 0;
   try {
@@ -106,6 +164,68 @@ function serializedSize() {
     }
   } catch (e) {}
   return n;
+}
+
+function normalizeRawMap(obj) {
+  if (!obj || typeof obj !== 'object' || Array.isArray(obj)) return null;
+  const entries = Object.entries(obj);
+  if (!entries.length || entries.length > 256) return null;
+  const out = {};
+  let bytes = 0;
+  for (const [key, value] of entries) {
+    if (!/^[a-zA-Z][a-zA-Z0-9._-]*$/.test(key)) return null;
+    if (key === '__proto__' || key === 'constructor' || key === 'prototype') return null;
+    let raw;
+    try {
+      raw = typeof value === 'string' ? value : JSON.stringify(value);
+      JSON.parse(raw);
+    } catch (_) {
+      return null;
+    }
+    bytes += key.length + raw.length;
+    if (bytes > MAX_BACKUP_BYTES) return null;
+    out[key] = raw;
+  }
+  return out;
+}
+
+function replaceLocalNamespace(rawMap) {
+  const stagingPrefix = `${NS}__import__:`;
+  const token = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  const staged = [];
+  try {
+    for (const [key, raw] of Object.entries(rawMap)) {
+      const stageKey = `${stagingPrefix}${token}:${key}`;
+      localStorage.setItem(stageKey, raw);
+      if (localStorage.getItem(stageKey) !== raw) throw new Error('Staging verification failed');
+      staged.push(stageKey);
+    }
+
+    const current = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith(NS) && !key.startsWith(stagingPrefix)) current.push(key);
+    }
+    current.forEach((key) => localStorage.removeItem(key));
+    Object.entries(rawMap).forEach(([key, raw]) => localStorage.setItem(_key(key), raw));
+    for (const [key, raw] of Object.entries(rawMap)) {
+      if (localStorage.getItem(_key(key)) !== raw) throw new Error('Import verification failed');
+    }
+  } finally {
+    staged.forEach((key) => {
+      try { localStorage.removeItem(key); } catch (_) {}
+    });
+  }
+}
+
+function restoreLocalNamespace(rawMap) {
+  const doomed = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key && key.startsWith(NS)) doomed.push(key);
+  }
+  doomed.forEach((key) => localStorage.removeItem(key));
+  Object.entries(rawMap).forEach(([key, raw]) => localStorage.setItem(_key(key), raw));
 }
 
 export const store = {
@@ -159,11 +279,18 @@ export const store = {
     return out;
   },
 
-  /** Wrapped backup with djb2 checksum */
+  /** Canonical full-device backup with checksum and schema metadata. */
   exportBackup() {
     const data = this.exportAll();
     const payload = JSON.stringify(data);
-    return { v: 1, checksum: djb2(payload), data, exportedAt: new Date().toISOString() };
+    return {
+      format: 'masterycap-backup',
+      v: BACKUP_FORMAT,
+      schemaVersion: this.get(KEYS.schemaVersion, 0),
+      checksum: djb2(payload),
+      data,
+      exportedAt: new Date().toISOString(),
+    };
   },
 
   importAll(obj) {
@@ -177,12 +304,21 @@ export const store = {
   },
 
   /**
-   * Import backup. Accepts legacy flat map OR {checksum,data}.
-   * Returns { ok, error? }
+   * Import backup atomically. Accepts legacy flat map, v1, and canonical v2.
+   * Returns Promise<{ ok, error?, rollbackAvailable? }>.
    */
-  importBackup(obj) {
+  async importBackup(obj, { skipSnapshot = false } = {}) {
     if (!obj || typeof obj !== 'object' || Array.isArray(obj)) {
       return { ok: false, error: 'invalid' };
+    }
+    if (obj.version === 'institute' && !obj.data) {
+      return { ok: false, error: 'partial_backup' };
+    }
+    if (obj.format && obj.format !== 'masterycap-backup') {
+      return { ok: false, error: 'invalid' };
+    }
+    if (Number(obj.v || 1) > BACKUP_FORMAT) {
+      return { ok: false, error: 'unsupported_version' };
     }
     let data = obj;
     if (obj.data && typeof obj.data === 'object' && !Array.isArray(obj.data)) {
@@ -192,10 +328,37 @@ export const store = {
       }
       data = obj.data;
     }
-    if (!this.validateBackup(data)) return { ok: false, error: 'invalid' };
-    this.clearAll();
-    this.importAll(data);
-    return { ok: true };
+    const normalized = normalizeRawMap(data);
+    if (!normalized) return { ok: false, error: 'invalid' };
+
+    const before = this.exportBackup();
+    let rollbackAvailable = false;
+    try {
+      if (!skipSnapshot) {
+        rollbackAvailable = await idbSetAbsolute(PREIMPORT_KEY(), before);
+      }
+      replaceLocalNamespace(normalized);
+      await idbReplaceNs(normalized);
+      if (rollbackAvailable) {
+        this.set(KEYS.preImportAvailable, true);
+        await idbSet(KEYS.preImportAvailable, JSON.stringify(true));
+      }
+      return { ok: true, rollbackAvailable };
+    } catch (_) {
+      try {
+        restoreLocalNamespace(before.data);
+        await idbReplaceNs(before.data);
+      } catch (_) {}
+      return { ok: false, error: 'write_fail' };
+    }
+  },
+
+  async restorePreImport() {
+    const snapshot = await idbGetAbsolute(PREIMPORT_KEY());
+    if (!snapshot) return { ok: false, error: 'missing_snapshot' };
+    const result = await this.importBackup(snapshot, { skipSnapshot: true });
+    if (result.ok) this.remove(KEYS.preImportAvailable);
+    return result;
   },
 
   clearAll() {
@@ -209,10 +372,7 @@ export const store = {
   },
 
   validateBackup(obj) {
-    if (!obj || typeof obj !== 'object' || Array.isArray(obj)) return false;
-    const keys = Object.keys(obj);
-    if (!keys.length) return false;
-    return keys.every((k) => typeof k === 'string' && /^[a-zA-Z][a-zA-Z0-9._-]*$/.test(k));
+    return Boolean(normalizeRawMap(obj));
   },
 
   byteSize() { return serializedSize(); },
@@ -309,6 +469,7 @@ export const KEYS = {
   flashSrs: 'flashSrs',
   firstBackupDone: 'firstBackupDone',
   backupRemindDismissedAt: 'backupRemindDismissedAt',
+  preImportAvailable: 'preImportAvailable',
   taxChecklist: 'taxChecklist',
   sessionRun: 'sessionRun',
   institute: 'institute',

@@ -7,14 +7,15 @@ export function renderStudentIdCard(card, { lang = 'en', photoUrl = null, compac
   const en = lang !== 'ur';
   const branch = branchLabel(card.branch, lang);
   const date = formatDate(card.issueDate, en);
-  const photo = photoUrl && card.hasPhoto
-    ? `<img class="sid-photo" src="${photoUrl}" alt="" />`
+  const safePhoto = safePhotoUrl(photoUrl);
+  const photo = safePhoto && card.hasPhoto
+    ? `<img class="sid-photo" src="${safePhoto}" alt="" />`
     : `<div class="sid-photo sid-mono" aria-hidden="true">${esc(card.monogram || 'MC')}</div>`;
 
   if (compact) {
     return `<div class="mini-id-strip" data-testid="mini-id">
-      <div class="mini-id-photo">${photoUrl && card.hasPhoto
-        ? `<img src="${photoUrl}" alt="" />`
+      <div class="mini-id-photo">${safePhoto && card.hasPhoto
+        ? `<img src="${safePhoto}" alt="" />`
         : `<span>${esc(card.monogram || 'MC')}</span>`}</div>
       <div class="mini-id-meta">
         <div class="mini-id-name">${esc(card.name)}</div>
@@ -74,4 +75,9 @@ function esc(s) {
   return String(s || '').replace(/[&<>"']/g, (c) => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
   }[c]));
+}
+
+function safePhotoUrl(value) {
+  const url = String(value || '');
+  return /^data:image\/(?:png|jpe?g|webp);base64,[a-z0-9+/=\s]+$/i.test(url) ? url : '';
 }

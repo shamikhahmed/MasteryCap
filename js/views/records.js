@@ -8,7 +8,7 @@ import { registerLabel } from '../institute/register.js';
 import {
   getInstitute, CERT_DISCLAIMER, attestProject, projectComplete, courseProgressPct,
 } from '../institute/progress.js';
-import { openSettings } from '../settings.js';
+import { downloadBackup, openSettings } from '../settings.js';
 import { getAppearance, setAppearance } from '../theme.js';
 import { getStudentId, getStudentPhoto } from '../institute/student-id.js';
 import { renderStudentIdCard, renderStudentIdBack } from './student-id-view.js';
@@ -142,7 +142,7 @@ export function renderRecords(App, el) {
     App.render();
     setTimeout(() => window.print(), 80);
   });
-  document.getElementById('recExport')?.addEventListener('click', () => exportBackup(App));
+  document.getElementById('recExport')?.addEventListener('click', () => downloadBackup(App));
   document.getElementById('recHasil')?.addEventListener('click', () => App.openHasil?.('records'));
   document.getElementById('recSaveName')?.addEventListener('click', () => {
     const n = (document.getElementById('recName')?.value || '').trim() || 'Learner';
@@ -239,23 +239,6 @@ function humanProfile(p, en) {
     '5-10': en ? '5–10h/week' : '5–10h/hafta',
   })[p.timeBand] || p.timeBand || '—';
   return `${age} · ${goal} · ${time}`;
-}
-
-function exportBackup(App) {
-  const payload = {
-    exportedAt: new Date().toISOString(),
-    version: 'institute',
-    profile: store.get(KEYS.profile),
-    institute: store.get(KEYS.institute),
-    course: store.get(KEYS.course),
-    settings: store.get(KEYS.settings),
-  };
-  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `masterycap-backup-${Date.now()}.json`;
-  a.click();
-  URL.revokeObjectURL(a.href);
 }
 
 function esc(s) {

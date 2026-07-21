@@ -8,11 +8,13 @@
     "smoke": "node tests/smoke.cjs",
     "final": "node tests/final-acceptance.cjs",
     "test:sw": "node tests/sw-lifecycle.cjs",
+    "test:backup": "node tests/backup-safety.cjs",
+    "test:security": "node tests/stored-xss.cjs",
     "e2e": "node scripts/audit-e2e.cjs",
     "lighthouse": "node scripts/lighthouse-check.cjs",
     "gallery": "node scripts/gallery.cjs",
     "gallery:view": "python3 -m http.server 8774",
-    "verify": "npm run audit && npm run test:sw && npm run smoke"
+    "verify": "npm run audit && npm run test:sw && npm run test:backup && npm run test:security && npm run smoke"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",

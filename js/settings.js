@@ -38,7 +38,7 @@ export function applySettings(App) {
   applyTheme();
 }
 
-function doExport(App) {
+export function downloadBackup(App) {
   const wrapped = store.exportBackup();
   const blob = new Blob([JSON.stringify(wrapped, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
@@ -59,14 +59,17 @@ function doExport(App) {
 
 function doImport(App, file) {
   const reader = new FileReader();
-  reader.onload = () => {
+  reader.onload = async () => {
     let obj;
     try { obj = JSON.parse(reader.result); } catch (e) { obj = null; }
     if (!obj) { flash(App.t('backup_bad'), 'err'); return; }
     if (!confirm(App.t('backup_confirm'))) return;
-    const res = store.importBackup(obj);
+    const res = await store.importBackup(obj);
     if (!res.ok) {
       if (res.error === 'checksum_fail') flash(App.t('backup_checksum'), 'err');
+      else if (res.error === 'partial_backup') flash(App.t('backup_partial'), 'err');
+      else if (res.error === 'unsupported_version') flash(App.t('backup_newer'), 'err');
+      else if (res.error === 'write_fail') flash(App.t('backup_write_fail'), 'err');
       else flash(App.t('backup_bad'), 'err');
       return;
     }
@@ -82,6 +85,12 @@ function flash(text, kind) {
   if (!msg) return;
   msg.textContent = text;
   msg.className = `note-box ${kind === 'err' ? 'err' : 'warn'} mt14`;
+}
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  }[char]));
 }
 
 export function openSettings(App) {
@@ -103,7 +112,7 @@ export function openSettings(App) {
       <div class="sheet-body">
         <div class="field">
           <label>${App.t('set_name')}</label>
-          <input id="setName" type="text" value="${name.replace(/"/g, '&quot;')}" maxlength="32" />
+          <input id="setName" type="text" value="${escapeHtml(name)}" maxlength="32" />
         </div>
 
         <div class="slabel" style="margin:8px 0 10px">${App.t('set_lang')}</div>
@@ -167,6 +176,7 @@ export function openSettings(App) {
         <button class="btn ghost mt10" id="setCsv">${icon('download', { size: 17 })} ${App.t('csv_export')}</button>
         <p style="font-size:13.5px;color:var(--t3);line-height:1.55;margin:14px 0 12px">${App.t('backup_import_hint')}</p>
         <button class="btn ghost" id="setImport">${icon('upload', { size: 17 })} ${App.t('backup_import')}</button>
+        ${store.get(KEYS.preImportAvailable) ? `<button class="btn ghost mt10" id="setRestorePreImport">${icon('refresh', { size: 17 })} ${App.t('backup_restore_previous')}</button>` : ''}
         <div class="note-box mt14" style="font-size:12.5px">${App.t('limits_honest')}</div>
         <input type="file" id="setFile" accept="application/json,.json" hidden />
 
@@ -309,13 +319,23 @@ export function openSettings(App) {
     el.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', () => el.remove()));
   });
 
-  document.getElementById('setExport').addEventListener('click', () => doExport(App));
+  document.getElementById('setExport').addEventListener('click', () => downloadBackup(App));
   document.getElementById('setCsv')?.addEventListener('click', () => doCsvExport(App));
   document.getElementById('setImport').addEventListener('click', () => document.getElementById('setFile').click());
   document.getElementById('setFile').addEventListener('change', (e) => {
     const f = e.target.files && e.target.files[0];
     if (f) doImport(App, f);
     e.target.value = '';
+  });
+  document.getElementById('setRestorePreImport')?.addEventListener('click', async () => {
+    if (!confirm(App.t('backup_restore_previous_confirm'))) return;
+    const result = await store.restorePreImport();
+    if (!result.ok) {
+      flash(App.t('backup_restore_previous_fail'), 'err');
+      return;
+    }
+    flash(App.t('backup_ok'), 'warn');
+    setTimeout(() => location.reload(), 600);
   });
 
   document.getElementById('setDemo')?.addEventListener('click', () => {
