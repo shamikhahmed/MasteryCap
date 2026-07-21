@@ -1,4 +1,5 @@
 /* MasteryCap service worker — offline-first shell cache */
+const CACHE_PREFIX = 'masterycap-';
 const CACHE = 'masterycap-v5180';
 const ASSETS = [
   './',
@@ -144,18 +145,26 @@ const ASSETS = [
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open(CACHE).then((c) => c.addAll(ASSETS).catch(() => {})).then(() => self.skipWaiting())
+    caches.open(CACHE)
+      .then((cache) => cache.addAll(ASSETS))
+      .then(() => self.skipWaiting())
+      .catch(async (error) => {
+        await caches.delete(CACHE);
+        throw error;
+      })
   );
 });
 
 self.addEventListener('activate', (e) => {
   e.waitUntil(
     caches.keys().then((keys) => {
-      const stale = keys.filter((k) => k !== CACHE);
-      return Promise.all(stale.map((k) => caches.delete(k))).then(() => stale.length > 0);
-    }).then((hadStale) =>
+      const owned = keys.filter((key) => key.startsWith(CACHE_PREFIX) && key !== CACHE).sort();
+      const previous = owned.at(-1);
+      const stale = owned.filter((key) => key !== previous);
+      return Promise.all(stale.map((key) => caches.delete(key))).then(() => owned.length > 0);
+    }).then((hadPrevious) =>
       self.clients.claim().then(() => {
-        if (!hadStale) return;
+        if (!hadPrevious) return;
         const ver = CACHE.replace('masterycap-', '');
         return self.clients.matchAll({ type: 'window' }).then((clients) => {
           clients.forEach((c) => c.postMessage({ type: 'SW_UPDATED', version: ver }));
@@ -170,27 +179,42 @@ self.addEventListener('fetch', (e) => {
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
   const path = url.pathname;
+  const sameOrigin = url.origin === self.location.origin;
+  const cacheResponse = async (response) => {
+    if (!sameOrigin || !response.ok) return response;
+    try {
+      const cache = await caches.open(CACHE);
+      await cache.put(request, response.clone());
+    } catch (_) {
+      // A cache write failure must not discard a valid network response.
+    }
+    return response;
+  };
+  const currentMatch = async () => {
+    const cache = await caches.open(CACHE);
+    return cache.match(request, { ignoreSearch: true });
+  };
   // network-first for navigations + JS/CSS so deploys don't stick on stale SW cache
   if (request.mode === 'navigate' || path.endsWith('.js') || path.endsWith('.css') || path.endsWith('.html')) {
     e.respondWith(
       fetch(request)
-        .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put(request, copy)).catch(() => {});
-          return res;
+        .then(cacheResponse)
+        .catch(async () => {
+          const cached = await currentMatch();
+          if (cached) return cached;
+          if (request.mode !== 'navigate') throw new Error('Offline asset unavailable');
+          const cache = await caches.open(CACHE);
+          const shell = await cache.match('./index.html');
+          if (!shell) throw new Error('Offline shell unavailable');
+          return shell;
         })
-        .catch(() => caches.match(request).then((c) => c || caches.match('./index.html')))
     );
     return;
   }
   e.respondWith(
-    caches.match(request).then((cached) =>
+    currentMatch().then((cached) =>
       cached ||
-      fetch(request).then((res) => {
-        const copy = res.clone();
-        caches.open(CACHE).then((c) => c.put(request, copy)).catch(() => {});
-        return res;
-      }).catch(() => cached)
+      fetch(request).then(cacheResponse)
     )
   );
 });

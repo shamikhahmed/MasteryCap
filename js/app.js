@@ -348,7 +348,24 @@ function renderOnboarding() {
 /* ============================================================
    Boot
    ============================================================ */
-function showUpdateToast() {}
+function showUpdateToast(version = APP_VERSION) {
+  const existing = document.getElementById('sw-update-toast');
+  if (existing) return;
+  const el = document.createElement('div');
+  el.id = 'sw-update-toast';
+  el.className = 'sw-toast';
+  el.setAttribute('role', 'status');
+  el.setAttribute('aria-live', 'polite');
+  const label = App.t('sw_updated').replace('{v}', version || APP_VERSION);
+  el.innerHTML = `<span>${label}</span>
+    <button type="button" id="swReload">${App.t('sw_reload')}</button>`;
+  document.body.appendChild(el);
+  requestAnimationFrame(() => el.classList.add('on'));
+  document.getElementById('swReload')?.addEventListener('click', () => {
+    el.setAttribute('aria-busy', 'true');
+    window.location.reload();
+  });
+}
 
 function maybeFirstBackup() {
   if (store.get(KEYS.firstBackupDone) || !store.get(KEYS.onboarded)) return;

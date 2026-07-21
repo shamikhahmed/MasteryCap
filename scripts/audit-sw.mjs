@@ -64,6 +64,18 @@ for (const apple of appleCandidates) {
 }
 
 const cacheM = swText.match(/const CACHE = ['"]([^'"]+)['"]/);
+if (!/const CACHE_PREFIX = ['"]masterycap-['"]/.test(swText)) {
+  fails.push('service worker must declare an owned MasteryCap cache prefix');
+}
+if (/keys\.filter\(\(k\) => k !== CACHE\)/.test(swText)) {
+  fails.push('activation may delete caches owned by other same-origin applications');
+}
+if (/addAll\(ASSETS\)\.catch\(\(\) => \{\}\)/.test(swText)) {
+  fails.push('required precache failure is swallowed');
+}
+if (!/response\.ok/.test(swText)) {
+  fails.push('runtime cache writes do not validate successful responses');
+}
 console.log(`CACHE: ${cacheM ? cacheM[1] : '?'}`);
 console.log(`ASSETS count: ${assets.length}`);
 if (warns.length) {
