@@ -8,7 +8,7 @@ const chromeLauncher = require('chrome-launcher');
 const root = path.join(__dirname, '..');
 const outDir = path.join(root, 'test-results', 'lighthouse');
 const thresholds = {
-  performance: Number(process.env.LH_PERFORMANCE || 0.75),
+  performance: Number(process.env.LH_PERFORMANCE || 0.9),
   accessibility: Number(process.env.LH_ACCESSIBILITY || 0.9),
   'best-practices': Number(process.env.LH_BEST_PRACTICES || 0.9),
 };
@@ -76,6 +76,7 @@ function contentType(p) {
 
     const manifest = JSON.parse(fs.readFileSync(path.join(root, 'manifest.webmanifest'), 'utf8'));
     const index = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+    const swRegistration = fs.readFileSync(path.join(root, 'js', 'register-sw.js'), 'utf8');
     const icons = manifest.icons || [];
     const pwaChecks = [
       ['standalone display', ['standalone', 'fullscreen', 'minimal-ui'].includes(manifest.display)],
@@ -83,7 +84,7 @@ function contentType(p) {
       ['192px icon', icons.some((icon) => String(icon.sizes).split(/\s+/).includes('192x192'))],
       ['512px icon', icons.some((icon) => String(icon.sizes).split(/\s+/).includes('512x512'))],
       ['maskable icon', icons.some((icon) => String(icon.purpose || '').includes('maskable'))],
-      ['service worker registration', /serviceWorker\.register\(/.test(index)],
+      ['service worker registration', /register-sw\.js/.test(index) && /serviceWorker\.register\(/.test(swRegistration)],
     ];
     pwaChecks.forEach(([name, ok]) => console.log(`${ok ? 'PASS' : 'FAIL'} PWA ${name}`));
     if (pwaChecks.some(([, ok]) => !ok)) failed = true;

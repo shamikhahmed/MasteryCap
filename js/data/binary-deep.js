@@ -58,7 +58,7 @@ export const BINARY_DEEP_WEEKS = [
       { front: { en: 'This elective is', ur: 'Elective' }, back: { en: 'Harm reduction — not endorsement.', ur: 'Harm reduction hai — endorsement nahi.' } },
       { front: { en: '90% win signals', ur: '90%' }, back: { en: 'Scam bait.', ur: 'Scam bait.' } },
       { front: { en: 'Many jurisdictions', ur: 'Law' }, back: { en: 'Ban/restrict retail binaries.', ur: 'Retail binaries ban/restrict karte hain.' } },
-      { front: { en: 'Certificate here', ur: 'Cert' }, back: { en: 'Study — not a license to trade binaries.', ur: 'Study hai — binaries trade ka license nahi.' } },
+      { front: { en: 'Study record here', ur: 'Study record' }, back: { en: 'Study — not a license to trade binaries.', ur: 'Study hai — binaries trade ka license nahi.' } },
     ],
     quiz: [
       { q: { en: 'This elective’s goal is:', ur: 'Is elective ka goal kya hai:' },
@@ -171,9 +171,9 @@ export const BINARY_DEEP_WEEKS = [
     },
     teach: {
       en: `<p>Preferred action: <strong>do not deposit</strong>. If already stuck: document, stop funding, seek legitimate complaint channels — never recovery agents.</p>
-<p>No martingale. No “revenge one more.” Certificate = study of harm — not a playbook.</p>`,
+<p>No martingale. No “revenge one more.” Completion output records harm study — it is not a playbook.</p>`,
       ur: `<p>Preferred action: <strong>deposit mat karo</strong>. Agar phas chuke: document, funding band, legitimate complaint channels — recovery agents kabhi nahi.</p>
-<p>No martingale. No “revenge one more.” Certificate = harm study — playbook nahi.</p>`,
+<p>No martingale. No “revenge one more.” Completion output harm study record hai — playbook nahi.</p>`,
     },
     workedExample: {
       en: `<p>Card: “Zero binary deposits · block ads · report scam domains · no VIP.”</p>`,
@@ -189,7 +189,7 @@ export const BINARY_DEEP_WEEKS = [
       { front: { en: 'Default action', ur: 'Default' }, back: { en: 'Do not deposit / do not trade binaries.', ur: 'Deposit mat karo / binaries trade mat karo.' } },
       { front: { en: 'Revenge trade', ur: 'Revenge' }, back: { en: 'Forbidden — accelerates loss.', ur: 'Mana — tez loss.' } },
       { front: { en: 'Stuck funds playbook', ur: 'Stuck' }, back: { en: 'Stop funding + document + legit channels.', ur: 'Stop + document + legit.' } },
-      { front: { en: 'Certificate', ur: 'Cert' }, back: { en: 'Harm-reduction study — not playbook.', ur: 'Harm study — playbook nahi.' } },
+      { front: { en: 'Study record', ur: 'Study record' }, back: { en: 'Harm-reduction study — not playbook.', ur: 'Harm study — playbook nahi.' } },
       { front: { en: 'Elective credit path', ur: 'Credit' }, back: { en: 'Never — eyes-open only.', ur: 'Kabhi nahi — eyes open.' } },
     ],
     quiz: [
@@ -199,7 +199,7 @@ export const BINARY_DEEP_WEEKS = [
       { q: { en: 'Revenge “one more” is:', ur: 'Revenge “one more” kya hai:' },
         opts: { en: ['A ruin pattern', 'Required recovery', 'Edge'], ur: ['Ruin', 'Recovery', 'Edge'] },
         correct: 0, explain: { en: 'Stop.', ur: 'Stop.' } },
-      { q: { en: 'This certificate means:', ur: 'Is certificate ka matlab kya hai:' },
+      { q: { en: 'This study record means:', ur: 'Is study record ka matlab kya hai:' },
         opts: { en: ['Harm-reduction study — not endorsement', 'Binary license', 'Income'], ur: ['Harm-reduction study hai — endorsement nahi hai ye', 'License', 'Income'] },
         correct: 0, explain: { en: 'Honesty.', ur: 'Honesty.' } },
       { q: { en: 'If already deposited and blocked:', ur: 'Agar pehle se deposit ho aur block ho to:' },
@@ -217,5 +217,5 @@ export const BINARY_DEEP_PLACEMENT = [
   { topic: 3, q: { en: 'Unlock withdraw fee:', ur: 'Withdraw unlock fee maangna kya hai:' }, opts: { en: ['Scam', 'Normal', 'Required'], ur: ['Scam', 'Normal', 'Required'] }, correct: 0 },
   { topic: 3, q: { en: 'Blocked withdraw:', ur: 'Blocked withdrawal ka matlab kya hai:' }, opts: { en: ['Stop funding', 'Send more', 'Share OTP'], ur: ['Stop', 'Send more', 'OTP'] }, correct: 0 },
   { topic: 4, q: { en: 'Default action:', ur: 'Default:' }, opts: { en: ['Do not trade binaries', 'Daily binary', 'VIP max'], ur: ['Do not trade', 'Daily', 'VIP'] }, correct: 0 },
-  { topic: 4, q: { en: 'Certificate:', ur: 'Cert:' }, opts: { en: ['Harm study not endorsement', 'Binary license', 'Income'], ur: ['Harm reduction study hai endorsement nahi hai ye', 'License', 'Income'] }, correct: 0 },
+  { topic: 4, q: { en: 'Study record:', ur: 'Study record:' }, opts: { en: ['Harm study not endorsement', 'Binary license', 'Income'], ur: ['Harm reduction study hai endorsement nahi hai ye', 'License', 'Income'] }, correct: 0 },
 ];

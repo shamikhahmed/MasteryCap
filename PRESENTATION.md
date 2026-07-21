@@ -1,4 +1,4 @@
-# MasteryCap — one-pager (v52.1)
+# MasteryCap — one-pager (v52.2)
 
 **What:** Offline personal institute PWA — **Software Craft** + **Market literacy** (EN / Roman Urdu).
 Curriculum, paper sim (process-graded), study desk, honest self-issued study records.
@@ -20,7 +20,7 @@ add evidence notes. Outputs = local course study records / Paper Process Readine
 
 ## Stack
 Static ES modules. No build step required for the PWA shell. No backend.
-`localStorage` (`masterycap:`). GitHub Pages. SW cache `masterycap-v5210` · app **v52.1.0**.
+`localStorage` (`masterycap:`). GitHub Pages. Lazy route modules. SW cache `masterycap-v5220` · app **v52.2.0**.
 
 ## Design
 True-black terminal · Geist · accent `#FF6B2C` · zero emoji · mono numerics.

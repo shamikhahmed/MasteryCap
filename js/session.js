@@ -11,6 +11,7 @@ import { getTrack } from './data/tracks.js';
 import { canOpenTradingLab } from './gates.js';
 import { openWeekFlash } from './views/study.js';
 import { markToday } from './today.js';
+import { mountDialog } from './dialog.js';
 
 const STEP_LABEL = {
   lesson: { en: 'Lesson', ur: 'Sabak' },
@@ -184,6 +185,7 @@ function showDoneSheet(App, run) {
   const close = () => { closeSheet(); App.navigate('today'); };
   el.querySelectorAll('[data-close]').forEach((n) => n.addEventListener('click', close));
   el.querySelector('#sessionHome')?.addEventListener('click', close);
+  mountDialog(el, { initialFocus: '#sessionHome' });
 }
 
 /** Floating bar while a session is active. */
@@ -280,6 +282,7 @@ export function openSessionRunner(App) {
     closeSheet();
     openSessionRunner(App);
   });
+  mountDialog(el, { initialFocus: '#sessionStart' });
 }
 
 /** Re-attach bar after App.render if mid-session. */

@@ -89,8 +89,10 @@ function startServer() {
       const viewport = new DOMParser()
         .parseFromString(await (await fetch('/index.html')).text(), 'text/html')
         .querySelector('meta[name="viewport"]')?.content || '';
-      settings.remove();
-      rootNode.innerHTML = '<button id="focusTarget">Focus target</button>';
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      const settingsFocusables = [...settings.querySelectorAll('button:not([disabled]), input:not([disabled]):not([type="hidden"])')]
+        .filter((element) => !element.hidden);
+      settingsFocusables.at(-1)?.focus();
       return {
         journalUnlabelled,
         labUnlabelled,
@@ -99,7 +101,20 @@ function startServer() {
         labelledBy: dialog?.getAttribute('aria-labelledby'),
         liveStatus: Boolean(status),
         viewport,
+        backgroundInert: rootNode.inert,
+        firstFocusId: settingsFocusables[0]?.id,
       };
+    });
+    await page.keyboard.press('Tab');
+    const wrappedFocus = await page.evaluate(() => document.activeElement.id);
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(280);
+    const closedState = await page.evaluate(() => ({
+      removed: !document.getElementById('settings-sheet'),
+      backgroundInert: document.getElementById('root').inert,
+    }));
+    await page.evaluate(() => {
+      document.getElementById('root').innerHTML = '<button id="focusTarget">Focus target</button>';
     });
     await page.keyboard.press('Tab');
     const focus = await page.evaluate(() => {
@@ -110,9 +125,11 @@ function startServer() {
     const missing = [...result.journalUnlabelled, ...result.labUnlabelled, ...result.settingsUnlabelled];
     if (missing.length) throw new Error(`unlabelled controls: ${missing.join(', ')}`);
     if (result.modal !== 'true' || !result.labelledBy || !result.liveStatus) throw new Error('settings modal/status semantics incomplete');
+    if (!result.backgroundInert || wrappedFocus !== result.firstFocusId) throw new Error('modal focus trap or inert background missing');
+    if (!closedState.removed || closedState.backgroundInert) throw new Error('Escape close did not restore background');
     if (/user-scalable\s*=\s*no|maximum-scale/i.test(result.viewport)) throw new Error('viewport disables zoom');
     if (focus.id !== 'focusTarget' || focus.style === 'none' || focus.width < 2) throw new Error('keyboard focus indicator missing');
-    console.log('PASS: labels, zoom, modal status, and focus indicator');
+    console.log('PASS: labels, zoom, modal focus/inert/Escape, live status, and focus indicator');
   } finally {
     await browser.close();
     await new Promise((resolve) => server.close(resolve));

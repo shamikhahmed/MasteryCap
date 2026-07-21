@@ -12,6 +12,12 @@ if (!m) {
   process.exit(1);
 }
 const assets = [...m[1].matchAll(/['"]([^'"]+)['"]/g)].map((x) => x[1]);
+const shellMatch = swText.match(/const SHELL_ASSETS = \[([\s\S]*?)\];/);
+if (!shellMatch) {
+  console.error('FAIL: could not parse SHELL_ASSETS from sw.js');
+  process.exit(1);
+}
+const shellAssets = [...shellMatch[1].matchAll(/['"]([^'"]+)['"]/g)].map((x) => x[1]);
 
 const fails = [];
 const warns = [];
@@ -48,6 +54,13 @@ for (const ic of manifest.icons || []) {
 }
 
 const assetSet = new Set(assets.map((a) => a.replace(/^\.\//, '')));
+const shellSet = new Set(shellAssets.map((a) => a.replace(/^\.\//, '')));
+for (const asset of shellSet) {
+  if (!assetSet.has(asset) && asset !== '') fails.push(`shell asset missing from full ASSETS: ${asset}`);
+}
+for (const required of ['index.html', 'css/app.css', 'js/app.js', 'js/store.js', 'js/views/admission.js', 'manifest.webmanifest']) {
+  if (!shellSet.has(required)) fails.push(`required shell asset missing: ${required}`);
+}
 for (const rel of must) {
   const norm = rel.replace(/\\/g, '/');
   if (!assetSet.has(norm) && !assetSet.has('./' + norm)) {
@@ -73,11 +86,18 @@ if (/keys\.filter\(\(k\) => k !== CACHE\)/.test(swText)) {
 if (/addAll\(ASSETS\)\.catch\(\(\) => \{\}\)/.test(swText)) {
   fails.push('required precache failure is swallowed');
 }
+if (!/addAll\(SHELL_ASSETS\)/.test(swText)) {
+  fails.push('required shell is not installed atomically');
+}
+if (!/Promise\.allSettled\(OPTIONAL_ASSETS/.test(swText)) {
+  fails.push('optional curriculum cache failures can block shell installation');
+}
 if (!/response\.ok/.test(swText)) {
   fails.push('runtime cache writes do not validate successful responses');
 }
 console.log(`CACHE: ${cacheM ? cacheM[1] : '?'}`);
 console.log(`ASSETS count: ${assets.length}`);
+console.log(`SHELL_ASSETS count: ${shellAssets.length}`);
 if (warns.length) {
   console.log('WARN:');
   warns.forEach((w) => console.log('  ' + w));

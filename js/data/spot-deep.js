@@ -172,9 +172,9 @@ export const SPOT_DEEP_WEEKS = [
     },
     teach: {
       en: `<p>Loop: default spot for core → if derivatives, write kill list + risk % → log funding/interest → weekly review. Excitement is not a reason to leave spot.</p>
-<p>Certificate = study record. Not a license to max leverage.</p>`,
+<p>Completion output = self-issued study record. Not a license to max leverage.</p>`,
       ur: `<p>Loop: core ke liye default spot → agar derivatives, kill list + risk % likho → funding/interest log → weekly review. Excitement spot chhorne ka reason nahi.</p>
-<p>Certificate = study record. Max leverage license nahi.</p>`,
+<p>Completion output self-issued study record hai. Max leverage license nahi.</p>`,
     },
     workedExample: {
       en: `<p>Card: “Core spot only · no perps until kill list written · 1% tactical max.”</p>`,
@@ -190,7 +190,7 @@ export const SPOT_DEEP_WEEKS = [
       { front: { en: 'Default for core', ur: 'Core' }, back: { en: 'Spot.', ur: 'Spot.' } },
       { front: { en: 'Before first perp', ur: 'Perp' }, back: { en: 'Write kill list + risk %.', ur: 'Kill list + risk%.' } },
       { front: { en: 'Excitement as reason', ur: 'Excitement' }, back: { en: 'Not a syllabus criterion.', ur: 'Syllabus nahi.' } },
-      { front: { en: 'Certificate', ur: 'Cert' }, back: { en: 'Study progress — not max-lev license.', ur: 'Study — max-lev license nahi.' } },
+      { front: { en: 'Study record', ur: 'Study record' }, back: { en: 'Study progress — not max-lev license.', ur: 'Study — max-lev license nahi.' } },
       { front: { en: 'Weekly review asks', ur: 'Review' }, back: { en: 'Did funding/interest surprise me?', ur: 'Funding/interest surprise?' } },
     ],
     quiz: [
@@ -203,7 +203,7 @@ export const SPOT_DEEP_WEEKS = [
       { q: { en: 'Leaving spot for excitement is:', ur: 'Excitement ke liye spot chhorna kya hai:' },
         opts: { en: ['Not a valid syllabus reason', 'Required mastery', 'Risk-free'], ur: ['Invalid reason', 'Required', 'Risk-free'] },
         correct: 0, explain: { en: 'Boring survives.', ur: 'Boring.' } },
-      { q: { en: 'This certificate means:', ur: 'Is certificate ka matlab kya hai:' },
+      { q: { en: 'This study record means:', ur: 'Is study record ka matlab kya hai:' },
         opts: { en: ['Study progress — not leverage license', 'Broker license', 'Income'], ur: ['Study progress hai — leverage license nahi hai', 'Broker', 'Income'] },
         correct: 0, explain: { en: 'Honesty.', ur: 'Honesty.' } },
     ],
@@ -218,5 +218,5 @@ export const SPOT_DEEP_PLACEMENT = [
   { topic: 3, q: { en: 'Kill test:', ur: 'Kill:' }, opts: { en: ['List non-thesis death paths', 'Skip', 'Only logo'], ur: ['Non-thesis death paths list karo pehle se soch kar', 'Skip', 'Logo'] }, correct: 0 },
   { topic: 3, q: { en: 'Short perps vs spot:', ur: 'Short perps vs spot mein farq kya hai:' }, opts: { en: ['Insurance without selling', 'Always double risk', 'Banned'], ur: ['Bina bechna insurance jaisa hedge hota hai ye', 'Double', 'Banned'] }, correct: 0 },
   { topic: 4, q: { en: 'Core default:', ur: 'Core:' }, opts: { en: ['Spot', 'Max lev', 'Ignore'], ur: ['Spot', 'Max lev', 'Ignore'] }, correct: 0 },
-  { topic: 4, q: { en: 'Certificate:', ur: 'Cert:' }, opts: { en: ['Study record', 'Lev license', 'Income'], ur: ['Study', 'Lev license', 'Income'] }, correct: 0 },
+  { topic: 4, q: { en: 'Study record:', ur: 'Study record:' }, opts: { en: ['Study record', 'Lev license', 'Income'], ur: ['Study', 'Lev license', 'Income'] }, correct: 0 },
 ];

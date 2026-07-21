@@ -172,9 +172,9 @@ export const FUTURES_DEEP_WEEKS = [
     },
     teach: {
       en: `<p>Loop: know specs → risk $ → stop in ticks → margin cushion → roll/expiry plan → log. Signals that ignore notional are cosplay.</p>
-<p>Certificate = study record — not prop-desk license.</p>`,
+<p>Completion output = self-issued study record — not prop-desk license.</p>`,
       ur: `<p>Loop: specs jano → risk $ → stop ticks mein → margin cushion → roll/expiry plan → log. Notional ignore karne wale signals cosplay hain.</p>
-<p>Certificate = study record — prop-desk license nahi.</p>`,
+<p>Completion output self-issued study record hai — prop-desk license nahi.</p>`,
     },
     workedExample: {
       en: `<p>Card: “1 micro · 1% risk · 10-tick stop · roll 5 DTE · no signal size.”</p>`,
@@ -190,7 +190,7 @@ export const FUTURES_DEEP_WEEKS = [
       { front: { en: 'Futures loop', ur: 'Loop' }, back: { en: 'Specs → risk$ → ticks → cushion → roll → log.', ur: 'Specs → risk → ticks → roll → log.' } },
       { front: { en: 'Margin allows max', ur: 'Max' }, back: { en: 'Not a size rule.', ur: 'Size rule nahi.' } },
       { front: { en: 'Signal ignoring notional', ur: 'Signal notional ignore karna' }, back: { en: 'Cosplay.', ur: 'Cosplay.' } },
-      { front: { en: 'Certificate', ur: 'Cert' }, back: { en: 'Study progress — not prop license.', ur: 'Study progress hai — prop license nahi.' } },
+      { front: { en: 'Study record', ur: 'Study record' }, back: { en: 'Study progress — not prop license.', ur: 'Study progress hai — prop license nahi.' } },
       { front: { en: 'Cushion', ur: 'Cushion' }, back: { en: 'Extra margin beyond maintenance.', ur: 'Maintenance se upar extra margin chahiye.' } },
     ],
     quiz: [
@@ -200,7 +200,7 @@ export const FUTURES_DEEP_WEEKS = [
       { q: { en: '“Margin allows” max contracts is:', ur: '“Margin allows” max contracts kya hai:' },
         opts: { en: ['A common over-lever trap', 'Best practice', 'Required'], ur: ['Over-lever trap', 'Best', 'Required'] },
         correct: 0, explain: { en: 'Notional rules.', ur: 'Notional.' } },
-      { q: { en: 'This certificate means:', ur: 'Is certificate ka matlab kya hai:' },
+      { q: { en: 'This study record means:', ur: 'Is study record ka matlab kya hai:' },
         opts: { en: ['Study progress', 'Prop license', 'Income'], ur: ['Study', 'Prop', 'Income'] },
         correct: 0, explain: { en: 'Honesty.', ur: 'Honesty.' } },
       { q: { en: 'Roll/expiry plan belongs:', ur: 'Roll/expiry plan kahan belong karta hai:' },
@@ -218,5 +218,5 @@ export const FUTURES_DEEP_PLACEMENT = [
   { topic: 3, q: { en: 'Maintenance breach:', ur: 'Maintenance breach kya hota hai:' }, opts: { en: ['Call/liq path', 'Bonus', 'Free roll'], ur: ['Call/liq', 'Bonus', 'Free roll'] }, correct: 0 },
   { topic: 3, q: { en: 'Contango is:', ur: 'Contango:' }, opts: { en: ['Curve shape', 'Guaranteed salary', 'Illegal'], ur: ['Curve', 'Salary', 'Illegal'] }, correct: 0 },
   { topic: 4, q: { en: 'Loop starts:', ur: 'Loop:' }, opts: { en: ['Specs + risk ticks', 'Max contracts', 'Signals first'], ur: ['Specs+risk', 'Max', 'Signals'] }, correct: 0 },
-  { topic: 4, q: { en: 'Certificate:', ur: 'Cert:' }, opts: { en: ['Study record', 'Prop license', 'Income'], ur: ['Study', 'Prop', 'Income'] }, correct: 0 },
+  { topic: 4, q: { en: 'Study record:', ur: 'Study record:' }, opts: { en: ['Study record', 'Prop license', 'Income'], ur: ['Study', 'Prop', 'Income'] }, correct: 0 },
 ];

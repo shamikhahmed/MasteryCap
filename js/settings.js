@@ -6,9 +6,9 @@ import { store, KEYS } from './store.js';
 import { icon } from './icons.js';
 import { applyTheme, getAppearance, setAppearance } from './theme.js';
 import { getTeacher, setTeacher, TEACHERS } from './teacher.js';
-import { evidenceHash } from './exam.js';
+import { mountDialog } from './dialog.js';
 
-export const APP_VERSION = 'v52.1.0';
+export const APP_VERSION = 'v52.2.0';
 
 function todayStamp() {
   const d = new Date();
@@ -247,7 +247,6 @@ export function openSettings(App) {
     out.textContent = raw.length >= 6
       ? (App.lang === 'en' ? `Hash noted — match against PNG footer verify:${raw.slice(0, 10)}` : `Hash note — PNG footer se match: verify:${raw.slice(0, 10)}`)
       : '';
-    void evidenceHash;
   });
 
   document.getElementById('setHap').addEventListener('click', () => {
@@ -317,6 +316,7 @@ export function openSettings(App) {
       </div>`;
     document.body.appendChild(el);
     el.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', () => el.remove()));
+    mountDialog(el);
   });
 
   document.getElementById('setExport').addEventListener('click', () => downloadBackup(App));
@@ -357,6 +357,7 @@ export function openSettings(App) {
     store.clearAll();
     location.reload();
   });
+  mountDialog(sheet, { initialFocus: '#setName' });
 }
 
 function doCsvExport(App) {

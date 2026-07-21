@@ -8,10 +8,12 @@ const dir = path.dirname(fileURLToPath(import.meta.url));
 const scripts = [
   'audit-version.mjs',
   'audit-assessment.mjs',
+  'audit-dead-code.mjs',
   'audit-data.mjs',
   'audit-figs.mjs',
   'audit-i18n.mjs',
   'audit-content.mjs',
+  'audit-security.mjs',
   'audit-sw.mjs',
   'audit-behavior.mjs',
   'audit-sim.mjs',

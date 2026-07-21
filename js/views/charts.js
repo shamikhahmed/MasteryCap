@@ -8,8 +8,9 @@ import { renderCandles, priceAtY } from '../candles.js';
 import { generateChart, checkTap } from '../chartgen.js';
 import { awardDrillXp, recordDrillType } from '../drills.js';
 import { listWorkedCharts, renderWorkedChart } from '../worked-charts.js';
+import { FIGURE_NAMES, render as renderFigure } from '../figures.js';
 
-let S = { mode: 'hub', scenario: null, feedback: null, pick: null, exampleId: null };
+let S = { mode: 'hub', scenario: null, feedback: null, pick: null, exampleId: null, figure: FIGURE_NAMES[0] };
 let APP = null, ROOT = null;
 const LETTERS = ['A', 'B', 'C', 'D'];
 
@@ -44,6 +45,13 @@ function drawHub() {
           <span style="color:var(--t3);font-size:12px">${(ex.teach[lang] || ex.teach.en).slice(0, 90)}…</span></span>
         </button>`).join('')}
     </div>
+    <div class="panel pad" style="margin-top:14px">
+      <label class="slabel" for="chFigure">${lang === 'en' ? 'Concept diagram library' : 'Concept diagram library'}</label>
+      <select class="input mt10" id="chFigure" style="width:100%">
+        ${FIGURE_NAMES.map((name) => `<option value="${name}" ${S.figure === name ? 'selected' : ''}>${name.replaceAll('-', ' ')}</option>`).join('')}
+      </select>
+      <div class="mt14">${renderFigure(S.figure, lang)}</div>
+    </div>
     <button class="btn accent mt14" id="chDrill" style="width:100%">${icon('target', { size: 17 })} ${lang === 'en' ? 'Start chart drill' : 'Chart drill shuru'}</button>
   </div>`;
 
@@ -54,6 +62,10 @@ function drawHub() {
   c.querySelectorAll('[data-ex]').forEach((b) => b.addEventListener('click', () => {
     S.mode = 'example'; S.exampleId = b.dataset.ex; App.haptic(); drawExample();
   }));
+  document.getElementById('chFigure')?.addEventListener('change', (event) => {
+    S.figure = event.target.value;
+    drawHub();
+  });
   document.getElementById('chDrill')?.addEventListener('click', () => {
     S.mode = 'drill'; S.scenario = generateChart(); S.feedback = null; S.pick = null;
     App.haptic(); drawDrill();

@@ -26,6 +26,10 @@ for (const f of files) {
     }
   }
 }
+const chartsView = fs.readFileSync(path.join(root, 'js', 'views', 'charts.js'), 'utf8');
+if (/FIGURE_NAMES/.test(chartsView) && /renderFigure/.test(chartsView)) {
+  FIGURE_NAMES.forEach((name) => used.add(name));
+}
 
 const orphans = FIGURE_NAMES.filter((n) => !used.has(n));
 

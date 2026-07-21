@@ -7,7 +7,7 @@
 Offline personal institute PWA. Flagship **School of Software Craft** (WEB-101→APP-403 In Session). **School of Markets** wraps existing bilingual trading literacy. Honest self-issued study records. No accounts, no fake AI, no income promises.
 
 ## Facts
-**Version:** v52.1.0 (sw: masterycap-v5210)
+**Version:** v52.2.0 (sw: masterycap-v5220)
 **Live:** https://shamikhahmed.github.io/MasteryCap/
 **Repo:** https://github.com/shamikhahmed/MasteryCap
 **Stack:** Vanilla JS PWA. Fraunces + IBM Plex (Google) with Geist Mono self-hosted. localStorage (`masterycap:`).
@@ -22,6 +22,9 @@ node tests/final-acceptance.cjs
 ```
 
 ## Architecture
+- Route registry: `js/app.js` dynamically imports views and rejects stale renders.
+- Modal primitive: `js/dialog.js` owns focus trap, inert background, Escape, and opener restoration.
+- SW install: 37-file atomic shell; optional curriculum caches best-effort with previous-cache fallback.
 - Feature flags: `js/institute/features.js` — HTTP Lab + typed editor **ON** (v50)
 - Themes: Dark / Light / Sepia / Auto — `js/theme.js`
 - Age-band tip layer: `js/institute/register.js`
@@ -33,7 +36,7 @@ node tests/final-acceptance.cjs
 - Design: paper institute default; accent from theme. No Inter, no purple gradients, no emoji chrome.
 - Study records must keep locked disclaimer (`CERT_DISCLAIMER`) and require assessment plus project evidence.
 - Announced courses stay non-enrollable — titles without `session` status only. FE-202→APP-403 are **session** (v50).
-- Today hosts guided Session Continuity; Practice hosts Charts / Daily review / Hasil (v50.4).
+- Today follows the active enrolled branch/course; Practice hosts study, labs, Markets loops, and safety checklists.
 - No Welcome Update sheet (47.0.0) — version stamped silent via `lastSeenVersion`.
 
 ## Where decisions live

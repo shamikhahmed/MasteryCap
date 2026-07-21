@@ -9,12 +9,14 @@ let mode = 1;
 
 function workerSource() {
   const cache = `masterycap-test-v${mode}`;
-  const assets = mode === 2
-    ? "const ASSETS = ['./blank.html', './required-missing.js'];"
-    : "const ASSETS = ['./blank.html'];";
+  const assets = mode === 1
+    ? "['./blank.html', './legacy.js']"
+    : mode === 2 ? "['./blank.html', './required-missing.js']" : "['./blank.html']";
+  const shell = mode === 2 ? "['./blank.html', './required-missing.js']" : "['./blank.html']";
   return source
     .replace(/const CACHE = '[^']+';/, `const CACHE = '${cache}';`)
-    .replace(/const ASSETS = \[[\s\S]*?\];/, assets);
+    .replace(/const ASSETS = \[[\s\S]*?\];/, `const ASSETS = ${assets};`)
+    .replace(/const SHELL_ASSETS = \[[\s\S]*?\];/, `const SHELL_ASSETS = ${shell};`);
 }
 
 function startServer() {
@@ -38,6 +40,11 @@ function startServer() {
       if (url.pathname === '/fail.js' || url.pathname === '/required-missing.js') {
         res.writeHead(500, { 'Content-Type': 'text/javascript', 'Cache-Control': 'no-store' });
         res.end('throw new Error("intentional test failure")');
+        return;
+      }
+      if (url.pathname === '/legacy.js') {
+        res.writeHead(200, { 'Content-Type': 'text/javascript', 'Cache-Control': 'no-store' });
+        res.end('legacy-offline-asset');
         return;
       }
       res.writeHead(404);
@@ -105,6 +112,8 @@ async function waitForActive(page, cacheName) {
     if (cachedFailure) throw new Error('non-success response was cached');
 
     await context.setOffline(true);
+    const previousFallback = await page.evaluate(() => fetch('/legacy.js').then((response) => response.text()));
+    if (previousFallback !== 'legacy-offline-asset') throw new Error('previous verified cache fallback failed');
     await page.reload({ waitUntil: 'domcontentloaded' });
     if (!(await page.locator('main').count())) throw new Error('offline navigation fallback failed');
 

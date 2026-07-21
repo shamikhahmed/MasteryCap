@@ -50,6 +50,11 @@ for (const k of ['emo_calm', 'emo_fomo', 'emo_revenge', 'emo_greed', 'emo_bored'
 const enKeys = new Set(Object.keys(T.en));
 const urKeys = new Set(Object.keys(T.ur));
 const missing = [];
+for (const prefix of ['theme_', 'teacher_', 'track_lock_', 'sim_err_', 'sim_fail_']) {
+  [...enKeys].filter((key) => key.startsWith(prefix)).forEach((key) => used.add(key));
+}
+for (const key of ['sim_manual', 'sim_stop', 'sim_tp', 'sim_liquidated', 'sim_session_end']) used.add(key);
+for (const key of ['sim_coach_tip', 'sim_coach_tip_patient', 'sim_coach_tip_coach', 'sim_coach_tip_strict']) used.add(key);
 
 for (const k of used) {
   // keys ending in '_' are dynamic prefixes (e.g. t('sim_err_' + code)) —

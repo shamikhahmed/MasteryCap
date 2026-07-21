@@ -172,9 +172,9 @@ export const MACRO_DEEP_WEEKS = [
     },
     teach: {
       en: `<p>Loop: monthly backdrop note (inflation/rates/FX/liquidity) → adjust max risk % → do asset work (statements or levels) → journal. Macro never replaces the plan.</p>
-<p>Certificate = study record. Not salary. Not crystal ball license.</p>`,
+<p>Completion output = self-issued study record. Not salary. Not crystal ball license.</p>`,
       ur: `<p>Loop: monthly backdrop note (inflation/rates/FX/liquidity) → max risk % adjust → asset work (statements ya levels) → journal. Macro plan kabhi replace nahi karta.</p>
-<p>Certificate = study record. Salary nahi. Crystal ball license nahi.</p>`,
+<p>Completion output self-issued study record hai. Salary nahi. Crystal ball license nahi.</p>`,
     },
     workedExample: {
       en: `<p>Card: “Risk-off month · max 1.5% · no CB scalp · filings/levels next.”</p>`,
@@ -189,7 +189,7 @@ export const MACRO_DEEP_WEEKS = [
     flashcardSeeds: [
       { front: { en: 'Macro loop', ur: 'Loop' }, back: { en: 'Note → size dial → homework → journal.', ur: 'Note → size → homework → journal.' } },
       { front: { en: 'Macro alone', ur: 'Alone' }, back: { en: 'Not a complete plan.', ur: 'Complete plan nahi.' } },
-      { front: { en: 'Certificate', ur: 'Cert' }, back: { en: 'Study progress — not income.', ur: 'Study — income nahi.' } },
+      { front: { en: 'Study record', ur: 'Study record' }, back: { en: 'Study progress — not income.', ur: 'Study — income nahi.' } },
       { front: { en: 'CB scalp hobby', ur: 'CB' }, back: { en: 'Usually noise tax.', ur: 'Noise tax.' } },
       { front: { en: 'Monthly note asks', ur: 'Note' }, back: { en: 'What changed for my risk budget?', ur: 'Risk budget change?' } },
     ],
@@ -200,7 +200,7 @@ export const MACRO_DEEP_WEEKS = [
       { q: { en: 'Macro replacing filings/levels is:', ur: 'Macro ka filings/levels replace karna kya hai:' },
         opts: { en: ['Incomplete / cosplay', 'Best practice', 'Required'], ur: ['Cosplay', 'Best', 'Required'] },
         correct: 0, explain: { en: 'Homework still needed.', ur: 'Homework ab bhi zaroori hai.' } },
-      { q: { en: 'This certificate means:', ur: 'Is certificate ka matlab kya hai:' },
+      { q: { en: 'This study record means:', ur: 'Is study record ka matlab kya hai:' },
         opts: { en: ['Study progress — not a crystal ball', 'SECP license', 'Income right'], ur: ['Study progress hai — crystal ball nahi hai ye', 'SECP', 'Income'] },
         correct: 0, explain: { en: 'Honesty.', ur: 'Honesty.' } },
       { q: { en: 'After this track you should:', ur: 'Is track ke baad tumhein kya karna chahiye:' },
@@ -218,5 +218,5 @@ export const MACRO_DEEP_PLACEMENT = [
   { topic: 3, q: { en: 'Rates are a:', ur: 'Rates:' }, opts: { en: ['Dial', 'Cheat code', 'Ignore'], ur: ['Dial', 'Cheat', 'Ignore'] }, correct: 0 },
   { topic: 3, q: { en: '20× on one meeting:', ur: 'Ek meeting pe 20× leverage kya hai:' }, opts: { en: ['Gambling', 'Required', 'Safe'], ur: ['Gambling', 'Required', 'Safe'] }, correct: 0 },
   { topic: 4, q: { en: 'Macro loop:', ur: 'Loop:' }, opts: { en: ['Note → size → homework', 'Tip → all-in', 'Skip journal'], ur: ['Note likho phir size phir homework — ye order hai', 'Tip all-in', 'Skip'] }, correct: 0 },
-  { topic: 4, q: { en: 'Certificate:', ur: 'Cert:' }, opts: { en: ['Study record', 'Crystal license', 'Income'], ur: ['Study', 'Crystal', 'Income'] }, correct: 0 },
+  { topic: 4, q: { en: 'Study record:', ur: 'Study record:' }, opts: { en: ['Study record', 'Crystal license', 'Income'], ur: ['Study', 'Crystal', 'Income'] }, correct: 0 },
 ];

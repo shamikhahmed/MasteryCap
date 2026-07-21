@@ -1,6 +1,7 @@
 /* Committee Approval — Foundations gate unlock ceremony (sheet, not XP toast). */
 
 import { icon } from '../icons.js';
+import { mountDialog } from '../dialog.js';
 
 /**
  * Show once when Foundations gate opens (weeks complete OR exam).
@@ -42,5 +43,6 @@ export function showCommitteeApproval(App, msg = {}) {
     App._campusView = { level: 'school', schoolId: 'markets' };
     App.navigate('campus');
   });
+  mountDialog(el, { initialFocus: '#committeeCampus' });
   App.haptic?.(14);
 }

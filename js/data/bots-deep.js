@@ -170,9 +170,9 @@ export const BOTS_DEEP_WEEKS = [
     },
     teach: {
       en: `<p>Realistic stack: alerts, position size calculators, journal exports, maybe simple bounded DCA with hard caps. Live discretionary still needs a human kill switch.</p>
-<p>Elective complete ≠ endorsement. Certificate = study record. Do not buy profit bots.</p>`,
+<p>Elective complete ≠ endorsement. Completion output = self-issued study record. Do not buy profit bots.</p>`,
       ur: `<p>Realistic stack: alerts, position size calculators, journal exports, shayad simple bounded DCA hard caps ke saath. Live discretionary ko bhi human kill switch chahiye.</p>
-<p>Elective complete ≠ endorsement. Certificate = study record. Profit bots mat kharido.</p>`,
+<p>Elective complete ≠ endorsement. Completion output self-issued study record hai. Profit bots mat kharido.</p>`,
     },
     workedExample: {
       en: `<p>Card: “Alert only · no API trade · max DD 2% paper first · no copy.”</p>`,
@@ -188,7 +188,7 @@ export const BOTS_DEEP_WEEKS = [
       { front: { en: 'Automation ladder', ur: 'Ladder' }, back: { en: 'Alerts → paper → tiny bounded → never unlock fees.', ur: 'Alerts → paper → tiny → no unlock.' } },
       { front: { en: 'Profit bot purchase', ur: 'Profit bot' }, back: { en: 'Refuse — not literacy.', ur: 'Refuse karo — literacy nahi hai ye.' } },
       { front: { en: 'Kill switch owner', ur: 'Kill' }, back: { en: 'You — not the vendor chat.', ur: 'Tum — vendor nahi.' } },
-      { front: { en: 'Certificate', ur: 'Cert' }, back: { en: 'Study record — not endorsement.', ur: 'Study — endorsement nahi.' } },
+      { front: { en: 'Study record', ur: 'Study record' }, back: { en: 'Study record — not endorsement.', ur: 'Study — endorsement nahi.' } },
       { front: { en: 'Elective path', ur: 'Elective' }, back: { en: 'Warn-only — not credit path.', ur: 'Warn-only hai — credit path nahi.' } },
     ],
     quiz: [
@@ -198,7 +198,7 @@ export const BOTS_DEEP_WEEKS = [
       { q: { en: 'Buying a profit bot is:', ur: 'Profit bot kharidna kya hai:' },
         opts: { en: ['Against this elective’s honesty', 'Required mastery', 'Risk-free'], ur: ['Is elective ki honesty ke khilaf hai ye claim', 'Required', 'Risk-free'] },
         correct: 0, explain: { en: 'Refuse.', ur: 'Refuse.' } },
-      { q: { en: 'This certificate means:', ur: 'Is certificate ka matlab kya hai:' },
+      { q: { en: 'This study record means:', ur: 'Is study record ka matlab kya hai:' },
         opts: { en: ['Study progress — not endorsement', 'Vendor license', 'Income'], ur: ['Study progress hai — endorsement nahi hai ye', 'Vendor license', 'Income'] },
         correct: 0, explain: { en: 'Honesty.', ur: 'Honesty.' } },
       { q: { en: 'Kill switch should be controlled by:', ur: 'Kill switch kis ke control mein hona chahiye:' },
@@ -216,5 +216,5 @@ export const BOTS_DEEP_PLACEMENT = [
   { topic: 3, q: { en: 'Pretty backtests often:', ur: 'Pretty backtests aksar kya karte hain:' }, opts: { en: ['Overfit', 'Guarantee live', 'Ignore'], ur: ['Overfit', 'Live guarantee', 'Ignore'] }, correct: 0 },
   { topic: 3, q: { en: 'VIP unlock after loss:', ur: 'Loss ke baad VIP unlock kya hai:' }, opts: { en: ['Second trap', 'Required', 'Official'], ur: ['Trap', 'Required', 'Official'] }, correct: 0 },
   { topic: 4, q: { en: 'First automation:', ur: 'Pehli automation kya honi chahiye:' }, opts: { en: ['Alerts/journal', 'Life API', 'Share keys'], ur: ['Alerts', 'Life API', 'Keys'] }, correct: 0 },
-  { topic: 4, q: { en: 'Certificate:', ur: 'Cert:' }, opts: { en: ['Study not endorsement', 'Vendor license', 'Income'], ur: ['Study progress hai endorsement nahi hai ye track', 'License', 'Income'] }, correct: 0 },
+  { topic: 4, q: { en: 'Study record:', ur: 'Study record:' }, opts: { en: ['Study not endorsement', 'Vendor license', 'Income'], ur: ['Study progress hai endorsement nahi hai ye track', 'License', 'Income'] }, correct: 0 },
 ];

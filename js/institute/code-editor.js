@@ -142,40 +142,6 @@ var localStorage = {
   };
 }
 
-function sandboxFrameHtml() {
-  return `<!doctype html><meta charset="utf-8"><script>
-    let worker;
-    let secret;
-    let runId;
-    let timer;
-    addEventListener('message', (event) => {
-      const data = event.data || {};
-      if (event.source !== parent || data.type !== 'INIT' || worker) return;
-      runId = data.runId;
-      const url = URL.createObjectURL(new Blob([data.workerSource], { type: 'text/javascript' }));
-      worker = new Worker(url);
-      timer = setTimeout(() => {
-        worker.terminate();
-        URL.revokeObjectURL(url);
-        parent.postMessage({ type: 'SANDBOX_TIMEOUT', runId }, '*');
-      }, data.timeout);
-      worker.onmessage = (workerEvent) => {
-        const message = workerEvent.data || {};
-        if (message.type === 'READY') {
-          URL.revokeObjectURL(url);
-          secret = message.secret;
-          worker.postMessage({ type: 'RUN', src: data.src, tests: data.tests });
-          return;
-        }
-        if (message.type !== 'RESULT' || message.secret !== secret) return;
-        clearTimeout(timer);
-        worker.terminate();
-        parent.postMessage({ type: 'SANDBOX_RESULT', runId, result: message.result }, '*');
-      };
-    });
-  <\/script>`;
-}
-
 export function runAsserts(src, tests = [], { timeout = 1200 } = {}) {
   if (typeof document === 'undefined') {
     return Promise.resolve({ lines: ['Sandbox unavailable.'], passed: 0, total: tests.length });
@@ -186,7 +152,7 @@ export function runAsserts(src, tests = [], { timeout = 1200 } = {}) {
     frame.hidden = true;
     frame.setAttribute('sandbox', 'allow-scripts');
     frame.setAttribute('title', 'Isolated code practice runner');
-    frame.srcdoc = sandboxFrameHtml();
+    frame.src = new URL('sandbox-runner.html', document.baseURI).href;
     const finish = (result) => {
       clearTimeout(parentTimer);
       window.removeEventListener('message', onMessage);

@@ -328,8 +328,7 @@ export function renderJournal(App, c) {
     }
     App.haptic(14); App.bumpStreak();
     pendingDebriefId = trade.id;
-    App.render();
-    showDebrief(App, trade.id);
+    Promise.resolve(App.render()).then(() => showDebrief(App, trade.id));
   });
 
   document.getElementById('cdOverride')?.addEventListener('click', () => {

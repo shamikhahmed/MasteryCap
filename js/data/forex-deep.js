@@ -176,7 +176,7 @@ export const FOREX_DEEP_WEEKS = [
     title: { en: 'FX Practice Loop', ur: 'FX Practice Loop' },
     objective: {
       en: 'Run a sober FX loop: venue → calendar → size → log → review.',
-      ur: 'Venue → calendar → size → log → review.',
+      ur: 'Regulated venue → economic calendar → risk-based size → har ticket log → weekly review.',
     },
     teach: {
       en: `<p>Rails: regulated venue, know session, size by risk, check calendar before first trade, respect swap, cap correlated themes, log every practice ticket.</p>
@@ -293,7 +293,7 @@ export const FOREX_DEEP_WEEKS = [
       { front: { en: 'Unlock withdrawal fee ask', ur: 'Unlock withdrawal fee maangna' }, back: { en: 'Trap — stop funding.', ur: 'Trap.' } },
       { front: { en: 'FX end loop', ur: 'Loop' }, back: { en: 'Venue → calendar → size → log → review.', ur: 'Venue → calendar → size → log → review.' } },
       { front: { en: 'Charts without rails', ur: 'Charts' }, back: { en: 'Decoration.', ur: 'Decoration.' } },
-      { front: { en: 'Certificate here means', ur: 'Yahan certificate ka matlab kya hai' }, back: { en: 'Study progress — not a trading license.', ur: 'Study progress hai — trading license nahi.' } },
+      { front: { en: 'Study record here means', ur: 'Yahan study record ka matlab kya hai' }, back: { en: 'Study progress — not a trading license.', ur: 'Study progress hai — trading license nahi.' } },
     ],
     quiz: [
       { q: { en: 'Blocked withdrawal + “pay unlock fee” is:', ur: 'Blocked withdrawal + “pay unlock fee” kya hai:' },
@@ -305,7 +305,7 @@ export const FOREX_DEEP_WEEKS = [
       { q: { en: 'Charts alone are insufficient because:', ur: 'Sirf charts kafi kyun nahi hain kyunki:' },
         opts: { en: ['Venue, size, calendar, logs still decide survival', 'Charts are illegal', 'Indicators always fail'], ur: ['Venue, size, calendar, logs ab bhi survival decide karte hain', 'Illegal', 'Always fail'] },
         correct: 0, explain: { en: 'Survival stack.', ur: 'Survival.' } },
-      { q: { en: 'This track’s certificate means:', ur: 'Is track ke certificate ka matlab kya hai:' },
+      { q: { en: 'This track’s study record means:', ur: 'Is track ke study record ka matlab kya hai:' },
         opts: { en: ['Local study progress — not a license', 'Broker license', 'Income entitlement'], ur: ['Local study progress hai — license nahi hai ye', 'Broker license', 'Income'] },
         correct: 0, explain: { en: 'Honesty.', ur: 'Honesty.' } },
     ],
@@ -324,5 +324,5 @@ export const FOREX_DEEP_PLACEMENT = [
   { topic: 5, q: { en: 'Carry classic failure:', ur: 'Carry classic failure kaisa dikhta hai:' }, opts: { en: ['Slow grind then violent unwind', 'Never fails', 'Only fails on Sundays'], ur: ['Slow grind phir violent unwind — carry fail pattern', 'Never', 'Sirf Sunday ko fail — ye galat assumption hai'] }, correct: 0 },
   { topic: 5, q: { en: 'Correlated tickets budget as:', ur: 'Correlated tickets ko budget kaise karna chahiye:' }, opts: { en: ['One theme', 'Per ticket free risk', 'Unlimited'], ur: ['One theme', 'Per ticket', 'Unlimited'] }, correct: 0 },
   { topic: 6, q: { en: 'Unlock withdrawal fee ask:', ur: 'Unlock withdrawal fee maangna kya hai:' }, opts: { en: ['Trap — stop funding', 'Normal', 'Required'], ur: ['Trap', 'Normal', 'Required'] }, correct: 0 },
-  { topic: 6, q: { en: 'FX certificate here means:', ur: 'Yahan FX certificate ka matlab kya hai:' }, opts: { en: ['Study progress — not a license', 'Broker license', 'Income right'], ur: ['Study progress hai license nahi hai ye track', 'License', 'Income'] }, correct: 0 },
+  { topic: 6, q: { en: 'FX study record here means:', ur: 'Yahan FX study record ka matlab kya hai:' }, opts: { en: ['Study progress — not a license', 'Broker license', 'Income right'], ur: ['Study progress hai license nahi hai ye track', 'License', 'Income'] }, correct: 0 },
 ];

@@ -174,9 +174,9 @@ export const OPTIONS_DEEP_WEEKS = [
     },
     teach: {
       en: `<p>Loop: underlying thesis → choose defined-risk structure when learning → write max loss + expiry plan → avoid blind event longs → journal. Greeks deep track comes after basics.</p>
-<p>Certificate = study record — not a market-maker license.</p>`,
+<p>Completion output = self-issued study record — not a market-maker license.</p>`,
       ur: `<p>Loop: underlying thesis → seekhte waqt defined-risk structure → max loss + expiry plan likho → blind event longs avoid → journal. Greeks deep track basics ke baad.</p>
-<p>Certificate = study record — market-maker license nahi.</p>`,
+<p>Completion output self-issued study record hai — market-maker license nahi.</p>`,
     },
     workedExample: {
       en: `<p>Card: “Debit call spread · max loss = debit · exit 7 DTE · no earnings hold.”</p>`,
@@ -192,7 +192,7 @@ export const OPTIONS_DEEP_WEEKS = [
       { front: { en: 'Options loop', ur: 'Loop' }, back: { en: 'Thesis → structure → max loss → expiry → log.', ur: 'Thesis → structure → max → expiry → log.' } },
       { front: { en: 'Learning default', ur: 'Default' }, back: { en: 'Defined-risk structures.', ur: 'Defined-risk structures use karo.' } },
       { front: { en: 'Blind earnings long premium', ur: 'Blind earnings long premium lena' }, back: { en: 'IV crush risk.', ur: 'IV crush.' } },
-      { front: { en: 'Certificate', ur: 'Cert' }, back: { en: 'Study progress — not MM license.', ur: 'Study progress hai — MM license nahi.' } },
+      { front: { en: 'Study record', ur: 'Study record' }, back: { en: 'Study progress — not MM license.', ur: 'Study progress hai — MM license nahi.' } },
       { front: { en: 'Greeks track', ur: 'Greeks' }, back: { en: 'After basics — deeper sensitivity.', ur: 'Basics ke baad — deeper sensitivity seekho.' } },
     ],
     quiz: [
@@ -202,7 +202,7 @@ export const OPTIONS_DEEP_WEEKS = [
       { q: { en: 'Learning default structure:', ur: 'Learning default structure kya hai:' },
         opts: { en: ['Defined-risk', 'Always naked short', 'Ignore expiry'], ur: ['Defined-risk', 'Naked', 'Ignore expiry'] },
         correct: 0, explain: { en: 'Cap risk while learning.', ur: 'Seekhte waqt risk cap karo.' } },
-      { q: { en: 'This certificate means:', ur: 'Is certificate ka matlab kya hai:' },
+      { q: { en: 'This study record means:', ur: 'Is study record ka matlab kya hai:' },
         opts: { en: ['Study progress — not a license', 'Broker license', 'Income'], ur: ['Study', 'Broker', 'Income'] },
         correct: 0, explain: { en: 'Honesty.', ur: 'Honesty.' } },
       { q: { en: 'After this track next depth is:', ur: 'Is track ke baad agla depth kya hai:' },
@@ -220,5 +220,5 @@ export const OPTIONS_DEEP_PLACEMENT = [
   { topic: 3, q: { en: 'Naked short call:', ur: 'Naked short call kya hota hai:' }, opts: { en: ['Large upside risk', 'Capped at credit', 'Riskless'], ur: ['Upside risk', 'Capped', 'Riskless'] }, correct: 0 },
   { topic: 3, q: { en: 'Before click state:', ur: 'Click se pehle state kya honi chahiye:' }, opts: { en: ['Max loss', 'Only vibes', 'Tip OK'], ur: ['Max loss', 'Vibes', 'Tip'] }, correct: 0 },
   { topic: 4, q: { en: 'Loop starts:', ur: 'Loop:' }, opts: { en: ['Thesis + structure + max loss', 'Naked first', 'Skip expiry'], ur: ['Thesis structure aur max loss pehle se clear hon', 'Naked', 'Skip'] }, correct: 0 },
-  { topic: 4, q: { en: 'Certificate:', ur: 'Cert:' }, opts: { en: ['Study record', 'MM license', 'Income'], ur: ['Study', 'MM', 'Income'] }, correct: 0 },
+  { topic: 4, q: { en: 'Study record:', ur: 'Study record:' }, opts: { en: ['Study record', 'MM license', 'Income'], ur: ['Study', 'MM', 'Income'] }, correct: 0 },
 ];

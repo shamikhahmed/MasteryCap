@@ -72,6 +72,10 @@ export function renderPracticeTab(App, el) {
         <span class="grow">${en ? 'Hasil — can / can\'t-yet' : 'Hasil — can / abhi nahi'}</span>
         <span class="mono">→</span>
       </button>
+      <button class="inst-row-item" id="prHowto">
+        <span class="grow">${en ? 'Markets safety checklists' : 'Markets safety checklists'}</span>
+        <span class="mono">→</span>
+      </button>
     </div>
     <div class="slabel mt16">${en ? 'Practice ledger & drills' : 'Practice ledger aur drills'}</div>
     <div class="inst-list">
@@ -104,6 +108,10 @@ export function renderPracticeTab(App, el) {
   document.getElementById('prCharts')?.addEventListener('click', () => App.openCharts());
   document.getElementById('prHasil')?.addEventListener('click', () => {
     App.openHasil('practice');
+  });
+  document.getElementById('prHowto')?.addEventListener('click', async () => {
+    const { openHowto } = await import('../howto.js');
+    openHowto(App);
   });
   document.getElementById('prDrills')?.addEventListener('click', () => App.openDrills());
   document.getElementById('prStudy')?.addEventListener('click', () => App.openStudy());

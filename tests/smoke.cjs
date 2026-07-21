@@ -52,7 +52,7 @@ async function onboard(page) {
     await dismissSheets(page);
     await page.locator('#first-backup-sheet [data-close]').first().click({ timeout: 800 }).catch(() => {});
     await page.evaluate(() => {
-      document.querySelectorAll('.sheet-root.on').forEach((el) => el.classList.remove('on'));
+      document.querySelectorAll('.sheet-root.on').forEach((el) => el.remove());
     });
     return;
   }
@@ -95,7 +95,7 @@ async function dismissSheets(page) {
     await page.waitForTimeout(60);
   }
   await page.evaluate(() => {
-    document.querySelectorAll('.sheet-root.on').forEach((el) => el.classList.remove('on'));
+    document.querySelectorAll('.sheet-root.on').forEach((el) => el.remove());
     document.getElementById('readingGuide')?.remove();
     document.getElementById('committee-sheet')?.remove();
   });
@@ -115,10 +115,16 @@ async function goTab(page, id) {
   let failed = false;
 
   try {
-    for (const width of [375, 390, 430]) {
+    const widths = process.env.SMOKE_WIDTHS
+      ? process.env.SMOKE_WIDTHS.split(',').map(Number).filter(Boolean)
+      : [375, 390, 430];
+    for (const width of widths) {
       const context = await browser.newContext({ viewport: { width, height: 812 } });
       const page = await context.newPage();
       page.on('pageerror', (e) => errors.push(`${width}:${e.message}`));
+      page.on('console', (message) => {
+        if (message.type() === 'error') errors.push(`${width}:console:${message.text()}`);
+      });
 
       await page.goto(base + '/', { waitUntil: 'domcontentloaded' });
       await page.waitForTimeout(2200);
@@ -171,7 +177,16 @@ async function goTab(page, id) {
         await page.waitForSelector('#camStart', { timeout: 5000 });
         await page.locator('#camStart').click();
       }
-      await page.waitForSelector('.lesson-screen, .lesson-body, #startQuiz, [data-week]', { timeout: 10000 });
+      await page.waitForSelector('.lesson-screen, .lesson-body, #startQuiz, [data-week]', { timeout: 10000 }).catch(async (error) => {
+        const state = await page.evaluate(() => ({
+          title: document.querySelector('#app-root h1')?.textContent,
+          text: document.querySelector('#app-root')?.textContent?.replace(/\s+/g, ' ').trim().slice(0, 500),
+          busy: document.querySelector('#app-root')?.getAttribute('aria-busy'),
+          tabbarHidden: document.getElementById('tabbar')?.classList.contains('hidden'),
+        }));
+        console.error(`lesson navigation state: ${JSON.stringify(state)}`);
+        throw error;
+      });
       await page.screenshot({ path: path.join(outDir, `lesson-${width}.png`), fullPage: true });
       await page.locator('#lsBack, #mktBackCampus').first().click().catch(() => {});
       await page.waitForSelector('#tabbar:not(.hidden)', { timeout: 5000 }).catch(() => {});
@@ -293,6 +308,7 @@ async function goTab(page, id) {
     }
   } catch (e) {
     console.error(e);
+    if (errors.length) console.error('pageerrors:', errors);
     failed = true;
   } finally {
     await browser.close();

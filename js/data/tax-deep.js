@@ -207,7 +207,7 @@ export const TAX_DEEP_WEEKS = [
       { q: { en: 'Wealth path honesty here means:', ur: 'Wealth path honesty yahan kya matlab hai:' },
         opts: { en: ['Clean records + real advice when needed', 'Evasion tricks', 'Guaranteed refunds'], ur: ['Clean records + jab zarurat ho real advice lena', 'Evasion', 'Guaranteed'] },
         correct: 0, explain: { en: 'Paperwork > fantasy.', ur: 'Paperwork.' } },
-      { q: { en: 'This certificate means:', ur: 'Is certificate ka matlab kya hai:' },
+      { q: { en: 'This study record means:', ur: 'Is study record ka matlab kya hai:' },
         opts: { en: ['Study progress — not a tax license', 'You may practice as CPA', 'Income entitlement'], ur: ['Study progress hai — tax license nahi hai ye', 'CPA', 'Income'] },
         correct: 0, explain: { en: 'Honesty.', ur: 'Honesty.' } },
     ],

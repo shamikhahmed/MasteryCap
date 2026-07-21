@@ -5,6 +5,7 @@
 import { icon } from './icons.js';
 import { TRACKS } from './data/tracks.js';
 import { searchGlossary } from './data/glossary.js';
+import { mountDialog } from './dialog.js';
 
 let INDEX = null;
 
@@ -88,5 +89,5 @@ export function openSearch(App, { onOpenWeek } = {}) {
   const inp = sheet.querySelector('#searchQ');
   inp.addEventListener('input', () => paint(inp.value));
   paint('');
-  inp.focus();
+  mountDialog(sheet, { initialFocus: '#searchQ' });
 }

@@ -4,7 +4,7 @@ import { icon } from '../icons.js';
 import { store, KEYS } from '../store.js';
 import { recommendPath, AGE_OPTS, LANG_OPTS, BUILD_OPTS, GOAL_OPTS, TIME_OPTS } from '../institute/placement.js';
 import { enrollCourse } from '../institute/progress.js';
-import { seedFoundationsSoftStart } from '../gates.js';
+import { seedFoundationsSoftStart } from '../institute/onboarding-progress.js';
 import { issueStudentId, monogramFromName, getStudentPhoto } from '../institute/student-id.js';
 import { renderStudentIdCard } from './student-id-view.js';
 

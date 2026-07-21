@@ -386,11 +386,11 @@ async function enterSim(page, scenarioId, { risk = '1', overRisk = false, limit 
       store.set(KEYS.simTrades, trades);
       const src = await (await fetch(new URL('./js/exam.js', location.href))).text();
       return {
-        hasReady: src.includes('TRADE-READY'),
+        hasReadiness: src.includes('Paper Process Readiness'),
         hasHonesty: /Self-issued|NOT SECP|not a broker\/regulatory license|markets still decide outcomes|markets outcomes decide|competence decays/i.test(src),
       };
     });
-    if (!cert.hasReady || !cert.hasHonesty) fail('cert honesty line missing');
+    if (!cert.hasReadiness || !cert.hasHonesty) fail('study-record honesty line missing');
     await page.reload({ waitUntil: 'networkidle' });
     await page.waitForTimeout(500);
     await dismissNoise(page);

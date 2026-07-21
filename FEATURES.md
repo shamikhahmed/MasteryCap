@@ -1,6 +1,6 @@
 # MasteryCap Features
 
-**Version:** 52.1.0 · Premium School
+**Version:** 52.2.0 · Premium School
 
 ## Strengths
 - Offline-first PWA; no accounts

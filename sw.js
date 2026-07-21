@@ -1,16 +1,19 @@
 /* MasteryCap service worker — offline-first shell cache */
 const CACHE_PREFIX = 'masterycap-';
-const CACHE = 'masterycap-v5210';
+const CACHE = 'masterycap-v5220';
 const ASSETS = [
   './',
   './index.html',
+  './sandbox-runner.html',
   './css/app.css',
   './css/institute.css',
   './js/app.js',
+  './js/register-sw.js',
   './js/institute/student-id.js',
   './js/views/admission.js',
   './js/views/student-id-view.js',
   './js/institute/progress.js',
+  './js/institute/onboarding-progress.js',
   './js/institute/placement.js',
   './js/institute/features.js',
   './js/data/institute/catalog.js',
@@ -33,6 +36,7 @@ const ASSETS = [
   './js/institute/register.js',
   './js/institute/http-lab.js',
   './js/institute/code-editor.js',
+  './js/institute/sandbox-frame.js',
   './js/views/http-lab.js',
   './js/data/institute/fin-101.js',
   './js/data/institute/fin-201.js',
@@ -45,6 +49,7 @@ const ASSETS = [
   './js/store.js',
   './js/i18n.js',
   './js/icons.js',
+  './js/dialog.js',
   './js/session.js',
   './js/reading.js',
   './js/settings.js',
@@ -58,14 +63,12 @@ const ASSETS = [
   './js/lesson-extras.js',
   './js/week-extras.js',
   './js/exam.js',
-  './js/data/options.js',
   './js/skills.js',
   './js/teacher.js',
   './js/time.js',
   './js/today.js',
   './js/gates.js',
   './js/syllabus.js',
-  './js/report.js',
   './js/study.js',
   './js/views/study.js',
   './js/theme.js',
@@ -74,15 +77,7 @@ const ASSETS = [
   './js/chartgen.js',
   './js/worked-charts.js',
   './js/data/glossary.js',
-  './js/data/course.js',
   './js/data/tracks.js',
-  './js/data/stocks.js',
-  './js/data/futures.js',
-  './js/data/forex.js',
-  './js/data/spot.js',
-  './js/data/binary.js',
-  './js/data/invest.js',
-  './js/data/bots.js',
   './js/desk.js',
   './js/howto.js',
   './js/data/foundations.js',
@@ -99,10 +94,6 @@ const ASSETS = [
   './js/data/bots-deep.js',
   './js/data/binary-deep.js',
   './js/institute/committee.js',
-  './js/data/greeks.js',
-  './js/data/tax.js',
-  './js/data/macro.js',
-  './js/data/families.js',
   './js/data/personal-finance.js',
   './js/data/career-systems.js',
   './js/data/product-builders.js',
@@ -142,11 +133,54 @@ const ASSETS = [
   './icons/icon-1024.png',
   './assets/qr-masterycap.png',
 ];
+const SHELL_ASSETS = [
+  './',
+  './index.html',
+  './css/app.css',
+  './css/institute.css',
+  './js/app.js',
+  './js/register-sw.js',
+  './js/store.js',
+  './js/i18n.js',
+  './js/icons.js',
+  './js/dialog.js',
+  './js/settings.js',
+  './js/theme.js',
+  './js/teacher.js',
+  './js/mistakes.js',
+  './js/time.js',
+  './js/views/admission.js',
+  './js/views/student-id-view.js',
+  './js/institute/placement.js',
+  './js/institute/progress.js',
+  './js/institute/onboarding-progress.js',
+  './js/institute/student-id.js',
+  './fonts/geist-400.woff2',
+  './fonts/geist-500.woff2',
+  './fonts/geist-600.woff2',
+  './fonts/geist-700.woff2',
+  './fonts/geistmono-500.woff2',
+  './fonts/geistmono-600.woff2',
+  './manifest.webmanifest',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './icons/icon-maskable-192.png',
+  './icons/icon-maskable-512.png',
+  './icons/icon-180.png',
+  './icons/apple-touch-icon-180.png',
+  './icons/favicon.svg',
+  './icons/mark.svg',
+  './icons/icon-1024.png',
+];
+const OPTIONAL_ASSETS = ASSETS.filter((asset) => !SHELL_ASSETS.includes(asset));
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(CACHE)
-      .then((cache) => cache.addAll(ASSETS))
+      .then(async (cache) => {
+        await cache.addAll(SHELL_ASSETS);
+        await Promise.allSettled(OPTIONAL_ASSETS.map((asset) => cache.add(asset)));
+      })
       .then(() => self.skipWaiting())
       .catch(async (error) => {
         await caches.delete(CACHE);
@@ -190,9 +224,19 @@ self.addEventListener('fetch', (e) => {
     }
     return response;
   };
-  const currentMatch = async () => {
+  const ownedMatch = async () => {
     const cache = await caches.open(CACHE);
-    return cache.match(request, { ignoreSearch: true });
+    const current = await cache.match(request, { ignoreSearch: true });
+    if (current) return current;
+    const previous = (await caches.keys())
+      .filter((key) => key.startsWith(CACHE_PREFIX) && key !== CACHE)
+      .sort()
+      .reverse();
+    for (const key of previous) {
+      const fallback = await (await caches.open(key)).match(request, { ignoreSearch: true });
+      if (fallback) return fallback;
+    }
+    return null;
   };
   // network-first for navigations + JS/CSS so deploys don't stick on stale SW cache
   if (request.mode === 'navigate' || path.endsWith('.js') || path.endsWith('.css') || path.endsWith('.html')) {
@@ -200,7 +244,7 @@ self.addEventListener('fetch', (e) => {
       fetch(request)
         .then(cacheResponse)
         .catch(async () => {
-          const cached = await currentMatch();
+          const cached = await ownedMatch();
           if (cached) return cached;
           if (request.mode !== 'navigate') throw new Error('Offline asset unavailable');
           const cache = await caches.open(CACHE);
@@ -212,7 +256,7 @@ self.addEventListener('fetch', (e) => {
     return;
   }
   e.respondWith(
-    currentMatch().then((cached) =>
+    ownedMatch().then((cached) =>
       cached ||
       fetch(request).then(cacheResponse)
     )

@@ -12,10 +12,17 @@ import { renderStudentIdCard } from './student-id-view.js';
 import { dueFlashCount } from '../study.js';
 import { foundationsGateOpen } from '../gates.js';
 import { getTrack } from '../data/tracks.js';
-import { openSessionRunner, sessionStatus } from '../session.js';
 import { store, KEYS } from '../store.js';
 import { mistakeCountDue } from '../mistakes.js';
 import { dueReviewCount } from '../retention.js';
+
+function marketSessionStatus() {
+  const run = store.get(KEYS.sessionRun, null);
+  const today = new Date().toISOString().slice(0, 10);
+  if (!run || run.day !== today) return { active: false, doneToday: false };
+  if (run.done) return { active: false, doneToday: true, total: run.steps?.length || 0 };
+  return { active: true, doneToday: false, step: (run.step || 0) + 1, total: run.steps?.length || 0 };
+}
 
 export function renderToday(App, el) {
   const p = App.profile || {};
@@ -43,7 +50,8 @@ export function renderToday(App, el) {
   const gateOpen = foundationsGateOpen(App);
 
   let continueBlock = '';
-  if (code === 'MKT-LEGACY' || p.primaryBranch === 'markets' || p.starterSchool === 'markets') {
+  const marketsActive = !course && (code === 'MKT-LEGACY' || p.primaryBranch === 'markets' || p.starterSchool === 'markets');
+  if (marketsActive) {
     continueBlock = `<section class="hb-section" data-testid="campus-dashboard">
       <div class="hb-label">${en ? 'Continue' : 'Jari'}</div>
       <div class="inst-card accent-rule hb-continue">
@@ -117,7 +125,7 @@ export function renderToday(App, el) {
   </section>`;
 
   const sessionMins = store.get(KEYS.settings, {}).sessionMins || 15;
-  const sess = sessionStatus();
+  const sess = marketSessionStatus();
   const sessCta = sess.active
     ? `${App.t('session_resume')} · ${sess.step}/${sess.total}`
     : sess.doneToday
@@ -125,15 +133,28 @@ export function renderToday(App, el) {
       : `${App.t('session_start')} · ${sessionMins} min`;
   const missDue = mistakeCountDue();
   const quizDue = dueReviewCount();
-  const sessionBlock = `<section class="hb-section">
-      <div class="hb-label">${App.t('session_title')}</div>
-      <div class="inst-card accent-rule">
-        <p class="inst-muted">${en
-          ? 'Markets daily plan — lesson, flashcards, quiz, sim when unlocked.'
-          : 'Markets daily plan — lesson, cards, quiz, sim.'}</p>
-        <button class="btn accent mt10" id="tdSession" style="width:100%">${icon('learn', { size: 17 })} ${sessCta}</button>
-      </div>
-    </section>`;
+  const sessionBlock = course
+    ? `<section class="hb-section">
+        <div class="hb-label">${App.t('session_title')}</div>
+        <div class="inst-card accent-rule">
+          <div class="kicker">${esc(code)} · ${en ? 'Active course' : 'Active course'}</div>
+          <p class="inst-muted">${en
+            ? `${nxt ? 'Continue the next lesson' : 'Prepare the final assessment'}, review ${due} due course card(s), then update project evidence.`
+            : `${nxt ? 'Agla lesson jari' : 'Final assessment tayyar'}, ${due} due course cards review, phir project evidence.`}</p>
+          <button class="btn accent mt10" id="tdCoursePlan" style="width:100%">${icon('learn', { size: 17 })} ${nxt ? (en ? 'Continue active course' : 'Active course jari') : (en ? 'Open course practice' : 'Course practice kholo')}</button>
+        </div>
+      </section>`
+    : marketsActive
+      ? `<section class="hb-section">
+          <div class="hb-label">${App.t('session_title')}</div>
+          <div class="inst-card accent-rule">
+            <p class="inst-muted">${en
+              ? 'Markets daily plan — lesson, flashcards, quiz, sim when unlocked.'
+              : 'Markets daily plan — lesson, cards, quiz, sim.'}</p>
+            <button class="btn accent mt10" id="tdSession" style="width:100%">${icon('learn', { size: 17 })} ${sessCta}</button>
+          </div>
+        </section>`
+      : '';
 
   el.innerHTML = `<div class="screen inst-screen homeboard" data-testid="campus-dashboard">
     <div class="lt-head head-row">
@@ -170,7 +191,14 @@ export function renderToday(App, el) {
 
   document.getElementById('tdSettings')?.addEventListener('click', () => openSettings(App));
   document.getElementById('tdCampus')?.addEventListener('click', () => App.navigate('campus'));
-  document.getElementById('tdSession')?.addEventListener('click', () => openSessionRunner(App));
+  document.getElementById('tdSession')?.addEventListener('click', async () => {
+    const { openSessionRunner } = await import('../session.js');
+    openSessionRunner(App);
+  });
+  document.getElementById('tdCoursePlan')?.addEventListener('click', () => {
+    if (nxt) App.openLesson(code, nxt.id);
+    else App.navigate('practice');
+  });
   document.getElementById('tdReview')?.addEventListener('click', () => {
     if (quizDue + missDue > 0) App.openReview();
     else App.navigate('practice');

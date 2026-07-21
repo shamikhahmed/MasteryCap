@@ -33,7 +33,7 @@ export const GREEKS_DEEP_WEEKS = [
     title: { en: 'Delta & Direction', ur: 'Delta aur Direction' },
     objective: {
       en: 'Use delta as sensitivity to underlying move — not a crystal ball.',
-      ur: 'Delta = sensitivity — crystal ball nahi.',
+      ur: 'Delta = underlying move ki sensitivity — crystal ball ya guaranteed natija nahi.',
     },
     teach: {
       en: `<p><strong>Delta</strong> ≈ how much option price moves when underlying moves $1 (model-dependent). Calls positive delta; puts negative. Higher |delta| ≈ more stock-like.</p>
@@ -172,9 +172,9 @@ export const GREEKS_DEEP_WEEKS = [
     },
     teach: {
       en: `<p>Loop: pick defined-risk structure → read delta/theta/vega in words → check event/IV → size by max loss → log. If someone sells “Greeks system = weekly rich,” walk away.</p>
-<p>Certificate = study record.</p>`,
+<p>Completion output = self-issued study record, not a professional credential.</p>`,
       ur: `<p>Loop: defined-risk structure chuno → delta/theta/vega words mein parho → event/IV check → max loss se size → log. “Greeks system = weekly rich” bechne wale se door chalo.</p>
-<p>Certificate = study record.</p>`,
+<p>Completion output self-issued study record hai — professional credential nahi.</p>`,
     },
     workedExample: {
       en: `<p>Card: “Debit put spread · delta note · no earnings · max = debit.”</p>`,
@@ -190,7 +190,7 @@ export const GREEKS_DEEP_WEEKS = [
       { front: { en: 'Greeks loop', ur: 'Loop' }, back: { en: 'Structure → read dials → event → max loss → log.', ur: 'Structure → dials → event → max → log.' } },
       { front: { en: 'Greeks get-rich system', ur: 'Greeks get-rich system' }, back: { en: 'Fantasy marketing.', ur: 'Fantasy.' } },
       { front: { en: 'Primary risk number', ur: 'Primary' }, back: { en: 'Max loss in money.', ur: 'Max loss $.' } },
-      { front: { en: 'Certificate', ur: 'Cert' }, back: { en: 'Study progress — not income.', ur: 'Study — income nahi.' } },
+      { front: { en: 'Study record', ur: 'Study record' }, back: { en: 'Study progress — not income.', ur: 'Study — income nahi.' } },
       { front: { en: 'Screenshot Greeks without size', ur: 'Size ke bina Greeks ka screenshot' }, back: { en: 'Cosplay.', ur: 'Cosplay.' } },
     ],
     quiz: [
@@ -200,7 +200,7 @@ export const GREEKS_DEEP_WEEKS = [
       { q: { en: '“Greeks = weekly income” is:', ur: '“Greeks = weekly income” kya hai:' },
         opts: { en: ['Fantasy pitch', 'Guaranteed', 'SECP product'], ur: ['Fantasy', 'Guaranteed', 'SECP'] },
         correct: 0, explain: { en: 'Refuse.', ur: 'Refuse.' } },
-      { q: { en: 'This certificate means:', ur: 'Is certificate ka matlab kya hai:' },
+      { q: { en: 'This study record means:', ur: 'Is study record ka matlab kya hai:' },
         opts: { en: ['Study progress', 'Market-maker license', 'Income right'], ur: ['Study', 'MM license', 'Income'] },
         correct: 0, explain: { en: 'Honesty.', ur: 'Honesty.' } },
       { q: { en: 'Before entry you should state:', ur: 'Entry se pehle tumhein kya kehna chahiye:' },
@@ -218,5 +218,5 @@ export const GREEKS_DEEP_PLACEMENT = [
   { topic: 3, q: { en: 'Vega tracks:', ur: 'Vega:' }, opts: { en: ['IV', 'Dividends only', 'Swap'], ur: ['IV', 'Div', 'Swap'] }, correct: 0 },
   { topic: 3, q: { en: 'IV crush:', ur: 'Crush:' }, opts: { en: ['Hurts long premium', 'Only helps', 'Deletes spot'], ur: ['Hurts long', 'Helps', 'Deletes spot'] }, correct: 0 },
   { topic: 4, q: { en: 'Loop priority:', ur: 'Loop:' }, opts: { en: ['Max loss + structure', 'Get-rich system', 'Skip log'], ur: ['Max loss', 'Get-rich', 'Skip'] }, correct: 0 },
-  { topic: 4, q: { en: 'Certificate:', ur: 'Cert:' }, opts: { en: ['Study record', 'MM license', 'Income'], ur: ['Study', 'MM', 'Income'] }, correct: 0 },
+  { topic: 4, q: { en: 'Study record:', ur: 'Study record:' }, opts: { en: ['Study record', 'MM license', 'Income'], ur: ['Study', 'MM', 'Income'] }, correct: 0 },
 ];

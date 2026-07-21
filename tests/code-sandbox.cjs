@@ -11,7 +11,7 @@ function startServer() {
       const url = decodeURIComponent((req.url || '/').split('?')[0]);
       if (url === '/' || url === '/blank.html') {
         res.writeHead(200, { 'Content-Type': 'text/html', 'Cache-Control': 'no-store' });
-        res.end('<!doctype html><title>Sandbox test</title><body></body>');
+        res.end(`<!doctype html><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; frame-src 'self'; worker-src 'self' blob:"><title>Sandbox test</title><body></body>`);
         return;
       }
       const file = path.join(root, url.replace(/^\//, ''));
@@ -20,7 +20,10 @@ function startServer() {
         res.end('missing');
         return;
       }
-      res.writeHead(200, { 'Content-Type': file.endsWith('.js') ? 'text/javascript' : 'application/octet-stream', 'Cache-Control': 'no-store' });
+      res.writeHead(200, {
+        'Content-Type': file.endsWith('.js') ? 'text/javascript' : file.endsWith('.html') ? 'text/html' : 'application/octet-stream',
+        'Cache-Control': 'no-store',
+      });
       fs.createReadStream(file).pipe(res);
     });
     server.listen(0, '127.0.0.1', () => {

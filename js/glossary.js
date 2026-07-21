@@ -4,6 +4,7 @@
 
 import { icon } from './icons.js';
 import { searchGlossary } from './data/glossary.js';
+import { mountDialog } from './dialog.js';
 
 export function openGlossary(App) {
   const existing = document.getElementById('glossary-sheet');
@@ -52,11 +53,11 @@ export function openGlossary(App) {
   }
   paint('');
   inp.addEventListener('input', () => paint(inp.value));
-  inp.focus();
 
   const close = () => {
     sheet.classList.remove('on');
     setTimeout(() => sheet.remove(), 220);
   };
   sheet.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', close));
+  mountDialog(sheet, { initialFocus: '#glossQ' });
 }

@@ -6,32 +6,54 @@
 import { store, KEYS } from './store.js';
 import { tr } from './i18n.js';
 import { icon } from './icons.js';
-import { renderCourse, confirmCourseLeave, clearCourseDirty } from './views/course.js';
-import { renderJournal } from './views/journal.js';
-import { renderProgress } from './views/progress.js';
-import { renderDrills } from './views/drills.js';
-import { renderReview } from './views/review.js';
-import { renderCharts } from './views/charts.js';
-import { renderSim, stopSimPlayback } from './views/sim.js';
-import { renderStudy } from './views/study.js';
-import { renderToday } from './views/today-tab.js';
-import { renderCampus } from './views/campus.js';
-import { renderPracticeTab } from './views/practice-tab.js';
-import { renderRecords } from './views/records.js';
-import { renderLesson, renderFinal } from './views/lesson.js';
-import { renderHttpLab } from './views/http-lab.js';
-import { isOn } from './institute/features.js';
-import { touchStreak, touchStreakWithFreeze, markHabitDay, dueReviewCount, tryStreakRecovery, getStreak } from './retention.js';
 import { applySettings, openSettings, APP_VERSION } from './settings.js';
 import { mistakeCountDue } from './mistakes.js';
 import { applyTheme } from './theme.js';
 import { pauseTime, touchTime } from './time.js';
-import { preferredStartTrack } from './gates.js';
-import { canOpenTradingLab } from './gates.js';
-import { syncSessionBar } from './session.js';
-import { renderAdmission } from './views/admission.js';
+import { mountDialog } from './dialog.js';
 
 const root = () => document.getElementById('app-root');
+const ROUTES = {
+  today: ['./views/today-tab.js', 'renderToday'],
+  campus: ['./views/campus.js', 'renderCampus'],
+  practice: ['./views/practice-tab.js', 'renderPracticeTab'],
+  records: ['./views/records.js', 'renderRecords'],
+  lesson: ['./views/lesson.js', 'renderLesson'],
+  final: ['./views/lesson.js', 'renderFinal'],
+  learn: ['./views/course.js', 'renderCourse'],
+  journal: ['./views/journal.js', 'renderJournal'],
+  progress: ['./views/progress.js', 'renderProgress'],
+  drills: ['./views/drills.js', 'renderDrills'],
+  review: ['./views/review.js', 'renderReview'],
+  charts: ['./views/charts.js', 'renderCharts'],
+  sim: ['./views/sim.js', 'renderSim'],
+  study: ['./views/study.js', 'renderStudy'],
+};
+const routeCache = new Map();
+
+function loadRoute(tab) {
+  if (tab === 'http-lab') {
+    if (!routeCache.has(tab)) {
+      routeCache.set(tab, Promise.all([
+        import('./institute/features.js'),
+        import('./views/http-lab.js'),
+        import('./views/practice-tab.js'),
+      ]).then(([features, lab, practice]) => (App, el) => {
+        if (!features.isOn('httpLab')) {
+          App.tab = 'practice';
+          practice.renderPracticeTab(App, el);
+          return;
+        }
+        lab.renderHttpLab(App, el);
+      }));
+    }
+    return routeCache.get(tab);
+  }
+  const [path, exportName] = ROUTES[tab] || ROUTES.today;
+  const key = `${path}:${exportName}`;
+  if (!routeCache.has(key)) routeCache.set(key, import(path).then((module) => module[exportName]));
+  return routeCache.get(key);
+}
 
 export const App = {
   lang: 'en',
@@ -125,14 +147,17 @@ export const App = {
   },
 
   /* ----- routing ----- */
-  navigate(tab) {
+  async navigate(tab) {
     if (tab === 'dashboard') tab = 'today';
     if (tab === this.tab) { this.render(); return; }
     if (this.tab === 'learn' && tab !== 'learn') {
+      const { confirmCourseLeave, clearCourseDirty } = await import('./views/course.js');
       if (!confirmCourseLeave(this)) return;
       clearCourseDirty();
     }
-    if (this.tab === 'sim' && tab !== 'sim') stopSimPlayback();
+    if (this.tab === 'sim' && tab !== 'sim') {
+      import('./views/sim.js').then(({ stopSimPlayback }) => stopSimPlayback()).catch(() => {});
+    }
     if (tab === 'today' || tab === 'campus' || tab === 'practice' || tab === 'records') {
       this._lesson = null;
       this._finalCode = null;
@@ -211,7 +236,8 @@ export const App = {
     this.render(); this.renderNav();
   },
 
-  openSim() {
+  async openSim() {
+    const { canOpenTradingLab } = await import('./gates.js');
     if (!canOpenTradingLab(this)) {
       this.openDrills();
       return;
@@ -232,57 +258,53 @@ export const App = {
   },
 
   closeSim() {
-    stopSimPlayback();
+    import('./views/sim.js').then(({ stopSimPlayback }) => stopSimPlayback()).catch(() => {});
     this.tab = this._simReturn || 'practice';
     this.render(); this.renderNav();
     this.restoreFocus();
   },
 
-  bumpStreak() { markHabitDay(); return touchStreakWithFreeze(); },
+  async bumpStreak() {
+    const { markHabitDay, touchStreakWithFreeze } = await import('./retention.js');
+    markHabitDay();
+    return touchStreakWithFreeze();
+  },
 
   /** After subview back: focus opener control, else panel h1. */
   restoreFocus() {
     const sel = this._focusSel;
     this._focusSel = null;
-    requestAnimationFrame(() => {
+    Promise.resolve(this._renderPromise).catch(() => {}).then(() => requestAnimationFrame(() => {
       let el = sel ? document.querySelector(sel) : null;
       if (!el) {
         el = document.querySelector('#app-root h1');
         if (el && !el.hasAttribute('tabindex')) el.tabIndex = -1;
       }
       el?.focus?.({ preventScroll: true });
-    });
+    }));
   },
 
   render() {
     const c = root(); if (!c) return;
-    if (this.tab !== 'sim') stopSimPlayback();
-    const map = {
-      today: renderToday,
-      campus: renderCampus,
-      practice: renderPracticeTab,
-      records: renderRecords,
-      lesson: renderLesson,
-      final: renderFinal,
-      'http-lab': (App, el) => {
-        if (!isOn('httpLab')) {
-          App.tab = 'practice';
-          renderPracticeTab(App, el);
-          return;
-        }
-        renderHttpLab(App, el);
-      },
-      learn: renderCourse,
-      journal: renderJournal,
-      progress: renderProgress,
-      drills: renderDrills,
-      review: renderReview,
-      charts: renderCharts,
-      sim: renderSim,
-      study: renderStudy,
-    };
-    (map[this.tab] || renderToday)(this, c);
-    syncSessionBar(this);
+    const tab = this.tab;
+    const token = (this._renderToken || 0) + 1;
+    this._renderToken = token;
+    c.setAttribute('aria-busy', 'true');
+    const pending = (async () => {
+      const renderer = await loadRoute(tab);
+      if (this._renderToken !== token || this.tab !== tab) return;
+      await renderer(this, c);
+      if (this._renderToken !== token) return;
+      c.removeAttribute('aria-busy');
+      import('./session.js').then(({ syncSessionBar }) => syncSessionBar(this)).catch(() => {});
+    })().catch((error) => {
+      if (this._renderToken !== token) return;
+      c.removeAttribute('aria-busy');
+      c.innerHTML = `<div class="screen"><h1>Unable to open this view</h1><p class="inst-muted">Reload MasteryCap and try again.</p></div>`;
+      console.error('route render failed', tab, error);
+    });
+    this._renderPromise = pending;
+    return pending;
   },
 
   renderNav() {
@@ -291,7 +313,7 @@ export const App = {
     const hide = this.tab === 'lesson' || this.tab === 'final' || this.tab === 'sim' || this.tab === 'http-lab';
     if (hide) { nav.classList.add('hidden'); return; }
     nav.classList.remove('hidden');
-    const due = dueReviewCount() + mistakeCountDue();
+    let due = mistakeCountDue();
     const tabs = [
       ['today', 'home', this.t('nav_today')],
       ['campus', 'book', this.t('nav_campus')],
@@ -309,7 +331,7 @@ export const App = {
       <button type="button" class="tab ${active === id ? 'active' : ''}" role="tab" id="tab-${id}"
         data-tab="${id}" aria-selected="${active === id ? 'true' : 'false'}"
         aria-controls="app-root" tabindex="${active === id ? '0' : '-1'}">
-        <span class="tab-ic-wrap">${icon(ic, { size: 21 })}${id === 'practice' && due > 0 ? `<span class="tab-badge" aria-label="${due} due">${due > 9 ? '9+' : due}</span>` : ''}</span>
+        <span class="tab-ic-wrap">${icon(ic, { size: 21 })}${id === 'practice' ? `<span class="tab-badge ${due > 0 ? '' : 'hidden'}" data-due-badge aria-label="${due} due">${due > 9 ? '9+' : due}</span>` : ''}</span>
         <span class="tab-label">${label}</span>
       </button>`).join('')}</div>`;
     const order = tabs.map(([id]) => id);
@@ -329,6 +351,15 @@ export const App = {
         document.querySelector(`#tabbar [data-tab="${order[next]}"]`)?.focus({ preventScroll: true });
       });
     });
+    import('./retention.js').then(({ dueReviewCount }) => {
+      if (!nav.isConnected) return;
+      due = dueReviewCount() + mistakeCountDue();
+      const badge = nav.querySelector('[data-due-badge]');
+      if (!badge) return;
+      badge.classList.toggle('hidden', due <= 0);
+      badge.textContent = due > 9 ? '9+' : String(due);
+      badge.setAttribute('aria-label', `${due} due`);
+    }).catch(() => {});
     const panel = document.getElementById('app-root');
     if (panel) {
       panel.setAttribute('role', 'tabpanel');
@@ -340,7 +371,9 @@ export const App = {
 /* ============================================================
    Onboarding — Admission + Student ID (v47)
    ============================================================ */
-function renderOnboarding() {
+async function renderOnboarding() {
+  const { renderAdmission } = await import('./views/admission.js');
+  if (store.get(KEYS.onboarded)) return;
   renderAdmission(App, root);
   App._maybeFirstBackup = maybeFirstBackup;
 }
@@ -394,6 +427,7 @@ function maybeFirstBackup() {
       setTimeout(() => document.getElementById('setExport')?.click(), 200);
     });
   });
+  mountDialog(el, { initialFocus: '#firstBackupExport' });
 }
 
 function watchServiceWorker() {
@@ -485,6 +519,7 @@ function maybeCorruptSheet() {
     close();
     openSettings(App);
   });
+  mountDialog(el, { initialFocus: '#corruptKeep' });
 }
 
 function maybeWhatsNew() {
@@ -521,6 +556,7 @@ function maybeTour() {
   };
   document.body.appendChild(el);
   paint();
+  mountDialog(el, { initialFocus: '#tourNext' });
 }
 
 function maybeMorningBrief() {
@@ -530,7 +566,8 @@ function maybeMorningBrief() {
   store.set(KEYS.morningPending, true);
 }
 
-function maybeStreakRecovery() {
+async function maybeStreakRecovery() {
+  const { getStreak, tryStreakRecovery } = await import('./retention.js');
   const s = getStreak();
   if (!s?.broken || s.recovered) return;
   const el = document.createElement('div');
@@ -556,6 +593,7 @@ function maybeStreakRecovery() {
     // recovery granted after reviews via mark on review complete — soft grant now if user commits
     tryStreakRecovery();
   });
+  mountDialog(el, { initialFocus: '#srDo' });
 }
 
 function maybeNotifyReviews() {

@@ -6,6 +6,7 @@
 
 import { icon } from './icons.js';
 import { store, KEYS } from './store.js';
+import { mountDialog } from './dialog.js';
 
 export const HOWTO_GUIDES = [
   {
@@ -271,4 +272,5 @@ export function openHowto(App, { guideId } = {}) {
 
   document.body.appendChild(sheet);
   paint();
+  mountDialog(sheet);
 }

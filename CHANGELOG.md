@@ -1,3 +1,18 @@
+## [52.2.0] — 2026-07-21
+
+### Architecture, performance, interaction safety
+- Route views now load on demand through a race-safe route registry; focus restoration waits for asynchronous rendering and render failures show a recoverable state.
+- Fresh mobile Lighthouse performance improved from 0.77 to 0.98; the enforced release floor is now 0.90.
+- Service worker installation atomically requires only the 37-file shell, caches curriculum opportunistically, and falls back to the previous verified cache for offline optional assets.
+- A strict main-app CSP blocks inline/eval code; executable practice is confined to a separately governed opaque-origin sandbox.
+- Shared dialogs enforce labels, modal semantics, inert backgrounds, trapped focus, Escape close, and opener restoration.
+- Today prioritizes the active enrolled course over the original admission branch and presents branch-aware daily plans.
+- Markets safety checklists are linked into Practice instead of remaining hidden.
+- Removed 14 unreachable legacy modules, one obsolete migration script, and the completed v38 agent ledger/protocol (about 355 KB source); a module-graph audit now rejects new orphan browser code.
+- Removed 84 unused bilingual translation keys (168 stale entries); the i18n audit now reports a clean live-key set.
+- CI provisions Chromium, Firefox, and WebKit and runs a cross-browser mobile admission-shell check.
+- SW `masterycap-v5220`
+
 ## [52.1.0] — 2026-07-21
 
 ### Assessment integrity, evidence, and accessibility

@@ -6,13 +6,13 @@ import { fileURLToPath } from 'url';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const mods = [
-  ['greeks', 'GREEKS_WEEKS', 900],
+  ['greeks-deep', 'GREEKS_DEEP_WEEKS', 450],
   ['foundations', 'FOUNDATIONS_WEEKS', 500],
-  ['invest', 'INVEST_WEEKS', 800],
-  ['forex', 'FOREX_WEEKS', 700],
-  ['futures', 'FUTURES_WEEKS', 700],
-  ['macro', 'MACRO_WEEKS', 800],
-  ['tax', 'TAX_WEEKS', 700],
+  ['invest-deep', 'INVEST_DEEP_WEEKS', 450],
+  ['forex-deep', 'FOREX_DEEP_WEEKS', 450],
+  ['futures-deep', 'FUTURES_DEEP_WEEKS', 450],
+  ['macro-deep', 'MACRO_DEEP_WEEKS', 450],
+  ['tax-deep', 'TAX_DEEP_WEEKS', 450],
 ];
 
 function strip(h) {

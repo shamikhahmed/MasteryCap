@@ -176,9 +176,9 @@ export const INVEST_DEEP_WEEKS = [
     },
     teach: {
       en: `<p>Process: written thesis, filings check, position size from risk %, hold/exit rules before entry, journal, quarterly review. Tips are not a syllabus.</p>
-<p>MasteryCap certificates are self-issued study records — not licenses, not advice, not income rights.</p>`,
+<p>MasteryCap completion outputs are self-issued study records — not licenses, not advice, not income rights.</p>`,
       ur: `<p>Process: written thesis, filings check, position size risk % se, entry se pehle hold/exit rules, journal, quarterly review. Tips syllabus nahi hain.</p>
-<p>MasteryCap certificates self-issued study records hain — licenses, advice, income rights nahi.</p>`,
+<p>MasteryCap completion outputs self-issued study records hain — licenses, advice, income rights nahi.</p>`,
     },
     workedExample: {
       en: `<p>Practice card: “One name · two filings · 1% risk · no tip entry · journal line.”</p>`,
@@ -193,7 +193,7 @@ export const INVEST_DEEP_WEEKS = [
     flashcardSeeds: [
       { front: { en: 'Invest loop', ur: 'Loop' }, back: { en: 'Thesis → filings → size → rules → log → review.', ur: 'Thesis → filings → size → log → review.' } },
       { front: { en: 'Tips as syllabus', ur: 'Tips' }, back: { en: 'Not sufficient.', ur: 'Kaafi nahi.' } },
-      { front: { en: 'Certificate here', ur: 'Cert' }, back: { en: 'Study progress — not a license.', ur: 'Study — license nahi.' } },
+      { front: { en: 'Study record here', ur: 'Study record' }, back: { en: 'Study progress — not a license.', ur: 'Study — license nahi.' } },
       { front: { en: 'Size from', ur: 'Size' }, back: { en: 'Risk % — not story heat.', ur: 'Risk % matter karta — story heat nahi.' } },
       { front: { en: 'Long-term skips review', ur: 'Long-term review skip karna' }, back: { en: 'Breaks the learning loop.', ur: 'Learning loop toot jata hai.' } },
     ],
@@ -201,7 +201,7 @@ export const INVEST_DEEP_WEEKS = [
       { q: { en: 'Sober investing practice starts with:', ur: 'Sober investing practice kis se shuru hoti hai:' },
         opts: { en: ['Thesis + filings + risk size', 'Hot tip + max size', 'Ignore costs'], ur: ['Thesis + filings + size', 'Hot tip', 'Ignore costs'] },
         correct: 0, explain: { en: 'Process first.', ur: 'Process.' } },
-      { q: { en: 'This certificate means:', ur: 'Is certificate ka matlab kya hai:' },
+      { q: { en: 'This study record means:', ur: 'Is study record ka matlab kya hai:' },
         opts: { en: ['Local study progress — not a credential', 'Advisor license', 'Income entitlement'], ur: ['Local study progress hai — credential nahi hai ye', 'License', 'Income'] },
         correct: 0, explain: { en: 'Honesty.', ur: 'Honesty.' } },
       { q: { en: 'Tips replace:', ur: 'Tips:' },
@@ -222,5 +222,5 @@ export const INVEST_DEEP_PLACEMENT = [
   { topic: 3, q: { en: 'Informal funding adds:', ur: 'Informal funding kya add karti hai:' }, opts: { en: ['Legal risk', 'Free alpha', 'Zero cost'], ur: ['Legal risk', 'Alpha', 'Zero'] }, correct: 0 },
   { topic: 3, q: { en: 'Expense ratios:', ur: 'ER:' }, opts: { en: ['Drag compounding', 'Only help', 'Illegal'], ur: ['Drag', 'Help', 'Illegal'] }, correct: 0 },
   { topic: 4, q: { en: 'Invest loop starts with:', ur: 'Invest loop kis se shuru hoti hai:' }, opts: { en: ['Thesis + filings + size', 'Tips first', 'Max size'], ur: ['Thesis+filings', 'Tips', 'Max'] }, correct: 0 },
-  { topic: 4, q: { en: 'Certificate means:', ur: 'Certificate ka matlab kya hai:' }, opts: { en: ['Study progress', 'License', 'Income'], ur: ['Study', 'License', 'Income'] }, correct: 0 },
+  { topic: 4, q: { en: 'Study record means:', ur: 'Study record ka matlab kya hai:' }, opts: { en: ['Study progress', 'License', 'Income'], ur: ['Study', 'License', 'Income'] }, correct: 0 },
 ];

@@ -268,10 +268,10 @@ export const STOCKS_DEEP_WEEKS = [
     },
     teach: {
       en: `<p>Scams love equity theater: paid “mentors,” screenshot P/L, urgency to buy a thin name, recovery agents after a loss. Real brokerage support never needs your full password/OTP theater on chat apps.</p>
-<p>MasteryCap certificates are self-issued study records. Completing Stocks Literacy does not license you, guarantee returns, or make you an advisor.</p>
+<p>MasteryCap completion outputs are self-issued study records. Completing Stocks Literacy does not license you, guarantee returns, or make you an advisor.</p>
 <p>{{redflag:“Guaranteed weekly stock income” = fantasy product.}}</p>`,
       ur: `<p>Scams equity theater pasand karte: paid “mentors,” screenshot P/L, thin name khareedne ki urgency, loss ke baad recovery agents. Real brokerage support chat apps pe full password/OTP theater nahi mangti.</p>
-<p>MasteryCap certificates self-issued study records hain. Stocks Literacy complete karna license, returns guarantee, ya advisor nahi banata.</p>
+<p>MasteryCap completion outputs self-issued study records hain. Stocks Literacy complete karna license, returns guarantee, ya advisor nahi banata.</p>
 <p>{{redflag:“Guaranteed weekly stock income” = fantasy product.}}</p>`,
     },
     workedExample: {
@@ -287,7 +287,7 @@ export const STOCKS_DEEP_WEEKS = [
     flashcardSeeds: [
       { front: { en: 'Guaranteed stock income', ur: 'Guaranteed stock income ka claim' }, back: { en: 'Fantasy marketing.', ur: 'Fantasy.' } },
       { front: { en: 'Recovery agent after loss', ur: 'Loss ke baad recovery agent' }, back: { en: 'Often a second scam.', ur: 'Second scam.' } },
-      { front: { en: 'MasteryCap certificate', ur: 'MasteryCap certificate kya hai' }, back: { en: 'Self-issued study record — not a license.', ur: 'Study record — license nahi.' } },
+      { front: { en: 'MasteryCap study record', ur: 'MasteryCap study record kya hai' }, back: { en: 'Self-issued study record — not a license.', ur: 'Study record — license nahi.' } },
       { front: { en: 'Chat OTP / full password asks', ur: 'Chat mein OTP / full password maangna' }, back: { en: 'Refuse — attack pattern.', ur: 'Refuse karo — ye attack pattern hai.' } },
       { front: { en: 'Thin-name urgency pump', ur: 'Thin-name urgency pump' }, back: { en: 'Classic dump setup.', ur: 'Dump setup.' } },
     ],
@@ -298,7 +298,7 @@ export const STOCKS_DEEP_WEEKS = [
       { q: { en: 'After a loss, a stranger offers recovery for a fee:', ur: 'Loss ke baad ajnabi fee ke badle recovery offer karta hai:' },
         opts: { en: ['Treat as likely second scam', 'Send more immediately', 'Share seed/password'], ur: ['Second scam', 'Send more', 'Share pass'] },
         correct: 0, explain: { en: 'Common double-dip.', ur: 'Double-dip.' } },
-      { q: { en: 'This track’s certificate means:', ur: 'Is track ke certificate ka matlab kya hai:' },
+      { q: { en: 'This track’s study record means:', ur: 'Is track ke study record ka matlab kya hai:' },
         opts: { en: ['Local study progress — not a credential', 'Advisor license', 'Income entitlement'], ur: ['Local study progress hai — credential nahi hai ye', 'License', 'Income'] },
         correct: 0, explain: { en: 'Honesty framing.', ur: 'Honesty.' } },
       { q: { en: 'Best response to password/OTP requests in chat:', ur: 'Chat mein password/OTP request ka behtar response:' },
