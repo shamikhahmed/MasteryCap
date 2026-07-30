@@ -1,3 +1,12 @@
+## [52.3.1] — 2026-07-30
+
+### Device-matrix chrome QA
+- Added standalone device-matrix capture (`npm run matrix`) + viewport contract (`npm run test:viewport`).
+- Tablet width 700–899 uses `--maxw: 720px`; ultrawide ≥1600 uses `--maxw: 1280px` (less desert pillar).
+- Tab hit targets explicitly `min-height: 44px`; probe measures `.tab` not label glyphs.
+- Matrix: 16×6=96 shots, 0 overflow, 0 layout fails; Settings version string matches `v52.3.1`.
+- SW `masterycap-v5231`.
+
 ## [52.3.0] — 2026-07-30
 
 ### IA, settings maturity, and polish

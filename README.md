@@ -1,6 +1,6 @@
 # MasteryCap
 
-**Version:** v52.3.0 · SW `masterycap-v5230` · see [VERSION](VERSION) · [CHANGELOG.md](CHANGELOG.md) · [GUIDE.md](GUIDE.md)
+**Version:** v52.3.1 · SW `masterycap-v5231` · see [VERSION](VERSION) · [CHANGELOG.md](CHANGELOG.md) · [GUIDE.md](GUIDE.md)
 
 Offline personal institute — **Software Craft** + **Market literacy** (EN / Roman Urdu).
 Curriculum + paper simulator (process-graded, not P/L) + study desk + honest self-issued study records.

@@ -185,6 +185,7 @@ html[data-theme="sepia"] .btn.accent { color: #fff; }
 .tab {
   flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
   color: var(--t3); position: relative; transition: color 0.2s var(--out);
+  min-height: 44px;
 }
 .tab svg { width: 21px; height: 21px; }
 .tab .tab-label { font-size: 9.5px; font-weight: 600; letter-spacing: 0.02em; }
@@ -857,6 +858,9 @@ button.check-row { text-align: left; width: 100%; }
   color: var(--acc);
   margin: 0 0 10px;
 }
+@media (min-width: 700px) {
+  :root { --maxw: 720px; }
+}
 @media (min-width: 900px) {
   :root { --maxw: 1100px; }
   .wb-bench {
@@ -892,6 +896,9 @@ button.check-row { text-align: left; width: 100%; }
   }
   .wb-rail__label { display: block; }
   .workbench-campus::before { display: none; }
+}
+@media (min-width: 1600px) {
+  :root { --maxw: 1280px; }
 }
 
 
@@ -1041,6 +1048,9 @@ button.check-row { text-align: left; width: 100%; }
 @media (min-width: 900px) {
   :root { --maxw: 1100px; }
   body.inst-desktop #app-root { max-width: var(--maxw); margin: 0 auto; }
+}
+@media (min-width: 1600px) {
+  :root { --maxw: 1280px; }
 }
 
 .tab { position: relative; }

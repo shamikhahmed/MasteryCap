@@ -21,7 +21,7 @@ add evidence notes. Outputs = local course study records / Paper Process Readine
 
 ## Stack
 Static ES modules. No build step required for the PWA shell. No backend.
-`localStorage` (`masterycap:`). GitHub Pages. Lazy route modules. SW cache `masterycap-v5230` · app **v52.3.0**.
+`localStorage` (`masterycap:`). GitHub Pages. Lazy route modules. SW cache `masterycap-v5231` · app **v52.3.1**.
 
 ## Design
 Workbench stamp · Geist · accent `#F4C430` · zero emoji · mono numerics.

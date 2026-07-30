@@ -1,7 +1,7 @@
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     const register = () => {
-      navigator.serviceWorker.register('sw.js?v=5230').catch(() => {});
+      navigator.serviceWorker.register('sw.js?v=5231').catch(() => {});
     };
     // Defer SW install so first paint / Lighthouse is not competing with cache warm-up.
     if ('requestIdleCallback' in window) {

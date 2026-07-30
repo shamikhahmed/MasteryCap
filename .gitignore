@@ -6,8 +6,6 @@ playwright-report/
 .DS_Store
 AUDIT-e2e-raw.json
 
-# Environment / secrets — never commit
-.env
-.env.*
-!.env.example
-!.env.*.example
+qa/device-matrix/**/*.png
+qa/device-matrix/meta.json
+qa/device-matrix/summary.json

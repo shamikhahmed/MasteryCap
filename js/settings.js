@@ -8,7 +8,7 @@ import { applyTheme, getAppearance, setAppearance } from './theme.js';
 import { getTeacher, setTeacher, TEACHERS } from './teacher.js';
 import { mountDialog } from './dialog.js';
 
-export const APP_VERSION = 'v52.3.0';
+export const APP_VERSION = 'v52.3.1';
 
 function todayStamp() {
   const d = new Date();

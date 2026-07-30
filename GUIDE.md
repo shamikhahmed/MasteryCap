@@ -1,7 +1,7 @@
 # MasteryCap — Guide
 
 Personal bilingual (EN / Roman Urdu) institute PWA. Offline-first, no accounts.
-Current app version: **v52.3.0** (see `VERSION`, `CHANGELOG.md`, `sw.js` → `masterycap-v5230`).
+Current app version: **v52.3.1** (see `VERSION`, `CHANGELOG.md`, `sw.js` → `masterycap-v5231`).
 
 ## First run
 1. Open via static server or GitHub Pages.
