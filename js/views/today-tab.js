@@ -141,7 +141,7 @@ export function renderToday(App, el) {
           <p class="inst-muted">${en
             ? `${nxt ? 'Continue the next lesson' : 'Prepare the final assessment'}, review ${due} due course card(s), then update project evidence.`
             : `${nxt ? 'Agla lesson jari' : 'Final assessment tayyar'}, ${due} due course cards review, phir project evidence.`}</p>
-          <button class="btn accent mt10" id="tdCoursePlan" style="width:100%">${icon('learn', { size: 17 })} ${nxt ? (en ? 'Continue active course' : 'Active course jari') : (en ? 'Open course practice' : 'Course practice kholo')}</button>
+          <button class="btn secondary mt10" id="tdCoursePlan" style="width:100%">${icon('learn', { size: 17 })} ${nxt ? (en ? 'Course plan overview' : 'Course plan') : (en ? 'Open course practice' : 'Course practice kholo')}</button>
         </div>
       </section>`
     : marketsActive

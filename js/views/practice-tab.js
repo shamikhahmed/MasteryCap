@@ -72,10 +72,6 @@ export function renderPracticeTab(App, el) {
         <span class="grow">${en ? 'Hasil — can / can\'t-yet' : 'Hasil — can / abhi nahi'}</span>
         <span class="mono">→</span>
       </button>
-      <button class="inst-row-item" id="prHowto">
-        <span class="grow">${en ? 'Markets safety checklists' : 'Markets safety checklists'}</span>
-        <span class="mono">→</span>
-      </button>
     </div>
     <div class="slabel mt16">${en ? 'Practice ledger & drills' : 'Practice ledger aur drills'}</div>
     <div class="inst-list">
@@ -89,6 +85,15 @@ export function renderPracticeTab(App, el) {
         <span class="mono">→</span>
       </button>
     </div>
+    <details class="pr-more mt16">
+      <summary class="pr-more-sum">${App.t('set_more_tools')}</summary>
+      <div class="inst-list mt10">
+        <button class="inst-row-item" id="prHowto">
+          <span class="grow">${en ? 'Markets safety checklists' : 'Markets safety checklists'}</span>
+          <span class="mono">→</span>
+        </button>
+      </div>
+    </details>
     ${playground ? `<div class="mt16">${playground}</div>` : ''}
     ${editorOn ? `<p class="inst-foot-note">${isDesktopEditor()
       ? (en ? 'Desktop editor active (≥900px).' : 'Desktop editor chal raha (≥900px).')

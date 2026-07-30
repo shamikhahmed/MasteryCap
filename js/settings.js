@@ -8,7 +8,7 @@ import { applyTheme, getAppearance, setAppearance } from './theme.js';
 import { getTeacher, setTeacher, TEACHERS } from './teacher.js';
 import { mountDialog } from './dialog.js';
 
-export const APP_VERSION = 'v52.2.0';
+export const APP_VERSION = 'v52.3.0';
 
 function todayStamp() {
   const d = new Date();
@@ -109,88 +109,107 @@ export function openSettings(App) {
         <div class="slabel" id="settingsTitle">${App.t('settings')}</div>
         <button class="sheet-x" data-close aria-label="${App.t('back')}">${icon('x', { size: 18 })}</button>
       </div>
-      <div class="sheet-body">
-        <div class="field">
-          <label for="setName">${App.t('set_name')}</label>
-          <input id="setName" type="text" value="${escapeHtml(name)}" maxlength="32" />
-        </div>
+      <div class="sheet-body settings-body">
+        <section class="set-group" aria-labelledby="setGrpAccount">
+          <h3 class="set-group-title" id="setGrpAccount">${App.t('set_grp_account')}</h3>
+          <div class="field">
+            <label for="setName">${App.t('set_name')}</label>
+            <input id="setName" type="text" autocomplete="nickname" maxlength="32" value="${escapeHtml(name)}" />
+          </div>
+          <div class="slabel">${App.t('set_lang')}</div>
+          <div class="seg set-seg" role="group" aria-label="${App.t('set_lang')}">
+            <button type="button" class="${App.lang === 'en' ? 'on' : ''}" data-lang="en" aria-pressed="${App.lang === 'en'}">EN</button>
+            <button type="button" class="${App.lang === 'ur' ? 'on' : ''}" data-lang="ur" aria-pressed="${App.lang === 'ur'}">UR</button>
+          </div>
+        </section>
 
-        <div class="slabel" style="margin:8px 0 10px">${App.t('set_lang')}</div>
-        <div class="seg" style="width:100%;margin-bottom:16px">
-          <button style="flex:1" class="${App.lang === 'en' ? 'on' : ''}" data-lang="en">EN</button>
-          <button style="flex:1" class="${App.lang === 'ur' ? 'on' : ''}" data-lang="ur">UR</button>
-        </div>
+        <section class="set-group" aria-labelledby="setGrpGeneral">
+          <h3 class="set-group-title" id="setGrpGeneral">${App.t('set_grp_general')}</h3>
+          <div class="slabel">${App.t('set_session')}</div>
+          <div class="seg set-seg" role="group" aria-label="${App.t('set_session')}">
+            ${[15, 30, 45].map((m) => `<button type="button" class="${(store.get(KEYS.settings, {}).sessionMins || 15) === m ? 'on' : ''}" data-sessionmins="${m}" aria-pressed="${(store.get(KEYS.settings, {}).sessionMins || 15) === m}">${m} min</button>`).join('')}
+          </div>
+          <div class="slabel">${App.t('set_teacher')}</div>
+          <div class="seg set-seg" role="group" aria-label="${App.t('set_teacher')}">
+            ${TEACHERS.map((tid) => `<button type="button" class="${getTeacher() === tid ? 'on' : ''}" data-teacher="${tid}" aria-pressed="${getTeacher() === tid}">${App.t('teacher_' + tid)}</button>`).join('')}
+          </div>
+          <div class="set-toggles">
+            <button type="button" class="check-row ${(s.haptics !== false) ? 'on' : ''}" id="setHap" data-on="${s.haptics !== false ? '1' : '0'}" aria-pressed="${s.haptics !== false}">
+              <span class="check-box" aria-hidden="true">${icon('checkThin', { size: 13, sw: 2.6 })}</span>
+              <span class="check-t">${App.t('set_haptics')}</span>
+            </button>
+            <button type="button" class="check-row ${s.strictMode ? 'on' : ''}" id="setStrict" data-on="${s.strictMode ? '1' : '0'}" aria-pressed="${!!s.strictMode}">
+              <span class="check-box" aria-hidden="true">${icon('checkThin', { size: 13, sw: 2.6 })}</span>
+              <span class="check-t">${App.t('set_strict')}</span>
+            </button>
+            <button type="button" class="check-row ${s.checklistGate ? 'on' : ''}" id="setGate" data-on="${s.checklistGate ? '1' : '0'}" aria-pressed="${!!s.checklistGate}">
+              <span class="check-box" aria-hidden="true">${icon('checkThin', { size: 13, sw: 2.6 })}</span>
+              <span class="check-t">${App.t('set_checklist_gate')}</span>
+            </button>
+          </div>
+          <button type="button" class="btn ghost" id="setIos">${App.t('set_ios_install')}</button>
+        </section>
 
-        <div class="slabel" style="margin:0 0 10px">${App.t('set_font')}</div>
-        <div class="seg" style="width:100%;margin-bottom:16px">
-          ${['S', 'M', 'L', 'XL'].map((f) => `<button style="flex:1" class="${(s.fontSize || 'M') === f ? 'on' : ''}" data-fs="${f}">${f}</button>`).join('')}
-        </div>
+        <section class="set-group" aria-labelledby="setGrpAppear">
+          <h3 class="set-group-title" id="setGrpAppear">${App.t('set_grp_appearance')}</h3>
+          <div class="slabel">${App.t('set_appearance')}</div>
+          <div class="seg set-seg set-seg-wrap" role="group" aria-label="${App.t('set_appearance')}">
+            ${['light', 'sepia', 'dark', 'auto'].map((m) => `<button type="button" class="${(getAppearance().mode || 'light') === m ? 'on' : ''}" data-mode="${m}" aria-pressed="${(getAppearance().mode || 'light') === m}">${App.t('theme_' + m)}</button>`).join('')}
+          </div>
+          <div class="slabel">${App.t('set_font')}</div>
+          <div class="seg set-seg" role="group" aria-label="${App.t('set_font')}">
+            ${['S', 'M', 'L', 'XL'].map((f) => `<button type="button" class="${(s.fontSize || 'M') === f ? 'on' : ''}" data-fs="${f}" aria-pressed="${(s.fontSize || 'M') === f}">${f}</button>`).join('')}
+          </div>
+        </section>
 
-        <div class="slabel" style="margin:0 0 10px">${App.t('set_appearance')}</div>
-        <div class="seg" style="width:100%;margin-bottom:16px;flex-wrap:wrap">
-          ${['light', 'sepia', 'dark', 'auto'].map((m) => `<button style="flex:1;min-width:22%" class="${(getAppearance().mode || 'light') === m ? 'on' : ''}" data-mode="${m}">${App.t('theme_' + m)}</button>`).join('')}
-        </div>
-        <div class="slabel" style="margin:0 0 8px;font-size:11px;opacity:0.8">${App.lang === 'en' ? 'Daily session length' : 'Rozana session'}</div>
-        <div class="seg" style="width:100%;margin-bottom:16px">
-          ${[15, 30, 45].map((m) => `<button style="flex:1" class="${(store.get(KEYS.settings, {}).sessionMins || 15) === m ? 'on' : ''}" data-sessionmins="${m}">${m} min</button>`).join('')}
-        </div>
+        <section class="set-group" aria-labelledby="setGrpA11y">
+          <h3 class="set-group-title" id="setGrpA11y">${App.t('set_grp_a11y')}</h3>
+          <div class="set-toggles">
+            <button type="button" class="check-row ${s.highContrast ? 'on' : ''}" id="setContrast" data-on="${s.highContrast ? '1' : '0'}" aria-pressed="${!!s.highContrast}">
+              <span class="check-box" aria-hidden="true">${icon('checkThin', { size: 13, sw: 2.6 })}</span>
+              <span class="check-t">${App.t('set_contrast')}</span>
+            </button>
+          </div>
+        </section>
 
-        <div class="slabel" style="margin:0 0 10px">${App.t('set_teacher')}</div>
-        <div class="seg" style="width:100%;margin-bottom:16px">
-          ${TEACHERS.map((tid) => `<button style="flex:1" class="${getTeacher() === tid ? 'on' : ''}" data-teacher="${tid}">${App.t('teacher_' + tid)}</button>`).join('')}
-        </div>
+        <section class="set-group" aria-labelledby="setGrpNotify">
+          <h3 class="set-group-title" id="setGrpNotify">${App.t('set_grp_notify')}</h3>
+          <div class="set-toggles">
+            <button type="button" class="check-row ${store.get(KEYS.notifyOptIn) ? 'on' : ''}" id="setNotify" data-on="${store.get(KEYS.notifyOptIn) ? '1' : '0'}" aria-pressed="${!!store.get(KEYS.notifyOptIn)}">
+              <span class="check-box" aria-hidden="true">${icon('checkThin', { size: 13, sw: 2.6 })}</span>
+              <span class="check-t">${App.t('set_notify')}</span>
+            </button>
+          </div>
+        </section>
 
-        <div class="field" style="margin-bottom:16px">
-          <label for="setVerifyHash">${App.t('verify_cert')}</label>
-          <input id="setVerifyHash" type="text" placeholder="verify:…" maxlength="24" />
-          <p id="setVerifyOut" style="font-size:12px;color:var(--t3);margin:8px 0 0"></p>
-          <p style="font-size:12px;color:var(--t3);margin:8px 0 0;line-height:1.45">${App.t('cert_not_license')}</p>
-          <p style="font-size:12px;color:var(--t3);margin:6px 0 0;line-height:1.45">${App.t('cert_verify_hint')}</p>
-        </div>
+        <section class="set-group" aria-labelledby="setGrpPrivacy">
+          <h3 class="set-group-title" id="setGrpPrivacy">${App.t('set_grp_privacy')}</h3>
+          <p class="set-hint">${App.t('backup_export_hint')}</p>
+          <button type="button" class="btn secondary" id="setExport">${icon('download', { size: 17 })} ${App.t('backup_export')}</button>
+          <button type="button" class="btn ghost" id="setCsv">${icon('download', { size: 17 })} ${App.t('csv_export')}</button>
+          <p class="set-hint">${App.t('backup_import_hint')}</p>
+          <button type="button" class="btn ghost" id="setImport">${icon('upload', { size: 17 })} ${App.t('backup_import')}</button>
+          ${store.get(KEYS.preImportAvailable) ? `<button type="button" class="btn ghost" id="setRestorePreImport">${icon('refresh', { size: 17 })} ${App.t('backup_restore_previous')}</button>` : ''}
+          <input type="file" id="setFile" accept="application/json,.json" hidden />
+          <div class="field set-verify">
+            <label for="setVerifyHash">${App.t('verify_cert')}</label>
+            <input id="setVerifyHash" type="text" inputmode="text" autocomplete="off" placeholder="verify:…" maxlength="24" />
+            <p id="setVerifyOut" class="set-hint" role="status"></p>
+            <p class="set-hint">${App.t('cert_verify_hint')}</p>
+          </div>
+          <p class="set-hint">${App.t('demo_hint')}</p>
+          <button type="button" class="btn secondary" id="setDemo">${store.getNs().startsWith('masterycap-demo') ? App.t('demo_off') : App.t('demo_on')}</button>
+          <div class="slabel set-danger-label">${App.t('set_danger')}</div>
+          <button type="button" class="btn ghost set-reset" id="setReset">${App.t('set_reset')}</button>
+        </section>
 
-        <div class="check-row ${(s.haptics !== false) ? 'on' : ''}" id="setHap" data-on="${s.haptics !== false ? '1' : '0'}" style="border:1px solid var(--line);border-radius:var(--r2);margin-bottom:10px">
-          <span class="check-box">${icon('checkThin', { size: 13, sw: 2.6 })}</span>
-          <span class="check-t">${App.t('set_haptics')}</span>
-        </div>
-        <div class="check-row ${s.strictMode ? 'on' : ''}" id="setStrict" data-on="${s.strictMode ? '1' : '0'}" style="border:1px solid var(--line);border-radius:var(--r2);margin-bottom:10px">
-          <span class="check-box">${icon('checkThin', { size: 13, sw: 2.6 })}</span>
-          <span class="check-t">${App.t('set_strict')}</span>
-        </div>
-        <div class="check-row ${s.checklistGate ? 'on' : ''}" id="setGate" data-on="${s.checklistGate ? '1' : '0'}" style="border:1px solid var(--line);border-radius:var(--r2);margin-bottom:10px">
-          <span class="check-box">${icon('checkThin', { size: 13, sw: 2.6 })}</span>
-          <span class="check-t">${App.t('set_checklist_gate')}</span>
-        </div>
-        <div class="check-row ${s.highContrast ? 'on' : ''}" id="setContrast" data-on="${s.highContrast ? '1' : '0'}" style="border:1px solid var(--line);border-radius:var(--r2);margin-bottom:10px">
-          <span class="check-box">${icon('checkThin', { size: 13, sw: 2.6 })}</span>
-          <span class="check-t">${App.t('set_contrast')}</span>
-        </div>
-        <div class="check-row ${store.get(KEYS.notifyOptIn) ? 'on' : ''}" id="setNotify" data-on="${store.get(KEYS.notifyOptIn) ? '1' : '0'}" style="border:1px solid var(--line);border-radius:var(--r2);margin-bottom:18px">
-          <span class="check-box">${icon('checkThin', { size: 13, sw: 2.6 })}</span>
-          <span class="check-t">${App.t('set_notify')}</span>
-        </div>
-        <button class="btn ghost" id="setIos" style="width:100%;margin-bottom:14px">${App.t('set_ios_install')}</button>
-
-        <div class="slabel" style="margin-bottom:10px">${App.t('backup_title')}</div>
-        <p style="font-size:13.5px;color:var(--t3);line-height:1.55;margin:0 0 12px">${App.t('backup_export_hint')}</p>
-        <button class="btn secondary" id="setExport">${icon('download', { size: 17 })} ${App.t('backup_export')}</button>
-        <button class="btn ghost mt10" id="setCsv">${icon('download', { size: 17 })} ${App.t('csv_export')}</button>
-        <p style="font-size:13.5px;color:var(--t3);line-height:1.55;margin:14px 0 12px">${App.t('backup_import_hint')}</p>
-        <button class="btn ghost" id="setImport">${icon('upload', { size: 17 })} ${App.t('backup_import')}</button>
-        ${store.get(KEYS.preImportAvailable) ? `<button class="btn ghost mt10" id="setRestorePreImport">${icon('refresh', { size: 17 })} ${App.t('backup_restore_previous')}</button>` : ''}
-        <div class="note-box mt14" style="font-size:12.5px">${App.t('limits_honest')}</div>
-        <input type="file" id="setFile" accept="application/json,.json" hidden />
-
-        <div class="slabel" style="margin:22px 0 10px">${App.t('demo_pill')}</div>
-        <p style="font-size:13.5px;color:var(--t3);line-height:1.55;margin:0 0 12px">${App.t('demo_hint')}</p>
-        <button class="btn secondary" id="setDemo">${store.getNs().startsWith('masterycap-demo') ? App.t('demo_off') : App.t('demo_on')}</button>
-
-        <div class="slabel" style="margin:22px 0 10px;color:var(--down)">${App.t('set_danger')}</div>
-        <button class="btn ghost" id="setReset" style="border-color:rgba(234,57,67,0.35);color:var(--down)">${App.t('set_reset')}</button>
-
-        <div id="settings-msg" class="hidden" role="status" aria-live="polite"></div>
-        <div style="margin-top:18px;font-size:12px;color:var(--t3)" class="mono">
-          MasteryCap ${APP_VERSION} · <a href="CHANGELOG.md" style="color:var(--acc-2)">${App.t('set_changelog')}</a>
-        </div>
+        <section class="set-group set-group-about" aria-labelledby="setGrpAbout">
+          <h3 class="set-group-title" id="setGrpAbout">${App.t('set_grp_about')}</h3>
+          <div class="note-box set-limits">${App.t('limits_honest')}</div>
+          <p class="set-hint">${App.t('cert_not_license')}</p>
+          <div id="settings-msg" class="hidden" role="status" aria-live="polite"></div>
+          <p class="set-version mono">MasteryCap ${APP_VERSION} · <a class="set-changelog" href="CHANGELOG.md">${App.t('set_changelog')}</a></p>
+        </section>
       </div>
     </div>`;
   document.body.appendChild(sheet);
@@ -221,24 +240,40 @@ export function openSettings(App) {
     store.set(KEYS.settings, st);
     applySettings(App);
     App.haptic();
-    sheet.querySelectorAll('[data-fs]').forEach((x) => x.classList.toggle('on', x.dataset.fs === st.fontSize));
+    sheet.querySelectorAll('[data-fs]').forEach((x) => {
+      const on = x.dataset.fs === st.fontSize;
+      x.classList.toggle('on', on);
+      x.setAttribute('aria-pressed', String(on));
+    });
   }));
 
   sheet.querySelectorAll('[data-mode]').forEach((b) => b.addEventListener('click', () => {
     setAppearance({ mode: b.dataset.mode });
     App.haptic();
-    sheet.querySelectorAll('[data-mode]').forEach((x) => x.classList.toggle('on', x.dataset.mode === b.dataset.mode));
+    sheet.querySelectorAll('[data-mode]').forEach((x) => {
+      const on = x.dataset.mode === b.dataset.mode;
+      x.classList.toggle('on', on);
+      x.setAttribute('aria-pressed', String(on));
+    });
   }));
   sheet.querySelectorAll('[data-sessionmins]').forEach((b) => b.addEventListener('click', () => {
     const cur = store.get(KEYS.settings, {});
     store.set(KEYS.settings, { ...cur, sessionMins: Number(b.dataset.sessionmins) });
     App.haptic();
-    sheet.querySelectorAll('[data-sessionmins]').forEach((x) => x.classList.toggle('on', x.dataset.sessionmins === b.dataset.sessionmins));
+    sheet.querySelectorAll('[data-sessionmins]').forEach((x) => {
+      const on = x.dataset.sessionmins === b.dataset.sessionmins;
+      x.classList.toggle('on', on);
+      x.setAttribute('aria-pressed', String(on));
+    });
   }));
   sheet.querySelectorAll('[data-teacher]').forEach((b) => b.addEventListener('click', () => {
     setTeacher(b.dataset.teacher);
     App.haptic();
-    sheet.querySelectorAll('[data-teacher]').forEach((x) => x.classList.toggle('on', x.dataset.teacher === b.dataset.teacher));
+    sheet.querySelectorAll('[data-teacher]').forEach((x) => {
+      const on = x.dataset.teacher === b.dataset.teacher;
+      x.classList.toggle('on', on);
+      x.setAttribute('aria-pressed', String(on));
+    });
   }));
   document.getElementById('setVerifyHash')?.addEventListener('input', (e) => {
     const raw = (e.target.value || '').replace(/^verify:/i, '').trim();
@@ -254,6 +289,7 @@ export function openSettings(App) {
     const on = el.dataset.on !== '1';
     el.dataset.on = on ? '1' : '0';
     el.classList.toggle('on', on);
+    el.setAttribute('aria-pressed', String(on));
     const st = getSettings();
     st.haptics = on;
     store.set(KEYS.settings, st);
@@ -267,6 +303,7 @@ export function openSettings(App) {
       const on = el.dataset.on !== '1';
       el.dataset.on = on ? '1' : '0';
       el.classList.toggle('on', on);
+      el.setAttribute('aria-pressed', String(on));
       if (field) {
         const st = getSettings();
         st[field] = on;
@@ -305,13 +342,13 @@ export function openSettings(App) {
         <div class="sheet-handle"></div>
         <div class="sheet-head"><div class="slabel">${App.t('set_ios_install')}</div>
           <button class="sheet-x" data-close>${icon('x', { size: 18 })}</button></div>
-        <div class="sheet-body" style="font-size:14px;color:var(--t2);line-height:1.55">
-          <ol style="padding-left:18px;margin:0">
-            <li style="margin-bottom:10px">${App.t('ios_step_1')}</li>
-            <li style="margin-bottom:10px">${App.t('ios_step_2')}</li>
+        <div class="sheet-body set-ios-body">
+          <ol class="set-ios-steps">
+            <li>${App.t('ios_step_1')}</li>
+            <li>${App.t('ios_step_2')}</li>
             <li>${App.t('ios_step_3')}</li>
           </ol>
-          <p style="margin-top:14px;color:var(--t3)">${App.t('ios_install_body')}</p>
+          <p class="set-hint">${App.t('ios_install_body')}</p>
         </div>
       </div>`;
     document.body.appendChild(el);

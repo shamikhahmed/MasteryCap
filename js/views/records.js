@@ -9,7 +9,6 @@ import {
   getInstitute, CERT_DISCLAIMER, attestProject, getProjectEvidence, projectComplete, courseProgressPct,
 } from '../institute/progress.js';
 import { downloadBackup, openSettings } from '../settings.js';
-import { getAppearance, setAppearance } from '../theme.js';
 import { getStudentId, getStudentPhoto } from '../institute/student-id.js';
 import { renderStudentIdCard, renderStudentIdBack } from './student-id-view.js';
 
@@ -29,15 +28,14 @@ export function renderRecords(App, el) {
   const showId = !!App._showStudentId;
 
   const tabs = `
-    <div class="seg records-seg" style="width:100%;margin:0 0 16px">
-      <button style="flex:1" class="${pane === 'profile' ? 'on' : ''}" data-rpane="profile">${en ? 'Profile' : 'Profail'}</button>
-      <button style="flex:1" class="${pane === 'transcript' ? 'on' : ''}" data-rpane="transcript">${en ? 'Transcript' : 'Transcript'}</button>
-      <button style="flex:1" class="${pane === 'certs' ? 'on' : ''}" data-rpane="certs">${en ? 'Records' : 'Records'}</button>
+    <div class="seg records-seg" role="tablist" aria-label="${en ? 'Records sections' : 'Records sections'}">
+      <button type="button" role="tab" aria-selected="${pane === 'profile'}" class="${pane === 'profile' ? 'on' : ''}" data-rpane="profile">${App.t('rec_pane_profile')}</button>
+      <button type="button" role="tab" aria-selected="${pane === 'transcript'}" class="${pane === 'transcript' ? 'on' : ''}" data-rpane="transcript">${App.t('rec_pane_transcript')}</button>
+      <button type="button" role="tab" aria-selected="${pane === 'certs'}" class="${pane === 'certs' ? 'on' : ''}" data-rpane="certs">${App.t('rec_pane_certs')}</button>
     </div>`;
 
   let body = '';
   if (pane === 'profile') {
-    const mode = getAppearance().mode || 'light';
     const enrollList = enrollCodes.length
       ? enrollCodes.map((code) => {
         if (code === 'MKT-LEGACY') {
@@ -65,19 +63,15 @@ export function renderRecords(App, el) {
         <p class="inst-muted mono">${card ? esc(card.idNumber) : '—'} · ${enrollCodes.length} ${en ? 'enrollments' : 'daakhle'}</p>
         <div class="field" style="margin-top:14px">
           <label for="recName">${en ? 'Display name' : 'Name'}</label>
-          <input id="recName" type="text" maxlength="32" value="${esc(p.name || '')}" />
+          <input id="recName" type="text" autocomplete="nickname" maxlength="32" value="${esc(p.name || '')}" />
         </div>
         <button class="btn secondary mt10" id="recSaveName">${en ? 'Save name' : 'Name save'}</button>
       </div>
       ${idBlock}
-      <div class="slabel mt16">${en ? 'Reading theme' : 'Theme'}</div>
-      <div class="seg" style="width:100%;margin-bottom:12px">
-        ${['light', 'sepia', 'dark'].map((m) => `<button style="flex:1" class="${mode === m ? 'on' : ''}" data-theme="${m}">${m === 'light' ? (en ? 'Light' : 'Light') : m === 'sepia' ? (en ? 'Sepia' : 'Sepia') : (en ? 'Dark' : 'Dark')}</button>`).join('')}
-      </div>
       <div class="slabel mt16">${en ? 'Enrollments' : 'Daakhle'}</div>
       <div class="inst-list">${enrollList}</div>
       <button class="btn accent mt16" id="recCampus" style="width:100%">${en ? 'Go to Campus' : 'Campus kholo'}</button>
-      <button class="btn ghost mt10" id="recSet" style="width:100%">${en ? 'All settings' : 'Tamam settings'}</button>
+      <button class="btn ghost mt10" id="recSet" style="width:100%">${en ? 'Settings · theme, language, backup' : 'Settings · theme, zubaan, backup'}</button>
       <button class="btn ghost mt10" id="recJournal" style="width:100%">${en ? 'Markets journal (legacy)' : 'Markets journal'}</button>`;
   } else if (pane === 'transcript') {
     body = `
@@ -151,11 +145,6 @@ export function renderRecords(App, el) {
     App.toast?.(en ? 'Name saved' : 'Name save');
     App.render();
   });
-  el.querySelectorAll('[data-theme]').forEach((b) => b.addEventListener('click', () => {
-    setAppearance({ mode: b.dataset.theme });
-    App.haptic?.(4);
-    App.render();
-  }));
   el.querySelectorAll('[data-print-cert]').forEach((b) => {
     b.addEventListener('click', () => {
       const id = b.getAttribute('data-print-cert');
