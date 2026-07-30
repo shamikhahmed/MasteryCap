@@ -1,177 +1,152 @@
-# MasteryCap — AUDIT.md (Part 1)
+# MasteryCap — AUDIT.md (Phase 1)
 
-**Date:** 2026-07-11  
-**App under audit:** v15 (`masterycap-v15`) after Part-1 fixes  
-**Method:** static scripts + pure-logic behavior suite + Playwright browser E2E @375×812  
-**Rule:** verify behavior, not code presence.
-
----
-
-## Summary
-
-| Section | Result |
-|---------|--------|
-| 1.1 Data integrity | **PASS** |
-| 1.2 Figure markers | **PASS** (0 orphans) |
-| 1.3 i18n keys | **PASS** (unused keys = WARN only) |
-| 1.4 Content lint | **PASS** |
-| 1.5 Shuffle remap | **PASS** (unit + UI quiz 5/5) |
-| 1.6 SW / offline | **PASS** (ASSETS fixed; offline reload PASS; update-toast = N-A automated) |
-| 1.7 Storage round-trip / v3 boot | **PASS** |
-| 1.8 Per-phase acceptance | **PASS** (see notes) |
-| 1.9 End-to-end | **PASS** (26/26 browser checks) |
-
-**Part-1 FAILs found & fixed before clean:**
-1. `sw.js` missing manifest maskable icons (+ apple `icon-180.png`) → added; CACHE → **v15**
-2. Behavior suite revenge fixture used `ts` instead of `date` → test fixed (code OK)
-3. E2E initially assumed weeks unlocked without placement → seed `placementDone` + week 1 current
-4. E2E journal save without `#btnLong` → fixed in harness
-5. E2E settings used wrong attr `data-font` (real is `data-fs`) → harness fixed
+**Date:** 2026-07-30  
+**App:** v52.2.0 · SW `masterycap-v5220` · branch `feat/v52-production-hardening` @ `ae9d9cd`  
+**Method:** static tree + dead-code/version/security audits + prior Lighthouse + live map of routes/IA  
+**Rule:** understand WHY before delete; verify live after each fix.
 
 ---
 
-## 1.1 Automated data integrity
+## 1. Product map
 
-Command: `node scripts/audit-data.mjs`
+Offline personal institute PWA (Capricorn Systems). No accounts, no backend, no billing.
+Local-only data under `localStorage` namespace `masterycap:`. Hosted on GitHub Pages.
+Bilingual EN / Roman Urdu. Two learning worlds: **Software Craft** (authored courses) + **School of Markets** (tracks + paper sim).
 
-| Track | weeks | bodiesBilingual | quizzesValid | placementValid |
-|-------|------:|:---------------:|:------------:|:--------------:|
-| crypto | 10 | true | true | true |
-| stocks | 8 | true | true | true |
-| invest | 8 | true | true | true |
-| futures | 6 | true | true | true |
-| forex | 6 | true | true | true |
-| spot | 4 | true | true | true |
-| bots | 6 | true | true | true |
-| binary | 5 | true | true | true |
-
-**PASS.** Crypto W8 2-quiz exception accepted (verbatim).
+Honest claim: literacy + process reps. Not credentials, not income.
 
 ---
 
-## 1.2 Figure-marker audit
+## 2. Architecture
 
-Command: `node scripts/audit-figs.mjs`  
-Implemented: **27** · Referenced: **27** · Unresolved: **0** · Orphans: **0**  
-**PASS.**
+| Layer | Path | Role |
+|-------|------|------|
+| Shell | `index.html`, `js/app.js` | Splash, admission gate, lazy route registry, tabbar, toasts, SW messages |
+| Design | `css/app.css`, `css/institute.css` | Tokens + shell + institute chrome |
+| Persist | `js/store.js` | `masterycap:` keys; checksummed backup import/export |
+| i18n | `js/i18n.js` | UI strings EN/UR |
+| Theme | `js/theme.js` | light / sepia / dark / auto |
+| Settings | `js/settings.js` | Sheet: prefs, backup, reset, version |
+| Institute | `js/institute/*` | Progress, SRS, lab, editor, sandbox, features, placement |
+| Markets | `js/sim/*`, `js/data/*-deep.js`, gates/exam/graduation | Paper sim + track content |
+| Views | `js/views/*` | Tab + deep screens |
+| Offline | `sw.js` | Precache shell; update preserves verified cache |
+| Deploy | GitHub Pages + `.github/workflows/ci.yml` | `npm run verify` + final + lighthouse |
+| Tests | `tests/*`, `scripts/audit-*.mjs` | Smoke, a11y, XSS, SW, backup, cross-browser |
 
----
+**Routing:** in-memory `App.tab` + dynamic `import()`. Primary tabs: `today` · `campus` · `practice` · `records`. Secondary: lesson, final, learn (markets course), journal, progress (Hasil), drills, review, charts, sim, study, http-lab.
 
-## 1.3 i18n orphan finder
+**State:** profile + institute progress in store; ephemeral UI on `App._*` (`_campusView`, `_recordsPane`, `_srsSession`, `_labReturn`, `_focusSel`).
 
-Command: `node scripts/audit-i18n.mjs`  
-Referenced keys present in `T.en` + `T.ur`: **PASS**  
-WARN unused (not referenced by static/dynamic collectors): `courseWeeks`, `exp_*`, `nav_dashboard` (used via tab array + `App.t`), `onb_welcome`, `onb_start`, `pl_ph`, `pretrade_sub`, `startLesson`, `stat_revenge`, `stat_trades`, `yourScore`, `onb_exp_sub` — several are dynamic/`App.t(tabKey)` false-negatives; none missing.
-
----
-
-## 1.4 Content lint
-
-Command: `node scripts/audit-content.mjs`  
-Banned phrases in lesson **bodies** only: **0 hits**  
-**PASS.** (Quiz distractors intentionally unscanned.)
-
----
-
-## 1.5 Shuffle correctness
-
-Unit (`scripts/audit-behavior.mjs`): all-correct via original-index → 100%; reshuffle differs; placement all-correct masters topics.  
-Browser: crypto W1 quiz — click `data-o="{correct}"` (original index) after shuffle → score **5/5**.  
-Evidence: answers stored as original index in `js/views/course.js` (`data-o="${oi}"`, score vs `q.correct`).  
-**PASS.**
+**Security surface:** strict CSP (no inline/eval scripts); practice code in opaque Worker / sandbox-runner; escaped journal/profile HTML; transactional backup.
 
 ---
 
-## 1.6 Service worker & offline
-
-Command: `node scripts/audit-sw.mjs`  
-- Every ASSETS path exists on disk: **PASS**  
-- Runtime JS + fonts + manifest icons in ASSETS: **PASS** (after adding maskable + 180)  
-- CACHE: `masterycap-v15` (bumped for asset fix)  
-Browser: go offline → reload → shell boots (`#app-root`/`#splash`/`#tabbar`): **PASS**  
-Update toast (throwaway CACHE bump ×2): **N-A** automated this run — code path exists (`SW_UPDATED` message → `#sw-toast`); not re-bumped mid-audit to avoid dirtying v15.
-
----
-
-## 1.7 Storage round-trip & backward compat
-
-Browser: export wipe import key-equality (`n=8` keys): **PASS**  
-v3-era minimal keys only (strip `drillStats`/`streak`/`review`) → reload → tabbar visible, no `pageerror`: **PASS**  
-Old trades without `stopPlaced`/`movedStop`: excluded from grade (`isScoredTrade`) — unit **PASS**.
-
----
-
-## 1.8 Feature acceptance
-
-| Phase | Check | Result | Evidence |
-|-------|-------|--------|----------|
-| P1 | injectFigures all weeks/langs, no raw `{{fig:` | PASS | audit-behavior; browser W1 has `<svg>` |
-| P1 | no h-overflow @375 lesson | PASS | browser evaluate scrollWidth |
-| P1 | every week opened in browser | **PARTIAL** | Unit covers all inject; browser sampled crypto W1 only (time). No raw markers anywhere via inject. |
-| P2 | 5× each drill family correct | PASS | audit-behavior |
-| P2 | hand recompute samples | PASS | sizing_crypto 200, 5000; sizing_forex 0.07, 0.04 |
-| P2 | XP daily cap 50 | PASS | awardDrillXp loop → 50 |
-| P2 | drills UI | PASS | 5 feedback cycles |
-| P3 | n&lt;3 → no expectancy / worstCost | PASS | unit |
-| P3 | seeded 9 trades → expectancy/flagged/worstCost | PASS | expectancy≈−9.44; flagged n=6 pl=−110 |
-| P4 | Leitner box math | PASS | unit (wrong→box1; correct advances) |
-| P4 | streak 2 consecutive days | **N-A** browser | Not Date-mocked this run; logic in `touchStreak` reviewed |
-| P5 | 20 seeded chart rounds coherent | PASS | audit-behavior |
-| P5 | charts UI opens | PASS | `#chBack` |
-| P6 | revenge &lt;30m | PASS | unit with `date` ISO |
-| P6 | grade A/B on clean 20 | PASS | unit |
-| P6 | unscored excluded | PASS | unit n=5 |
-| P7 | glossary 5 terms | PASS | leverage/margin/stop/funding/option |
-| P7 | in-lesson term links | **N-A deep** | `linkGlossaryTerms` present; not click-tested this run |
-| P8 | font L persists | PASS | settings `fontSize:"L"` |
-| Design | zero emoji in UI text | PASS | browser |
-| Design | mono / no gradient / safe-area screenshots all screens | **PARTIAL** | CSS system reviewed earlier; full screenshot sweep not archived |
-
----
-
-## 1.9 End-to-end (Definition of Done)
-
-Harness: `node scripts/audit-e2e.cjs` → **26/26 PASS**
-
-Flow covered: onboard → lesson+figure → shuffled quiz 100% → 5 drills UI → 3 trades (revenge/calm/greed) → progress panels → glossary → settings font → charts → backup round-trip → v3 boot → emoji check → offline reload.
-
-Skipped / honest gaps:
-- Full placement UI all-mastered (unit covered; UI not run — 22 Q)
-- Daily review UI + streak day-roll
-- SW update toast behavioral
-- Every track every week visual open
-- Certificate / P9+ features (Part 2)
-
-Console: no fatal pageerrors in final checks.
-
----
-
-## Audit scripts (rerunnable)
+## 3. Folder inventory (keep)
 
 ```
-node scripts/audit-all.mjs          # data+figs+i18n+content+sw+behavior
-node scripts/audit-e2e.cjs          # browser E2E (Playwright)
+index.html · sandbox-runner.html · manifest.webmanifest · sw.js · .nojekyll
+css/ · fonts/ · icons/ · assets/ · docs/
+js/app.js · store · i18n · dialog · settings · theme · session · …
+js/views/ · js/institute/ · js/sim/ · js/data/ (+ institute/)
+scripts/ · tests/ · VERSION · VERSION.json · docs suite
 ```
 
 ---
 
-## Part 1 gate
+## 4. Design system (as-found)
 
-**CLEAN.** All automated FAILs fixed. Remaining items are N-A/PARTIAL documented above — not silent.  
+- Tokens in `:root` (surfaces, text ramp, accent `#F4C430`, market up/down, radius, motion, safe areas).
+- Geist + Geist Mono self-hosted; `--fs` + body zoom for text scale.
+- Themes: light / sepia / dark (+ auto).
+- Gaps: many inline `style=` in settings/records/practice (~64 hits on key views); README still cites old accent `#FF6B2C`; manifest name still “Trading Mastery”.
+
 ---
 
-## Part 2 progress (v17) — DONE
-P9–P15 shipped. See ROADMAP + CHANGELOG v17.
-Honest curriculum stance: CONTENT-GAPS.md (literacy ≠ mastery).
+## 5. Information architecture (as-found)
 
-| Phase | Status |
-|-------|--------|
-| P9 Ops | **DONE** |
-| P10 Data | **DONE** |
-| P11 Learn | **DONE** — exam/cert, binary gate, gloss mini, search, markers, mistake bank |
-| P12 Journal | **DONE** — debrief, cooldown, checklist gate, tag filters |
-| P13 Retention | **DONE** — radar/heatmap/habit/freeze/brief/whats-new/notify/iOS/due badge |
-| P14 Drills | **DONE** — +swap/carry/roll/multi-step, timed, challenge, ramp |
-| P15 a11y | **DONE** — mid-quiz tab confirm, tour, search, reduced-motion/44px/contrast |
+| Tab | Job | Issue |
+|-----|-----|-------|
+| Today | Continue + session + standing + due | Clear |
+| Campus | Enroll / explore branches | Clear |
+| Practice | Study desk, SRS, labs, markets tools | Dense list — OK with progressive disclosure |
+| Records | Profile / transcript / certs | Seg label “Records” duplicates tab name; theme + name also in Settings |
 
-`node scripts/audit-all.mjs` + `node tests/smoke.cjs` PASS @ v17.
+Settings sheet: flat wall (name → lang → font → theme → session → teacher → verify → toggles → backup → demo → danger → version). Needs mature groups.
+
+Duplicates / dual homes:
+- Appearance: Records profile + Settings
+- Hasil: Practice + Records (transcript link OK if Practice is primary home)
+- Name edit: Records + Settings
+
+---
+
+## 6. Top risks (prioritized)
+
+| Sev | Risk | Impact | Fix complexity |
+|-----|------|--------|----------------|
+| High | Finder duplicates `* 2.*` (~35 files) pollute tree + fail dead-code audit | CI/maintainability | Low — delete |
+| High | Settings IA flat; theme/name duplicated | Confusion, wrong home for prefs | Medium |
+| Medium | Inline styles bypass tokens | Drift, hard theming | Medium |
+| Medium | Doc/manifest drift (accent, “Trading Mastery”) | Investor/trust mismatch | Low |
+| Medium | Practice hub lists many peers above fold | Cognitive load | Low–Med |
+| Low | `js/report 2.js` only (no live `report.js`) | Noise | Low |
+| Low | Prior AUDIT.md dated v15 | Misleading | Replace (this file) |
+
+Security/offline/CSP already strong at v52.2 — re-verify, don’t rewrite.
+
+---
+
+## 7. Dead / duplicate / unused (confirmed)
+
+**Delete (no imports, Finder copies):** all `* 2.js`, `* 2.cjs`, `* 2.mjs`, `* 2.html`, `* 2.json`, `* 2.md` at repo root and under js/scripts/tests.
+
+**Keep:** deep track modules (`*-deep.js`), institute courses, live views — dead-code audit only flagged the ` 2` clones once those are gone.
+
+**Commented legacy / console:** no app `console.log` noise in shell (only curriculum quiz copy mentioning `console.log`).
+
+---
+
+## 8. Unused deps / assets
+
+- Runtime: zero npm runtime deps (correct for static PWA).
+- DevDeps: playwright, lighthouse, chrome-launcher — used by verify.
+- No unused package.json scripts found.
+
+---
+
+## 9. Prior evidence (baseline)
+
+- Version audit: PASS 52.2.0 / `masterycap-v5220`
+- Security audit: PASS CSP + sandbox policy
+- Dead-code: FAIL only on `* 2` files
+- Last Lighthouse artifact: P 0.98 · A 1.00 · BP 1.00
+
+---
+
+## 10. Prioritized plan (Phases 2–13)
+
+1. **P2** Delete all `* 2` junk; re-run dead-code; fix any real orphans; naming consistency.
+2. **P3** Regroup Settings; de-dupe theme/name homes; rename Records seg; write `IA-RATIONALE.md`.
+3. **P4** Tokenize remaining chrome; kill critical inline hex/px; empty/loading/error parity.
+4. **P5** Forms: labels, validation focus, hit targets, selection control semantics.
+5. **P6** Live check phone/tablet/desktop + light/sepia/dark + safe areas.
+6. **P7** Keyboard/SR/a11y suite green; strengthen if gaps.
+7. **P8** Measure TTI/bundle/Lighthouse; lazy routes already present — prove numbers.
+8. **P9** Re-run security/XSS/backup tests; confirm no secrets in client.
+9. **P10** SW offline reload + update path; cache ASSETS sync after edits.
+10. **P11** Persona walk + edge attacks; fix friction.
+11. **P12** README/CHANGELOG/VERSION + documented gallery.
+12. **P13** Final verify + phase report with live evidence.
+
+**Version target for this loop:** bump to **52.3.0** / SW `masterycap-v5230` when polish ships.
+
+---
+
+## 11. Decisions locked (do not reverse without owner)
+
+- No accounts / backend / live market API.
+- Certs = self-issued study records only.
+- No income promises.
+- Tabs stay Today / Campus / Practice / Records.
+- Design: workbench / stamp aesthetic (not purple-glass AI chic).
