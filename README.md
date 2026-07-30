@@ -1,10 +1,10 @@
 # MasteryCap
 
-**Version:** v52.2.0 · SW `masterycap-v5220` · see [VERSION](VERSION) · [CHANGELOG.md](CHANGELOG.md) · [GUIDE.md](GUIDE.md)
+**Version:** v52.3.0 · SW `masterycap-v5230` · see [VERSION](VERSION) · [CHANGELOG.md](CHANGELOG.md) · [GUIDE.md](GUIDE.md)
 
 Offline personal institute — **Software Craft** + **Market literacy** (EN / Roman Urdu).
 Curriculum + paper simulator (process-graded, not P/L) + study desk + honest self-issued study records.
-True-black terminal design (Geist, accent `#FF6B2C`). No accounts, no backend, no income promises.
+True-black terminal design (Geist, accent `#F4C430`). No accounts, no backend, no income promises.
 Data stays on-device under `masterycap:`.
 
 ## School path

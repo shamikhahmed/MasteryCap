@@ -1,6 +1,6 @@
 # MasteryCap Features
 
-**Version:** 52.2.0 · Premium School
+**Version:** 52.3.0 · Premium School
 
 ## Strengths
 - Offline-first PWA; no accounts
@@ -9,6 +9,7 @@
 - HTTP Lab (simulated) + typed code editor (desktop ≥900px) / Parsons on phone
 - Markets: Foundations gate → Crypto/Stocks/Forex; paper sim + process graduation
 - Guided daily session Continuity on Today; Charts hub / Daily review / Hasil on Practice
+- Settings grouped (Account → About); Practice “More tools”; Records Study records pane
 - Sim process fails feed Mistake museum → Daily review MCQs
 - Light / Sepia / Dark themes; bilingual EN / Roman Urdu depth bars
 - Bottom nav exposed as ARIA tabs (selected + keyboard)

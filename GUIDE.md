@@ -1,25 +1,28 @@
 # MasteryCap — Guide
 
-Personal bilingual (EN / Roman Urdu) trading **school** PWA. Offline-first, no accounts.
-Current app version: **v52.2.0** (see `VERSION`, `CHANGELOG.md`, `sw.js` → `masterycap-v5220`).
+Personal bilingual (EN / Roman Urdu) institute PWA. Offline-first, no accounts.
+Current app version: **v52.3.0** (see `VERSION`, `CHANGELOG.md`, `sw.js` → `masterycap-v5230`).
 
 ## First run
 1. Open via static server or GitHub Pages.
-2. Splash → onboarding (name, experience, markets) — framing: **zero to trade-ready**.
-3. Home shows school campus (next lesson + beginner path). Practice desk is Journal.
+2. Splash → admission (name, branch, goals) — personal campus on this device.
+3. **Today** shows continue lesson + guided plan. Practice tools live under Practice.
 
 ## School ladder
-**Learn** (lessons/exams) → **Practice** (paper sim / portfolio) → **Graduate** (process gates) → **How-to** (real account, micro size).
+**Campus** (enroll) → **Today** (continue) → **Practice** (SRS / lab / sim) → **Records** (transcript / study records).
 
-Graduation certifies process competence. Markets decide outcomes. No income promise.
+Self-issued study records measure process. Markets decide outcomes. No income promise.
 
 ## Tabs
 | Tab | What |
 |-----|------|
-| Home | School campus: next lesson, beginner path, XP/streak/weeks, ladder chips |
-| Learn | Tracks · lessons · quizzes · placement · XP · Graduation panel |
-| Journal | Practice desk: balance, equity, checklist, sizing, Live + Paper trade log |
-| Progress | Equity · win-rate · emotions · insights · discipline · weeks · drills |
+| Today | Continue lesson, guided session, standing, study due |
+| Campus | Software Craft / Markets / Money branches · enroll |
+| Practice | Study desk, SRS, Charts, review, Hasil, drills, paper lab, HTTP Lab |
+| Records | Profile, transcript, study records, backup |
+
+## Settings (gear on Today / Records)
+Account · General · Appearance · Accessibility · Notifications · Privacy & data · About & legal.
 
 ## Practice (sim)
 - Trading tracks: seeded candle sessions; **stop required** on every entry; process grade ≠ P/L.
@@ -27,35 +30,17 @@ Graduation certifies process competence. Markets decide outcomes. No income prom
 - Honesty notes on every debrief (paper ≠ real emotions/slippage).
 
 ## Learning loop
-- **Placement** (≥60%/topic → mastered) unlocks path.
-- **Quiz** (≥70% → next week; unlimited retakes; options shuffled each attempt).
-- **Drills** — sizing / options / binary / R / pip-tick; ±1%; +5 XP (50/day cap).
-- **Chart replay** — classify / tap resistance / engulfing MCQ.
-- **Daily review** — 3 Q from completed/mastered weeks (Leitner-lite); +15 XP.
-- **Streak** — any qualifying action that local day.
+- Craft courses: lessons → checks (≥80%) → project evidence → final (≥85%) → local study record.
+- Markets: placement / weeks; Foundations gate unlocks Crypto/Stocks/Forex.
+- SRS + flashcards on Practice; Daily review pulls quiz + sim mistake bank.
 
-## Journal & insights
-- Log trades with emotion; revenge/greed flagged.
-- Optional: stop placed / moved stop (old trades without fields excluded from grade).
-- Insights need n ≥ 3 in a slice. Discipline grade = rolling 20 scored trades A–F.
+## Data
+- All on-device under `masterycap:`. Export/import JSON from Settings → Privacy & data.
+- Additive keys only. Demo mode uses isolated `masterycap-demo:` namespace.
 
-## Settings (avatar)
-Name · language · font S/M/L · haptics · export/import backup · double-confirm reset · version.
+## Install
+Safari / Chrome → Add to Home Screen. SW caches the shell for offline.
 
-Backup file: `masterycap-backup-YYYY-MM-DD.json`.
-
-## Offline / updates
-- First load caches shell via service worker.
-- After deploy: hard-reload once if toast says “Updated to vN — reload”.
-- Dev: unregister SW or bump `CACHE` in `sw.js` when assets change.
-
-
-## Content policy
-Risk control, sizing math, incentive literacy. No tips, signals, or win promises.
-Binary track keeps warning banner. Bots track keeps incentive skepticism.
-
-## Urdu QA
-Human checklist: [URDU-REVIEW.md](URDU-REVIEW.md).
-
-## Roadmap status
-All phases P0→P5 complete. Spec history: [ROADMAP.md](ROADMAP.md).
+## Honesty
+Literacy + risk frameworks + process reps. Completing the school ≠ salary from charts.
+See [CONTENT-GAPS.md](CONTENT-GAPS.md), [IA-RATIONALE.md](IA-RATIONALE.md).

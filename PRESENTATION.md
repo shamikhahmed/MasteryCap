@@ -1,4 +1,4 @@
-# MasteryCap — one-pager (v52.2)
+# MasteryCap — one-pager (v52.3)
 
 **What:** Offline personal institute PWA — **Software Craft** + **Market literacy** (EN / Roman Urdu).
 Curriculum, paper sim (process-graded), study desk, honest self-issued study records.
@@ -15,18 +15,17 @@ add evidence notes. Outputs = local course study records / Paper Process Readine
 - **Today** — continue lesson + guided Session Continuity
 - **Practice** — SRS, HTTP Lab, typed editor / Parsons, Charts hub, Daily review, Hasil, paper sim
 - **Records** — profile, transcript + project checklists, self-issued certs, backup JSON
+- Settings: Account · General · Appearance · Accessibility · Notifications · Privacy & data · About
 - Markets deep tracks (Foundations → Crypto/Stocks/Forex + electives); process graduation
 - Bilingual week bars (objective / teach / example / mistake / exit / notebook)
 
 ## Stack
 Static ES modules. No build step required for the PWA shell. No backend.
-`localStorage` (`masterycap:`). GitHub Pages. Lazy route modules. SW cache `masterycap-v5220` · app **v52.2.0**.
+`localStorage` (`masterycap:`). GitHub Pages. Lazy route modules. SW cache `masterycap-v5230` · app **v52.3.0**.
 
 ## Design
-True-black terminal · Geist · accent `#FF6B2C` · zero emoji · mono numerics.
-Themes: Light / Sepia / Dark.
+Workbench stamp · Geist · accent `#F4C430` · zero emoji · mono numerics.
+Themes: Light / Sepia / Dark / Auto.
 
 ## Status
-University build queue complete (v49.2). Unlock wave v50+ (Lab ON, Craft FE→APP session,
-UR parity, nav reconnect, cert-honesty projects). Optional later: Markets↔institute reader merge.
-Deploy: push `main` → GitHub Pages → hard-refresh / Add to Home Screen.
+v52.3 IA polish (settings groups, Records/Practice homes). Prior: university queue + Lab ON + production hardening.

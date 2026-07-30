@@ -1,17 +1,18 @@
 # MasteryCap — Handover
 
 > Read this + `ROADMAP.md` + `~/Capricorn-Brain/01 Projects/MasteryCap.md` before working here.
-> Last updated: 2026-07-21 · Fleet-wide standard: `capricorn-tooling/shared/CAP-STANDARD.md`
+> Last updated: 2026-07-30 · Fleet-wide standard: `capricorn-tooling/shared/CAP-STANDARD.md`
 
 ## What this is
 Offline personal institute PWA. Flagship **School of Software Craft** (WEB-101→APP-403 In Session). **School of Markets** wraps existing bilingual trading literacy. Honest self-issued study records. No accounts, no fake AI, no income promises.
 
 ## Facts
-**Version:** v52.2.0 (sw: masterycap-v5220)
+**Version:** v52.3.0 (sw: masterycap-v5230)
 **Live:** https://shamikhahmed.github.io/MasteryCap/
 **Repo:** https://github.com/shamikhahmed/MasteryCap
-**Stack:** Vanilla JS PWA. Fraunces + IBM Plex (Google) with Geist Mono self-hosted. localStorage (`masterycap:`).
+**Stack:** Vanilla JS PWA. Geist + Geist Mono self-hosted. localStorage (`masterycap:`).
 **Data:** `js/store.js` + `KEYS.institute` for campus progress/SRS/certs/enrollments/attempts.
+**IA:** see `IA-RATIONALE.md` — Settings groups + tab jobs.
 
 ## Run & verify
 ```bash

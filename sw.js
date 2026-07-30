@@ -1,6 +1,6 @@
 /* MasteryCap service worker — offline-first shell cache */
 const CACHE_PREFIX = 'masterycap-';
-const CACHE = 'masterycap-v5220';
+const CACHE = 'masterycap-v5230';
 const ASSETS = [
   './',
   './index.html',
@@ -178,8 +178,8 @@ self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(CACHE)
       .then(async (cache) => {
+        // Shell only — do not block install on curriculum/optional assets.
         await cache.addAll(SHELL_ASSETS);
-        await Promise.allSettled(OPTIONAL_ASSETS.map((asset) => cache.add(asset)));
       })
       .then(() => self.skipWaiting())
       .catch(async (error) => {
@@ -196,15 +196,17 @@ self.addEventListener('activate', (e) => {
       const previous = owned.at(-1);
       const stale = owned.filter((key) => key !== previous);
       return Promise.all(stale.map((key) => caches.delete(key))).then(() => owned.length > 0);
-    }).then((hadPrevious) =>
-      self.clients.claim().then(() => {
-        if (!hadPrevious) return;
-        const ver = CACHE.replace('masterycap-', '');
-        return self.clients.matchAll({ type: 'window' }).then((clients) => {
-          clients.forEach((c) => c.postMessage({ type: 'SW_UPDATED', version: ver }));
-        });
-      })
-    )
+    }).then(async (hadPrevious) => {
+      await self.clients.claim();
+      // Opportunistic curriculum cache — must not gate activation or first paint.
+      caches.open(CACHE).then((cache) => {
+        Promise.allSettled(OPTIONAL_ASSETS.map((asset) => cache.add(asset)));
+      }).catch(() => {});
+      if (!hadPrevious) return;
+      const ver = CACHE.replace('masterycap-', '');
+      const clients = await self.clients.matchAll({ type: 'window' });
+      clients.forEach((c) => c.postMessage({ type: 'SW_UPDATED', version: ver }));
+    })
   );
 });
 

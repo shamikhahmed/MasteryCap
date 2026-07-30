@@ -482,10 +482,10 @@ function boot() {
     setTimeout(() => {
       const splash = document.getElementById('splash');
       if (splash) splash.classList.add('hide');
-      setTimeout(() => splash && splash.remove(), 500);
+      setTimeout(() => splash && splash.remove(), 280);
       if (onboarded && App.profile?.campus) { App.tab = 'today'; App.render(); App.renderNav(); }
       else renderOnboarding();
-    }, 300);
+    }, 120);
   });
 }
 

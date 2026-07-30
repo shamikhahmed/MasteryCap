@@ -1,7 +1,7 @@
 {
-  "name": "MasteryCap — Trading Mastery",
+  "name": "MasteryCap — Personal Institute",
   "short_name": "MasteryCap",
-  "version": "52.2.0",
+  "version": "52.3.0",
   "description": "Bilingual trading course, discipline journal, and risk sizing. Works offline.",
   "start_url": ".",
   "scope": ".",

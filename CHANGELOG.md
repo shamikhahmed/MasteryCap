@@ -1,3 +1,15 @@
+## [52.3.0] — 2026-07-30
+
+### IA, settings maturity, and polish
+- Settings sheet regrouped: Account · General · Appearance · Accessibility · Notifications · Privacy & data · About & legal.
+- Theme removed from Records (single home = Settings); Records third pane renamed Study records; Practice “More tools” holds rare howto checklists.
+- Design tokens for settings groups; larger sheet; ≥44px segment/toggle targets; aria-pressed on settings controls.
+- Finder duplicate `* 2` files removed (dead-code audit clean). Fresh AUDIT.md + IA-RATIONALE.md.
+- Manifest/docs accent and institute naming aligned; SW `masterycap-v5230`.
+- Service worker install waits only on the shell; curriculum caches opportunistically on activate (faster first paint).
+- Splash dismiss shortened for quicker first content.
+- Service worker registration deferred to idle (Lighthouse mobile performance ~0.97).
+
 ## [52.2.0] — 2026-07-21
 
 ### Architecture, performance, interaction safety
