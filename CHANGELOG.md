@@ -1,3 +1,8 @@
+## [51.9.0] — 2026-09-15
+
+- Tier 1 finish: MST-P0 zoom + Worker code sandbox; MST-P1 Today name prompt / one primary session CTA / Foundations list row / standing hidden at 0%; CapConfirm/Alert/Prompt replace native dialogs; sub-11px cleared; Roman Urdu `lang=ur-Latn`; §4.2 disclaimers; privacy.html; accent darkened for white labels
+- SW `masterycap-v5190`
+
 ## [51.8.0] — 2026-07-21
 
 ### Charts + Hasil UR chrome

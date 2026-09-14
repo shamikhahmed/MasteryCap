@@ -5,6 +5,7 @@ import {
   handleLabRequest, LAB_HONESTY, LAB_PRESETS, gradeLabExercises,
 } from '../institute/http-lab.js';
 import { getInstitute, setInstitute, attestProject } from '../institute/progress.js';
+import { CapAlert } from '../ui/dialogs.js';
 
 function esc(s) {
   return String(s).replace(/[&<>"']/g, (c) => ({
@@ -119,8 +120,8 @@ export function renderHttpLab(App, el) {
         n += 1;
       }
     });
-    alert(en
+    CapAlert({ title: en
       ? `Synced ${n} PASS checklist items to BE-301 (${g.filter((x) => x.pass).length}/${g.length} lab exercises passed).`
-      : `${n} PASS → BE-301 checklist (${g.filter((x) => x.pass).length}/${g.length} lab PASS).`);
+      : `${n} PASS → BE-301 checklist (${g.filter((x) => x.pass).length}/${g.length} lab PASS).` });
   });
 }

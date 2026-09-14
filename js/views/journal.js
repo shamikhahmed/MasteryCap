@@ -6,6 +6,7 @@
 import { icon } from '../icons.js';
 import { store, KEYS } from '../store.js';
 import { CHECK_RULES, todayKey, equityPoints, tradeStats } from '../desk.js';
+import { CapAlert, CapConfirm } from '../ui/dialogs.js';
 
 let direction = null;
 let pendingDebriefId = null;
@@ -284,18 +285,18 @@ export function renderJournal(App, c) {
   wireToggle('togStop');
   wireToggle('togMoved');
 
-  document.getElementById('saveTrade').addEventListener('click', () => {
+  document.getElementById('saveTrade').addEventListener('click', async () => {
     const g = (id) => document.getElementById(id).value;
     const pl = parseFloat(g('pl'));
-    if (!direction) { alert(lang === 'en' ? 'Pick long or short.' : 'Long ya short chuno.'); return; }
-    if (isNaN(pl)) { alert(lang === 'en' ? 'Enter the P/L result in dollars.' : 'P/L result dollars mein daalo.'); return; }
+    if (!direction) { await CapAlert({ title: lang === 'en' ? 'Pick long or short.' : 'Long ya short chuno.' }); return; }
+    if (isNaN(pl)) { await CapAlert({ title: lang === 'en' ? 'Enter the P/L result in dollars.' : 'P/L result dollars mein daalo.' }); return; }
     if (s.checklistGate && !checklistComplete(App)) {
-      alert(lang === 'en' ? 'Checklist must be 4/4 on Desk first.' : 'Pehle Desk pe checklist 4/4.');
+      await CapAlert({ title: lang === 'en' ? 'Checklist must be 4/4 on Desk first.' : 'Pehle Desk pe checklist 4/4.' });
       return;
     }
     const until = cooldownActive();
     if (until) {
-      alert(App.t('cooldown_pill').replace('{t}', new Date(until).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })));
+      await CapAlert({ title: App.t('cooldown_pill').replace('{t}', new Date(until).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })) });
       return;
     }
     const emotion = g('emotion');
@@ -329,9 +330,8 @@ export function renderJournal(App, c) {
     showDebrief(App, trade.id);
   });
 
-  document.getElementById('cdOverride')?.addEventListener('click', () => {
-    // long-press simulated: require confirm
-    if (!confirm(App.t('cooldown_override') + '?')) return;
+  document.getElementById('cdOverride')?.addEventListener('click', async () => {
+    if (!(await CapConfirm({ title: App.t('cooldown_override') + '?', destructive: true, confirmLabel: App.lang === 'en' ? 'Override' : 'Override' }))) return;
     store.remove(KEYS.coolDownUntil);
     const list = App.getTrades();
     if (list[0]) { list[0].overrode = true; App.setTrades(list); }

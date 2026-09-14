@@ -7,8 +7,9 @@ import { icon } from './icons.js';
 import { applyTheme, getAppearance, setAppearance } from './theme.js';
 import { getTeacher, setTeacher, TEACHERS } from './teacher.js';
 import { evidenceHash } from './exam.js';
+import { CapAlert, CapConfirm, CapPrompt } from './ui/dialogs.js';
 
-export const APP_VERSION = 'v51.8.0';
+export const APP_VERSION = 'v51.9.0';
 
 function todayStamp() {
   const d = new Date();
@@ -59,11 +60,17 @@ function doExport(App) {
 
 function doImport(App, file) {
   const reader = new FileReader();
-  reader.onload = () => {
+  reader.onload = async () => {
     let obj;
     try { obj = JSON.parse(reader.result); } catch (e) { obj = null; }
     if (!obj) { flash(App.t('backup_bad'), 'err'); return; }
-    if (!confirm(App.t('backup_confirm'))) return;
+    const ok = await CapConfirm({
+      title: App.t('backup_confirm'),
+      confirmLabel: App.lang === 'en' ? 'Replace' : 'Replace',
+      cancelLabel: App.t('back'),
+      destructive: true,
+    });
+    if (!ok) return;
     const res = store.importBackup(obj);
     if (!res.ok) {
       if (res.error === 'checksum_fail') flash(App.t('backup_checksum'), 'err');
@@ -178,6 +185,11 @@ export function openSettings(App) {
         <button class="btn ghost" id="setReset" style="border-color:rgba(234,57,67,0.35);color:var(--down)">${App.t('set_reset')}</button>
 
         <div id="settings-msg" class="hidden"></div>
+        <div class="slabel" style="margin:22px 0 10px">${App.lang === 'en' ? 'About' : 'About'}</div>
+        <p style="font-size:13px;color:var(--t3);line-height:1.55;margin:0 0 12px">${App.lang === 'en'
+          ? 'MasteryCap is educational. Nothing here is financial advice. Certificates are self-issued and not accredited.'
+          : 'MasteryCap educational hai. Financial advice nahi. Certificates self-issued hain — accredited nahi.'}</p>
+        <p style="font-size:12px;margin:0 0 12px"><a href="privacy.html" style="color:var(--acc-2)">${App.lang === 'en' ? 'Privacy' : 'Privacy'}</a></p>
         <div style="margin-top:18px;font-size:12px;color:var(--t3)" class="mono">
           MasteryCap ${APP_VERSION} · <a href="CHANGELOG.md" style="color:var(--acc-2)">${App.t('set_changelog')}</a>
         </div>
@@ -286,7 +298,7 @@ export function openSettings(App) {
     const standalone = window.matchMedia('(display-mode: standalone)').matches
       || window.navigator.standalone === true;
     if (standalone) {
-      alert(App.t('ios_already'));
+      CapAlert({ title: App.t('ios_already') });
       return;
     }
     const el = document.createElement('div');
@@ -322,18 +334,18 @@ export function openSettings(App) {
     toggleDemo(App);
   });
 
-  document.getElementById('setReset').addEventListener('click', () => {
-    if (!confirm(App.t('set_reset_1'))) return;
-    if (!confirm(App.t('set_reset_export_first'))) {
+  document.getElementById('setReset').addEventListener('click', async () => {
+    if (!(await CapConfirm({ title: App.t('set_reset_1'), destructive: true, confirmLabel: App.lang === 'en' ? 'Continue' : 'Continue' }))) return;
+    if (!(await CapConfirm({ title: App.t('set_reset_export_first'), confirmLabel: App.lang === 'en' ? 'I already exported' : 'Export ho chuka', cancelLabel: App.lang === 'en' ? 'Export first' : 'Pehle export' }))) {
       document.getElementById('setExport')?.click();
       return;
     }
-    const typed = prompt(App.t('set_reset_type'));
+    const typed = await CapPrompt({ title: App.t('set_reset_type'), confirmLabel: 'OK', placeholder: 'RESET' });
     if (String(typed || '').trim().toUpperCase() !== 'RESET') {
       flash(App.t('set_reset_abort'), 'err');
       return;
     }
-    if (!confirm(App.t('set_reset_2'))) return;
+    if (!(await CapConfirm({ title: App.t('set_reset_2'), destructive: true, confirmLabel: App.lang === 'en' ? 'Erase everything' : 'Sab mitao' }))) return;
     store.clearAll();
     location.reload();
   });

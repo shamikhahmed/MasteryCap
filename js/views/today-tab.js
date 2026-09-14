@@ -1,4 +1,4 @@
-/* Today — school homeboard: Continue · Session · Standing · mini ID · Study due */
+/* Today — P-MST-1 / MST-P1-01: name prompt · one primary session CTA · Foundations list row · standing hidden at 0% */
 
 import { icon } from '../icons.js';
 import { openSettings } from '../settings.js';
@@ -19,7 +19,8 @@ import { dueReviewCount } from '../retention.js';
 
 export function renderToday(App, el) {
   const p = App.profile || {};
-  const name = p.name || 'Learner';
+  const hasName = Boolean((p.name || '').trim()) && !p.nameSkipped;
+  const name = (p.name || '').trim();
   const inst = getInstitute();
   const rawCode = inst.activeCourse || p.starterCourse || null;
   const meta = rawCode ? getCourse(rawCode) : null;
@@ -41,80 +42,98 @@ export function renderToday(App, el) {
   const fTotal = fTrack?.weeks?.length || 6;
   const fPct = Math.round((fDone / fTotal) * 100);
   const gateOpen = foundationsGateOpen(App);
+  const showNamePrompt = !hasName && !p.nameSkipped;
 
+  const nameBlock = showNamePrompt
+    ? `<section class="hb-section" data-testid="name-prompt">
+        <div class="inst-card accent-rule">
+          <div class="kicker">${en ? 'Welcome' : 'Khush aamdeed'}</div>
+          <h2 class="inst-h2">${en ? 'What should we call you?' : 'Hum aapko kya bulayein?'}</h2>
+          <p class="inst-muted">${en ? 'Just for greetings. Stays on this device.' : 'Sirf greetings ke liye. Isi device pe.'}</p>
+          <label class="sr-only" for="tdNameInput">${en ? 'Your name' : 'Aapka naam'}</label>
+          <input id="tdNameInput" class="atelier-input mc-name-input" type="text" maxlength="32" autocomplete="nickname" placeholder="${en ? 'Your name' : 'Naam'}" />
+          <div class="inst-row mt10" style="gap:8px">
+            <button type="button" class="btn accent" id="tdNameSave" style="flex:1">${en ? 'Save' : 'Save'}</button>
+            <button type="button" class="btn ghost" id="tdNameSkip" style="flex:1">${en ? 'Skip' : 'Skip'}</button>
+          </div>
+        </div>
+      </section>`
+    : '';
+
+  const marketsPath = code === 'MKT-LEGACY' || p.primaryBranch === 'markets' || p.starterSchool === 'markets';
   let continueBlock = '';
-  if (code === 'MKT-LEGACY' || p.primaryBranch === 'markets' || p.starterSchool === 'markets') {
+  if (marketsPath) {
     continueBlock = `<section class="hb-section" data-testid="campus-dashboard">
       <div class="hb-label">${en ? 'Continue' : 'Jari'}</div>
-      <div class="inst-card accent-rule hb-continue">
-        <div class="kicker">${en ? 'Markets · Foundations' : 'Markets · Foundations'}</div>
-        <h2 class="inst-h2">${en ? 'Market literacy path' : 'Market literacy ka path'}</h2>
-        <p class="inst-muted">${gateOpen
-          ? (en ? 'Foundations gate open — Crypto, Stocks, and Forex unlocked.' : 'Foundations gate open — specialties unlocked.')
-          : (en ? `${fDone}/${fTotal} weeks · complete Foundations or pass the exam to unlock specialties.` : `${fDone}/${fTotal} weeks · specialties lock.`)}</p>
-        <div class="prog-line mt10">
-          <span class="prog-num">${fDone}/${fTotal}</span>
-          <div class="prog-track"><i style="width:${fPct}%"></i></div>
-          <span class="prog-num">${fPct}%</span>
-        </div>
-        <button class="btn accent mt14" id="tdMarkets" data-testid="recommended-course">${en ? 'Open Foundations' : 'Foundations kholo'}</button>
-      </div>
+      <button type="button" class="list-row" id="tdMarkets" data-testid="recommended-course">
+        <span class="grow">
+          <span class="list-row__title">${en ? 'Open Foundations' : 'Foundations kholo'}</span>
+          <span class="list-row__sub">${gateOpen
+            ? (en ? 'Gate open — specialties unlocked.' : 'Gate open — specialties unlocked.')
+            : (en ? `${fDone}/${fTotal} weeks · unlock specialties` : `${fDone}/${fTotal} weeks`)}</span>
+        </span>
+        <span class="mono">${fPct}%</span>
+      </button>
     </section>`;
   } else if (nxt && course) {
     continueBlock = `<section class="hb-section">
       <div class="hb-label">${en ? 'Continue' : 'Jari'}</div>
-      <div class="inst-card accent-rule hb-continue">
-        <div class="kicker">${meta?.code || ''} · ${pct}%</div>
-        <h2 class="inst-h2">${nxt.title[App.lang] || nxt.title.en}</h2>
-        <p class="inst-muted">${nxt.objective[App.lang] || nxt.objective.en}</p>
-        <button class="btn accent mt14" id="tdContinue" data-testid="recommended-course">${en ? 'Continue lesson' : 'Lesson jari'}</button>
-      </div>
+      <button type="button" class="list-row" id="tdContinue" data-testid="recommended-course">
+        <span class="grow">
+          <span class="list-row__title">${esc(nxt.title[App.lang] || nxt.title.en)}</span>
+          <span class="list-row__sub">${esc(meta?.code || '')} · ${pct}%</span>
+        </span>
+      </button>
     </section>`;
   } else if (course && !nxt) {
     continueBlock = `<section class="hb-section">
       <div class="hb-label">${en ? 'Continue' : 'Jari'}</div>
-      <div class="inst-card accent-rule">
-        <div class="kicker">${meta?.code || ''}</div>
-        <h2 class="inst-h2">${en ? 'Lessons complete' : 'Lessons mukammal'}</h2>
-        <p class="inst-muted">${en ? 'Take the final assessment when ready.' : 'Final assessment lo jab ready ho.'}</p>
-        <button class="btn accent mt14" id="tdFinal">${en ? 'Final assessment' : 'Final imtihaan'}</button>
-      </div>
+      <button type="button" class="list-row" id="tdFinal">
+        <span class="grow">
+          <span class="list-row__title">${en ? 'Final assessment' : 'Final imtihaan'}</span>
+          <span class="list-row__sub">${esc(meta?.code || '')}</span>
+        </span>
+      </button>
     </section>`;
   } else {
     continueBlock = `<section class="hb-section">
       <div class="hb-label">${en ? 'Continue' : 'Jari'}</div>
-      <div class="inst-card accent-rule">
-        <div class="kicker">${en ? 'Campus' : 'Campus'}</div>
-        <h2 class="inst-h2">${en ? 'Pick a branch' : 'Branch chuno'}</h2>
-        <p class="inst-muted">${en ? 'Software Craft, Markets, or Money — enroll in an Open course.' : 'Software, Markets, ya Money.'}</p>
-        <button class="btn accent mt14" id="tdCampus" data-testid="recommended-course">${en ? 'Explore Campus' : 'Campus dekho'}</button>
-      </div>
+      <button type="button" class="list-row" id="tdCampus" data-testid="recommended-course">
+        <span class="grow">
+          <span class="list-row__title">${en ? 'Explore Campus' : 'Campus dekho'}</span>
+          <span class="list-row__sub">${en ? 'Software, Markets, or Money' : 'Software, Markets, ya Money'}</span>
+        </span>
+      </button>
     </section>`;
   }
 
-  const idStrip = card
-    ? `<button type="button" class="mini-id-btn" id="tdViewId" data-testid="mini-id">${renderStudentIdCard(card, { lang: App.lang, photoUrl: photo, compact: true })}</button>`
-    : `<button type="button" class="inst-card" id="tdFinishAdmit" style="width:100%;text-align:left">
-        <div class="kicker">${en ? 'Student ID' : 'Student ID'}</div>
-        <p class="inst-muted">${en ? 'Complete admission to create your Student ID' : 'Admission mukammal karo'}</p>
-      </button>`;
+  const idStrip = !hasName
+    ? ''
+    : card
+      ? `<button type="button" class="mini-id-btn" id="tdViewId" data-testid="mini-id">${renderStudentIdCard(card, { lang: App.lang, photoUrl: photo, compact: true })}</button>`
+      : `<button type="button" class="inst-card" id="tdFinishAdmit" style="width:100%;text-align:left">
+          <div class="kicker">${en ? 'Student ID' : 'Student ID'}</div>
+          <p class="inst-muted">${en ? 'Complete admission to create your Student ID' : 'Admission mukammal karo'}</p>
+        </button>`;
 
-  const standing = `<section class="hb-section">
+  const showStanding = (marketsPath && fPct > 0) || (code && code !== 'MKT-LEGACY' && pct > 0);
+  const standing = showStanding
+    ? `<section class="hb-section">
     <div class="hb-label">${en ? 'Your standing' : 'Standing'}</div>
     <div class="inst-list">
-      ${p.primaryBranch === 'markets' || p.starterSchool === 'markets' || code === 'MKT-LEGACY'
+      ${marketsPath
         ? `<div class="list-row static">
             <span class="grow">${en ? 'Markets Foundations' : 'Markets Foundations'}</span>
             <span class="mono">${fPct}%</span>
           </div>`
         : ''}
       ${code && code !== 'MKT-LEGACY' ? `<div class="list-row static">
-            <span class="grow">${meta?.title?.[App.lang] || meta?.title?.en || code}</span>
+            <span class="grow">${esc(meta?.title?.[App.lang] || meta?.title?.en || code)}</span>
             <span class="mono">${pct}%</span>
           </div>` : ''}
-      ${!(p.primaryBranch === 'markets' || code) ? `<p class="inst-muted">${en ? 'Enroll on Campus to build standing.' : 'Campus pe enroll.'}</p>` : ''}
     </div>
-  </section>`;
+  </section>`
+    : '';
 
   const sessionMins = store.get(KEYS.settings, {}).sessionMins || 15;
   const sess = sessionStatus();
@@ -122,7 +141,9 @@ export function renderToday(App, el) {
     ? `${App.t('session_resume')} · ${sess.step}/${sess.total}`
     : sess.doneToday
       ? (en ? `Session done · ${sessionMins} min` : `Session mukammal · ${sessionMins} min`)
-      : `${App.t('session_start')} · ${sessionMins} min`;
+      : (en
+        ? `Start today's session · ${sessionMins} min`
+        : `Aaj ki session shuru · ${sessionMins} min`);
   const missDue = mistakeCountDue();
   const quizDue = dueReviewCount();
   const sessionBlock = `<section class="hb-section">
@@ -131,25 +152,30 @@ export function renderToday(App, el) {
         <p class="inst-muted">${en
           ? 'Markets daily plan — lesson, flashcards, quiz, sim when unlocked.'
           : 'Markets daily plan — lesson, cards, quiz, sim.'}</p>
-        <button class="btn accent mt10" id="tdSession" style="width:100%">${icon('learn', { size: 17 })} ${sessCta}</button>
+        <button class="btn accent mt10" id="tdSession" style="width:100%" data-testid="today-primary-cta">${icon('learn', { size: 17 })} ${sessCta}</button>
       </div>
     </section>`;
+
+  const title = hasName
+    ? (en ? `Hello, ${esc(name)}` : `Salam, ${esc(name)}`)
+    : (en ? 'Today' : 'Aaj');
 
   el.innerHTML = `<div class="screen inst-screen homeboard" data-testid="campus-dashboard">
     <div class="lt-head head-row">
       <div>
         <div class="kicker">${en ? 'Today' : 'Aaj'}</div>
-        <h1>${en ? `Hello, ${esc(name)}` : `Salam, ${esc(name)}`}</h1>
+        <h1>${title}</h1>
       </div>
       <button class="icon-btn" id="tdSettings" aria-label="${App.t('settings')}">${icon('settings', { size: 18 })}</button>
     </div>
-    ${continueBlock}
+    ${nameBlock}
     ${sessionBlock}
+    ${continueBlock}
     ${standing}
-    <section class="hb-section">
+    ${hasName ? `<section class="hb-section">
       <div class="hb-label">${en ? 'Student ID' : 'Student ID'}</div>
       ${idStrip}
-    </section>
+    </section>` : ''}
     <section class="hb-section">
       <div class="hb-label">${en ? 'Study due' : 'Ab due'}</div>
       <div class="inst-row">
@@ -164,8 +190,8 @@ export function renderToday(App, el) {
       </div>
     </section>
     <p class="inst-foot-note">${en
-      ? 'MasteryCap is an independent study app. Education only — not financial advice, not an accredited institution.'
-      : 'Independent study app. Sirf education — financial advice ya accredited institute nahi.'}</p>
+      ? 'MasteryCap is educational. Nothing here is financial advice. Certificates are self-issued and not accredited.'
+      : 'MasteryCap educational hai. Financial advice nahi. Certificates self-issued hain — accredited nahi.'}</p>
   </div>`;
 
   document.getElementById('tdSettings')?.addEventListener('click', () => openSettings(App));
@@ -195,6 +221,22 @@ export function renderToday(App, el) {
   });
   document.getElementById('tdFinal')?.addEventListener('click', () => {
     App.openFinal(code);
+  });
+
+  document.getElementById('tdNameSave')?.addEventListener('click', () => {
+    const n = (document.getElementById('tdNameInput')?.value || '').trim();
+    if (!n) {
+      App.toast?.(en ? 'Enter a name, or Skip.' : 'Naam likho, ya Skip.');
+      return;
+    }
+    App.profile = { ...(App.profile || {}), name: n, nameSkipped: false };
+    store.set(KEYS.profile, App.profile);
+    App.render();
+  });
+  document.getElementById('tdNameSkip')?.addEventListener('click', () => {
+    App.profile = { ...(App.profile || {}), nameSkipped: true };
+    store.set(KEYS.profile, App.profile);
+    App.render();
   });
 }
 

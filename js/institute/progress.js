@@ -104,7 +104,7 @@ export async function certHash(payload) {
 }
 
 export const CERT_DISCLAIMER =
-  'This certificate is self-issued locally on the learner\'s device by MasteryCap, an independent study application. It is not an accredited qualification and confers no license or degree. It records completed work, honestly.';
+  'MasteryCap is educational. Nothing here is financial advice. Certificates are self-issued and not accredited.';
 
 export async function tryIssueCertificate(courseCode, meta, score) {
   const inst = getInstitute();
