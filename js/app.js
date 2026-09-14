@@ -55,7 +55,9 @@ export const App = {
   setLang(l) {
     this.lang = l;
     const s = store.get(KEYS.settings, {}); s.lang = l; store.set(KEYS.settings, s);
-    document.documentElement.lang = l === 'ur' ? 'ur' : 'en';
+    // Roman Urdu UI copy → ur-Latn (MST-P1-05)
+    document.documentElement.lang = l === 'ur' ? 'ur-Latn' : 'en';
+    document.documentElement.dir = 'ltr';
     this.render(); this.renderNav();
   },
 
@@ -125,11 +127,11 @@ export const App = {
   },
 
   /* ----- routing ----- */
-  navigate(tab) {
+  async navigate(tab) {
     if (tab === 'dashboard') tab = 'today';
     if (tab === this.tab) { this.render(); return; }
     if (this.tab === 'learn' && tab !== 'learn') {
-      if (!confirmCourseLeave(this)) return;
+      if (!(await confirmCourseLeave(this))) return;
       clearCourseDirty();
     }
     if (this.tab === 'sim' && tab !== 'sim') stopSimPlayback();
@@ -413,7 +415,8 @@ function boot() {
   store.hydrate().then(() => {
     const settings = store.get(KEYS.settings, {});
     App.lang = settings.lang || 'en';
-    document.documentElement.lang = App.lang === 'ur' ? 'ur' : 'en';
+    document.documentElement.lang = App.lang === 'ur' ? 'ur-Latn' : 'en';
+    document.documentElement.dir = 'ltr';
     App.profile = store.get(KEYS.profile, null);
     const onboarded = store.get(KEYS.onboarded, false);
     applySettings(App);

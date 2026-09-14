@@ -37,7 +37,7 @@ export function renderCampus(App, el) {
           <div class="kicker">${s.status === 'live' ? (en ? 'Branch open' : 'Branch khula') : (en ? 'Coming' : 'Jald')}</div>
           <div class="inst-h3">${s.name[App.lang] || s.name.en}</div>
           <p class="inst-muted">${s.tagline[App.lang] || s.tagline.en}</p>
-          ${s.honesty ? `<p class="inst-honesty">${en ? 'Education only. Not financial advice.' : 'Sirf education. Financial advice nahi.'}</p>` : ''}
+          ${s.honesty ? `<p class="inst-honesty">${en ? 'MasteryCap is educational. Nothing here is financial advice. Certificates are self-issued and not accredited.' : 'MasteryCap educational hai. Financial advice nahi. Certificates self-issued — accredited nahi.'}</p>` : ''}
           <span class="mono branch-enter">${en ? 'Enter →' : 'Andar →'}</span>
         </button>`).join('')}
     </div>
@@ -86,7 +86,7 @@ function renderSchool(App, el, schoolId, done, en) {
         <div class="kicker">${en ? 'Branch' : 'Shaakh'}</div>
         <h1>${school.name[App.lang] || school.name.en}</h1>
         <p class="inst-foot-note">${en
-          ? 'Education only. Not financial advice or an income path.'
+          ? 'MasteryCap is educational. Nothing here is financial advice. Certificates are self-issued and not accredited.'
           : 'Sirf education. Financial advice ya income path nahi.'}</p>
       </div>
       <div class="slabel">${en ? 'Core ladder' : 'Asli seedhi'}</div>
@@ -146,7 +146,7 @@ function renderSchool(App, el, schoolId, done, en) {
       <h1>${school.name[App.lang] || school.name.en}</h1>
       <p class="inst-muted">${school.tagline[App.lang] || school.tagline.en}</p>
       <p class="inst-foot-note">${en
-        ? 'Education only. Open = enrollable. Locked = prereqs. Certificates are self-issued study records.'
+        ? 'MasteryCap is educational. Nothing here is financial advice. Certificates are self-issued and not accredited.'
         : 'Sirf education. Open = enroll. Locked = prereq. Certificate = study record.'}</p>
     </div>
     <div class="inst-list">${cards.join('')}</div>
@@ -197,7 +197,7 @@ function renderCourseDetail(App, el, code, done, en) {
       <h1>${meta.title[App.lang] || meta.title.en}</h1>
       <p class="inst-muted">${meta.hours}h · ${en ? 'Pass final ≥' : 'Final ≥'}${course.passScore}%${tries ? ` · ${en ? 'Attempts' : 'Tries'} ${tries}` : ''}</p>
       <p class="inst-foot-note">${en
-        ? 'Education only — not a job guarantee, license, or income path. Admit to unlock lessons.'
+        ? 'MasteryCap is educational. Nothing here is financial advice. Certificates are self-issued and not accredited.'
         : 'Sirf education — job/license/income guarantee nahi. Admit se lessons.'}</p>
     </div>
     ${meta.outcomes ? `<div class="inst-card"><div class="kicker">${en ? 'You will be able to' : 'Aap kar sakenge'}</div>

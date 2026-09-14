@@ -1,6 +1,6 @@
 {
   "name": "masterycap",
-  "version": "51.8.0",
+  "version": "51.9.0",
   "private": true,
   "description": "MasteryCap offline trading-education PWA",
   "scripts": {
@@ -16,6 +16,7 @@
   "devDependencies": {
     "@playwright/test": "^1.49.1",
     "chrome-launcher": "^1.1.2",
-    "lighthouse": "^12.0.0"
+    "lighthouse": "^12.0.0",
+    "playwright": "^1.63.0"
   }
 }

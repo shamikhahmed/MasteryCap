@@ -1,5 +1,9 @@
 /* Code practice — desktop editor + phone Parsons + assert harness */
 
+import { runAsserts } from './code-sandbox.js';
+
+export { runAsserts };
+
 export function isDesktopEditor() {
   return window.matchMedia('(min-width: 900px)').matches;
 }
@@ -67,68 +71,9 @@ export function renderCodeEditor({ prompt, starter, lang = 'en', parsons = null 
 }
 
 /**
- * Assert harness: tests are {name, run} where run is expression OR
- * {name, assert: 'eq'|'truthy'|'throws', expr, expect?}
+ * Assert harness moved to code-sandbox.js (Worker).
+ * @deprecated import runAsserts from './code-sandbox.js'
  */
-export function runAsserts(src, tests = []) {
-  const lines = [];
-  let passed = 0;
-  const harness = `
-var __els = Object.create(null);
-var document = {
-  querySelector: function(sel) {
-    if (!__els[sel]) __els[sel] = { textContent: '', className: String(sel).replace(/^\\./, ''), _sel: sel };
-    return __els[sel];
-  },
-  querySelectorAll: function(sel) { return [document.querySelector(sel)]; },
-  createElement: function(tag) { return { tagName: String(tag).toUpperCase(), textContent: '' }; },
-};
-var __ls = Object.create(null);
-var localStorage = {
-  setItem: function(k, v) { __ls[k] = String(v); },
-  getItem: function(k) { return Object.prototype.hasOwnProperty.call(__ls, k) ? __ls[k] : null; },
-  removeItem: function(k) { delete __ls[k]; },
-};
-`;
-  try {
-    // eslint-disable-next-line no-new-func
-    new Function(`${harness}\n${src}\n; return 1;`)();
-    lines.push('Parse: OK');
-  } catch (e) {
-    return { lines: [`Parse FAIL: ${e.message}`], passed: 0, total: tests.length };
-  }
-
-  for (const t of tests) {
-    try {
-      let ok = false;
-      if (t.assert === 'eq') {
-        // eslint-disable-next-line no-new-func
-        const got = new Function(`${harness}\n${src}\n; return (${t.expr});`)();
-        ok = Object.is(got, t.expect) || got === t.expect
-          || (typeof t.expect === 'object' && JSON.stringify(got) === JSON.stringify(t.expect));
-        lines.push(`${ok ? 'PASS' : 'FAIL'}: ${t.name} (got ${JSON.stringify(got)})`);
-      } else if (t.assert === 'throws') {
-        let threw = false;
-        try {
-          // eslint-disable-next-line no-new-func
-          new Function(`${harness}\n${src}\n; (${t.expr});`)();
-        } catch (e) { threw = true; }
-        ok = threw;
-        lines.push(`${ok ? 'PASS' : 'FAIL'}: ${t.name}`);
-      } else {
-        // eslint-disable-next-line no-new-func
-        ok = !!(new Function(`${harness}\n${src}\n; return !!(${t.run || t.expr});`)());
-        lines.push(`${ok ? 'PASS' : 'FAIL'}: ${t.name}`);
-      }
-      if (ok) passed += 1;
-    } catch (e) {
-      lines.push(`FAIL: ${t.name} — ${e.message}`);
-    }
-  }
-  if (!tests.length) lines.push('No asserts — self-check the prompt.');
-  return { lines, passed, total: tests.length };
-}
-
 export function wireCodeEditor(starter, tests = [], correctParsons = null) {
   const out = document.getElementById('codeOut');
   const area = document.getElementById('codeEditor');
@@ -201,6 +146,7 @@ export function wireCodeEditor(starter, tests = [], correctParsons = null) {
 
   document.getElementById('codeRun')?.addEventListener('click', () => {
     let src = area ? area.value : '';
+    let prefix = '';
     if (pool) {
       src = built.map((r) => r.text).join('\n');
       const expect = correctParsons || parsonsLines(starter);
@@ -209,10 +155,11 @@ export function wireCodeEditor(starter, tests = [], correctParsons = null) {
         out.textContent = `Order FAIL.\nExpected ${expect.length} lines in starter order.`;
         return;
       }
-      out.textContent = 'Order PASS.\n';
+      prefix = 'Order PASS.\n';
     }
-    const result = runAsserts(src, tests);
-    out.textContent = (pool ? out.textContent : '') + result.lines.join('\n')
-      + (result.total ? `\n${result.passed}/${result.total} asserts` : '');
+    out.textContent = `${prefix}Running…`;
+    runAsserts(src, tests).then((result) => {
+      out.textContent = `${prefix}${result.lines.join('\n')}${result.total ? `\n${result.passed}/${result.total} asserts` : ''}`;
+    });
   });
 }

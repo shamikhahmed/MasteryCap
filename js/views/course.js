@@ -32,6 +32,7 @@ import { notifySessionMilestone } from '../session.js';
 import { renderReading } from '../reading.js';
 import { foundationsGateOpen } from '../syllabus.js';
 import { showCommitteeApproval } from '../institute/committee.js';
+import { CapAlert, CapConfirm } from '../ui/dialogs.js';
 
 let S = {
   track: 'foundations', view: 'home', activeWeek: null, lessonMode: 'read',
@@ -588,10 +589,10 @@ function drawWeek() {
         const next = track.weeks.find((x) => x.id === w.id + 1);
         if (next && !['completed', 'mastered'].includes(prog.weekStatus[next.id])) prog.weekStatus[next.id] = 'current';
         App.setCourse(track.id, prog);
-        alert(App.t('challenge_pass'));
+        CapAlert({ title: App.t('challenge_pass') });
         S.view = 'home'; draw();
       } else {
-        alert(App.t('challenge_fail'));
+        CapAlert({ title: App.t('challenge_fail') });
         draw();
       }
     });
@@ -698,8 +699,8 @@ function drawQuiz() {
   html += `</div>`;
   c.innerHTML = html;
 
-  document.getElementById('back').addEventListener('click', () => {
-    if (!S.quizSubmitted && Object.keys(S.quizAnswers).length && !confirmLeave(App)) return;
+  document.getElementById('back').addEventListener('click', async () => {
+    if (!S.quizSubmitted && Object.keys(S.quizAnswers).length && !(await confirmLeave(App))) return;
     S.view = 'week'; S.dirty = false; draw();
   });
   c.querySelectorAll('[data-q]').forEach((b) => b.addEventListener('click', () => {
@@ -729,8 +730,13 @@ function maybeShowCommittee(App) {
   showCommitteeApproval(App, msg);
 }
 
-function confirmLeave(App) {
-  return confirm(App.t('leave_quiz'));
+async function confirmLeave(App) {
+  return CapConfirm({
+    title: App.t('leave_quiz'),
+    confirmLabel: App.lang === 'en' ? 'Leave' : 'Leave',
+    cancelLabel: App.t('back'),
+    destructive: true,
+  });
 }
 
 export function isCourseDirty() {
@@ -742,7 +748,7 @@ export function isCourseDirty() {
   return false;
 }
 
-export function confirmCourseLeave(App) {
+export async function confirmCourseLeave(App) {
   if (!isCourseDirty()) return true;
   return confirmLeave(App);
 }
@@ -906,7 +912,7 @@ function drawBinaryGate() {
   document.getElementById('submitGate').addEventListener('click', () => {
     const ok = BINARY_GATE.every((q, i) => S.gateAnswers[i] === q.correct);
     if (!ok) {
-      alert(App.t('gate_fail'));
+      CapAlert({ title: App.t('gate_fail') });
       return;
     }
     store.set(STORE_KEYS.binaryGate, true);
@@ -941,8 +947,8 @@ function drawExam() {
   }
   html += `</div>`;
   c.innerHTML = html;
-  document.getElementById('back').addEventListener('click', () => {
-    if (!S.examSubmitted && Object.keys(S.examAnswers).length && !confirmLeave(App)) return;
+  document.getElementById('back').addEventListener('click', async () => {
+    if (!S.examSubmitted && Object.keys(S.examAnswers).length && !(await confirmLeave(App))) return;
     S.view = 'home'; S.dirty = false; draw();
   });
   c.querySelectorAll('[data-e]').forEach((b) => b.addEventListener('click', () => {
@@ -951,7 +957,7 @@ function drawExam() {
   }));
   document.getElementById('submitExam')?.addEventListener('click', () => {
     if (exam.items.some((_, i) => S.examAnswers[i] === undefined)) {
-      alert(App.t('leave_quiz')); return;
+      CapAlert({ title: App.t('leave_quiz') }); return;
     }
     const sc = scoreExam(exam, S.examAnswers);
     S.examSubmitted = true; S.dirty = false;
