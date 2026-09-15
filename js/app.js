@@ -434,7 +434,10 @@ function boot() {
     setTimeout(() => {
       const splash = document.getElementById('splash');
       if (splash) splash.classList.add('hide');
-      setTimeout(() => splash && splash.remove(), 500);
+      setTimeout(() => {
+        splash && splash.remove();
+        try { window.__APP_READY__ = true; document.documentElement.dataset.appReady = 'true'; } catch (_) {}
+      }, 500);
       if (onboarded && App.profile?.campus) { App.tab = 'today'; App.render(); App.renderNav(); }
       else renderOnboarding();
     }, 1700);
