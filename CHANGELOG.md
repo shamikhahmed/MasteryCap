@@ -1,3 +1,7 @@
+## 51.9.2 — 2026-09-15
+- C-16 fix: remove remaining Google Fonts `<link>` and add `@font-face` for Fraunces / IBM Plex Sans / IBM Plex Mono.
+- SW `masterycap-v5192`.
+
 ## 51.9.1 — 2026-09-15
 - C-16: Self-host Fraunces, IBM Plex Sans, IBM Plex Mono; remove Google Fonts links.
 - C-20: Set `window.__APP_READY__` after splash dismiss.
