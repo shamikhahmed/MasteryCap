@@ -21,3 +21,7 @@ Section labels · CapConfirm replace 17 dialogs · sub-11px → 11px · ur-Latn 
   - Prior APP-REPORT under 1 KB in audit folder — in-repo rebuilt
   - finish-matrix / Lighthouse pending
   - Kill-list and token debt (C-19)
+
+## 2026-09-15 — Tier 1 automated PASS
+- CI green after SW font fix
+- VO ⛔ · next: CookCap
