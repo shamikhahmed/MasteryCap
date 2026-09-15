@@ -10,3 +10,14 @@ Name prompt (skippable); title "Today" when skipped; Student ID hidden until nam
 
 ### MST-P1-02…06 ✅
 Section labels · CapConfirm replace 17 dialogs · sub-11px → 11px · ur-Latn · §4.2 About/Markets/cert + privacy.html
+
+# MasteryCap — LOG
+
+## 2026-09-15 — C-23 stub
+- Tier 1 not verified — Review 2
+- Created/updated finish-loop records (BASELINE, LOG, STATES, APP-REPORT, DOCS-INVENTORY)
+- Known gaps:
+  - Tier 1 not verified
+  - Prior APP-REPORT under 1 KB in audit folder — in-repo rebuilt
+  - finish-matrix / Lighthouse pending
+  - Kill-list and token debt (C-19)

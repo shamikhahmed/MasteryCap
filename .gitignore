@@ -13,3 +13,5 @@ AUDIT-e2e-raw.json
 !.env.example
 !.env.*.example
 test-results/
+
+qa/finish-loop/shots/

@@ -1,3 +1,5 @@
+> Superseded on 2026-09-15 by docs/audit-2026-09-14 + HANDOVER (C-24).
+
 # MasteryCap — Cursor Prompt #2: Full Audit + Backlog v5 Execution
 
 Paste everything below the divider into Cursor as the opening message of a new session

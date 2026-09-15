@@ -1,3 +1,5 @@
+> Superseded on 2026-09-15 by docs/audit-2026-09-14 + HANDOVER (C-24).
+
 # MasteryCap — Master Prompt for Cursor
 
 > **Status (2026-07-11):** Roadmap P0→P5 **COMPLETE**. App **v14** (`masterycap-v14`).

@@ -1,3 +1,5 @@
+> Superseded on 2026-09-15 by docs/audit-2026-09-14 + HANDOVER (C-24).
+
 # MasteryCap — Cursor Prompt #3: The School Build (v25+)
 
 Paste below the divider into Cursor. Prerequisites: read `CURSOR-MASTER-PROMPT.md`
