@@ -241,7 +241,7 @@ export function renderFinal(App, el) {
       <p class="inst-muted">${en ? `Need ≥${course.passScore}%. Attempts: ${r.attempts || 1}. Retake anytime.` : `≥${course.passScore}%. Attempts: ${r.attempts || 1}.`}</p>
       ${r.cert ? `<div class="inst-cert"><div class="cert-name">${esc(r.cert.name)}</div>
         <p class="cert-disc">${r.cert.disclaimer}</p>
-        <p class="mono" style="font-size:10px">${r.cert.hash}</p></div>` : ''}
+        <p class="mono" style="font-size:11px">${r.cert.hash}</p></div>` : ''}
       <button class="btn accent" id="fnDone">${en ? 'Back to course' : 'Course pe wapas'}</button>
       ${!r.passed ? `<button class="btn secondary mt10" id="fnRetry">${en ? 'Retry' : 'Dubara'}</button>` : ''}
     </div>`;

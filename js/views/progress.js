@@ -24,6 +24,7 @@ import { getStreak as getStreakImported } from '../retention.js';
 import { getSkillState, SKILLS } from '../skills.js';
 import { isGraduated, gradStatus } from '../graduation.js';
 import { getTrack } from '../data/tracks.js';
+import { MCBrand } from '../brand/colors.js';
 
 export function renderProgress(App, c) {
   const lang = App.lang;
@@ -47,7 +48,7 @@ export function renderProgress(App, c) {
       portfolio_adherence: { en: 'Portfolio plan adherence pass', ur: 'Portfolio adherence pass' },
     };
     const row = (id, ok) => `<div class="check-row" style="opacity:${ok ? 1 : 0.55}">
-      <span class="check-box" style="${ok ? 'background:var(--acc);border-color:var(--acc);color:#000' : ''}">${ok ? '✓' : ''}</span>
+      <span class="check-box" style="${ok ? 'background:var(--acc);border-color:var(--acc);color:var(--ink)' : ''}">${ok ? '✓' : ''}</span>
       <span class="check-t">${(REQ_LABEL[id] || { en: id, ur: id })[lang]}</span>
     </div>`;
     return `<div class="panel pad" style="margin-bottom:14px">
@@ -343,7 +344,7 @@ function disciplinePanel(App, trades, balance) {
 function insightsPanel(App, trades) {
   const ins = allInsights(trades);
   const rows = [];
-  const badge = (n) => ` <span class="pill mono" style="font-size:10px;${n < 10 ? 'color:var(--t3)' : ''}">n=${n}${n < 10 ? ' · ' + App.t('early_data') : ''}</span>`;
+  const badge = (n) => ` <span class="pill mono" style="font-size:11px;${n < 10 ? 'color:var(--t3)' : ''}">n=${n}${n < 10 ? ' · ' + App.t('early_data') : ''}</span>`;
   if (ins.expectancy) {
     const e = ins.expectancy;
     rows.push(row(`${App.t('ins_expectancy')}${badge(e.n)}`, App.money(e.expectancy, { sign: true }), e.expectancy >= 0));
@@ -414,7 +415,7 @@ function competencePanel(App) {
   if (!rows.length) return '';
   const body = rows.map((r) => {
     const can = (r.can || []).slice(0, 2).map((x) =>
-      `<div class="check-row" style="opacity:1;margin-top:4px"><span class="check-box" style="background:var(--acc);border-color:var(--acc);color:#000">✓</span><span class="check-t" style="font-size:13px">${x[lang] || x.en}</span></div>`).join('');
+      `<div class="check-row" style="opacity:1;margin-top:4px"><span class="check-box" style="background:var(--acc);border-color:var(--acc);color:var(--ink)">✓</span><span class="check-t" style="font-size:13px">${x[lang] || x.en}</span></div>`).join('');
     const cant = (r.cant || []).slice(0, 2).map((x) =>
       `<div class="check-row" style="opacity:0.75;margin-top:4px"><span class="check-box"></span><span class="check-t" style="font-size:13px">${x[lang] || x.en}</span></div>`).join('');
     return `<div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--line)">
@@ -445,7 +446,7 @@ function weeksPanel(App) {
     const p = t.weeks.length ? (done / t.weeks.length) * 100 : 0;
     const tr = isGraduated(t.id);
     return `<div class="bar-line">
-      <div class="bl-l hstack" style="gap:8px">${icon(TRACK_ICON[t.id], { size: 15 })}<span>${t.name[lang].split(' ')[0]}</span>${tr ? '<span class="pill" style="font-size:10px;margin-left:4px">TR</span>' : ''}</div>
+      <div class="bl-l hstack" style="gap:8px">${icon(TRACK_ICON[t.id], { size: 15 })}<span>${t.name[lang].split(' ')[0]}</span>${tr ? '<span class="pill" style="font-size:11px;margin-left:4px">TR</span>' : ''}</div>
       <div class="bl-track"><div class="bl-fill" style="width:${p}%;background:var(--acc)"></div></div>
       <div class="bl-v mono">${done}/${t.weeks.length}</div>
     </div>`;
@@ -485,23 +486,23 @@ function attachShareCard(App) {
     const cv = document.createElement('canvas');
     cv.width = 1080; cv.height = 1080;
     const x = cv.getContext('2d');
-    x.fillStyle = '#08090A'; x.fillRect(0, 0, 1080, 1080);
+    x.fillStyle = MCBrand.h_08090A; x.fillRect(0, 0, 1080, 1080);
     const g = x.createRadialGradient(540, 540, 60, 540, 540, 760);
     g.addColorStop(0, 'rgba(255,107,44,0.10)'); g.addColorStop(1, 'rgba(255,107,44,0)');
     x.fillStyle = g; x.fillRect(0, 0, 1080, 1080);
-    x.strokeStyle = '#FF6B2C'; x.lineWidth = 4; x.strokeRect(50, 50, 980, 980);
+    x.strokeStyle = MCBrand.h_FF6B2C; x.lineWidth = 4; x.strokeRect(50, 50, 980, 980);
     const C = (t, y) => { x.fillText(t, (1080 - x.measureText(t).width) / 2, y); };
-    x.fillStyle = '#FF6B2C'; x.font = '600 34px ui-monospace, monospace';
+    x.fillStyle = MCBrand.h_FF6B2C; x.font = '600 34px ui-monospace, monospace';
     C('M A S T E R Y C A P', 190);
-    x.fillStyle = '#F2F4F7'; x.font = '650 120px Georgia, serif';
+    x.fillStyle = MCBrand.h_F2F4F7; x.font = '650 120px Georgia, serif';
     C(String(streak), 460);
-    x.fillStyle = '#A8B0BA'; x.font = '500 40px system-ui, sans-serif';
+    x.fillStyle = MCBrand.h_A8B0BA; x.font = '500 40px system-ui, sans-serif';
     C(lang === 'en' ? 'day study streak' : 'din ka streak', 530);
-    x.fillStyle = '#F2F4F7'; x.font = '650 72px Georgia, serif';
+    x.fillStyle = MCBrand.h_F2F4F7; x.font = '650 72px Georgia, serif';
     C(`${weeksDone}/${weeksTotal}`, 700);
-    x.fillStyle = '#A8B0BA'; x.font = '500 40px system-ui, sans-serif';
+    x.fillStyle = MCBrand.h_A8B0BA; x.font = '500 40px system-ui, sans-serif';
     C(lang === 'en' ? 'course weeks completed' : 'course weeks mukammal', 762);
-    x.fillStyle = '#8A939E'; x.font = '400 28px system-ui, sans-serif';
+    x.fillStyle = MCBrand.h_8A939E; x.font = '400 28px system-ui, sans-serif';
     C(lang === 'en' ? 'Studying markets. No promises — just process.' : 'Market parh raha hoon. Waade nahi — sirf process.', 900);
     const a = document.createElement('a');
     a.download = 'masterycap-progress.png';

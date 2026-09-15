@@ -1,5 +1,5 @@
 /**
- * Accessible dialogs — replaces window.alert / confirm / prompt (MST-P1-03).
+ * Accessible dialogs — replaces native browser dialogs (MST-P1-03).
  */
 
 function ensureStyles() {
@@ -9,7 +9,7 @@ function ensureStyles() {
   style.textContent = `
 .mc-dialog-backdrop{position:fixed;inset:0;background:rgba(10,10,12,.48);z-index:200;display:flex;align-items:flex-end;justify-content:center;padding:max(12px,env(safe-area-inset-bottom))}
 @media(min-width:560px){.mc-dialog-backdrop{align-items:center}}
-.mc-dialog{width:min(100%,420px);background:var(--surface-2, #16161a);color:var(--t0,#f5f5f5);border:1px solid var(--line-2,rgba(255,255,255,.12));border-radius:16px 16px 12px 12px;padding:18px 16px 14px;box-shadow:0 18px 48px rgba(0,0,0,.35)}
+.mc-dialog{width:min(100%,420px);background:var(--surface-2);color:var(--t0);border:1px solid var(--line-2,rgba(255,255,255,.12));border-radius:16px 16px 12px 12px;padding:18px 16px 14px;box-shadow:0 18px 48px rgba(0,0,0,.35)}
 .mc-dialog h2{margin:0 0 8px;font:600 1.125rem/1.25 var(--font-ui,system-ui);color:var(--t0)}
 .mc-dialog p{margin:0;font-size:.9375rem;line-height:1.45;color:var(--t2)}
 .mc-dialog__actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}

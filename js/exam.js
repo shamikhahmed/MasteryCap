@@ -3,6 +3,7 @@
    ============================================================ */
 
 import { store, KEYS, djb2 } from './store.js';
+import { MCBrand } from './brand/colors.js';
 import { getTrack } from './data/tracks.js';
 
 function shuffle(arr, rng = Math.random) {
@@ -81,10 +82,10 @@ export function downloadCertificate({
   canvas.width = W;
   canvas.height = H;
   const ctx = canvas.getContext('2d');
-  const ACC = isTR ? '#FF6B2C' : '#5B8DEF';
+  const ACC = isTR ? MCBrand.h_FF6B2C : MCBrand.h_5B8DEF;
 
   // Background — true black with faint radial lift
-  ctx.fillStyle = '#08090A';
+  ctx.fillStyle = MCBrand.h_08090A;
   ctx.fillRect(0, 0, W, H);
   const grad = ctx.createRadialGradient(W / 2, H / 2, 100, W / 2, H / 2, W * 0.7);
   grad.addColorStop(0, 'rgba(255,255,255,0.035)');
@@ -112,32 +113,32 @@ export function downloadCertificate({
   ctx.fillStyle = ACC;
   ctx.font = '600 34px ui-monospace, monospace';
   center('M A S T E R Y C A P', 210);
-  ctx.fillStyle = '#8A939E';
+  ctx.fillStyle = MCBrand.h_8A939E;
   ctx.font = '500 24px ui-monospace, monospace';
   center(lang === 'en' ? 'SELF-ISSUED RECORD OF STUDY' : 'SELF-ISSUED STUDY RECORD', 262);
 
   // Title
-  ctx.fillStyle = '#F2F4F7';
+  ctx.fillStyle = MCBrand.h_F2F4F7;
   ctx.font = '650 110px Georgia, "Times New Roman", serif';
   center(isTR ? 'TRADE-READY' : 'COURSE LITERACY', 420);
 
   // Honesty banner — locked copy, never soften
-  ctx.fillStyle = isTR ? ACC : '#EA3943';
+  ctx.fillStyle = isTR ? ACC : MCBrand.h_EA3943;
   ctx.font = '600 30px system-ui, sans-serif';
   center(isTR
     ? (lang === 'en' ? 'NOT A LICENSE · NOT SECP/BROKER/CFA' : 'LICENSE NAHI · SECP/BROKER/CFA NAHI')
     : (lang === 'en' ? 'NOT TRADE-READY · NOT A LICENSE' : 'TRADE-READY NAHI · LICENSE NAHI'), 480);
-  ctx.fillStyle = '#A8B0BA';
+  ctx.fillStyle = MCBrand.h_A8B0BA;
   ctx.font = '500 26px system-ui, sans-serif';
   center(isTR
     ? (lang === 'en' ? 'process-measured · paper/tiny size · decays without practice' : 'process-measured · paper/tiny · practice ke baghair kamzor')
     : (lang === 'en' ? 'exam + weeks only — Practice labs still required for TRADE-READY' : 'exam + weeks — TRADE-READY ke liye Practice labs abhi'), 526);
 
   // Awarded name — the hero
-  ctx.fillStyle = '#8A939E';
+  ctx.fillStyle = MCBrand.h_8A939E;
   ctx.font = '500 26px ui-monospace, monospace';
   center(lang === 'en' ? 'THIS RECORDS THE STUDY OF' : 'YEH STUDY RECORD HAI', 640);
-  ctx.fillStyle = '#F2F4F7';
+  ctx.fillStyle = MCBrand.h_F2F4F7;
   ctx.font = 'italic 650 96px Georgia, "Times New Roman", serif';
   center(name || 'Trader', 750);
   const nw = Math.min(ctx.measureText(name || 'Trader').width, W - 600);
@@ -146,11 +147,11 @@ export function downloadCertificate({
   ctx.beginPath(); ctx.moveTo((W - nw) / 2 - 40, 786); ctx.lineTo((W + nw) / 2 + 40, 786); ctx.stroke();
 
   // Course + date
-  ctx.fillStyle = '#C4C8CD';
+  ctx.fillStyle = MCBrand.h_C4C8CD;
   ctx.font = '500 34px system-ui, sans-serif';
   center(`${lang === 'en' ? 'Course' : 'Course'}: ${trackName}`, 856);
   const d = new Date(dateIso || Date.now());
-  ctx.fillStyle = '#8A939E';
+  ctx.fillStyle = MCBrand.h_8A939E;
   ctx.font = '500 28px ui-monospace, monospace';
   center(d.toISOString().slice(0, 10), 904);
 
@@ -183,7 +184,7 @@ export function downloadCertificate({
       ? '○ TRADE-READY requires Practice labs (separate)'
       : '○ TRADE-READY ke liye Practice labs alag');
   }
-  ctx.fillStyle = '#C4C8CD';
+  ctx.fillStyle = MCBrand.h_C4C8CD;
   ctx.font = '400 28px system-ui, sans-serif';
   lines.forEach((ln, i) => center(ln.slice(0, 88), 1000 + i * 46));
 
@@ -197,16 +198,16 @@ export function downloadCertificate({
   ctx.fillStyle = ACC;
   ctx.font = '600 24px ui-monospace, monospace';
   let t1 = 'VERIFY'; ctx.fillText(t1, sx - ctx.measureText(t1).width / 2, sy - 12);
-  ctx.fillStyle = '#C4C8CD';
+  ctx.fillStyle = MCBrand.h_C4C8CD;
   ctx.font = '500 20px ui-monospace, monospace';
   t1 = String(hash).slice(0, 10); ctx.fillText(t1, sx - ctx.measureText(t1).width / 2, sy + 22);
 
-  ctx.fillStyle = '#8A939E';
+  ctx.fillStyle = MCBrand.h_8A939E;
   ctx.font = '500 22px ui-monospace, monospace';
   ctx.fillText(`verify:${hash}`, 140, H - 190);
 
   // Footer honesty line — locked copy
-  ctx.fillStyle = '#8A939E';
+  ctx.fillStyle = MCBrand.h_8A939E;
   ctx.font = '400 22px system-ui, sans-serif';
   center(lang === 'en'
     ? 'Self-issued · device-local · NOT SECP/broker/CFA/gov license · not investment advice · competence decays'
