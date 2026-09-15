@@ -2,8 +2,8 @@
   "app": "MasteryCap",
   "version": "51.9.2",
   "swCache": "masterycap-v5192",
-  "generatedAt": "2026-09-15T11:09:39.834Z",
-  "status": "FAIL",
+  "generatedAt": "2026-09-15T11:15:01.743Z",
+  "status": "PASS",
   "pass": [
     {
       "id": "version:field",
@@ -44,6 +44,10 @@
     {
       "id": "app-ready",
       "detail": "window.__APP_READY__ referenced"
+    },
+    {
+      "id": "ci:main",
+      "detail": "Merge finish/masterycap-tier1: Tier 1 gates → success https://github.com/shamikhahmed/MasteryCap/actions/runs/34961810331"
     },
     {
       "id": "tag",
@@ -94,12 +98,7 @@
       "detail": "73 sinks; SINKS.md ok"
     }
   ],
-  "fail": [
-    {
-      "id": "ci:main",
-      "detail": "Merge branch 'finish/tier1-wire': C-10 npm run tier1 → failure https://github.com/shamikhahmed/MasteryCap/actions/runs/34958765318"
-    }
-  ],
+  "fail": [],
   "warn": [
     {
       "id": "matrix:shots",
