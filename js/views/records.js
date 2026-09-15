@@ -109,7 +109,7 @@ export function renderRecords(App, el) {
           <div class="cert-course">${esc((c.title && (c.title[App.lang] || c.title.en)) || c.courseId)}</div>
           <p class="inst-muted mono">${c.score}% · ${c.hours}h · ${c.date}</p>
           <p class="cert-disc">${CERT_DISCLAIMER}</p>
-          <p class="mono" style="font-size:10px;word-break:break-all">hash ${c.hash}</p>
+          <p class="mono" style="font-size:11px;word-break:break-all">hash ${c.hash}</p>
           <div class="cert-actions cert-no-print">
             <button class="btn secondary" data-print-cert="${esc(c.courseId || c.hash)}">${en ? 'Print / Save PDF' : 'Print / PDF'}</button>
           </div>

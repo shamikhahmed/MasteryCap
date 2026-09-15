@@ -50,7 +50,7 @@ export function renderCandles(ohlc, {
     const edge = M.edge || 'high';
     const py = edge === 'low' ? y(c.l) : edge === 'mid' ? y((c.h + c.l) / 2) : y(c.h);
     const col = M.color || 'var(--acc-2)';
-    body += `<circle cx="${cx}" cy="${py}" r="3.5" fill="${col}" stroke="var(--bg2,#12141a)" stroke-width="1"/>`;
+    body += `<circle cx="${cx}" cy="${py}" r="3.5" fill="${col}" stroke="var(--bg2)" stroke-width="1"/>`;
     if (M.label) {
       const ty = edge === 'low' ? py + 12 : py - 6;
       body += `<text x="${cx}" y="${ty}" text-anchor="middle" font-size="9" font-family="Geist Mono, monospace" fill="${col}">${M.label}</text>`;

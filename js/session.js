@@ -11,6 +11,7 @@ import { getTrack } from './data/tracks.js';
 import { canOpenTradingLab } from './gates.js';
 import { openWeekFlash } from './views/study.js';
 import { markToday } from './today.js';
+import { MCBrand } from './brand/colors.js';
 
 const STEP_LABEL = {
   lesson: { en: 'Lesson', ur: 'Sabak' },
@@ -199,7 +200,7 @@ export function renderSessionBar(App) {
   const bar = document.createElement('div');
   bar.id = 'session-bar';
   bar.setAttribute('role', 'status');
-  bar.style.cssText = 'position:fixed;left:12px;right:12px;bottom:calc(64px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--bg2,#12141a);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.35)';
+  bar.style.cssText = 'position:fixed;left:12px;right:12px;bottom:calc(64px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.35)';
   const skipBtn = cur.optional
     ? `<button class="btn secondary" id="sessionSkip" style="flex-shrink:0;padding:8px 10px">${App.t('session_skip')}</button>`
     : '';
@@ -233,7 +234,7 @@ export function openSessionRunner(App) {
       ? `${track.name[lang]} · ${App.t('week')} ${s.weekId}`
       : (s.count ? `×${s.count}` : (s.optional ? (lang === 'en' ? 'optional' : 'ikhtiyari') : ''));
     return `<div class="check-row" style="opacity:${done ? 0.45 : 1};border-color:${active ? 'var(--acc)' : 'transparent'}">
-      <span class="check-box" style="${done ? 'background:var(--acc);border-color:var(--acc);color:#000' : ''}">${done ? icon('check', { size: 12 }) : (i + 1)}</span>
+      <span class="check-box" style="${done ? 'background:var(--acc);border-color:var(--acc);color:var(--ink)' : ''}">${done ? icon('check', { size: 12 }) : (i + 1)}</span>
       <span class="check-t"><strong>${stepLabel(s.kind, lang)}</strong>${sub ? `<br/><span style="color:var(--t3);font-size:12px">${sub}</span>` : ''}</span>
     </div>`;
   }).join('');
