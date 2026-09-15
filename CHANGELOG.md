@@ -1,3 +1,12 @@
+## 51.9.2 — 2026-09-15
+- C-16 fix: remove remaining Google Fonts `<link>` and add `@font-face` for Fraunces / IBM Plex Sans / IBM Plex Mono.
+- SW `masterycap-v5192`.
+
+## 51.9.1 — 2026-09-15
+- C-16: Self-host Fraunces, IBM Plex Sans, IBM Plex Mono; remove Google Fonts links.
+- C-20: Set `window.__APP_READY__` after splash dismiss.
+- SW `masterycap-v5191`.
+
 ## [51.9.0] — 2026-09-15
 
 - Tier 1 finish: MST-P0 zoom + Worker code sandbox; MST-P1 Today name prompt / one primary session CTA / Foundations list row / standing hidden at 0%; CapConfirm/Alert/Prompt replace native dialogs; sub-11px cleared; Roman Urdu `lang=ur-Latn`; §4.2 disclaimers; privacy.html; accent darkened for white labels
