@@ -19,7 +19,7 @@ Live: https://shamikhahmed.github.io/MasteryCap/ (own Pages)
 |---|---|---|
 | Baseline | `qa/perfection/baseline/device-qa.json` | 7/7 hard=0; soft text Ready |
 | Post-fix | `qa/perfection/post-fix/device-qa.json` | **7/7 hard=0; tap=0; text=0; pageErr=0; hub=0** |
-| Live 51.10.0 | `qa/perfection/live-v51.10.0/` | after Pages deploy |
+| Live 51.10.0 | `qa/perfection/live-v51.10.0/device-qa.json` | **7/7 hard=0; tap=0; text=0; pageErr=0; hub=0** · live VERSION 51.10.0 |
 
 ## Next 3 actions
 1. Live device-qa after Pages green
