@@ -15,3 +15,6 @@ AUDIT-e2e-raw.json
 test-results/
 
 qa/finish-loop/shots/
+
+# v3 evidence screenshots stay local
+qa/perfection/**/*.png
