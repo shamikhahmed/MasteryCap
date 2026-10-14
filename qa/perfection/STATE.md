@@ -7,7 +7,7 @@ App version: 51.9.2 (no release bump yet — Phase I → 51.10.0)
 Base: `main` @ `f0c8ad2`
 
 ## Last commits
-- Tip: _(see git log after Builder push)_
+- Tip:  on 
 - MST-V3-1 splash Ready ≥11px; MATRIX 3 themes × 2 languages scaffold
 - MST-V3-2 gallery schema-v2 + shared viewer (Sepia chip)
 - MST-V3-3 CONTENT-GAPS / URDU-REVIEW triaged → ITEMS V3-5…10
