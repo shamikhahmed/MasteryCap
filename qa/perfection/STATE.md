@@ -1,15 +1,17 @@
 # MasteryCap — Perfection Loop v3 · STATE
 
-Updated: 2026-10-14T11:25:00Z  
-Phase: **E → F** (MST-V3-1/2/3 FIXED; hand Auditor P1s)  
+Updated: 2026-10-14T11:32:00Z  
+Phase: **E → F** (MST-V3-1/2/3 FIXED; hand Auditor P1s on tip)  
 Branch: `perfection/masterycap-v3`  
 App version: 51.9.2 (no release bump yet — Phase I → 51.10.0)  
-Base: `main` @ `f0c8ad2`
+Base: `main` @ `f0c8ad255b7f258f20eedb2406218adc5e5334dd`
 
 ## Last commits
-- Tip:  on 
+- Tip: `f0bc80810384d0d46824a83f60c3524e87f55d84` on `perfection/masterycap-v3`
+- Scaffold: `266deb157e9f6ddaa3ba04d625554d30b08f0c0b` — splash 11px + gallery v3 + qa/perfection
+- Note: prior AUDIT stamp on `main` `f0c8ad2` predates this tip — Auditor should re-verify MST-V3-1/2 on tip
 - MST-V3-1 splash Ready ≥11px; MATRIX 3 themes × 2 languages scaffold
-- MST-V3-2 gallery schema-v2 + shared viewer (Sepia chip)
+- MST-V3-2 gallery schema-v2 + shared viewer (Sepia chip) · 63 shots
 - MST-V3-3 CONTENT-GAPS / URDU-REVIEW triaged → ITEMS V3-5…10
 
 ## What's running
