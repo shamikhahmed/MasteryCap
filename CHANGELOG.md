@@ -1,3 +1,8 @@
+## 51.10.0 — 2026-10-14
+- Perfection Loop v3 Wave C: MST-V3-1 splash type floor (≥11px); MST-V3-2 gallery schema-v2 Light/Sepia/Dark × devices (+ UR iphone); MST-V3-3 CONTENT-GAPS/URDU triage into ITEMS.
+- Shared screen-gallery viewer + Sepia filter; `qa/perfection/` scaffold.
+- SW `masterycap-v51100`.
+
 ## 51.9.2 — 2026-09-15
 - C-16 fix: remove remaining Google Fonts `<link>` and add `@font-face` for Fraunces / IBM Plex Sans / IBM Plex Mono.
 - SW `masterycap-v5192`.

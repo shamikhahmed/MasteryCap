@@ -284,16 +284,16 @@ a { color: inherit; text-decoration: none; }
 }
 .splash-stamp {
   position: absolute;
-  right: 10%;
+  right: 8%;
   top: 2%;
-  width: 50px; height: 50px;
+  width: 58px; height: 58px;
   border-radius: 50%;
   border: 2.5px solid color-mix(in srgb, var(--acc) 85%, transparent);
   display: grid; place-items: center;
   font-family: var(--serif);
-  font-size: 8.5px;
+  font-size: 11px; /* §7.2 floor — was 8.5px (MST-V3-1) */
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--acc);
   background: color-mix(in srgb, var(--acc-dim) 55%, transparent);
