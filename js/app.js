@@ -431,16 +431,17 @@ function boot() {
     maybeNotifyReviews();
     setTimeout(() => maybeStreakRecovery(), 400);
 
+    /* Shorter splash — LCP is splash wordmark / .onb-sub; keep contentful (v5 §3). */
     setTimeout(() => {
       const splash = document.getElementById('splash');
       if (splash) splash.classList.add('hide');
       setTimeout(() => {
         splash && splash.remove();
         try { window.__APP_READY__ = true; document.documentElement.dataset.appReady = 'true'; } catch (_) {}
-      }, 500);
+      }, 280);
       if (onboarded && App.profile?.campus) { App.tab = 'today'; App.render(); App.renderNav(); }
       else renderOnboarding();
-    }, 1700);
+    }, 700);
   });
 }
 

@@ -15,8 +15,27 @@
   <link rel="icon" href="icons/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon-180.png" />
   <link rel="preload" href="fonts/geistmono-500.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="css/app.css?v=51100" />
-  <link rel="stylesheet" href="css/institute.css?v=51100" />
+  <!-- Critical splash + onboarding LCP (v5 §3) — full sheets load async below. -->
+  <style>
+    :root{--bg:#141310;--t0:#F4F5F6;--t2:#878D95;--t3:#7A828C;--acc:#B45309;--out:cubic-bezier(.22,1,.36,1);--serif:'Fraunces',Georgia,serif;--sans:system-ui,-apple-system,sans-serif}
+    html,body{margin:0;background:var(--bg);color:var(--t0);font-family:var(--sans);min-height:100%}
+    #splash{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;transition:opacity .35s var(--out)}
+    #splash.hide{opacity:0;pointer-events:none}
+    .splash-inner{display:flex;flex-direction:column;align-items:center;gap:18px}
+    .splash-wordmark{font-family:var(--serif);font-size:clamp(28px,7vw,40px);font-weight:700;letter-spacing:-.02em;opacity:1}
+    .splash-wordmark span{color:var(--acc)}
+    .splash-tag,.splash-foot{opacity:1;color:var(--t3);font-size:13px;letter-spacing:.04em}
+    .splash-foot{margin-top:28px}
+    .splash-rule{width:48px;height:2px;background:var(--acc);opacity:.55;margin:4px 0}
+    .onb-sub{font-size:15.5px;line-height:1.6;color:var(--t2);margin:0;max-width:30ch}
+    .splash-bench{display:none}
+  </style>
+  <link rel="stylesheet" href="css/app.css?v=51102" media="print" onload="this.media='all'" />
+  <link rel="stylesheet" href="css/institute.css?v=51102" media="print" onload="this.media='all'" />
+  <noscript>
+    <link rel="stylesheet" href="css/app.css?v=51102" />
+    <link rel="stylesheet" href="css/institute.css?v=51102" />
+  </noscript>
 </head>
 <body>
   <a href="#app-root" class="cap-skip-link">Skip to content</a>
@@ -46,14 +65,14 @@
   <!-- Bottom nav -->
   <nav class="tabbar hidden" id="tabbar"></nav>
 
-  <script type="module" src="js/app.js?v=51100"></script>
+  <script type="module" src="js/app.js?v=51102"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', async () => {
         try {
           const regs = await navigator.serviceWorker.getRegistrations();
           // Always re-register so CACHE bump in sw.js takes effect
-          await navigator.serviceWorker.register('sw.js?v=51100');
+          await navigator.serviceWorker.register('sw.js?v=51102');
         } catch (e) {}
       });
     }

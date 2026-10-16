@@ -1,3 +1,11 @@
+## 51.10.2 — 2026-10-16
+
+Perfection Loop v5 §3 Performance:
+
+- Inline critical splash CSS; async-load full stylesheets
+- Splash wordmark / foot contentful (no opacity:0 delay); shorter splash; `.onb-sub` LCP-ready
+- SW `masterycap-v51102`
+
 ## 51.10.1 — 2026-10-16
 
 Perfection Loop v5 §2 a11y:
