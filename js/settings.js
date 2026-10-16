@@ -9,7 +9,7 @@ import { getTeacher, setTeacher, TEACHERS } from './teacher.js';
 import { evidenceHash } from './exam.js';
 import { CapAlert, CapConfirm, CapPrompt } from './ui/dialogs.js';
 
-export const APP_VERSION = 'v51.10.0';
+export const APP_VERSION = 'v51.10.1';
 
 function todayStamp() {
   const d = new Date();

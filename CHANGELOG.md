@@ -1,3 +1,10 @@
+## 51.10.1 — 2026-10-16
+
+Perfection Loop v5 §2 a11y:
+
+- Light/sepia `.onb-eyebrow`: accent `#9A3412` on paper (≥4.5:1; was `#E8590C` @ 3.17:1)
+- SW `masterycap-v51101`
+
 ## 51.10.0 — 2026-10-14
 - Perfection Loop v3 Wave C: MST-V3-1 splash type floor (≥11px); MST-V3-2 gallery schema-v2 Light/Sepia/Dark × devices (+ UR iphone); MST-V3-3 CONTENT-GAPS/URDU triage into ITEMS.
 - Shared screen-gallery viewer + Sepia filter; `qa/perfection/` scaffold.
