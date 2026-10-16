@@ -1,3 +1,8 @@
+## 51.10.6 — 2026-10-16
+
+- Async app.css; inline boot shell is LCP (mobile).
+- SW → `masterycap-v51106`
+
 ## 51.10.5 — 2026-10-16
 
 Perfection Loop v5 §3d Performance (mobile LCP):

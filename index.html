@@ -30,13 +30,14 @@
     .splash-bench{display:none}
   </style>
   <!-- Blocking CSS — async sheets delayed LCP to ~4s on mobile (v5 §3b). -->
-  <link rel="stylesheet" href="css/app.css?v=51105" />
+  <link rel="stylesheet" href="css/app.css?v=51106" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="css/app.css?v=51106" /></noscript>
   <!-- Institute sheet after first paint — cold LCP is app.css + boot shell (v5 §3d). -->
-  <link rel="stylesheet" href="css/institute.css?v=51105" media="print" onload="this.media='all'" />
-  <noscript><link rel="stylesheet" href="css/institute.css?v=51105" /></noscript>
+  <link rel="stylesheet" href="css/institute.css?v=51106" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="css/institute.css?v=51106" /></noscript>
   <style>
     #splash { display: none !important; }
-    .mc-boot-shell { min-height: 60vh; padding: 40px 24px 24px; box-sizing: border-box; }
+    .mc-boot-shell { min-height: 70vh; padding: 48px 24px 24px; box-sizing: border-box; contain: layout style; }
     .mc-boot-shell h1 {
       margin: 0;
       font-family: Georgia, 'Times New Roman', serif;
@@ -74,13 +75,13 @@
   <!-- Bottom nav -->
   <nav class="tabbar hidden" id="tabbar"></nav>
 
-  <script type="module" src="js/app.js?v=51105"></script>
+  <script type="module" src="js/app.js?v=51106"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', async () => {
         try {
           const regs = await navigator.serviceWorker.getRegistrations();
-          await navigator.serviceWorker.register('sw.js?v=51105');
+          await navigator.serviceWorker.register('sw.js?v=51106');
         } catch (e) {}
       });
     }
