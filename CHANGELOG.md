@@ -1,3 +1,11 @@
+## 51.10.5 — 2026-10-16
+
+Perfection Loop v5 §3d Performance (mobile LCP):
+
+- Real HTML boot shell in `#app-root` (counts as LCP, not `:empty` pseudo)
+- Async `institute.css`; drop geistmono preload
+- SW `masterycap-v51105`
+
 ## 51.10.4 — 2026-10-16
 
 - Delete splash overlay; contentful #app-root shell; boot with zero delay

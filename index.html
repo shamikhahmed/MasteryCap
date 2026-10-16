@@ -14,8 +14,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icons/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon-180.png" />
-  <link rel="preload" href="fonts/geistmono-500.woff2" as="font" type="font/woff2" crossorigin />
-  <!-- Critical splash + onboarding LCP (v5 §3) — full sheets load async below. -->
+  <!-- No font preload — LCP is Georgia boot shell (v5 §3d). -->
   <style>
     :root{--bg:#141310;--t0:#F4F5F6;--t2:#878D95;--t3:#7A828C;--acc:#B45309;--out:cubic-bezier(.22,1,.36,1);--serif:'Fraunces',Georgia,serif;--sans:system-ui,-apple-system,sans-serif}
     html,body{margin:0;background:var(--bg);color:var(--t0);font-family:var(--sans);min-height:100%}
@@ -31,32 +30,27 @@
     .splash-bench{display:none}
   </style>
   <!-- Blocking CSS — async sheets delayed LCP to ~4s on mobile (v5 §3b). -->
-  <link rel="stylesheet" href="css/app.css?v=51104" />
-  <link rel="stylesheet" href="css/institute.css?v=51104" />
+  <link rel="stylesheet" href="css/app.css?v=51105" />
+  <!-- Institute sheet after first paint — cold LCP is app.css + boot shell (v5 §3d). -->
+  <link rel="stylesheet" href="css/institute.css?v=51105" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="css/institute.css?v=51105" /></noscript>
   <style>
-    /* No splash overlay — contentful LCP is the campus shell (v5 §3c). */
     #splash { display: none !important; }
-    #app-root:empty {
-      min-height: 60vh;
-      padding: 40px 24px 24px;
-      box-sizing: border-box;
-    }
-    #app-root:empty::before {
-      content: 'MasteryCap';
-      display: block;
+    .mc-boot-shell { min-height: 60vh; padding: 40px 24px 24px; box-sizing: border-box; }
+    .mc-boot-shell h1 {
+      margin: 0;
       font-family: Georgia, 'Times New Roman', serif;
       font-size: clamp(28px, 7vw, 40px);
       font-weight: 700;
       letter-spacing: -.02em;
       color: var(--t0, #F4F5F6);
     }
-    #app-root:empty::after {
-      content: 'Personal learning campus — Admission · Branches · Craft';
-      display: block;
+    .mc-boot-shell h1 span { color: var(--acc, #B45309); }
+    .mc-boot-shell p {
+      margin: 10px 0 0;
       font-size: 15px;
       line-height: 1.55;
       color: var(--t2, #878D95);
-      margin-top: 10px;
       max-width: 32ch;
     }
   </style>
@@ -69,20 +63,24 @@
   <!-- Splash kept in DOM for a11y tests but never shown -->
   <div id="splash" hidden aria-hidden="true"></div>
 
-  <!-- App — contentful shell via :empty CSS until boot -->
-  <div id="app-root" role="main" tabindex="-1"></div>
+  <!-- Real contentful LCP shell (not :empty pseudo) until module boot -->
+  <div id="app-root" role="main" tabindex="-1">
+    <div class="mc-boot-shell">
+      <h1>Mastery<span>Cap</span></h1>
+      <p>Personal learning campus — Admission · Branches · Craft</p>
+    </div>
+  </div>
 
   <!-- Bottom nav -->
   <nav class="tabbar hidden" id="tabbar"></nav>
 
-  <script type="module" src="js/app.js?v=51104"></script>
+  <script type="module" src="js/app.js?v=51105"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', async () => {
         try {
           const regs = await navigator.serviceWorker.getRegistrations();
-          // Always re-register so CACHE bump in sw.js takes effect
-          await navigator.serviceWorker.register('sw.js?v=51104');
+          await navigator.serviceWorker.register('sw.js?v=51105');
         } catch (e) {}
       });
     }
