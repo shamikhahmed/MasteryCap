@@ -30,29 +30,22 @@
     .splash-bench{display:none}
   </style>
   <!-- Blocking app.css — async regressed mobile perf (51.10.6); institute stays deferred. -->
-  <link rel="stylesheet" href="css/app.css?v=51107" />
+  <link rel="stylesheet" href="css/app.css?v=51108" />
   <!-- Institute sheet after first paint — cold LCP is app.css + boot shell (v5 §3d). -->
-  <link rel="stylesheet" href="css/institute.css?v=51107" media="print" onload="this.media='all'" />
-  <noscript><link rel="stylesheet" href="css/institute.css?v=51107" /></noscript>
+  <link rel="stylesheet" href="css/institute.css?v=51108" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="css/institute.css?v=51108" /></noscript>
   <style>
     #splash { display: none !important; }
-    .mc-boot-shell { min-height: 70vh; padding: 48px 24px 24px; box-sizing: border-box; contain: layout style; }
-    .mc-boot-shell h1 {
-      margin: 0;
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: clamp(28px, 7vw, 40px);
-      font-weight: 700;
-      letter-spacing: -.02em;
-      color: var(--t0, #F4F5F6);
-    }
-    .mc-boot-shell h1 span { color: var(--acc, #B45309); }
-    .mc-boot-shell p {
-      margin: 10px 0 0;
-      font-size: 15px;
-      line-height: 1.55;
-      color: var(--t2, #878D95);
-      max-width: 32ch;
-    }
+    /* Welcome admission in HTML — LCP before module boot (v5 §3d). */
+    #app-root .onb.admit-flow { min-height: 70vh; padding: 0 24px 24px; box-sizing: border-box; display: flex; flex-direction: column; }
+    #app-root .onb-top { display: flex; align-items: center; gap: 10px; padding: 12px 0; }
+    #app-root .onb-progress { flex: 1; height: 3px; background: rgba(255,255,255,.08); border-radius: 99px; overflow: hidden; }
+    #app-root .onb-progress i { display: block; height: 100%; width: 10%; background: var(--acc, #B45309); }
+    #app-root .onb-main { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+    #app-root .onb-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #C4A574; margin-bottom: 14px; }
+    #app-root .onb-title { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px, 8vw, 32px); font-weight: 600; letter-spacing: -.035em; line-height: 1.08; margin: 0 0 14px; color: var(--t0, #F4F5F6); }
+    #app-root .onb-sub { font-size: 15.5px; line-height: 1.6; color: var(--t2, #878D95); margin: 0; max-width: 30ch; }
+    #app-root .onb-foot { padding-top: 18px; }
   </style>
 </head>
 <body>
@@ -63,24 +56,33 @@
   <!-- Splash kept in DOM for a11y tests but never shown -->
   <div id="splash" hidden aria-hidden="true"></div>
 
-  <!-- Real contentful LCP shell (not :empty pseudo) until module boot -->
+  <!-- Real contentful LCP (welcome admission) — preserved on first JS draw (v5 §3d). -->
   <div id="app-root" role="main" tabindex="-1">
-    <div class="mc-boot-shell">
-      <h1>Mastery<span>Cap</span></h1>
-      <p>Personal learning campus — Admission · Branches · Craft</p>
+    <div class="onb admit-flow" data-testid="admission-form">
+      <div class="onb-top">
+        <span style="width:34px"></span>
+        <div class="onb-progress"><i></i></div>
+        <span class="pill" style="font-size:11px;visibility:hidden" aria-hidden="true">Skip</span>
+      </div>
+      <div class="onb-main admit-main" data-mc-static-welcome>
+        <div class="onb-eyebrow">MasteryCap Institute</div>
+        <h1 class="onb-title">Application for admission</h1>
+        <p class="onb-sub">A personal learning campus on this device. Software craft, markets literacy, and money systems — offline. No accounts. No income promises.</p>
+      </div>
+      <div class="onb-foot"><button type="button" class="btn accent" id="onbNext" data-testid="admission-next">Begin application</button></div>
     </div>
   </div>
 
   <!-- Bottom nav -->
   <nav class="tabbar hidden" id="tabbar"></nav>
 
-  <script type="module" src="js/app.js?v=51107"></script>
+  <script type="module" src="js/app.js?v=51108"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', async () => {
         try {
           const regs = await navigator.serviceWorker.getRegistrations();
-          await navigator.serviceWorker.register('sw.js?v=51107');
+          await navigator.serviceWorker.register('sw.js?v=51108');
         } catch (e) {}
       });
     }

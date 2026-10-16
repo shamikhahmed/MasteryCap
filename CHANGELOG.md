@@ -1,3 +1,8 @@
+## 51.10.8 — 2026-10-16
+
+- Static welcome admission in HTML; first JS draw wires only (LCP before module boot).
+- SW → `masterycap-v51108`
+
 ## 51.10.7 — 2026-10-16
 
 - Revert app.css to blocking link (51.10.6 async regressed LH mobile).

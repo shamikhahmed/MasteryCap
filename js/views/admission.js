@@ -38,6 +38,25 @@ export function renderAdmission(App, root) {
     const c = root();
     const key = steps[step];
     const en = App.lang === 'en';
+
+    /* Keep server-rendered welcome as LCP — wire controls only (v5 §3d). */
+    if (step === 0 && key === 'welcome' && c.querySelector('[data-mc-static-welcome]')) {
+      const skip = c.querySelector('#onbSkip');
+      if (!skip) {
+        const top = c.querySelector('.onb-top');
+        if (top) {
+          const pill = document.createElement('button');
+          pill.className = 'pill';
+          pill.id = 'onbSkip';
+          pill.style.fontSize = '11px';
+          pill.textContent = en ? 'Skip' : 'Skip';
+          top.replaceChild(pill, top.lastElementChild);
+        }
+      }
+      wire(key, en);
+      return;
+    }
+
     let main = '';
 
     if (key === 'welcome') {
