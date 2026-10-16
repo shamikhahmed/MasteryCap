@@ -31,41 +31,34 @@
     .splash-bench{display:none}
   </style>
   <!-- Blocking CSS — async sheets delayed LCP to ~4s on mobile (v5 §3b). -->
-  <link rel="stylesheet" href="css/app.css?v=51103" />
-  <link rel="stylesheet" href="css/institute.css?v=51103" />
-  <script>
-  /* Skip splash chrome for returning / demo — LCP is real campus content. */
-  (function () {
-    try {
-      var demo = /(?:^|[?&])demo=1(?:&|$)/.test(location.search);
-      var raw = localStorage.getItem('masterycap:onboarded');
-      var onboarded = raw === 'true' || raw === '1' || raw === '"true"';
-      if (demo || onboarded) document.documentElement.classList.add('mc-skip-splash');
-    } catch (e) {}
-  })();
-  </script>
+  <link rel="stylesheet" href="css/app.css?v=51104" />
+  <link rel="stylesheet" href="css/institute.css?v=51104" />
   <style>
-    html.mc-skip-splash #splash { display: none !important; }
-    /* Contentful first-paint shell before module boot (LCP). */
+    /* No splash overlay — contentful LCP is the campus shell (v5 §3c). */
+    #splash { display: none !important; }
+    #app-root:empty {
+      min-height: 60vh;
+      padding: 40px 24px 24px;
+      box-sizing: border-box;
+    }
     #app-root:empty::before {
       content: 'MasteryCap';
       display: block;
-      font-family: var(--serif), Georgia, serif;
+      font-family: Georgia, 'Times New Roman', serif;
       font-size: clamp(28px, 7vw, 40px);
       font-weight: 700;
       letter-spacing: -.02em;
-      padding: 48px 24px 8px;
       color: var(--t0, #F4F5F6);
     }
     #app-root:empty::after {
-      content: 'Personal learning campus';
+      content: 'Personal learning campus — Admission · Branches · Craft';
       display: block;
       font-size: 15px;
+      line-height: 1.55;
       color: var(--t2, #878D95);
-      padding: 0 24px 24px;
-      max-width: 30ch;
+      margin-top: 10px;
+      max-width: 32ch;
     }
-    html.mc-skip-splash #app-root:empty { min-height: 50vh; }
   </style>
 </head>
 <body>
@@ -73,37 +66,23 @@
   <!-- film grain texture overlay -->
   <div id="grain" aria-hidden="true"></div>
 
-  <!-- Splash -->
-  <div id="splash">
-    <div class="splash-inner">
-      <div class="splash-bench" aria-hidden="true">
-        <div class="bench-leg bench-leg-l"></div>
-        <div class="bench-leg bench-leg-r"></div>
-        <div class="bench-top"></div>
-        <div class="bench-peg"></div>
-        <div class="splash-stamp">Ready</div>
-      </div>
-      <div class="splash-wordmark">Mastery<span>Cap</span></div>
-      <div class="splash-rule" aria-hidden="true"></div>
-      <div class="splash-tag">Personal learning campus</div>
-    </div>
-    <div class="splash-foot">Admission · Branches · Craft</div>
-  </div>
+  <!-- Splash kept in DOM for a11y tests but never shown -->
+  <div id="splash" hidden aria-hidden="true"></div>
 
-  <!-- App -->
+  <!-- App — contentful shell via :empty CSS until boot -->
   <div id="app-root" role="main" tabindex="-1"></div>
 
   <!-- Bottom nav -->
   <nav class="tabbar hidden" id="tabbar"></nav>
 
-  <script type="module" src="js/app.js?v=51103"></script>
+  <script type="module" src="js/app.js?v=51104"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', async () => {
         try {
           const regs = await navigator.serviceWorker.getRegistrations();
           // Always re-register so CACHE bump in sw.js takes effect
-          await navigator.serviceWorker.register('sw.js?v=51103');
+          await navigator.serviceWorker.register('sw.js?v=51104');
         } catch (e) {}
       });
     }

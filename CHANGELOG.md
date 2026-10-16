@@ -1,3 +1,8 @@
+## 51.10.4 — 2026-10-16
+
+- Delete splash overlay; contentful #app-root shell; boot with zero delay
+- SW `masterycap-v51104`
+
 ## 51.10.3 — 2026-10-16
 
 Perfection Loop v5 §3b Performance (mobile LCP):
