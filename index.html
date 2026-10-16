@@ -30,12 +30,43 @@
     .onb-sub{font-size:15.5px;line-height:1.6;color:var(--t2);margin:0;max-width:30ch}
     .splash-bench{display:none}
   </style>
-  <link rel="stylesheet" href="css/app.css?v=51102" media="print" onload="this.media='all'" />
-  <link rel="stylesheet" href="css/institute.css?v=51102" media="print" onload="this.media='all'" />
-  <noscript>
-    <link rel="stylesheet" href="css/app.css?v=51102" />
-    <link rel="stylesheet" href="css/institute.css?v=51102" />
-  </noscript>
+  <!-- Blocking CSS — async sheets delayed LCP to ~4s on mobile (v5 §3b). -->
+  <link rel="stylesheet" href="css/app.css?v=51103" />
+  <link rel="stylesheet" href="css/institute.css?v=51103" />
+  <script>
+  /* Skip splash chrome for returning / demo — LCP is real campus content. */
+  (function () {
+    try {
+      var demo = /(?:^|[?&])demo=1(?:&|$)/.test(location.search);
+      var raw = localStorage.getItem('masterycap:onboarded');
+      var onboarded = raw === 'true' || raw === '1' || raw === '"true"';
+      if (demo || onboarded) document.documentElement.classList.add('mc-skip-splash');
+    } catch (e) {}
+  })();
+  </script>
+  <style>
+    html.mc-skip-splash #splash { display: none !important; }
+    /* Contentful first-paint shell before module boot (LCP). */
+    #app-root:empty::before {
+      content: 'MasteryCap';
+      display: block;
+      font-family: var(--serif), Georgia, serif;
+      font-size: clamp(28px, 7vw, 40px);
+      font-weight: 700;
+      letter-spacing: -.02em;
+      padding: 48px 24px 8px;
+      color: var(--t0, #F4F5F6);
+    }
+    #app-root:empty::after {
+      content: 'Personal learning campus';
+      display: block;
+      font-size: 15px;
+      color: var(--t2, #878D95);
+      padding: 0 24px 24px;
+      max-width: 30ch;
+    }
+    html.mc-skip-splash #app-root:empty { min-height: 50vh; }
+  </style>
 </head>
 <body>
   <a href="#app-root" class="cap-skip-link">Skip to content</a>
@@ -65,14 +96,14 @@
   <!-- Bottom nav -->
   <nav class="tabbar hidden" id="tabbar"></nav>
 
-  <script type="module" src="js/app.js?v=51102"></script>
+  <script type="module" src="js/app.js?v=51103"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', async () => {
         try {
           const regs = await navigator.serviceWorker.getRegistrations();
           // Always re-register so CACHE bump in sw.js takes effect
-          await navigator.serviceWorker.register('sw.js?v=51102');
+          await navigator.serviceWorker.register('sw.js?v=51103');
         } catch (e) {}
       });
     }

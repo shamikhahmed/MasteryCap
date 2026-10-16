@@ -1,3 +1,12 @@
+## 51.10.3 — 2026-10-16
+
+Perfection Loop v5 §3b Performance (mobile LCP):
+
+- Blocking CSS again (async sheets delayed first paint ~4s)
+- Skip splash for returning / `?demo=1`; contentful `#app-root` shell for LCP
+- Faster boot path when onboarded
+- SW `masterycap-v51103`
+
 ## 51.10.2 — 2026-10-16
 
 Perfection Loop v5 §3 Performance:

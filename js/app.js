@@ -431,17 +431,20 @@ function boot() {
     maybeNotifyReviews();
     setTimeout(() => maybeStreakRecovery(), 400);
 
-    /* Shorter splash — LCP is splash wordmark / .onb-sub; keep contentful (v5 §3). */
+    /* Fast path for returning / demo — LCP is campus content not splash (v5 §3b). */
+    const demo = /(?:^|[?&])demo=1(?:&|$)/.test(location.search);
+    const skipSplash = demo || onboarded || document.documentElement.classList.contains('mc-skip-splash');
+    const bootMs = skipSplash ? 40 : 320;
     setTimeout(() => {
       const splash = document.getElementById('splash');
       if (splash) splash.classList.add('hide');
       setTimeout(() => {
         splash && splash.remove();
         try { window.__APP_READY__ = true; document.documentElement.dataset.appReady = 'true'; } catch (_) {}
-      }, 280);
+      }, skipSplash ? 60 : 200);
       if (onboarded && App.profile?.campus) { App.tab = 'today'; App.render(); App.renderNav(); }
       else renderOnboarding();
-    }, 700);
+    }, bootMs);
   });
 }
 
