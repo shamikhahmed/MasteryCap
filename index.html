@@ -29,12 +29,11 @@
     .onb-sub{font-size:15.5px;line-height:1.6;color:var(--t2);margin:0;max-width:30ch}
     .splash-bench{display:none}
   </style>
-  <!-- Blocking CSS — async sheets delayed LCP to ~4s on mobile (v5 §3b). -->
-  <link rel="stylesheet" href="css/app.css?v=51106" media="print" onload="this.media='all'" />
-  <noscript><link rel="stylesheet" href="css/app.css?v=51106" /></noscript>
+  <!-- Blocking app.css — async regressed mobile perf (51.10.6); institute stays deferred. -->
+  <link rel="stylesheet" href="css/app.css?v=51107" />
   <!-- Institute sheet after first paint — cold LCP is app.css + boot shell (v5 §3d). -->
-  <link rel="stylesheet" href="css/institute.css?v=51106" media="print" onload="this.media='all'" />
-  <noscript><link rel="stylesheet" href="css/institute.css?v=51106" /></noscript>
+  <link rel="stylesheet" href="css/institute.css?v=51107" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="css/institute.css?v=51107" /></noscript>
   <style>
     #splash { display: none !important; }
     .mc-boot-shell { min-height: 70vh; padding: 48px 24px 24px; box-sizing: border-box; contain: layout style; }
@@ -75,13 +74,13 @@
   <!-- Bottom nav -->
   <nav class="tabbar hidden" id="tabbar"></nav>
 
-  <script type="module" src="js/app.js?v=51106"></script>
+  <script type="module" src="js/app.js?v=51107"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', async () => {
         try {
           const regs = await navigator.serviceWorker.getRegistrations();
-          await navigator.serviceWorker.register('sw.js?v=51106');
+          await navigator.serviceWorker.register('sw.js?v=51107');
         } catch (e) {}
       });
     }

@@ -1,3 +1,8 @@
+## 51.10.7 — 2026-10-16
+
+- Revert app.css to blocking link (51.10.6 async regressed LH mobile).
+- SW → `masterycap-v51107`
+
 ## 51.10.6 — 2026-10-16
 
 - Async app.css; inline boot shell is LCP (mobile).
