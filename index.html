@@ -15,8 +15,39 @@
   <link rel="icon" href="icons/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon-180.png" />
   <!-- No font preload — LCP is Georgia boot shell (v5 §3d). -->
+  <script>
+  (function () {
+    document.documentElement.classList.add('mc-booting');
+    var ONB = { light: '#9A3412', sepia: '#9A3412', dark: '#C4A574' };
+    var P = {
+      light: { bg: '#F5F1E8', t0: '#1C1810', t2: '#5C5344', acc: '#9A3412' },
+      sepia: { bg: '#E8DCC8', t0: '#3B2F1E', t2: '#7A6848', acc: '#9A3412' },
+      dark: { bg: '#0A0A0A', t0: '#E8E4DC', t2: '#8A867E', acc: '#B45309' },
+    };
+    try {
+      var ns = localStorage.getItem('masterycap_active_ns') || 'masterycap:';
+      if (ns.charAt(ns.length - 1) !== ':') ns += ':';
+      var raw = localStorage.getItem(ns + 'appearance');
+      var mode = 'light';
+      if (raw) mode = (JSON.parse(raw).mode) || 'light';
+      if (mode === 'auto') {
+        mode = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      if (!P[mode]) mode = 'light';
+      var p = P[mode];
+      var r = document.documentElement.style;
+      r.setProperty('--bg', p.bg);
+      r.setProperty('--t0', p.t0);
+      r.setProperty('--t2', p.t2);
+      r.setProperty('--acc', p.acc);
+      r.setProperty('--onb-eyebrow', ONB[mode] || ONB.light);
+      document.documentElement.dataset.theme = mode;
+      document.documentElement.dataset.mode = mode;
+    } catch (e) {}
+  })();
+  </script>
   <style>
-    :root{--bg:#141310;--t0:#F4F5F6;--t2:#878D95;--t3:#7A828C;--acc:#B45309;--out:cubic-bezier(.22,1,.36,1);--serif:'Fraunces',Georgia,serif;--sans:system-ui,-apple-system,sans-serif}
+    :root{--bg:#F5F1E8;--t0:#1C1810;--t2:#5C5344;--t3:#6E6454;--acc:#9A3412;--onb-eyebrow:#9A3412;--out:cubic-bezier(.22,1,.36,1);--serif:Georgia,'Times New Roman',serif;--sans:system-ui,-apple-system,sans-serif}
     html,body{margin:0;background:var(--bg);color:var(--t0);font-family:var(--sans);min-height:100%}
     #splash{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;transition:opacity .35s var(--out)}
     #splash.hide{opacity:0;pointer-events:none}
@@ -30,21 +61,26 @@
     .splash-bench{display:none}
   </style>
   <!-- Blocking app.css — async regressed mobile perf (51.10.6); institute stays deferred. -->
-  <link rel="stylesheet" href="css/app.css?v=51108" />
+  <link rel="stylesheet" href="css/app.css?v=51109" />
   <!-- Institute sheet after first paint — cold LCP is app.css + boot shell (v5 §3d). -->
-  <link rel="stylesheet" href="css/institute.css?v=51108" media="print" onload="this.media='all'" />
-  <noscript><link rel="stylesheet" href="css/institute.css?v=51108" /></noscript>
+  <link rel="stylesheet" href="css/institute.css?v=51109" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="css/institute.css?v=51109" /></noscript>
   <style>
     #splash { display: none !important; }
+    html.mc-booting .screen,
+    html.mc-booting #app-root .onb { animation: none !important; opacity: 1 !important; transform: none !important; }
+    html.mc-booting #app-root .onb-title { font-family: Georgia, 'Times New Roman', serif !important; }
+    html.mc-booting #app-root .onb-sub,
+    html.mc-booting #app-root .onb-eyebrow { font-family: system-ui, -apple-system, sans-serif !important; }
     /* Welcome admission in HTML — LCP before module boot (v5 §3d). */
     #app-root .onb.admit-flow { min-height: 70vh; padding: 0 24px 24px; box-sizing: border-box; display: flex; flex-direction: column; }
     #app-root .onb-top { display: flex; align-items: center; gap: 10px; padding: 12px 0; }
-    #app-root .onb-progress { flex: 1; height: 3px; background: rgba(255,255,255,.08); border-radius: 99px; overflow: hidden; }
-    #app-root .onb-progress i { display: block; height: 100%; width: 10%; background: var(--acc, #B45309); }
+    #app-root .onb-progress { flex: 1; height: 3px; background: rgba(0,0,0,.08); border-radius: 99px; overflow: hidden; }
+    #app-root .onb-progress i { display: block; height: 100%; width: 10%; background: var(--acc, #9A3412); }
     #app-root .onb-main { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-    #app-root .onb-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #C4A574; margin-bottom: 14px; }
-    #app-root .onb-title { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px, 8vw, 32px); font-weight: 600; letter-spacing: -.035em; line-height: 1.08; margin: 0 0 14px; color: var(--t0, #F4F5F6); }
-    #app-root .onb-sub { font-size: 15.5px; line-height: 1.6; color: var(--t2, #878D95); margin: 0; max-width: 30ch; }
+    #app-root .onb-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--onb-eyebrow, #9A3412); margin-bottom: 14px; }
+    #app-root .onb-title { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px, 8vw, 32px); font-weight: 600; letter-spacing: -.035em; line-height: 1.08; margin: 0 0 14px; color: var(--t0, #1C1810); }
+    #app-root .onb-sub { font-size: 15.5px; line-height: 1.6; color: var(--t2, #5C5344); margin: 0; max-width: 30ch; }
     #app-root .onb-foot { padding-top: 18px; }
   </style>
 </head>
@@ -76,13 +112,13 @@
   <!-- Bottom nav -->
   <nav class="tabbar hidden" id="tabbar"></nav>
 
-  <script type="module" src="js/app.js?v=51108"></script>
+  <script type="module" src="js/app.js?v=51109"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', async () => {
         try {
           const regs = await navigator.serviceWorker.getRegistrations();
-          await navigator.serviceWorker.register('sw.js?v=51108');
+          await navigator.serviceWorker.register('sw.js?v=51109');
         } catch (e) {}
       });
     }

@@ -4,6 +4,13 @@
 
 import { store, KEYS } from './store.js';
 
+/** WCAG AA eyebrow on each paper/ink (11px uppercase). */
+const ONB_EYEBROW = {
+  dark: '#C4A574',
+  light: '#9A3412',
+  sepia: '#9A3412',
+};
+
 const PRESETS = {
   dark: {
     bg: '#0A0A0A', bg1: '#121212', surface: '#161614', surface2: '#1C1C18', surface3: '#242420',
@@ -15,7 +22,6 @@ const PRESETS = {
     bg: '#F5F1E8', bg1: '#FFFBF3', surface: '#FFFBF3', surface2: '#EDE6D8', surface3: '#E4DCCB',
     t0: '#1C1810', t1: '#3D3528', t2: '#5C5344', t3: '#6E6454', t4: '#7A7060',
     line: 'rgba(80,60,20,0.12)', line2: 'rgba(80,60,20,0.18)',
-    /* acc2 on paper was #E8590C @ 3.17:1 — darken for .onb-eyebrow AA */
     acc: '#9A3412', acc2: '#9A3412', accDim: 'rgba(154,52,18,0.12)',
   },
   sepia: {
@@ -71,6 +77,7 @@ export function applyTheme() {
   root.style.setProperty('--line-2', p.line2);
   root.style.setProperty('--acc', p.acc);
   root.style.setProperty('--acc-2', p.acc2);
+  root.style.setProperty('--onb-eyebrow', ONB_EYEBROW[mode] || ONB_EYEBROW.light);
   root.style.setProperty('--acc-dim', p.accDim);
   root.style.setProperty('--acc-line', p.accDim.replace('0.1', '0.35').replace('0.12', '0.35').replace('0.14', '0.35').replace('0.16', '0.35'));
   const meta = document.querySelector('meta[name="theme-color"]');

@@ -411,16 +411,24 @@ function watchServiceWorker() {
   window.addEventListener('focus', check);
 }
 
+function syncShellFromStore() {
+  const settings = store.get(KEYS.settings, {});
+  App.lang = settings.lang || 'en';
+  document.documentElement.lang = App.lang === 'ur' ? 'ur-Latn' : 'en';
+  document.documentElement.dir = 'ltr';
+  App.profile = store.get(KEYS.profile, null);
+  applySettings(App);
+  applyTheme();
+  return store.get(KEYS.onboarded, false);
+}
+
 function boot() {
+  document.getElementById('splash')?.remove();
+  let onboarded = syncShellFromStore();
+  if (!onboarded) renderOnboarding();
+
   store.hydrate().then(() => {
-    const settings = store.get(KEYS.settings, {});
-    App.lang = settings.lang || 'en';
-    document.documentElement.lang = App.lang === 'ur' ? 'ur-Latn' : 'en';
-    document.documentElement.dir = 'ltr';
-    App.profile = store.get(KEYS.profile, null);
-    const onboarded = store.get(KEYS.onboarded, false);
-    applySettings(App);
-    applyTheme();
+    onboarded = syncShellFromStore();
     watchServiceWorker();
     watchOnline();
     document.addEventListener('pointerdown', () => touchTime(), { passive: true });
@@ -431,11 +439,16 @@ function boot() {
     maybeNotifyReviews();
     setTimeout(() => maybeStreakRecovery(), 400);
 
-    /* No splash delay — paint campus immediately (v5 §3c LCP). */
-    const splash = document.getElementById('splash');
-    if (splash) splash.remove();
-    if (onboarded && App.profile?.campus) { App.tab = 'today'; App.render(); App.renderNav(); }
-    else renderOnboarding();
+    if (onboarded && App.profile?.campus) {
+      App.tab = 'today';
+      App.render();
+      App.renderNav();
+    } else if (!onboarded) {
+      renderOnboarding();
+    }
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      document.documentElement.classList.remove('mc-booting');
+    }));
     try { window.__APP_READY__ = true; document.documentElement.dataset.appReady = 'true'; } catch (_) {}
   });
 }
