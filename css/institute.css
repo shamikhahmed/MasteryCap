@@ -1,5 +1,41 @@
 /* MasteryCap Institute — Student ID, homeboard, admission photo, desktop fill */
 
+/* ---------- Fonts (self-hosted woff2; G-9 / C-16) — async via index.html print→all ---------- */
+@font-face { font-family:'Geist Mono'; font-weight:500; font-display:swap; src:url('../fonts/geistmono-500.woff2') format('woff2'); }
+@font-face { font-family:'Geist Mono'; font-weight:600; font-display:swap; src:url('../fonts/geistmono-600.woff2') format('woff2'); }
+
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url('../fonts/fraunces.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/ibm-plex-mono-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../fonts/ibm-plex-mono-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('../fonts/ibm-plex-sans.woff2') format('woff2');
+}
+
 .homeboard {
   max-width: 720px;
   margin: 0 auto;

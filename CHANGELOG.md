@@ -5,6 +5,7 @@ Perfection Loop v5 §3d Performance + §2 a11y (welcome admission):
 - `--onb-eyebrow` token (≥4.5:1 on paper/ink); sync appearance in head before paint
 - `mc-booting`: system/Georgia on welcome, no entry animation — contentful LCP like PulseCap `pc-booting`
 - Boot: `applyTheme` + wire static welcome before `store.hydrate()` (no IDB wait for first paint)
+- Move `@font-face` into async `institute.css` so blocking `app.css` cannot start font downloads before LCP
 - SW → `masterycap-v51109`
 
 ## 51.10.8 — 2026-10-16
