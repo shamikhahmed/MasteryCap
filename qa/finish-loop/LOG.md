@@ -31,3 +31,9 @@ Section labels · CapConfirm replace 17 dialogs · sub-11px → 11px · ur-Latn 
 - **Root cause:** deploy copied (nearly) the whole tree.
 - **Change:** `scripts/stage-pages-site.sh` + `verify-pages-artifact.cjs`; workflow stages allowlisted paths only.
 - **Verification:** local stage dry-run + SW precache check; live curl after deploy.
+
+## 2026-10-19 — D-MST-LH-1 honest LH a11y 100 + mobile perf ≥90
+- **Before (live 51.10.8):** mobile perf 85 a11y 94 | LCP 3.5s — `.onb-eyebrow` `#C4A574` on light paper 2.07:1
+- **After (live 51.10.9 @ 0755083):** mobile perf 93 a11y 100 | LCP 1.9s (honest); CI green; Pages green
+- **Change:** `--onb-eyebrow` AA token; `mc-booting`; theme/wire before IDB; `@font-face` → async institute.css
+- **DECISIONS:** D-MST-LH-1 in Cap-Apps + capricorn-tooling

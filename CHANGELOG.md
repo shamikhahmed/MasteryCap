@@ -1,3 +1,9 @@
+## 51.10.10 — 2026-10-19
+
+- Async `app.css` (print→all) now that welcome LCP is fully inlined + `mc-booting` — remove render-blocking 54KB sheet from cold path
+- Critical `.btn.accent` / skip-link in head so first paint stays usable before app.css
+- SW → `masterycap-v51110`
+
 ## 51.10.9 — 2026-10-19
 
 Perfection Loop v5 §3d Performance + §2 a11y (welcome admission):
