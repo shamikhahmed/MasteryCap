@@ -1,0 +1,34 @@
+{
+  "id": "masterycap-ahmed",
+  "name": "Ahmed Rizvi",
+  "age": 20,
+  "city": "Lahore, Pakistan",
+  "role": "Student",
+  "tech": "medium",
+  "accessibility": "standard",
+  "device": "iPhone 15",
+  "goal": "Trading basics in Roman Urdu \u2014 educational only",
+  "pain_before": [
+    "Scattered notes",
+    "Forgot to log"
+  ],
+  "how_she_uses_it": [
+    "bilingual-tracks",
+    "not-financial-advice"
+  ],
+  "numbers": {
+    "before": {
+      "minutes_lost": 15
+    },
+    "after": {
+      "minutes_lost": 2
+    }
+  },
+  "quote": "I learn terms. No income promises.",
+  "seed": "qa/v7/personas/masterycap-ahmed.seed.json",
+  "features_used": [
+    "bilingual-tracks",
+    "not-financial-advice"
+  ],
+  "fictional": true
+}
