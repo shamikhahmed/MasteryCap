@@ -1,3 +1,9 @@
+## [51.10.11] — 2026-10-21
+
+- HIG v7: iOS tokens / native feel; Dynamic Type & hit targets where applicable
+- Real-people stories live on hub (`/apps/<slug>/` + `/stories/`)
+- Pitch/presentation/README synced to 51.10.11
+
 ## 51.10.10 — 2026-10-19
 
 - Async `app.css` (print→all) now that welcome LCP is fully inlined + `mc-booting` — remove render-blocking 54KB sheet from cold path

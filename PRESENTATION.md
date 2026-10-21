@@ -20,7 +20,7 @@ attest. Certificates = local TRADE-READY / course completion — markets still d
 
 ## Stack
 Static ES modules. No build step required for the PWA shell. No backend.
-`localStorage` (`masterycap:`). GitHub Pages. SW cache `masterycap-v5180` · app **v51.8.0**.
+`localStorage` (`masterycap:`). GitHub Pages. SW cache `masterycap-v5180` · app **v51.10.11**.
 
 ## Design
 True-black terminal · Geist · accent `#FF6B2C` · zero emoji · mono numerics.
@@ -30,3 +30,15 @@ Themes: Light / Sepia / Dark.
 University build queue complete (v49.2). Unlock wave v50+ (Lab ON, Craft FE→APP session,
 UR parity, nav reconnect, cert-honesty projects). Optional later: Markets↔institute reader merge.
 Deploy: push `main` → GitHub Pages → hard-refresh / Add to Home Screen.
+
+---
+
+## Slide — Real people (illustrative)
+
+Three fictional personas show how people use MasteryCap day to day — before/after numbers, timeline screenshots, and a short silent video with captions.
+
+**Stories:** https://shamikhahmed.github.io/apps/masterycap/  
+**Index:** https://shamikhahmed.github.io/stories/
+
+*Illustrative story. People and data are fictional.*
+
