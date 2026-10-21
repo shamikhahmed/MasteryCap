@@ -65,7 +65,7 @@ icons/                      PWA icons (+ generate_icons.py)
 - Content policy: frameworks + risk control only — no tips, signals, or win promises.
 - Urdu copy QA: [URDU-REVIEW.md](URDU-REVIEW.md) (human).
 
-## Real stories
+## Example stories
 
 Illustrative day-in-the-life stories (fictional personas) with screenshots and captions:
 
