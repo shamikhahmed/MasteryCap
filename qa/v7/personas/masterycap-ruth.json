@@ -1,0 +1,34 @@
+{
+  "id": "masterycap-ruth",
+  "name": "Ruth Mwangi",
+  "age": 35,
+  "city": "Nairobi, Kenya",
+  "role": "Career switcher",
+  "tech": "medium",
+  "accessibility": "standard",
+  "device": "iPhone 15",
+  "goal": "Software track in English with quizzes",
+  "pain_before": [
+    "Scattered notes",
+    "Forgot to log"
+  ],
+  "how_she_uses_it": [
+    "quizzes-practice",
+    "bilingual-tracks"
+  ],
+  "numbers": {
+    "before": {
+      "minutes_lost": 15
+    },
+    "after": {
+      "minutes_lost": 2
+    }
+  },
+  "quote": "Quizzes show what I missed.",
+  "seed": "qa/v7/personas/masterycap-ruth.seed.json",
+  "features_used": [
+    "quizzes-practice",
+    "bilingual-tracks"
+  ],
+  "fictional": true
+}

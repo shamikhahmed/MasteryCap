@@ -1,0 +1,34 @@
+{
+  "id": "masterycap-bilqees",
+  "name": "Bilqees Fatima",
+  "age": 45,
+  "city": "Karachi, Pakistan",
+  "role": "Teacher",
+  "tech": "medium",
+  "accessibility": "standard",
+  "device": "iPhone 15",
+  "goal": "Progress tracking for upskilling",
+  "pain_before": [
+    "Scattered notes",
+    "Forgot to log"
+  ],
+  "how_she_uses_it": [
+    "self-issued-certificates",
+    "quizzes-practice"
+  ],
+  "numbers": {
+    "before": {
+      "minutes_lost": 15
+    },
+    "after": {
+      "minutes_lost": 2
+    }
+  },
+  "quote": "My certificate is self-issued and honest.",
+  "seed": "qa/v7/personas/masterycap-bilqees.seed.json",
+  "features_used": [
+    "self-issued-certificates",
+    "quizzes-practice"
+  ],
+  "fictional": true
+}
