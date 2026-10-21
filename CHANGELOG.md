@@ -1,5 +1,10 @@
 ## [51.10.11] — 2026-10-21
 
+## 51.10.12 — 2026-10-21
+
+- **v7-fix:** Precache `js/hig-dt.js` in SW (`masterycap-v511011`).
+
+
 - HIG v7: iOS tokens / native feel; Dynamic Type & hit targets where applicable
 - Real-people stories live on hub (`/apps/<slug>/` + `/stories/`)
 - Pitch/presentation/README synced to 51.10.11

@@ -1,11 +1,12 @@
 /* MasteryCap service worker — offline-first shell cache */
-const CACHE = 'masterycap-v51110';
+const CACHE = 'masterycap-v511011';
 const ASSETS = [
   './',
   './index.html',
   './css/app.css',
   './css/institute.css',
   './js/app.js',
+  './js/hig-dt.js',
   './js/brand/colors.js',
   './js/institute/student-id.js',
   './js/views/admission.js',
