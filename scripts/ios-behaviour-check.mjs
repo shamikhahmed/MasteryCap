@@ -68,6 +68,9 @@ for (const tab of ['today', 'campus', 'practice', 'records']) {
   check(`document scrolls, native bounce · ${tab}`, m.inner === 'visible' && m.body !== 'none', JSON.stringify(m));
 }
 
+// 2b. The document really scrolls (and instantly — no smooth-scroll animation)
+check('programmatic scroll lands instantly', await page.evaluate(() => { window.scrollTo(0, 300); const y = window.scrollY; window.scrollTo(0, 0); return y >= 250; }));
+
 // 3. Tab tap: new screen at top, no reload
 await step('navigation by tapping', async () => {
   await page.evaluate(() => window.scrollTo(0, 600));
