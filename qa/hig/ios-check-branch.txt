@@ -1,0 +1,19 @@
+PASS  admission completes by tapping
+PASS  tab bar tappable
+PASS  tab hit areas ≥44pt
+PASS  no sideways overflow · today
+PASS  document scrolls, native bounce · today
+PASS  no sideways overflow · campus
+PASS  document scrolls, native bounce · campus
+PASS  no sideways overflow · practice
+PASS  document scrolls, native bounce · practice
+PASS  no sideways overflow · records
+PASS  document scrolls, native bounce · records
+PASS  tab tap navigates (no reload)
+PASS  new screen opens at top
+PASS  appearance change applies without reload
+PASS  page locked behind sheet
+PASS  sheet keeps scroll position
+PASS  inputs ≥16px (no zoom-on-focus)
+PASS  no reload during session
+PASS  SW: no skipWaiting/clients.claim

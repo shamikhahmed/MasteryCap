@@ -140,7 +140,7 @@ export const App = {
       this._finalCode = null;
     }
     this.tab = tab; this.haptic(6);
-    window.scrollTo({ top: 0 });
+    if (window.ScrollLock) window.ScrollLock.scrollTo(0); else window.scrollTo({ top: 0 });
     this.render(); this.renderNav();
   },
 
@@ -152,7 +152,7 @@ export const App = {
     this._checkOk = false;
     this.tab = 'lesson';
     this.haptic(6);
-    window.scrollTo({ top: 0 });
+    if (window.ScrollLock) window.ScrollLock.scrollTo(0); else window.scrollTo({ top: 0 });
     this.render(); this.renderNav();
   },
 
@@ -163,7 +163,7 @@ export const App = {
     this._finalResult = null;
     this.tab = 'final';
     this.haptic(6);
-    window.scrollTo({ top: 0 });
+    if (window.ScrollLock) window.ScrollLock.scrollTo(0); else window.scrollTo({ top: 0 });
     this.render(); this.renderNav();
   },
 
@@ -171,7 +171,7 @@ export const App = {
     this._focusSel = this.tab === 'practice' ? '#prDrills' : null;
     this._drillReturn = this.tab === 'drills' ? 'today' : this.tab;
     this.tab = 'drills'; this.haptic(6);
-    window.scrollTo({ top: 0 });
+    if (window.ScrollLock) window.ScrollLock.scrollTo(0); else window.scrollTo({ top: 0 });
     this.render(); this.renderNav();
   },
 
@@ -181,7 +181,7 @@ export const App = {
     this._focusSel = from === 'records' ? '#recHasil' : '#prHasil';
     this.tab = 'progress';
     this.haptic(6);
-    window.scrollTo({ top: 0 });
+    if (window.ScrollLock) window.ScrollLock.scrollTo(0); else window.scrollTo({ top: 0 });
     this.render();
     this.renderNav();
   },
@@ -192,7 +192,7 @@ export const App = {
     this._focusSel = from === 'records' ? '#recJournal' : null;
     this.tab = 'journal';
     this.haptic(6);
-    window.scrollTo({ top: 0 });
+    if (window.ScrollLock) window.ScrollLock.scrollTo(0); else window.scrollTo({ top: 0 });
     this.render();
     this.renderNav();
   },
@@ -201,7 +201,7 @@ export const App = {
     this._focusSel = this.tab === 'practice' ? '#prReview' : null;
     this._reviewReturn = this.tab === 'review' ? 'practice' : this.tab;
     this.tab = 'review'; this.haptic(6);
-    window.scrollTo({ top: 0 });
+    if (window.ScrollLock) window.ScrollLock.scrollTo(0); else window.scrollTo({ top: 0 });
     this.render(); this.renderNav();
   },
 
@@ -209,7 +209,7 @@ export const App = {
     this._focusSel = this.tab === 'practice' ? '#prCharts' : null;
     this._chartReturn = this.tab === 'charts' ? 'today' : this.tab;
     this.tab = 'charts'; this.haptic(6);
-    window.scrollTo({ top: 0 });
+    if (window.ScrollLock) window.ScrollLock.scrollTo(0); else window.scrollTo({ top: 0 });
     this.render(); this.renderNav();
   },
 
@@ -221,7 +221,7 @@ export const App = {
     this._focusSel = this.tab === 'practice' ? '#prSim' : null;
     this._simReturn = this.tab === 'sim' ? 'practice' : this.tab;
     this.tab = 'sim'; this.haptic(6);
-    window.scrollTo({ top: 0 });
+    if (window.ScrollLock) window.ScrollLock.scrollTo(0); else window.scrollTo({ top: 0 });
     this.render(); this.renderNav();
   },
 
@@ -229,7 +229,7 @@ export const App = {
     this._focusSel = this.tab === 'practice' ? '#prStudy' : null;
     this._studyReturn = this.tab === 'study' ? 'practice' : this.tab;
     this.tab = 'study'; this.haptic(6);
-    window.scrollTo({ top: 0 });
+    if (window.ScrollLock) window.ScrollLock.scrollTo(0); else window.scrollTo({ top: 0 });
     this.render(); this.renderNav();
   },
 

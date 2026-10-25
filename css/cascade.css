@@ -1,0 +1,12 @@
+/*
+ * MasteryCap — cascade order: legacy 51.x CSS < HIG components (system.css primitives + mastery.css reskin).
+ * Tokens (css/design/tokens.css) load render-blocking and unlayered, so they always win; legacy screens inherit
+ * the HIG palette through the bridge there. This file loads async (media=print → all) like app.css did. Docs: DESIGN.md.
+ */
+@layer legacy, components;
+
+@import url("app.css?v=51110") layer(legacy);
+@import url("ios-tokens.css?v=51111") layer(legacy);
+@import url("institute.css?v=51110") layer(legacy);
+@import url("design/system.css");
+@import url("design/mastery.css");

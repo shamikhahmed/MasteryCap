@@ -1,0 +1,396 @@
+/**
+ * MasteryCap — HIG reskin of the 51.x shell and shared components.
+ * Sits in `@layer components` (above `legacy`). Docs: DESIGN.md.
+ * Owner decision 2026-07-30: tabs on all widths (no sidebar) — the tab bar floats and centres on wide screens.
+ */
+
+@layer components {
+
+/* ---------- Canvas: the document scrolls, native rubber-band ---------- */
+
+html,
+body {
+  height: auto;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--label);
+  font-family: var(--font-ui);
+  font-feature-settings: normal;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: auto;
+}
+
+/* Film-grain blend layer costs scroll smoothness on iPhone and muddies text */
+#grain {
+  display: none;
+}
+
+.screen {
+  padding: calc(env(safe-area-inset-top) + 12px) var(--gutter) calc(var(--tabbar-h) + 48px + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 700px) {
+  .screen {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+/* ---------- Large titles + section labels ---------- */
+
+.lt-head h1,
+.lt-head h1.serif,
+.onb-title,
+.inst-h2 {
+  font-family: var(--font-ui);
+  font-size: var(--t-large);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--label);
+}
+
+.lt-head .lt-kicker,
+.lt-kicker,
+.onb-eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--t-footnote);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--label-3);
+}
+
+.slabel {
+  margin: 28px 0 8px;
+  padding: 0 4px;
+  font-family: var(--font-ui);
+  font-size: var(--t-footnote);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--label-3);
+}
+
+.slabel .sl-right {
+  font-family: var(--font-ui);
+  color: var(--tint);
+  text-transform: none;
+}
+
+/* Numbers: system font with tabular figures (not a code face) */
+.mono,
+.pill.mono {
+  font-family: var(--font-ui);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Floating glass tab bar (all widths) ---------- */
+
+.tabbar {
+  left: 12px;
+  right: 12px;
+  bottom: max(14px, calc(env(safe-area-inset-bottom) + 6px));
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--glass-material);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  backdrop-filter: saturate(180%) blur(24px);
+  box-shadow: 0 0 0 0.5px var(--glass-border), 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.tabbar-inner {
+  height: var(--tabbar-h);
+  align-items: center;
+  gap: 2px;
+}
+
+.tab {
+  height: calc(var(--tabbar-h) - 10px);
+  min-height: 48px;
+  border-radius: 999px;
+  color: var(--label-2);
+  background: transparent;
+}
+
+.tab::before,
+.tab.active::before {
+  display: none;
+}
+
+.tab.active {
+  color: var(--tint);
+  background: var(--fill);
+}
+
+.tab.active svg {
+  color: var(--tint);
+}
+
+.tab svg {
+  width: 24px;
+  height: 24px;
+}
+
+.tab .tab-label {
+  font-family: var(--font-ui);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.tab-badge {
+  font-family: var(--font-ui);
+  background: var(--danger);
+  color: #fff;
+}
+
+/* ---------- Surfaces ---------- */
+
+.panel,
+.card,
+.inst-card,
+.opt-card,
+.course-card,
+.cred-card {
+  border: 0;
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+  color: var(--label);
+}
+
+.panel::before,
+.card::before {
+  display: none;
+}
+
+.opt-card.on {
+  background: var(--tint-soft);
+  box-shadow: inset 0 0 0 1.5px var(--tint);
+}
+
+.opt-card.on .oc-check {
+  background: var(--tint);
+  border-color: var(--tint);
+  color: var(--on-tint);
+}
+
+/* ---------- Buttons, pills, segmented ---------- */
+
+.btn {
+  min-height: 50px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: var(--r-md);
+  background: var(--fill);
+  color: var(--label);
+  font-family: var(--font-ui);
+  font-size: var(--t-headline);
+  font-weight: 600;
+}
+
+.btn.accent,
+#app-root .btn.accent {
+  background: var(--tint);
+  color: var(--on-tint);
+}
+
+.btn.secondary,
+.btn.ghost {
+  background: var(--fill);
+  color: var(--label);
+  border: 0;
+}
+
+.btn.sm {
+  min-height: var(--hit);
+  padding: 0 16px;
+  border-radius: 999px;
+  font-size: var(--t-subhead);
+}
+
+.icon-btn {
+  width: var(--hit);
+  height: var(--hit);
+  border: 0;
+  background: var(--fill);
+  color: var(--label);
+}
+
+.pill {
+  min-height: 30px;
+  border: 0;
+  background: var(--fill);
+  color: var(--label-2);
+  font-family: var(--font-ui);
+  font-weight: 500;
+}
+
+.pill.acc {
+  background: var(--tint-soft);
+  color: var(--tint);
+}
+
+/* Segmented control — fixes the 51.x unreadable selected label (dark text on dark thumb) */
+.seg {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 2px;
+  padding: 2px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--fill);
+}
+
+.seg[style*="flex-wrap"] {
+  grid-auto-flow: column;
+}
+
+.seg button {
+  min-height: 36px;
+  padding: 0 8px;
+  border-radius: 8px;
+  color: var(--label);
+  font-family: var(--font-ui);
+  font-size: var(--t-subhead);
+  font-weight: 500;
+  position: relative;
+}
+
+.seg button::after {
+  content: "";
+  position: absolute;
+  inset: -4px 0;
+}
+
+.seg button.on {
+  background: var(--seg-thumb);
+  color: var(--label);
+  font-weight: 600;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1), 0 0 0 0.5px rgba(0, 0, 0, 0.04);
+}
+
+/* ---------- Fields ---------- */
+
+.field label {
+  font-family: var(--font-ui);
+  font-size: var(--t-footnote);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--label-2);
+}
+
+.field input,
+.field select,
+.field textarea,
+#onbName {
+  min-height: var(--hit);
+  border: 0;
+  border-radius: var(--r-sm);
+  background: var(--fill);
+  color: var(--label);
+  font-family: var(--font-ui);
+}
+
+/* ---------- Sheets ---------- */
+
+.sheet-backdrop {
+  background: var(--scrim);
+}
+
+.sheet {
+  max-width: 560px;
+  margin: 0 auto;
+  border: 0;
+  border-radius: 16px 16px 0 0;
+  background: var(--bg);
+  box-shadow: var(--shadow-3);
+  overscroll-behavior: contain;
+}
+
+.sheet-handle {
+  width: 36px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--label-4);
+  margin: 8px auto 0;
+}
+
+.sheet-head .slabel {
+  margin: 0;
+  font-size: var(--t-headline);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: var(--label);
+}
+
+.sheet-x {
+  width: 30px;
+  height: 30px;
+  background: var(--fill);
+  color: var(--label-2);
+  position: relative;
+}
+
+.sheet-x::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+}
+
+/* Hover only where a pointer can hover */
+@media (hover: none) {
+  .btn:hover,
+  .tab:hover,
+  .opt-card:hover,
+  .panel:hover {
+    transform: none;
+  }
+}
+
+/* Code stays monospace (labs, editors, snippets); everything else uses SF with tabular figures */
+body {
+  font-variant-numeric: tabular-nums;
+}
+
+pre,
+code,
+kbd,
+samp,
+.code-editor,
+.code-starter,
+.code-out,
+.code-lab textarea,
+.http-lab textarea,
+.http-lab pre {
+  font-family: var(--font-mono-ui);
+}
+
+.hb-label,
+.kicker,
+.lesson-kicker,
+.reading-guide__kicker,
+.onb-step,
+.q-num {
+  font-family: var(--font-ui);
+  font-size: var(--t-footnote);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--label-3);
+}
+
+.lesson-kicker,
+.reading-guide__kicker {
+  color: var(--tint);
+}
+
+} /* @layer components */

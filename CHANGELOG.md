@@ -1,3 +1,13 @@
+## [Unreleased] — HIG design (ScentCap 3.0 system)
+
+- Apple-HIG redesign: `css/design/tokens.css` (semantic light / sepia / dark / increased-contrast tokens on `data-theme`, rust accent `#9a3412` / `#f07a2e`, legacy bridge), `css/design/system.css` (`ui-*` primitives), `css/design/mastery.css` (shell + shared-class reskin); 51.x CSS demoted to `@layer legacy` via async `css/cascade.css`
+- `js/theme.js` + boot script set `data-theme` only (no inline colour custom properties)
+- SF type throughout (serif + mono labels retired; code keeps a monospace); floating glass tab bar (all widths, per owner decision); grain overlay removed
+- Fix: Settings segmented controls showed the selected label dark-on-dark (unreadable)
+- iPhone (Safari + Home Screen PWA): native rubber-band (no `overscroll-behavior: none` on body), sheets pin the page and restore it exactly (`js/scroll-lock.js`), ≥16px fields, `touch-action`, hover guards
+- SW no longer `skipWaiting`/`clients.claim` · cache `masterycap-v511200`
+- `scripts/ios-behaviour-check.mjs` (`npm run ios:check`): origin/main 7 FAIL → 19/19 PASS · gate `tests/hig-design.spec.mjs`
+
 ## [51.10.11] — 2026-10-21
 
 ## 51.10.12 — 2026-10-21
