@@ -11,6 +11,9 @@ const ONB_EYEBROW = {
   sepia: '#9A3412',
 };
 
+/** Status-bar colour = HIG grouped background per mode (css/design/tokens.css). */
+const THEME_COLOR = { light: '#F2F2F7', sepia: '#ECE3D3', dark: '#000000' };
+
 const PRESETS = {
   dark: {
     bg: '#0A0A0A', bg1: '#121212', surface: '#161614', surface2: '#1C1C18', surface3: '#242420',
@@ -63,28 +66,14 @@ export function applyTheme() {
   const root = document.documentElement;
   root.dataset.theme = mode;
   root.dataset.mode = mode;
-  root.style.setProperty('--bg', p.bg);
-  root.style.setProperty('--bg-1', p.bg1);
-  root.style.setProperty('--surface', p.surface);
-  root.style.setProperty('--surface-2', p.surface2);
-  root.style.setProperty('--surface-3', p.surface3);
-  root.style.setProperty('--t0', p.t0);
-  root.style.setProperty('--t1', p.t1);
-  root.style.setProperty('--t2', p.t2);
-  root.style.setProperty('--t3', p.t3);
-  root.style.setProperty('--t4', p.t4 || p.t3);
-  root.style.setProperty('--line', p.line);
-  root.style.setProperty('--line-2', p.line2);
-  root.style.setProperty('--acc', p.acc);
-  root.style.setProperty('--acc-2', p.acc2);
-  root.style.setProperty('--onb-eyebrow', ONB_EYEBROW[mode] || ONB_EYEBROW.light);
-  root.style.setProperty('--acc-dim', p.accDim);
-  root.style.setProperty('--acc-line', p.accDim.replace('0.1', '0.35').replace('0.12', '0.35').replace('0.14', '0.35').replace('0.16', '0.35'));
+  // HIG tokens live in css/design/tokens.css keyed on data-theme; clear 51.x inline colour overrides
+  ['--bg', '--bg-1', '--surface', '--surface-2', '--surface-3', '--t0', '--t1', '--t2', '--t3', '--t4', '--line', '--line-2',
+    '--acc', '--acc-2', '--onb-eyebrow', '--acc-dim', '--acc-line'].forEach((k) => root.style.removeProperty(k));
   const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute('content', p.bg);
+  if (meta) meta.setAttribute('content', THEME_COLOR[mode] || THEME_COLOR.light);
   if (document.body) {
-    document.body.style.background = p.bg;
-    document.body.style.color = p.t0;
+    document.body.style.background = '';
+    document.body.style.color = '';
     document.body.classList.toggle('inst-desktop', window.innerWidth >= 900);
   }
 }

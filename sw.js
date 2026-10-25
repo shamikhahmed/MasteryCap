@@ -1,9 +1,15 @@
 /* MasteryCap service worker — offline-first shell cache */
-const CACHE = 'masterycap-v511012';
+const CACHE = 'masterycap-v511200';
 const ASSETS = [
   './',
   './index.html',
   './css/app.css',
+  './css/cascade.css',
+  './js/scroll-lock.js',
+  './css/design/tokens.css',
+  './css/design/system.css',
+  './css/design/mastery.css',
+  './css/ios-tokens.css',
   './css/institute.css',
   './js/app.js',
   './js/hig-dt.js',
@@ -153,7 +159,8 @@ const ASSETS = [
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open(CACHE).then((c) => c.addAll(ASSETS).catch(() => {})).then(() => self.skipWaiting())
+    // No skipWaiting/clients.claim: a new worker waits for the next cold launch instead of swapping a running app.
+    caches.open(CACHE).then((c) => c.addAll(ASSETS).catch(() => {}))
   );
 });
 
@@ -163,13 +170,13 @@ self.addEventListener('activate', (e) => {
       const stale = keys.filter((k) => k !== CACHE);
       return Promise.all(stale.map((k) => caches.delete(k))).then(() => stale.length > 0);
     }).then((hadStale) =>
-      self.clients.claim().then(() => {
-        if (!hadStale) return;
+      (() => {
+        if (!hadStale) return undefined;
         const ver = CACHE.replace('masterycap-', '');
         return self.clients.matchAll({ type: 'window' }).then((clients) => {
           clients.forEach((c) => c.postMessage({ type: 'SW_UPDATED', version: ver }));
         });
-      })
+      })()
     )
   );
 });

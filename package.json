@@ -13,7 +13,8 @@
     "gallery:view": "python3 -m http.server 8774",
     "verify": "npm run audit && npm run smoke",
     "test:matrix": "FINISH_MATRIX=1 playwright test tests/finish-matrix.spec.mjs",
-    "tier1": "node ../capricorn-tooling/shared/testing/tier1.mjs"
+    "tier1": "node ../capricorn-tooling/shared/testing/tier1.mjs",
+    "ios:check": "node scripts/ios-behaviour-check.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",

@@ -1,0 +1,19 @@
+PASS  admission completes by tapping
+PASS  tab bar tappable
+PASS  tab hit areas ≥44pt
+PASS  no sideways overflow · today
+FAIL  document scrolls, native bounce · today  ({"sw":393,"iw":393,"inner":"visible","body":"none"})
+PASS  no sideways overflow · campus
+FAIL  document scrolls, native bounce · campus  ({"sw":393,"iw":393,"inner":"visible","body":"none"})
+PASS  no sideways overflow · practice
+FAIL  document scrolls, native bounce · practice  ({"sw":393,"iw":393,"inner":"visible","body":"none"})
+PASS  no sideways overflow · records
+FAIL  document scrolls, native bounce · records  ({"sw":393,"iw":393,"inner":"visible","body":"none"})
+PASS  tab tap navigates (no reload)
+PASS  new screen opens at top
+PASS  appearance change applies without reload
+FAIL  page locked behind sheet  (body position "")
+PASS  sheet keeps scroll position
+FAIL  inputs ≥16px (no zoom-on-focus)  (2 small)
+PASS  no reload during session
+FAIL  SW: no skipWaiting/clients.claim
