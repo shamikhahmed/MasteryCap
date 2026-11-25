@@ -108,12 +108,34 @@ async function dismissSheets(page) {
 }
 
 async function seedProfile(page, { theme, lang }) {
+  // Wipe IDB mirror too — hydrate() would otherwise resurrect EN admission state
+  // after a localStorage-only clear and leave UR on "Begin application".
+  await page.evaluate(() => new Promise((resolve) => {
+    try {
+      const req = indexedDB.deleteDatabase('masterycap');
+      req.onsuccess = () => resolve();
+      req.onerror = () => resolve();
+      req.onblocked = () => resolve();
+    } catch (_) { resolve(); }
+  }));
+
   await page.evaluate(({ theme: mode, lang: language }) => {
+    const doomed = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && (k.startsWith('masterycap:') || k === 'masterycap_active_ns')) doomed.push(k);
+    }
+    doomed.forEach((k) => localStorage.removeItem(k));
+
     const set = (k, v) => localStorage.setItem('masterycap:' + k, JSON.stringify(v));
     set('appearance', { mode, preset: 'original' });
+    set('settings', { lang: language });
     set('tourDone', true);
     set('readingGuideSeen', true);
     set('firstBackupDone', true);
+    // onboarded + campus required or boot skips renderNav (hidden empty tabbar)
+    // / falls through to admission when onboarded is missing.
+    set('onboarded', true);
     set('profile', {
       name: 'Gallery',
       language,
@@ -122,27 +144,38 @@ async function seedProfile(page, { theme, lang }) {
       goal: 'apps',
       timeBand: '2-5',
       register: 'young',
+      campus: true,
+      admissionComplete: true,
+      primaryBranch: 'software',
+      starterSchool: 'software',
+      starterCourse: 'SOFT-LEGACY',
+      experience: 'new',
+      markets: ['foundations'],
+      studentIdNumber: 'MC-0001',
     });
     set('studentId', { name: 'Gallery', number: 'MC-0001', issued: '2026-10-14' });
   }, { theme, lang });
 }
 
+async function waitShell(page) {
+  await page.waitForFunction(() => window.__APP_READY__ === true, null, { timeout: 15000 }).catch(() => {});
+  await page.waitForSelector('#tabbar:not(.hidden) button[data-tab="today"]', { timeout: 15000 });
+  await dismissSheets(page);
+}
+
 async function onboard(page) {
   await page.waitForSelector('#onbNext, #onbSkip, #tabbar', { timeout: 15000 });
-  if (await page.locator('#tabbar:not(.hidden)').count()) {
+  if (await page.locator('#tabbar:not(.hidden) button[data-tab]').count()) {
     await dismissSheets(page);
     return;
   }
   if (await page.locator('#onbSkip').count()) {
     await page.locator('#onbSkip').click();
-    await page.waitForSelector('#tabbar:not(.hidden)', { timeout: 10000 });
-    await page.waitForTimeout(350);
-    await dismissSheets(page);
-    return;
+  } else {
+    await page.locator('#onbSkip').click({ timeout: 2000 }).catch(() => {});
   }
-  await page.locator('#onbSkip').click({ timeout: 2000 }).catch(() => {});
-  await page.waitForSelector('#tabbar:not(.hidden)', { timeout: 10000 }).catch(() => {});
-  await dismissSheets(page);
+  await waitShell(page);
+  await page.waitForTimeout(350);
 }
 
 async function applyTheme(page, theme) {
@@ -200,7 +233,7 @@ async function applyTheme(page, theme) {
       await page.goto(base, { waitUntil: 'domcontentloaded' });
       await seedProfile(page, { theme, lang: 'en' });
       await page.reload({ waitUntil: 'domcontentloaded' });
-      await onboard(page);
+      await waitShell(page);
       await page.evaluate(() => document.fonts?.ready).catch(() => {});
       await applyTheme(page, theme);
       // Re-apply via Records theme toggle for token paint
@@ -242,28 +275,57 @@ async function applyTheme(page, theme) {
         console.log('shot', rel);
       }
 
-      // Roman Urdu subset on iphone (MST-V3-1 language column)
+      await ctx.close();
+
+      // Roman Urdu subset on iphone — fresh context so EN IDB/admission cannot leak.
       if (device === 'iphone') {
-        await seedProfile(page, { theme, lang: 'ur' });
-        await page.reload({ waitUntil: 'domcontentloaded' });
-        await onboard(page);
-        await applyTheme(page, theme);
-        await page.locator('#tabbar button[data-tab="records"]').click().catch(() => {});
-        const themeBtn2 = page.locator(`[data-theme="${theme}"]`);
+        const urCtx = await browser.newContext({
+          viewport: { width: vp.width, height: vp.height },
+          deviceScaleFactor: vp.deviceScaleFactor,
+          colorScheme,
+        });
+        await urCtx.addInitScript((fixed) => {
+          const RealDate = Date;
+          class FakeDate extends RealDate {
+            constructor(...args) {
+              if (args.length === 0) super(fixed);
+              else super(...args);
+            }
+            static now() { return fixed; }
+            static parse = RealDate.parse;
+            static UTC = RealDate.UTC;
+          }
+          FakeDate.prototype = RealDate.prototype;
+          window.Date = FakeDate;
+        }, clockMs);
+        const urPage = await urCtx.newPage();
+        await urPage.addInitScript(() => {
+          const style = document.createElement('style');
+          style.textContent = '*,*::before,*::after{animation:none!important;transition:none!important}';
+          document.documentElement.appendChild(style);
+        });
+
+        await urPage.goto(base, { waitUntil: 'domcontentloaded' });
+        await seedProfile(urPage, { theme, lang: 'ur' });
+        await urPage.reload({ waitUntil: 'domcontentloaded' });
+        await waitShell(urPage);
+        await applyTheme(urPage, theme);
+        await urPage.locator('#tabbar button[data-tab="records"]').click();
+        const themeBtn2 = urPage.locator(`[data-theme="${theme}"]`);
         if (await themeBtn2.count()) await themeBtn2.click().catch(() => {});
 
         for (const screen of UR_SCREENS) {
-          await dismissSheets(page);
-          await page.locator('#labBack').click({ timeout: 400 }).catch(() => {});
-          await screen.nav(page);
-          await page.waitForTimeout(350);
-          await dismissSheets(page);
+          await dismissSheets(urPage);
+          await urPage.locator('#labBack').click({ timeout: 400 }).catch(() => {});
+          await screen.nav(urPage);
+          await urPage.waitForTimeout(350);
+          await dismissSheets(urPage);
 
           const rel = shotRel({ theme, device, group: screen.group, screen: screen.screen, state: screen.state });
           const webpPath = path.join(outDir, rel);
           const pngPath = webpPath.replace(/\.webp$/, '.png');
           fs.mkdirSync(path.dirname(pngPath), { recursive: true });
-          await page.screenshot({ path: pngPath, fullPage: false, animations: 'disabled' });
+          await urPage.screenshot({ path: pngPath, fullPage: false, animations: 'disabled' });
           pngToWebp(pngPath, webpPath);
 
           shots.push({
@@ -282,9 +344,9 @@ async function applyTheme(page, theme) {
           });
           console.log('shot', rel);
         }
-      }
 
-      await ctx.close();
+        await urCtx.close();
+      }
     }
   }
 
@@ -295,7 +357,7 @@ async function applyTheme(page, theme) {
     JSON.stringify({
       app: 'MasteryCap',
       version,
-      capturedAt: '2026-10-14T09:41:00Z',
+      capturedAt: new Date().toISOString(),
       accent: '#E8590C',
       schema: 2,
       themes: THEMES,

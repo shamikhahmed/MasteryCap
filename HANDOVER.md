@@ -1,5 +1,7 @@
 # MasteryCap — Handover
 
+<!-- gallery-regen: 2026-11-26 MasteryCap Wave 2 -->
+
 > Read this + `ROADMAP.md` + `~/Capricorn-Brain/01 Projects/MasteryCap.md` before working here.
 > Last updated: 2026-07-21 · Fleet-wide standard: `capricorn-tooling/shared/CAP-STANDARD.md`
 

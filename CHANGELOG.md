@@ -1,5 +1,7 @@
 ## Motion craft — 2026-11-26
 
+<!-- gallery-regen: 2026-11-26 MasteryCap Wave 2 -->
+
 - Motion contract: this app does **not** vendor Cap design-system CSS; fleet source of truth is `Cap-Apps/capricorn-tooling/shared/design-system/MOTION.md` (`--cap-dur-*`, app-shell instant reveals via `data-cap-app="1"`).
 
 ## [51.10.11] — 2026-10-21
