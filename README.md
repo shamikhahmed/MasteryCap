@@ -1,7 +1,5 @@
 # MasteryCap
 
-<!-- gallery-regen: 2026-11-26 MasteryCap Wave 2 -->
-
 **Version:** v51.10.1 · SW `masterycap-v51101` · see [VERSION](VERSION) · [CHANGELOG.md](CHANGELOG.md) · [GUIDE.md](GUIDE.md)
 
 Offline personal institute — **Software Craft** + **Market literacy** (EN / Roman Urdu).

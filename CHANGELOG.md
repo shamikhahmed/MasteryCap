@@ -1,6 +1,9 @@
-## Motion craft — 2026-11-26
+## Gallery regen — 2026-11-26 (Wave 2)
 
-<!-- gallery-regen: 2026-11-26 MasteryCap Wave 2 -->
+- Real Playwright capture via `npm run gallery` — **63** webp (light/sepia/dark × iphone/ipad/mac + UR iphone extras); `gallery-manifest.json` `capturedAt` **2026-11-25T20:31:20.548Z**.
+- Gallery seed fix: wipe IDB + seed onboarded campus so UR context gets renderNav (not admission).
+
+## Motion craft — 2026-11-26
 
 - Motion contract: this app does **not** vendor Cap design-system CSS; fleet source of truth is `Cap-Apps/capricorn-tooling/shared/design-system/MOTION.md` (`--cap-dur-*`, app-shell instant reveals via `data-cap-app="1"`).
 

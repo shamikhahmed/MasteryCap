@@ -1,9 +1,7 @@
 # MasteryCap — Handover
 
-<!-- gallery-regen: 2026-11-26 MasteryCap Wave 2 -->
-
 > Read this + `ROADMAP.md` + `~/Capricorn-Brain/01 Projects/MasteryCap.md` before working here.
-> Last updated: 2026-07-21 · Fleet-wide standard: `capricorn-tooling/shared/CAP-STANDARD.md`
+> Last updated: 2026-11-26 · Fleet-wide standard: `capricorn-tooling/shared/CAP-STANDARD.md`
 
 ## What this is
 Offline personal institute PWA. Flagship **School of Software Craft** (WEB-101→APP-403 In Session). **School of Markets** wraps existing bilingual trading literacy. Honest self-issued certificates. No accounts, no fake AI, no income promises.
@@ -45,3 +43,7 @@ node tests/final-acceptance.cjs
 ## Motion contract (2026-11-26)
 
 - Motion contract: this app does **not** vendor Cap design-system CSS; fleet source of truth is `Cap-Apps/capricorn-tooling/shared/design-system/MOTION.md` (`--cap-dur-*`, app-shell instant reveals via `data-cap-app="1"`).
+
+## Gallery regen (2026-11-26 Wave 2)
+
+- `npm run gallery` → **63** webp under `docs/screenshots/gallery/` (schema v2). Manifest `capturedAt` `2026-11-25T20:31:20.548Z`.
