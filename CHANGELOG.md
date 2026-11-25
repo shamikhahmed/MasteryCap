@@ -1,3 +1,7 @@
+## E2E harness — 2026-11-26
+
+- `scripts/audit-e2e.cjs`: admission welcome→honesty→`#onbName` + campus shell (Today/Campus/Practice/Records); reading `#readPage`; 26/26 PASS.
+
 ## Gallery regen — 2026-11-26 (Wave 2)
 
 - Real Playwright capture via `npm run gallery` — **63** webp (light/sepia/dark × iphone/ipad/mac + UR iphone extras); `gallery-manifest.json` `capturedAt` **2026-11-25T20:31:20.548Z**.
